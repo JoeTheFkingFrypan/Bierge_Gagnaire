@@ -1,6 +1,8 @@
-
+/**
+ * 
+ */
 /**
  * @author JoeTheFuckingFrypan
  *
  */
-package testPackage;
+package DummyPackage;
