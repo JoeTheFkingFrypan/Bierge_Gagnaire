@@ -6,5 +6,9 @@ public class TestClass {
 		// TODO Auto-generated method stub
 		//This is the first [hopefully working] test
 	}
+	
+	public void test() {
+		//test
+	}
 
 }
