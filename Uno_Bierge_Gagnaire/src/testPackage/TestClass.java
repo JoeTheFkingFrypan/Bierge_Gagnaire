@@ -11,4 +11,7 @@ public class TestClass {
 		//test
 	}
 
+	public void test2() {
+		//test2
+	}
 }
