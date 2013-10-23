@@ -1,4 +1,4 @@
-package Cartes;
+package carteModele;
 
 public class EffetPiocherCarte implements Effet {
 	private final int cartesDevantEtrePiochees;
@@ -16,7 +16,9 @@ public class EffetPiocherCarte implements Effet {
 	public String toString() {
 		return "Cette carte permet de faire piocher " + this.cartesDevantEtrePiochees + " cartes à l'adversaire";
 	}
-
 	
-	
+	@Override
+	public String afficherDescription() {
+		return toString();
+	}
 }

@@ -1,9 +1,9 @@
-package Cartes;
+package carteModele;
 
 public enum Couleur {
 	ROUGE,
 	JAUNE,
-	BLEU,
-	VERT,
+	BLEUE,
+	VERTE,
 	JOKER
 }

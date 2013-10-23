@@ -5,4 +5,4 @@
  * @author JoeTheFuckingFrypan
  *
  */
-package DummyPackage;
+package dummyPackage;
