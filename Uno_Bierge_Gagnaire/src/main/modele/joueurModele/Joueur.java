@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.google.common.base.Preconditions;
+
 import main.modele.carteModele.Carte;
 
 public class Joueur {
@@ -12,6 +14,7 @@ public class Joueur {
 	private int score;
 	
 	public Joueur(String alias) {
+		Preconditions.checkNotNull(alias);
 		this.main = new ArrayList<Carte>();
 		this.alias = alias;
 		this.score = 0;

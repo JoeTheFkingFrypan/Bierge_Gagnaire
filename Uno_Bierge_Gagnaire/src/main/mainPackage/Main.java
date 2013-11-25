@@ -1,4 +1,4 @@
-package mainPackage;
+package main.mainPackage;
 
 import main.modele.joueurModele.Joueur;
 import main.modele.piocheModele.Pioche;

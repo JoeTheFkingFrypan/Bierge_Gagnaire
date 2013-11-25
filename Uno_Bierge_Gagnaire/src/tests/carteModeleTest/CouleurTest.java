@@ -1,4 +1,4 @@
-package carteModeleTest;
+package tests.carteModeleTest;
 
 import org.junit.Test;
 import org.junit.Before;

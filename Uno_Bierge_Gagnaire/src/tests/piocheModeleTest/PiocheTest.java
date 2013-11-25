@@ -1,4 +1,4 @@
-package piocheModeleTest;
+package tests.piocheModeleTest;
 
 import java.util.LinkedList;
 import java.util.Queue;

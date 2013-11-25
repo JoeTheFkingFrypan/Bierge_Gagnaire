@@ -1,4 +1,4 @@
-package carteModeleTest;
+package tests.carteModeleTest;
 
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
@@ -15,19 +15,37 @@ public class CarteSpecialeTest {
 	private Carte c;
 	private Couleur couleur;
 	private CarteSpeciale cs;
-	private Effet effet;
+	private Effet mockedEffet;
 	private Integer expectedLowValue;
 	private Integer expectedHighValue;
 	
 	@Before
 	public void setup() {
-		this.effet = mock(Effet.class);
+		this.mockedEffet = mock(Effet.class);
 		this.couleur = Couleur.BLEUE;
 		this.expectedLowValue = new Integer(0);
 		this.expectedHighValue = new Integer(50);
-		this.c = new CarteSpeciale(this.expectedLowValue, this.couleur, this.effet);
-		this.cs = new CarteSpeciale(this.expectedHighValue, this.couleur, this.effet);
-		when(this.effet.toString()).thenReturn("Super effet special");
+		this.c = new CarteSpeciale(this.expectedLowValue, this.couleur, this.mockedEffet);
+		this.cs = new CarteSpeciale(this.expectedHighValue, this.couleur, this.mockedEffet);
+		when(this.mockedEffet.toString()).thenReturn("Super effet special");
+	}
+	
+	@Test(expected=IllegalArgumentException.class) 
+	public void failToCreateCardValueTooLow() {
+		CarteSpeciale wayTooLowValue = new CarteSpeciale(-999,Couleur.ROUGE,this.mockedEffet);
+		wayTooLowValue.estSpeciale();
+	}
+	
+	@Test(expected=NullPointerException.class) 
+	public void failToCreateCardValueNullColor() {
+		CarteSpeciale wayTooLowValue = new CarteSpeciale(7,null,this.mockedEffet);
+		wayTooLowValue.estSpeciale();
+	}
+	
+	@Test(expected=NullPointerException.class) 
+	public void failToCreateCardValueNullEffect() {
+		CarteSpeciale wayTooLowValue = new CarteSpeciale(7,Couleur.ROUGE,null);
+		wayTooLowValue.estSpeciale();
 	}
 	
 	@Test

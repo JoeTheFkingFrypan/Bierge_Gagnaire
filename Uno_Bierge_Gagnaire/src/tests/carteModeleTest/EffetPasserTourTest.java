@@ -1,4 +1,4 @@
-package carteModeleTest;
+package tests.carteModeleTest;
 
 import static org.junit.Assert.assertEquals;
 import main.modele.carteModele.EffetPasserTour;

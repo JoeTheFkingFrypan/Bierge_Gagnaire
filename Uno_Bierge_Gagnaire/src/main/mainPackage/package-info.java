@@ -3,4 +3,4 @@
  * @author JoeTheFuckingFrypan
  *
  */
-package mainPackage;
+package main.mainPackage;

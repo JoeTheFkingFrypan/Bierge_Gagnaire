@@ -1,19 +1,16 @@
 package main.modele.carteModele;
 
+import com.google.common.base.Preconditions;
+
 public class CarteSpeciale extends Carte {	
 	private final Effet effet;
 
 	public CarteSpeciale(int valeur, Couleur couleur, Effet effet) {
 		super(valeur, couleur);
-		validateValueAndColor(valeur,couleur);
+		Preconditions.checkArgument(valeur >= 0,"[ERROR] Invalid card value (expected > 0, was : " + valeur + ")");
+		Preconditions.checkNotNull(couleur,"[ERROR] Color cannot be null");
+		Preconditions.checkNotNull(effet,"[ERROR] Effect cannot be null");
 		this.effet = effet;
-	}
-
-	@Override
-	protected void validateValueAndColor(int valeur, Couleur couleur) {
-		if(valeur < 0) {
-			throw new CarteModeleException("[ERROR] Invalid card number (must not be under 0, was : " + valeur + ")");
-		}
 	}
 
 	@Override

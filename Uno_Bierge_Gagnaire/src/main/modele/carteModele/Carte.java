@@ -1,24 +1,19 @@
 package main.modele.carteModele;
 
+import com.google.common.base.Preconditions;
+
 public class Carte implements Comparable<Carte> {
 	private final int valeur;
 	private final int nombre;
 	private final Couleur couleur;
 
-	public Carte (int valeur, Couleur couleur) throws CarteModeleException {
-		validateValueAndColor(valeur,couleur); 
+	public Carte (int valeur, Couleur couleur) {
+		Preconditions.checkNotNull(couleur,"[ERROR] Color cannot be null");
+		Preconditions.checkArgument(valeur >= 0 && valeur <= 9,"[ERROR] Invalid card number (expected 0-9, was : " + valeur + ")");
+		Preconditions.checkArgument(!couleur.equals(Couleur.JOKER),"[ERROR] Invalid card color (expected {ROUGE, BLEUE, VERTE, JAUNE} was : " + couleur + ")");
 		this.valeur = valeur;
 		this.nombre = valeur;
 		this.couleur = couleur;
-	}
-
-	protected void validateValueAndColor(int valeur, Couleur couleur) {
-		if(valeur < 0 || valeur > 9) {
-			throw new IllegalArgumentException("[ERROR] Invalid card number (expected 0-9, was : " + valeur + ")");
-		}
-		if(couleur.equals(Couleur.JOKER)) {
-			throw new IllegalArgumentException("[ERROR] Invalid card color (expected {ROUGE, BLEUE, VERTE, JAUNE} was : " + couleur + ")");
-		}
 	}
 
 	public Boolean estSpeciale() {

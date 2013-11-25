@@ -1,4 +1,4 @@
-package carteModeleTest;
+package tests.carteModeleTest;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -6,7 +6,6 @@ import static org.junit.Assert.*;
 
 import main.modele.carteModele.Carte;
 import main.modele.carteModele.Couleur;
-import main.modele.carteModele.CarteModeleException;
 
 public class CarteTest {
 	private Carte c;
@@ -19,8 +18,27 @@ public class CarteTest {
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
-	public void failToCreateInexistingCard() {
-		Carte impossibleCombinaisonCard = new Carte(-9999999,Couleur.ROUGE);
+	public void failToCreateCardValueTooLow() {
+		Carte wayTooLowValue = new Carte(-999,Couleur.ROUGE);
+		wayTooLowValue.estSpeciale();
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void failToCreateCardValueTooHigh() {
+		Carte wayTooHighValue = new Carte(999,Couleur.ROUGE);
+		wayTooHighValue.estSpeciale();
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void failToCreateInexistingCardIncorrectColor() {
+		Carte incorrectColor = new Carte(7,Couleur.JOKER);
+		incorrectColor.estSpeciale();
+	}
+	
+	@Test(expected=NullPointerException.class)
+	public void failToCreateInexistingCardNullColor() {
+		Carte incorrectColor = new Carte(7,null);
+		incorrectColor.estSpeciale();
 	}
 
 	@Test
