@@ -1,10 +1,11 @@
 package carteModeleTest;
 
 import static org.junit.Assert.assertEquals;
+import main.modele.carteModele.EffetPasserTour;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import carteModele.EffetPasserTour;
 
 public class EffetPasserTourTest {
 	private EffetPasserTour effetPasserTour;

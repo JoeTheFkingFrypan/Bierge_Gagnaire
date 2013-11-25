@@ -1,11 +1,12 @@
 package carteModeleTest;
 
 import static org.junit.Assert.*;
+import main.modele.carteModele.Carte;
+import main.modele.carteModele.Couleur;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import carteModele.Carte;
-import carteModele.Couleur;
 
 public class CouleurTest {
 	private Couleur bleue;

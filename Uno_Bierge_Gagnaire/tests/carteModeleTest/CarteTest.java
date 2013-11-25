@@ -1,18 +1,21 @@
 package carteModeleTest;
 
 import static org.junit.Assert.*;
+import main.modele.carteModele.Carte;
+import main.modele.carteModele.Couleur;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import carteModele.Carte;
-import carteModele.Couleur;
 
 public class CarteTest {
 	private Carte c;
+	private Integer expectedValue;
 	
 	@Before
 	public void setup() {
-		this.c = new Carte(0, Couleur.JAUNE);
+		this.expectedValue = new Integer(0);
+		this.c = new Carte(this.expectedValue, Couleur.JAUNE);
 	}
 
 	@Test
@@ -22,12 +25,12 @@ public class CarteTest {
 
 	@Test
 	public void testGetValeur() {
-		assertEquals(0, c.getValeur());
+		assertEquals(this.expectedValue, c.getValeur());
 	}
 	
 	@Test
 	public void testGetNombre() {
-		assertEquals(0, c.getNombre());
+		assertEquals(this.expectedValue, c.getNombre());
 	}
 	
 	@Test
@@ -38,8 +41,6 @@ public class CarteTest {
 	
 	@Test
 	public void testAffichage() {
-		c.afficherCouleur();
-		c.afficherNombre();
-		c.afficherValeur();
+		assertEquals("[CARTE NUMEROTEE] Numero=0, Valeur=0, Couleur=JAUNE",this.c.toString());
 	}
 }

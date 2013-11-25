@@ -1,10 +1,11 @@
 package carteModeleTest;
 
 import static org.junit.Assert.assertEquals;
+import main.modele.carteModele.EffetPiocherCarte;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import carteModele.EffetPiocherCarte;
 
 public class EffetPiocherCarteTest {
 	private EffetPiocherCarte effetPiocher2Cartes;

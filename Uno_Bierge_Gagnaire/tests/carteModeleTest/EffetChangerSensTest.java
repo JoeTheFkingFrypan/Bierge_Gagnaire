@@ -1,10 +1,11 @@
 package carteModeleTest;
 
 import static org.junit.Assert.assertEquals;
+import main.modele.carteModele.EffetChangerSens;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import carteModele.EffetChangerSens;
 
 public class EffetChangerSensTest {
 	private EffetChangerSens effetChangerSens;

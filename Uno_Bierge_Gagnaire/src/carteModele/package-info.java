@@ -1,8 +1,0 @@
-/**
- * 
- */
-/**
- * @author JoeTheFuckingFrypan
- *
- */
-package carteModele;

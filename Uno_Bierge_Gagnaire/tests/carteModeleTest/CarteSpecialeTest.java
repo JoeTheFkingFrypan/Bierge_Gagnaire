@@ -2,32 +2,38 @@ package carteModeleTest;
 
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
+import main.modele.carteModele.Carte;
+import main.modele.carteModele.CarteSpeciale;
+import main.modele.carteModele.Couleur;
+import main.modele.carteModele.Effet;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import carteModele.Carte;
-import carteModele.CarteSpeciale;
-import carteModele.Couleur;
-import carteModele.Effet;
 
 public class CarteSpecialeTest {
 	private Carte c;
 	private Couleur couleur;
 	private CarteSpeciale cs;
 	private Effet effet;
+	private Integer expectedLowValue;
+	private Integer expectedHighValue;
 	
 	@Before
 	public void setup() {
 		this.effet = mock(Effet.class);
 		this.couleur = Couleur.BLEUE;
-		this.c = new CarteSpeciale(0, this.couleur, this.effet);
-		this.cs = new CarteSpeciale(0, this.couleur, this.effet);
+		this.expectedLowValue = new Integer(0);
+		this.expectedHighValue = new Integer(50);
+		this.c = new CarteSpeciale(this.expectedLowValue, this.couleur, this.effet);
+		this.cs = new CarteSpeciale(this.expectedHighValue, this.couleur, this.effet);
+		when(this.effet.toString()).thenReturn("Super effet special");
 	}
 	
 	@Test
 	public void testGetValeur() {
-		assertEquals(0,this.c.getValeur());
-		assertEquals(0,this.cs.getValeur());
+		assertEquals(this.expectedLowValue,this.c.getValeur());
+		assertEquals(this.expectedHighValue,this.cs.getValeur());
 	}
 	
 	@Test
@@ -50,12 +56,8 @@ public class CarteSpecialeTest {
 	}
 	
 	@Test
-	public void testAffichage() {
-		this.c.afficherCouleur();
-		this.c.afficherNombre();
-		this.c.afficherValeur();
-		this.cs.afficherCouleur();
-		this.cs.afficherNombre();
-		this.cs.afficherValeur();
+	public void testAffichageCarte() {		
+		assertEquals("[CARTE SPECIALE] Pas de numero, Valeur=0, Couleur=BLEUE, Effet=Super effet special",this.c.toString());
+		assertEquals("[CARTE SPECIALE] Pas de numero, Valeur=50, Couleur=BLEUE, Effet=Super effet special",this.cs.toString());
 	}
 }
