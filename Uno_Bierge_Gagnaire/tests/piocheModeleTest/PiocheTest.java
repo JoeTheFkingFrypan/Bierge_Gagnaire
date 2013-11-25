@@ -31,23 +31,15 @@ public class PiocheTest {
 		//Création de 5 cartes
 		this.carte01 = new Carte(8,Couleur.ROUGE);
 		this.carte02 = new Carte(0,Couleur.BLEUE);
-		this.carte03 = new CarteSpeciale(25, Couleur.VERTE, new EffetChangerSens());
-		this.carte04 = new CarteSpeciale(25, Couleur.JAUNE, new EffetPiocherCarte(2));
+		this.carte03 = new CarteSpeciale(20, Couleur.VERTE, new EffetChangerSens());
+		this.carte04 = new CarteSpeciale(20, Couleur.JAUNE, new EffetPiocherCarte(2));
 		this.carte05 = new CarteSpeciale(50, Couleur.JOKER, new EffetJoker());
 		//Création des pioches
 		this.pioche = new Pioche();
 		this.baseQueue = fillCardsInsideQueue();
 		//Spécifications du comportement des objets mockés
 		this.mockedPioche = PowerMockito.spy(new Pioche());
-		PowerMockito.doReturn(baseQueue.size()).when(mockedPioche,"size");
-		PowerMockito.doReturn(baseQueue.contains(carte01)).when(mockedPioche,"contains",this.carte01);
-		PowerMockito.doReturn(baseQueue.contains(carte02)).when(mockedPioche,"contains",this.carte02);
-		PowerMockito.doReturn(baseQueue.contains(carte03)).when(mockedPioche,"contains",this.carte03);
-		PowerMockito.doReturn(baseQueue.contains(carte04)).when(mockedPioche,"contains",this.carte04);
-		PowerMockito.doReturn(baseQueue.contains(carte05)).when(mockedPioche,"contains",this.carte05);
-		//this.mockedPioche = mock(Pioche.class);
-		//when(this.mockedPioche.size()).thenReturn(this.baseQueue.size());
-		//when(this.mockedPioche.contains((Carte)any())).thenReturn(this.baseQueue.contains((Carte)any()));
+		defineBehaviourForMockedObjects();
 	}
 	
 	private Queue<Carte> fillCardsInsideQueue() {
@@ -60,6 +52,18 @@ public class PiocheTest {
 		return baseQueue;
 	}
 	
+	private void defineBehaviourForMockedObjects() throws Exception {
+		PowerMockito.doReturn(this.baseQueue.size()).when(this.mockedPioche,"size");
+		PowerMockito.doReturn(this.baseQueue.contains(this.carte01)).when(mockedPioche,"contains",this.carte01);
+		PowerMockito.doReturn(this.baseQueue.contains(this.carte02)).when(mockedPioche,"contains",this.carte02);
+		PowerMockito.doReturn(this.baseQueue.contains(this.carte03)).when(mockedPioche,"contains",this.carte03);
+		PowerMockito.doReturn(this.baseQueue.contains(this.carte04)).when(mockedPioche,"contains",this.carte04);
+		PowerMockito.doReturn(this.baseQueue.contains(this.carte05)).when(mockedPioche,"contains",this.carte05);
+		//this.mockedPioche = mock(Pioche.class);
+		//when(this.mockedPioche.size()).thenReturn(this.baseQueue.size());
+		//when(this.mockedPioche.contains((Carte)any())).thenReturn(this.baseQueue.contains((Carte)any()));
+	}
+	
 	@Test
 	public void testCardCount() {
 		assertEquals(108,this.pioche.size());
@@ -69,8 +73,6 @@ public class PiocheTest {
 	@Test
 	public void testCardsInsidePioche() throws Exception {
 		//Carte01
-		System.out.println(this.carte01);
-		pioche.displayAllCards();
 		assertTrue(this.pioche.contains(this.carte01));
 		assertTrue(this.mockedPioche.contains(this.carte01));
 		//Carte02

@@ -11,11 +11,11 @@ public class Talon {
 	private final LinkedList<Carte> talon;
 	
 	public Talon() {
-		this.talon = new LinkedList<Carte>(); 
+		this.talon = new LinkedList<Carte>();
 	}
 	
 	public void playCard(Carte c) {
-		System.out.println("[CARTE JOUEE] " + c);
+		//System.out.println("[CARTE JOUEE] " + c);
 		talon.addFirst(c);
 	}
 	
@@ -28,5 +28,9 @@ public class Talon {
 	@Override
 	public String toString() {
 		return "[Talon] " + talon.size() + " cartes ont été jouées";
+	}
+
+	public int size() {
+		return this.talon.size();
 	}
 }

@@ -12,7 +12,6 @@ public class Pioche {
 	public Pioche() {
 		this.generator = new CardGenerator();
 		this.pioche = generateShuffledCards();
-		System.out.println(pioche.size());
 	}
 	
 	private Queue<Carte> generateShuffledCards() {

@@ -35,5 +35,10 @@
 			<version>1.5.1</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava-parent</artifactId>
+			<version>15.0-rc1</version>
+		</dependency>
 	</dependencies>
 </project>

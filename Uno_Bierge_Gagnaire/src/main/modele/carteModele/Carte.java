@@ -5,7 +5,7 @@ public class Carte implements Comparable<Carte> {
 	private final int nombre;
 	private final Couleur couleur;
 
-	public Carte (int valeur, Couleur couleur) {
+	public Carte (int valeur, Couleur couleur) throws CarteModeleException {
 		validateValueAndColor(valeur,couleur); 
 		this.valeur = valeur;
 		this.nombre = valeur;
@@ -14,10 +14,10 @@ public class Carte implements Comparable<Carte> {
 
 	protected void validateValueAndColor(int valeur, Couleur couleur) {
 		if(valeur < 0 || valeur > 9) {
-			throw new CarteModeleException("[ERROR] Invalid card number (expected 0-9, was : " + valeur + ")");
+			throw new IllegalArgumentException("[ERROR] Invalid card number (expected 0-9, was : " + valeur + ")");
 		}
 		if(couleur.equals(Couleur.JOKER)) {
-			throw new CarteModeleException("[ERROR] Invalid card color (expected {ROUGE, BLEUE, VERTE, JAUNE} was : " + couleur + ")");
+			throw new IllegalArgumentException("[ERROR] Invalid card color (expected {ROUGE, BLEUE, VERTE, JAUNE} was : " + couleur + ")");
 		}
 	}
 
@@ -43,16 +43,17 @@ public class Carte implements Comparable<Carte> {
 	public String toString() {
 		return "[CARTE NUMEROTEE] Numero=" + this.getNombre() + ", Valeur=" + this.getValeur() + ", Couleur=" + this.getCouleur();
 	}
-	
+
+	/*=============== METHODES de COMPARAISON ===============*/
+
 	@Override
 	public boolean equals(Object other) {
-		boolean isCard = other.getClass().equals(Carte.class);
-		if(!isCard) {
-			System.out.println(other.getClass() + " vs " + Carte.class);
+		boolean isNumberedCard = other.getClass().equals(Carte.class);
+		if(!isNumberedCard) {
 			return false;
 		} else {
 			Carte otherCard = (Carte)other;
-			boolean sameColor = this.getCouleur().equals(otherCard.getValeur());
+			boolean sameColor = this.getCouleur().equals(otherCard.getCouleur());
 			boolean sameNumber = this.getNombre().equals(otherCard.getNombre());
 			boolean sameValue = this.getValeur().equals(otherCard.getValeur());
 			return sameColor && sameNumber && sameValue;

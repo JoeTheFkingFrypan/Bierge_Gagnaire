@@ -1,12 +1,12 @@
 package carteModeleTest;
 
-import static org.junit.Assert.*;
-import main.modele.carteModele.Carte;
-import main.modele.carteModele.Couleur;
-
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
+import main.modele.carteModele.Carte;
+import main.modele.carteModele.Couleur;
+import main.modele.carteModele.CarteModeleException;
 
 public class CarteTest {
 	private Carte c;
@@ -16,6 +16,11 @@ public class CarteTest {
 	public void setup() {
 		this.expectedValue = new Integer(0);
 		this.c = new Carte(this.expectedValue, Couleur.JAUNE);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void failToCreateInexistingCard() {
+		Carte impossibleCombinaisonCard = new Carte(-9999999,Couleur.ROUGE);
 	}
 
 	@Test
