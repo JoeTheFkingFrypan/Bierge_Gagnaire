@@ -1,5 +1,8 @@
 package main.modele.carteModele;
 
+/**
+ * Effet permettant au joueur actuel de choisir une couleur et de forcer le joueur suivant à piocher 4 cartes
+ */
 public class EffetPlus4 implements Effet {
 
 	@Override

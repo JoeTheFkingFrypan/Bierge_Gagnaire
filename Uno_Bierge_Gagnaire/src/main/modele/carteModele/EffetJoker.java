@@ -1,5 +1,8 @@
 package main.modele.carteModele;
 
+/**
+ * Effet permettant au joueur de choisir la couleur à utiliser
+ */
 public class EffetJoker implements Effet {
 
 	@Override

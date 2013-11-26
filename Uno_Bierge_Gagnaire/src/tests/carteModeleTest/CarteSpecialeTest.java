@@ -2,13 +2,13 @@ package tests.carteModeleTest;
 
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
+
 import main.modele.carteModele.Carte;
 import main.modele.carteModele.CarteSpeciale;
 import main.modele.carteModele.Couleur;
 import main.modele.carteModele.Effet;
-
-import org.junit.Before;
-import org.junit.Test;
 
 
 public class CarteSpecialeTest {
@@ -75,7 +75,7 @@ public class CarteSpecialeTest {
 	
 	@Test
 	public void testAffichageCarte() {		
-		assertEquals("[CARTE SPECIALE] Pas de numero, Valeur=0, Couleur=BLEUE, Effet=Super effet special",this.c.toString());
-		assertEquals("[CARTE SPECIALE] Pas de numero, Valeur=50, Couleur=BLEUE, Effet=Super effet special",this.cs.toString());
+		assertEquals("[CARTE SPECIALE] Valeur=0, Couleur=BLEUE, Effet=Super effet special",this.c.toString());
+		assertEquals("[CARTE SPECIALE] Valeur=50, Couleur=BLEUE, Effet=Super effet special",this.cs.toString());
 	}
 }

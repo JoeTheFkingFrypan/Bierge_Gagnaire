@@ -1,5 +1,8 @@
 package main.modele.carteModele;
 
+/**
+ * Effet permettant à un joueur de forcer le joueur suivant à passer son tour
+ */
 public class EffetPasserTour implements Effet {
 	@Override
 	public void declencherEffet() {

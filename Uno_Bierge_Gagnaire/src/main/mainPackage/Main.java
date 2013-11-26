@@ -4,9 +4,11 @@ import main.modele.joueurModele.Joueur;
 import main.modele.piocheModele.Pioche;
 import main.modele.talonModele.Talon;
 
-
+/**
+ * Classe contenant le point d'entrée du programme
+ */
 public class Main {
-	public static void main(String[] args) {	
+	public static void main(String[] args) {
 		
 		Pioche pioche = new Pioche();
 		Talon talon = new Talon();

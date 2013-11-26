@@ -1,5 +1,8 @@
 package main.modele.carteModele;
 
+/**
+ * Effet permettant d'inverser le sens de jeu
+ */
 public class EffetChangerSens implements Effet {
 	@Override
 	public void declencherEffet() {

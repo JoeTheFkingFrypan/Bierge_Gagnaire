@@ -1,5 +1,8 @@
 package main.modele.carteModele;
 
+/**
+ * Effet permettant au joueur actuel de forcer le joueur suivant à piocher un certain nombre de cartes 
+ */
 public class EffetPiocherCarte implements Effet {
 	private final int cartesDevantEtrePiochees;
 

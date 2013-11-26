@@ -52,11 +52,6 @@ public class CarteTest {
 	}
 	
 	@Test
-	public void testGetNombre() {
-		assertEquals(this.expectedValue, c.getNombre());
-	}
-	
-	@Test
 	public void testGetCouleur() {
 		Couleur expectedColor = Couleur.JAUNE;
 		assertEquals(expectedColor, c.getCouleur());
@@ -64,6 +59,6 @@ public class CarteTest {
 	
 	@Test
 	public void testAffichage() {
-		assertEquals("[CARTE NUMEROTEE] Numero=0, Valeur=0, Couleur=JAUNE",this.c.toString());
+		assertEquals("[CARTE NUMEROTEE] Numero=0, Couleur=JAUNE",this.c.toString());
 	}
 }
