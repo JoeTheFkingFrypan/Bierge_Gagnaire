@@ -8,57 +8,83 @@ import main.modele.carteModele.Carte;
 import main.modele.carteModele.Couleur;
 
 public class CarteTest {
-	private Carte c;
-	private Integer expectedValue;
+	private Integer referenceValue;
+	private Couleur referenceColor;
+	private Carte referenceCard;
+	private Carte incompatibleCard;
+	private Carte compatibleCardSameNumber;
+	private Carte compatibleCardSameColor;
 	
 	@Before
 	public void setup() {
-		this.expectedValue = new Integer(0);
-		this.c = new Carte(this.expectedValue, Couleur.JAUNE);
+		this.referenceValue = new Integer(0);
+		this.referenceColor = Couleur.JAUNE;
+		this.referenceCard = new Carte(this.referenceValue, this.referenceColor);
+		this.compatibleCardSameNumber = new Carte(this.referenceValue, Couleur.BLEUE);
+		this.compatibleCardSameColor = new Carte(9, this.referenceColor);
+		this.incompatibleCard = new Carte(7, Couleur.ROUGE);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void failToCreateCardValueTooLow() {
 		Carte wayTooLowValue = new Carte(-999,Couleur.ROUGE);
-		wayTooLowValue.estSpeciale();
+		wayTooLowValue.isSpecial();
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
-	public void failToCreateCardValueTooHigh() {
+	public void testFailToCreateCardValueTooHigh() {
 		Carte wayTooHighValue = new Carte(999,Couleur.ROUGE);
-		wayTooHighValue.estSpeciale();
+		wayTooHighValue.isSpecial();
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
-	public void failToCreateInexistingCardIncorrectColor() {
+	public void testFailToCreateInexistingCardIncorrectColor() {
 		Carte incorrectColor = new Carte(7,Couleur.JOKER);
-		incorrectColor.estSpeciale();
+		incorrectColor.isSpecial();
 	}
 	
 	@Test(expected=NullPointerException.class)
-	public void failToCreateInexistingCardNullColor() {
+	public void testFailToCreateInexistingCardNullColor() {
 		Carte incorrectColor = new Carte(7,null);
-		incorrectColor.estSpeciale();
+		incorrectColor.isSpecial();
 	}
 
 	@Test
 	public void testEstSpeciale() {
-		assertFalse(c.estSpeciale());
+		assertFalse(this.referenceCard.isSpecial());
+		assertFalse(this.incompatibleCard.isSpecial());
+		assertFalse(this.compatibleCardSameColor.isSpecial());
+		assertFalse(this.compatibleCardSameNumber.isSpecial());
 	}
 
 	@Test
 	public void testGetValeur() {
-		assertEquals(this.expectedValue, c.getValeur());
+		assertEquals(this.referenceValue, this.referenceCard.getValeur());
+		assertEquals(this.referenceValue, this.compatibleCardSameNumber.getValeur());
+		assertEquals(new Integer(7), this.incompatibleCard.getValeur());
+		assertEquals(new Integer(9), this.compatibleCardSameColor.getValeur());
 	}
 	
 	@Test
 	public void testGetCouleur() {
-		Couleur expectedColor = Couleur.JAUNE;
-		assertEquals(expectedColor, c.getCouleur());
+		assertEquals(this.referenceColor, this.referenceCard.getCouleur());
+		assertEquals(this.referenceColor, this.compatibleCardSameColor.getCouleur());
+		assertEquals(Couleur.BLEUE, this.compatibleCardSameNumber.getCouleur());
+		assertEquals(Couleur.ROUGE, this.incompatibleCard.getCouleur());
 	}
 	
 	@Test
 	public void testAffichage() {
-		assertEquals("[CARTE NUMEROTEE] Numero=0, Couleur=JAUNE",this.c.toString());
+		assertEquals("[CARTE NUMEROTEE] Numero=0, Couleur=JAUNE",this.referenceCard.toString());
+		assertEquals("[CARTE NUMEROTEE] Numero=0, Couleur=BLEUE",this.compatibleCardSameNumber.toString());
+		assertEquals("[CARTE NUMEROTEE] Numero=9, Couleur=JAUNE",this.compatibleCardSameColor.toString());
+		assertEquals("[CARTE NUMEROTEE] Numero=7, Couleur=ROUGE",this.incompatibleCard.toString());
+	}
+	
+	@Test
+	public void testCardsCompatible() {
+		assertTrue(this.referenceCard.isCompatibleWith(this.compatibleCardSameColor));
+		assertTrue(this.referenceCard.isCompatibleWith(this.compatibleCardSameNumber));
+		assertFalse(this.referenceCard.isCompatibleWith(this.incompatibleCard));
 	}
 }

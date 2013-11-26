@@ -18,7 +18,7 @@ public class Carte implements Comparable<Carte> {
 	public Carte (int valeur, Couleur couleur) {
 		Preconditions.checkNotNull(couleur,"[ERROR] Color cannot be null");
 		Preconditions.checkArgument(valeur >= 0,"[ERROR] Invalid card number (expected > 0, was : " + valeur + ")");
-		if(!estSpeciale()) {
+		if(!isSpecial()) {
 			Preconditions.checkArgument(valeur <= 9,"[ERROR] Invalid card number (expected 0-9, was : " + valeur + ")");
 			Preconditions.checkArgument(!couleur.equals(Couleur.JOKER),"[ERROR] Invalid card color (expected {ROUGE, BLEUE, VERTE, JAUNE} was : " + couleur + ")");
 		}
@@ -30,7 +30,7 @@ public class Carte implements Comparable<Carte> {
 	 * Méthode permettant de vérifier si une carte est spéciale ou non
 	 * @return TRUE s'il s'agit d'une CarteSpeciale, FALSE sinon
 	 */
-	public Boolean estSpeciale() {
+	public Boolean isSpecial() {
 		return false;
 	}
 
@@ -61,7 +61,7 @@ public class Carte implements Comparable<Carte> {
 	}
 
 	/*=============== METHODES de COMPARAISON ===============*/
-
+	
 	/**
 	 * Méthode définissant les critères d'égalité entre deux cartes
 	 */
@@ -88,5 +88,39 @@ public class Carte implements Comparable<Carte> {
 		} else {
 			return this.getCouleur().compareTo(otherCard.getCouleur());
 		}
+	}
+	
+	/**
+	 * Méthode permettant de savoir si une carte peut être jouée par dessus la carte actuelle
+	 * @param otherCard Carte que l'on souhaite eventuellement jouer
+	 * @return TRUE si la carte est "compatible" (si elle peut être jouée), false sinon
+	 */
+	public boolean isCompatibleWith(Carte otherCard) {
+		//TODO: handle global colors (joker)
+		if(this.hasSameColorThan(otherCard.getCouleur())) {
+			return true;
+		} else if(this.hasSameValueThan(otherCard.getValeur())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	/**
+	 * Méthode protégée permettant de savoir si la couleur de la carte actuelle est la même que la couleur passée en paramètre
+	 * @param colorFromAnotherCard Couleur d'une 2ème carte, passée en paramètre
+	 * @return TRUE si les 2 couleurs sont identiques, FALSE sinon
+	 */
+	protected boolean hasSameColorThan(Couleur colorFromAnotherCard) {
+		return this.getCouleur().equals(colorFromAnotherCard);
+	}
+	
+	/**
+	 * Méthode protégée permettant de savoir si la valeur de la carte actuelle est la même que la valeur passée en paramètre
+	 * @param valueFromAnotherCard Valeur d'une 2ème carte, passée en paramètre
+	 * @return TRUE si les 2 valeurs sont identiques, FALSE sinon
+	 */
+	protected boolean hasSameValueThan(int valueFromAnotherCard) {
+		return this.getValeur().equals(valueFromAnotherCard);
 	}
 }

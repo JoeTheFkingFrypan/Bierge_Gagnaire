@@ -25,7 +25,7 @@ public class CarteSpeciale extends Carte {
 	 * @return TRUE s'il s'agit d'une CarteSpeciale, FALSE sinon
 	 */
 	@Override
-	public Boolean estSpeciale() {
+	public Boolean isSpecial() {
 		return true;
 	}
 
@@ -66,10 +66,36 @@ public class CarteSpeciale extends Carte {
 			return false;
 		} else {
 			CarteSpeciale otherSpecialCard = (CarteSpeciale)other;
-			boolean sameColor = this.getCouleur().equals(otherSpecialCard.getCouleur());
-			boolean sameValue = this.getValeur().equals(otherSpecialCard.getValeur());
-			boolean sameEffect = this.getEffet().equals(otherSpecialCard.getEffet());
+			boolean sameColor = hasSameColorThan(otherSpecialCard.getCouleur());
+			boolean sameValue = hasSameValueThan(otherSpecialCard.getValeur());
+			boolean sameEffect = hasSameEffectThan(otherSpecialCard.getEffet());
 			return sameColor && sameValue && sameEffect;
 		}
+	}
+	
+	/**
+	 * Méthode permettant de savoir si une carte peut être jouée par dessus la carte actuelle 
+	 * A noter que dans le cas des cartes spéciales, la valeur n'est pas un critère de compatibilité
+	 * @param otherCard Carte que l'on souhaite eventuellement jouer
+	 * @return TRUE si la carte est "compatible" (si elle peut être jouée), false sinon
+	 */
+	public boolean isCompatibleWith(CarteSpeciale otherCard) {
+		//TODO: handle global colors (joker)
+		if(this.hasSameColorThan(otherCard.getCouleur())) {
+			return true;
+		} else if(this.hasSameEffectThan(otherCard.getEffet())) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	/**
+	 * Méthode privée permettant de savoir si l'effet de la carte actuelle est le même que l'effet passé en paramètre
+	 * @param valueFromOtherCard Effet d'une 2ème carte, passé en paramètre
+	 * @return TRUE si les 2 effets sont identiques, FALSE sinon
+	 */
+	private boolean hasSameEffectThan(String effectFromAnotherCard) {
+		return this.getEffet().equals(effectFromAnotherCard);
 	}
 }
