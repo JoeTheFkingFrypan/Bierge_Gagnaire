@@ -12,14 +12,14 @@ import main.java.cards.model.basics.Carte;
 import main.java.cards.model.basics.CarteSpeciale;
 import main.java.cards.model.basics.Couleur;
 import main.java.cards.model.basics.Effet;
-import main.java.player.model.Joueur;
+import main.java.player.model.PlayerModel;
 
-public class JoueurTest {
+public class PlayerModelTest {
 	private int initialScore;
 	private String p1Name;
 	private String p2Name;
-	private Joueur p1;
-	private Joueur p2;
+	private PlayerModel p1;
+	private PlayerModel p2;
 	private Carte c1;
 	private Carte c2;
 	private CarteSpeciale c3;
@@ -43,8 +43,8 @@ public class JoueurTest {
 		this.initialScore = 0;
 		this.p1Name = ("joueur1");
 		this.p2Name = ("joueur2");
-		this.p1 = new Joueur(this.p1Name);
-		this.p2 = new Joueur(this.p2Name);
+		this.p1 = new PlayerModel(this.p1Name);
+		this.p2 = new PlayerModel(this.p2Name);
 	}
 	
 	private void initializeCards() {
@@ -68,7 +68,7 @@ public class JoueurTest {
 	
 	@Test(expected=NullPointerException.class)
 	public void failToCreatePlayerNullAlias() {
-		Joueur nullAlias = new Joueur(null);
+		PlayerModel nullAlias = new PlayerModel(null);
 		nullAlias.getAlias();
 	}
 	
@@ -109,11 +109,6 @@ public class JoueurTest {
 		this.p1.pickUpCards(null);
 	}
 	
-	@Test(expected=IllegalArgumentException.class)
-	public void failToPickupCardsEmptyCollection() {
-		this.p1.pickUpCards(this.emptyCollection);
-	}
-	
 	@Test
 	public void testPlayCardAssumingPlayerHasAtLeastOne() {
 		//Ajout d'une carte dans la main du joueur
@@ -125,16 +120,16 @@ public class JoueurTest {
 		assertEquals(0,this.p1.getNumberOfCardsInHand());
 	}
 	
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=IndexOutOfBoundsException.class)
+	//NOTE: ce cas d'erreur n'est pas sensé se produire : le contrôlleur vérifie en amont la validité de l'index
 	public void failToPlayCardBecausePlayerHasNone() {
 		this.p1.playCard(0);
 	}
 	
-	@Test(expected=IllegalArgumentException.class)
+	@Test(expected=IndexOutOfBoundsException.class)
+	//NOTE: ce cas d'erreur n'est pas sensé se produire : le contrôlleur vérifie en amont la validité de l'index
 	public void failToPlayCardBecauseOfOutOfBoundIndex() {
-		//Ajout de cartes dans la main du joueur
 		this.p1.pickUpCards(this.collectionOfMultipleCards);
-		//Tentative d'accès à un index incorrect
 		this.p1.playCard(999);
 	}
 }

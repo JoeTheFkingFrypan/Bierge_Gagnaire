@@ -11,12 +11,12 @@ import main.java.cards.model.basics.Carte;
 /**
  * Classe correspondant à un joueur
  */
-public class Joueur {
+public class PlayerModel {
 	private List<Carte> main;
 	private final String alias;
 	private int score;
 
-	public Joueur(String alias) {
+	public PlayerModel(String alias) {
 		Preconditions.checkNotNull(alias);
 		this.main = new ArrayList<Carte>();
 		this.alias = alias;
@@ -28,8 +28,6 @@ public class Joueur {
 	}
 
 	public void pickUpCards(Collection<Carte> c) {
-		Preconditions.checkNotNull(c,"[ERROR] Card collection picked up cannot be null");
-		Preconditions.checkArgument(c.size()>0, "[ERROR] Card collection picked cannot be empty");
 		this.main.addAll(c);
 	}
 
@@ -41,7 +39,6 @@ public class Joueur {
 	}
 
 	public Carte playCard(int index) {
-		Preconditions.checkArgument(index >= 0 && index < this.main.size(),"[ERROR] Incorrect index : must be > 0 (tried = " + index + ", but max is = " + this.main.size());
 		Carte cardToPlay = this.main.get(index);
 		this.main.remove(index);
 		return cardToPlay;
