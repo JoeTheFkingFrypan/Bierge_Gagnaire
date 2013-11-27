@@ -1,6 +1,7 @@
 package tests.java.cards.model.pileTests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Collection;
@@ -59,12 +60,12 @@ public class TalonTest {
 		Collection<Carte> cardsFromFilledStack = this.filledStack.emptyPile();
 		//Verification du nombre de carte dans les 2 talons
 		assertEquals(0,this.emptyStack.size());
-		assertEquals(0,this.filledStack.size());
+		assertEquals(1,this.filledStack.size());
 		//Verification du nombre de carte dans les collections reçues
 		assertEquals(0,cardsFromEmptyStack.size());
-		assertEquals(3,cardsFromFilledStack.size());
+		assertEquals(2,cardsFromFilledStack.size());
 		//Verification des cartes presentes dans la collection où des cartes existent
-		assertTrue(cardsFromFilledStack.contains(this.yetAnotherCard));
+		assertFalse(cardsFromFilledStack.contains(this.yetAnotherCard));
 		assertTrue(cardsFromFilledStack.contains(this.oneCard));
 		assertTrue(cardsFromFilledStack.contains(this.anotherCard));
 	}

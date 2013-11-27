@@ -11,11 +11,11 @@ import main.java.cards.model.basics.Carte;
  */
 public class Talon {
 	private final Stack<Carte> talon;
-	
+
 	public Talon() {
 		this.talon = new Stack<Carte>();
 	}
-	
+
 	/**
 	 * Méthode permettant de jouer une carte
 	 * @param c Carte à jouer
@@ -23,7 +23,7 @@ public class Talon {
 	public void receiveCard(Carte c) {
 		talon.push(c);
 	}
-	
+
 	/**
 	 * Méthode permettant de savoir si la carte choisie est compatible avec celle sur le talon
 	 * @param chosenCard Carte choisie
@@ -32,20 +32,24 @@ public class Talon {
 	public boolean accept(Carte chosenCard) {
 		return this.talon.peek().isCompatibleWith(chosenCard);
 	}
-	
+
 	/**
 	 * Méthode permettant de vider le talon de ses cartes (sauf de la dernière jouée) et de les transférer
 	 * @return L'ensemble des cartes (exceptée la dernière jouée) provenant du talon
 	 */
 	public Collection<Carte> emptyPile() {
-		Collection<Carte> allCardsExceptLastPlayed = new Stack<Carte>();
-		Carte lastCardPlayed = this.talon.pop();
-		allCardsExceptLastPlayed.addAll(this.talon);
-		this.talon.clear();
-		this.talon.add(lastCardPlayed);
-		return allCardsExceptLastPlayed;
+		if(this.talon.isEmpty()) {
+			return new Stack<Carte>();
+		} else {
+			Collection<Carte> allCardsExceptLastPlayed = new Stack<Carte>();
+			Carte lastCardPlayed = this.talon.pop();
+			allCardsExceptLastPlayed.addAll(this.talon);
+			this.talon.clear();
+			this.talon.add(lastCardPlayed);
+			return allCardsExceptLastPlayed;
+		}
 	}
-	
+
 	/**
 	 * Méthode permettant spécifiant la façon dont s'affiche le talon
 	 */
