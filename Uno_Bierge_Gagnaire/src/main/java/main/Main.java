@@ -13,7 +13,7 @@ import main.java.player.model.PlayerModel;
 public class Main {
 	public static void main(String[] args) throws IOException {
 		//oldTests();
-		Server server = new Server();
+		Server server = Server.getInstance();
 	}
 
 	private static void oldTests() {

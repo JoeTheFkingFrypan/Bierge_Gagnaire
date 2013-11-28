@@ -1,4 +1,4 @@
-package main.java.cards.model;
+package main.java.gameContext.model;
 
 import java.util.Collection;
 
@@ -7,13 +7,15 @@ import main.java.cards.model.pile.Talon;
 import main.java.cards.model.stock.Pioche;
 import main.java.console.model.AbstractModel;
 
-public class CardsModel extends AbstractModel {
+public class GameModel extends AbstractModel {
 	private Pioche pioche;
 	private Talon talon;
+	private TurnOrder currentOrder;
 	
-	public CardsModel () {
+	public GameModel () {
 		this.pioche = new Pioche();
 		this.talon = new Talon();
+		this.currentOrder = TurnOrder.Clockwise;
 	}
 	
 	public Collection<Carte> drawCards(int count) {
@@ -32,5 +34,17 @@ public class CardsModel extends AbstractModel {
 		} else {
 			return false;
 		}
+	}
+	
+	public void reverseCurrentOrder() {
+		if(indicatesDefaultTurnOrder()) {
+			this.currentOrder = TurnOrder.CounterClockwise;
+		} else {
+			this.currentOrder = TurnOrder.Clockwise;
+		}
+	}
+	
+	public boolean indicatesDefaultTurnOrder() {
+		return this.currentOrder.equals(TurnOrder.Clockwise);
 	}
 }

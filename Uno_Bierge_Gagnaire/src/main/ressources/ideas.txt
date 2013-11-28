@@ -1,0 +1,13 @@
+Idées
+* Les classes d'effets deviennent STATIQUES (une seule instance pour tout le programme)
+	
+Optionnel
+* Règle du "doublon" : un joueur peut jouer plusieurs cartes du même CHIFFRE durant son tour
+* Système de sauvegarde
+
+Notes
+* joueur runnable -> fin de la partie = fin de la méthode run
+* Problème : 2 comportements => jeu de cartes ET interruption du joueur en cours dans cas précis
+* Synchronisation conditionnelle? flag?
+
+* Joueur en cours?
