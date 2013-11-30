@@ -87,4 +87,19 @@ public class CarteTest {
 		assertTrue(this.referenceCard.isCompatibleWith(this.compatibleCardSameNumber));
 		assertFalse(this.referenceCard.isCompatibleWith(this.incompatibleCard));
 	}
+	
+	@Test
+	public void testCompareTo() {
+		Carte reference = new Carte(7,Couleur.ROUGE);
+		Carte lowerCard = new Carte(2,Couleur.ROUGE);
+		Carte higherCard = new Carte(9,Couleur.ROUGE);
+		Carte differentColorCardBlue = new Carte(7,Couleur.BLEUE);
+		Carte differentColorCardGreen = new Carte(7,Couleur.VERTE);
+		Carte differentColorCardYellow = new Carte(7,Couleur.JAUNE);
+		assertTrue((reference.compareTo(lowerCard)) > 0);
+		assertTrue((reference.compareTo(higherCard)) < 0);
+		assertTrue((reference.compareTo(differentColorCardBlue)) < 0);
+		assertTrue((reference.compareTo(differentColorCardGreen)) < 0);
+		assertTrue((reference.compareTo(differentColorCardYellow)) < 0);
+	}
 }

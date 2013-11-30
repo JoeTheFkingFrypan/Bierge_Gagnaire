@@ -10,9 +10,9 @@ import main.java.player.model.PlayerModel;
 public class PlayerController {
 	private PlayerModel player;
 	
-	public PlayerController(PlayerModel player) {
-		Preconditions.checkNotNull(player,"[ERROR] Model cannot be null");
-		this.player = player;
+	public PlayerController(String name) {
+		Preconditions.checkNotNull(name,"[ERROR] name cannot be null");
+		this.player = new PlayerModel(name);
 	}
 	
 	public void pickUpCards(Collection<Carte> c) {
@@ -22,12 +22,21 @@ public class PlayerController {
 	}
 	
 	public Carte playCard(int index) {
+		Preconditions.checkState(this.player.getNumberOfCardsInHand() > 0, "[ERROR] Impossible to play a card : player has none");
 		Preconditions.checkArgument(index >= 0 && index < this.player.getNumberOfCardsInHand(),"[ERROR] Incorrect index : must be > 0 (tried = " + index + ", but max is = " + this.player.getNumberOfCardsInHand());
 		return this.player.playCard(index);
 	}
 	
 	public String getAlias() {
 		return this.player.getAlias();
+	}
+	
+	public int getScore() {
+		return this.player.getScore();
+	}
+	
+	public int getNumberOfCardsInHand() {
+		return this.player.getNumberOfCardsInHand();
 	}
 	
 	@Override

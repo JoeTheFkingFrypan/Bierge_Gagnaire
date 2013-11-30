@@ -3,6 +3,8 @@ package main.java.cards.model.pile;
 import java.util.Collection;
 import java.util.Stack;
 
+import com.google.common.base.Preconditions;
+
 import main.java.cards.model.basics.Carte;
 
 /**
@@ -21,6 +23,7 @@ public class Talon {
 	 * @param c Carte à jouer
 	 */
 	public void receiveCard(Carte c) {
+		Preconditions.checkNotNull(c,"[ERROR] Cannot play card : provided card is null");
 		talon.push(c);
 	}
 
@@ -30,6 +33,8 @@ public class Talon {
 	 * @return TRUE si les deux cartes sont compatibles, FALSE sinon
 	 */
 	public boolean accept(Carte chosenCard) {
+		Preconditions.checkNotNull(chosenCard,"[ERROR] Cannot accept card : provided card is null");
+		Preconditions.checkState(this.talon.size()>=1,"[ERROR] Cannot compare provided card to reference : pile is empty");
 		return this.talon.peek().isCompatibleWith(chosenCard);
 	}
 
@@ -64,5 +69,13 @@ public class Talon {
 	 */
 	public int size() {
 		return this.talon.size();
+	}
+
+	/**
+	 * Méthode permettant de visionner la dernière carte jouée
+	 * @return Carte dernièrement jouée
+	 */
+	public Carte showLastCardPlayed() {
+		return this.talon.peek();
 	}
 }

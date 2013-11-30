@@ -28,6 +28,8 @@ public class PlayerModel {
 	}
 
 	public void pickUpCards(Collection<Carte> c) {
+		Preconditions.checkNotNull(c,"[ERROR] Cannot pickup cards : provided collection is null");
+		Preconditions.checkArgument(c.size() > 0, "[ERROR] Cannot pickup cards : provided collection is empty");
 		this.main.addAll(c);
 	}
 
@@ -39,6 +41,9 @@ public class PlayerModel {
 	}
 
 	public Carte playCard(int index) {
+		Preconditions.checkState(this.main.size() > 0, "[ERROR] Cannot play that card : player has no card");
+		Preconditions.checkArgument(index >= 0, "[ERROR] Cannot play that card : provided index must not be negative");
+		Preconditions.checkArgument(index < this.main.size(), "[ERROR] Cannot play that card : provided index is too high (doesn't exists for this player)");
 		Carte cardToPlay = this.main.get(index);
 		this.main.remove(index);
 		return cardToPlay;

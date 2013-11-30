@@ -110,4 +110,37 @@ public class CarteSpecialeTest {
 		assertTrue(this.referenceCard.isCompatibleWith(this.compatibleCardSameEffect));
 		assertFalse(this.referenceCard.isCompatibleWith(this.incompatibleCard));
 	}
+	
+	@Test
+	public void testEquals() {
+		//For the following objects, names were picked based as follows
+		//Same Value = sv -- Different Value = DV
+		//Same Color = sc -- Different Color = DC
+		//Same Effect = se -- Different Effect = DE
+		CarteSpeciale reference = new CarteSpeciale(50, Couleur.BLEUE, this.referenceMockedEffect);
+		
+		//No difference
+		CarteSpeciale sv_sc_se = new CarteSpeciale(50, Couleur.BLEUE, this.referenceMockedEffect);
+		assertTrue(reference.equals(sv_sc_se));
+		
+		//One difference
+		CarteSpeciale DV_sc_se = new CarteSpeciale(20, Couleur.BLEUE, this.referenceMockedEffect);
+		CarteSpeciale sv_DC_se = new CarteSpeciale(50, Couleur.ROUGE, this.referenceMockedEffect);
+		CarteSpeciale sv_sc_DE = new CarteSpeciale(50, Couleur.BLEUE, this.completelyDifferentMockedEffect);
+		assertFalse(reference.equals(DV_sc_se));
+		assertFalse(reference.equals(sv_DC_se));
+		assertFalse(reference.equals(sv_sc_DE));
+		
+		//Combinaison of 2 differences
+		CarteSpeciale DV_DC_se = new CarteSpeciale(20, Couleur.ROUGE, this.referenceMockedEffect);
+		CarteSpeciale DV_sc_DE = new CarteSpeciale(20, Couleur.BLEUE, this.completelyDifferentMockedEffect);
+		CarteSpeciale sv_DC_DE = new CarteSpeciale(50, Couleur.ROUGE, this.completelyDifferentMockedEffect);
+		assertFalse(reference.equals(DV_DC_se));
+		assertFalse(reference.equals(DV_sc_DE));
+		assertFalse(reference.equals(sv_DC_DE));
+		
+		//Everything different
+		CarteSpeciale DV_DC_DE = new CarteSpeciale(20, Couleur.ROUGE, this.completelyDifferentMockedEffect);
+		assertFalse(reference.equals(DV_DC_DE));
+	}
 }

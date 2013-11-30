@@ -105,8 +105,14 @@ public class PlayerModelTest {
 	}
 	
 	@Test(expected=NullPointerException.class)
-	public void failToPickCardsNullCollection() {
+	public void testFailToPickupCardsDueToNullCollection() {
 		this.p1.pickUpCards(null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testFailToPickupCardsDueToEmptyCollection() {
+		Collection<Carte> noCards = new ArrayList<Carte>();
+		this.p1.pickUpCards(noCards);
 	}
 	
 	@Test
@@ -120,16 +126,20 @@ public class PlayerModelTest {
 		assertEquals(0,this.p1.getNumberOfCardsInHand());
 	}
 	
-	@Test(expected=IndexOutOfBoundsException.class)
-	//NOTE: ce cas d'erreur n'est pas sensé se produire : le contrôlleur vérifie en amont la validité de l'index
+	@Test(expected=IllegalStateException.class)
 	public void failToPlayCardBecausePlayerHasNone() {
 		this.p1.playCard(0);
 	}
 	
-	@Test(expected=IndexOutOfBoundsException.class)
-	//NOTE: ce cas d'erreur n'est pas sensé se produire : le contrôlleur vérifie en amont la validité de l'index
-	public void failToPlayCardBecauseOfOutOfBoundIndex() {
+	@Test(expected=IllegalArgumentException.class)
+	public void failToPlayCardDueToInvalidIndex() {
 		this.p1.pickUpCards(this.collectionOfMultipleCards);
 		this.p1.playCard(999);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void failToPlayCardDueToNegativeIndex() {
+		this.p1.pickUpCards(this.collectionOfMultipleCards);
+		this.p1.playCard(-999);
 	}
 }

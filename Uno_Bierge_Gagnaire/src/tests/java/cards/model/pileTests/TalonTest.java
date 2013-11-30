@@ -18,13 +18,15 @@ public class TalonTest {
 	private Talon emptyStack;
 	private Talon filledStack;
 	private Carte oneCard;
-	private Carte anotherCard;
+	private Carte compatibleCard;
 	private Carte yetAnotherCard;
+	private Carte incompatibleCard;
 	
 	@Before
 	public void setup() {
 		this.oneCard = new Carte(7,Couleur.ROUGE);
-		this.anotherCard = new Carte(1,Couleur.BLEUE);
+		this.compatibleCard = new Carte(7,Couleur.BLEUE);
+		this.incompatibleCard = new Carte(2,Couleur.JAUNE);
 		this.yetAnotherCard = new CarteSpeciale(20,Couleur.JOKER,new EffetJoker());
 		this.emptyStack = new Talon();
 		this.filledStack = fillStackWithCards();
@@ -33,7 +35,7 @@ public class TalonTest {
 	private Talon fillStackWithCards() {
 		Talon stack = new Talon();
 		stack.receiveCard(this.oneCard);
-		stack.receiveCard(this.anotherCard);
+		stack.receiveCard(this.compatibleCard);
 		stack.receiveCard(this.yetAnotherCard);
 		return stack;	
 	}
@@ -48,10 +50,32 @@ public class TalonTest {
 	public void testPlayCard() {
 		this.emptyStack.receiveCard(this.oneCard);
 		assertEquals(1,this.emptyStack.size());
-		this.emptyStack.receiveCard(this.anotherCard);
+		this.emptyStack.receiveCard(this.compatibleCard);
 		assertEquals(2,this.emptyStack.size());
 		this.emptyStack.receiveCard(this.yetAnotherCard);
 		assertEquals(3,this.emptyStack.size());
+	}
+	
+	@Test(expected=NullPointerException.class)
+	public void testFailPlayCardDueToNullCard() {
+		this.emptyStack.receiveCard(null);
+	}
+	
+	@Test
+	public void testAccept() {
+		this.emptyStack.receiveCard(this.oneCard);
+		assertTrue(this.emptyStack.accept(this.compatibleCard));
+		assertFalse(this.emptyStack.accept(this.incompatibleCard));
+	}
+	
+	@Test(expected=NullPointerException.class)
+	public void testFailAcceptDueToNullCard() {
+		this.emptyStack.accept(null);
+	}
+	
+	@Test(expected=IllegalStateException.class)
+	public void testFailAcceptDueToLackOfCards() {
+		this.emptyStack.accept(this.oneCard);
 	}
 	
 	@Test
@@ -67,12 +91,20 @@ public class TalonTest {
 		//Verification des cartes presentes dans la collection où des cartes existent
 		assertFalse(cardsFromFilledStack.contains(this.yetAnotherCard));
 		assertTrue(cardsFromFilledStack.contains(this.oneCard));
-		assertTrue(cardsFromFilledStack.contains(this.anotherCard));
+		assertTrue(cardsFromFilledStack.contains(this.compatibleCard));
 	}
 	
 	@Test
 	public void testToString() {
 		assertEquals("[Talon] 0 cartes ont été jouées",this.emptyStack.toString());
 		assertEquals("[Talon] 3 cartes ont été jouées",this.filledStack.toString());
+	}
+	
+	@Test
+	public void testShowLastCardPlayed() {
+		this.emptyStack.receiveCard(this.oneCard);
+		assertEquals(this.oneCard,this.emptyStack.showLastCardPlayed());
+		this.emptyStack.receiveCard(this.compatibleCard);
+		assertEquals(this.compatibleCard,this.emptyStack.showLastCardPlayed());
 	}
 }
