@@ -13,7 +13,7 @@ import main.java.cards.model.basics.Couleur;
 import main.java.player.controller.PlayerController;
 
 public class PlayerControllerTest {
-	private String referenceName;
+	/*private String referenceName;
 	private PlayerController playerController;
 	private ArrayList<Carte> cardsToPickUp;
 	private Carte firstCard;
@@ -116,5 +116,5 @@ public class PlayerControllerTest {
 	public void testFailPlayCardDueToInexistingIndex() {
 		this.playerController.pickUpCards(this.cardsToPickUp);
 		this.playerController.playCard(999);
-	}
+	}*/
 }

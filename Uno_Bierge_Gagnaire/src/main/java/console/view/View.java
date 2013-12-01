@@ -14,9 +14,12 @@ public abstract class View {
 		this.consoleDisplay = new FancyConsoleDisplay();
 	}
 	
-	
 	public void displayBoldText(String text) {
 		this.consoleDisplay.displayBoldText(text);
+	}
+	
+	public void appendBoldText(String text) {
+		this.consoleDisplay.appendBoldText(text);
 	}
 	
 	public void displayErrorText(String text) {
@@ -149,5 +152,9 @@ public abstract class View {
 			this.consoleDisplay.appendYellowText("[" + value + "] ");
 		}
 		
+	}
+
+	public void displaySeparationText(String text) {
+		this.consoleDisplay.displaySeparationText(text);
 	}
 }

@@ -32,6 +32,11 @@ public class PlayerModel {
 		Preconditions.checkArgument(c.size() > 0, "[ERROR] Cannot pickup cards : provided collection is empty");
 		this.main.addAll(c);
 	}
+	
+	public void pickUpOneCard(Carte card) {
+		Preconditions.checkNotNull(card,"[ERROR] Cannot pickup card : provided card is null");
+		this.main.add(card);
+	}
 
 	public void displayHand() {
 		System.out.println();
@@ -70,7 +75,7 @@ public class PlayerModel {
 		return "[JOUEUR] " + getAlias() + " a " + getScore() + " points. Il lui reste " + this.main.size() + " cartes en main";
 	}
 
-	public Collection<Carte> generateDisplayableCardCollection() {//getCardsInHand
+	public Collection<Carte> getCardsInHand() {
 		Collection<Carte> cardsInHand = this.main;
 		return cardsInHand;
 	}

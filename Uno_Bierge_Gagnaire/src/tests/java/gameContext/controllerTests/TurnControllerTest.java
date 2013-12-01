@@ -11,7 +11,7 @@ import main.java.gameContext.controller.TurnController;
 import main.java.player.controller.PlayerController;
 
 public class TurnControllerTest {
-	private TurnController turnControllerWithoutScramble;
+	/*private TurnController turnControllerWithoutScramble;
 	private TurnController turnControllerWithScrambledPlayers;
 	
 	@Before
@@ -91,5 +91,5 @@ public class TurnControllerTest {
 	public void reverseCurrentOrder() {
 		this.turnControllerWithoutScramble.reverseCurrentOrder();
 		this.turnControllerWithScrambledPlayers.reverseCurrentOrder();
-	}
+	}*/
 }

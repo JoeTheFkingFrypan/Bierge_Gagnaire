@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 
 import main.java.cards.model.basics.Carte;
+import main.java.console.view.View;
 import main.java.player.controller.PlayerController;
 
 public class TurnModel {
@@ -18,16 +19,16 @@ public class TurnModel {
 		this.currentPlayerIndex = -1;
 	}
 
-	public void createPlayersFrom(Collection<String> playerNames) {
+	public void createPlayersFrom(Collection<String> playerNames, View consoleView) {
 		for(String name: playerNames) {
-			this.players.add(new PlayerController(name));
+			this.players.add(new PlayerController(name,consoleView));
 		}
 		scramblePlayers();
 	}
 
-	public void createPlayersWithoutScramblingFrom(Collection<String> playerNames) {
+	public void createPlayersWithoutScramblingFrom(Collection<String> playerNames, View consoleView) {
 		for(String name: playerNames) {
-			this.players.add(new PlayerController(name));
+			this.players.add(new PlayerController(name,consoleView));
 		}
 	}
 

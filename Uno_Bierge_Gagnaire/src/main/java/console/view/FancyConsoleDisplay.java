@@ -14,11 +14,16 @@ public class FancyConsoleDisplay {
 		AnsiConsole.out.print(text);
 	}
 
-	/* ========================================= HEADER ========================================= */
+	/* ========================================= HEADER & SENTENSES ========================================= */
 
 	public void displayBoldText(String text) {
 		text = turnBold(text);
 		printText(text);
+	}
+	
+	public void appendBoldText(String text) {
+		text = turnBold(text);
+		appendText(text);
 	}
 
 	public void displayErrorText(String text) {
@@ -27,6 +32,10 @@ public class FancyConsoleDisplay {
 
 	public void displaySuccessText(String text) {
 		generateGreenEmphasis(text);
+	}
+	
+	public void displaySeparationText(String text) {
+		generateBlueEmphasis(text);
 	}
 
 	public void generateRedEmphasis(String text) {
@@ -38,6 +47,12 @@ public class FancyConsoleDisplay {
 	public void generateGreenEmphasis(String text) {
 		text = turnGreen(text);
 		text = turnBold(text);
+		printText(text);
+	}
+	
+	public void generateBlueEmphasis(String text) {
+		text = turnBold(text);
+		text = whiteOnBlue(text);
 		printText(text);
 	}
 
@@ -70,12 +85,11 @@ public class FancyConsoleDisplay {
 
 	public void appendJokerText(String text) {
 		text = turnMagenta(text);
-		text = invertColor(text);
 		appendText(text);
 	}
 
 	/* ========================================= UTILS ========================================= */
-
+	
 	private String turnRed(String textToTurnRed) {
 		return ConsoleCodesAnsi.COLOR_RED + textToTurnRed + ConsoleCodesAnsi.COLOR_WHITE;
 	}
@@ -100,8 +114,8 @@ public class FancyConsoleDisplay {
 		return ConsoleCodesAnsi.ANSI_BOLD + textToTurnBold + ConsoleCodesAnsi.ANSI_NORMAL;
 	}
 
-	private String invertColor(String textToInvert) {
-		return ConsoleCodesAnsi.ANSI_REVERSEON + textToInvert + ConsoleCodesAnsi.ANSI_NORMAL;
+	private String whiteOnBlue(String textToInvert) {
+		return ConsoleCodesAnsi.ANSI_WHITEONBLUE + textToInvert + ConsoleCodesAnsi.ANSI_NORMAL;
 	}
 
 	/* ========================================= BASIC DISPLAYS ========================================= */

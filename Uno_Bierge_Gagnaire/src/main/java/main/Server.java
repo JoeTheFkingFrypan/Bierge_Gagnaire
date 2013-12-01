@@ -17,11 +17,11 @@ public class Server {
 	private static GameController gameController;
 	private static InputReader inputReader;
 	private static View consoleView;
-	
+
 	private Server() {
 		Server.consoleView = new ConsoleView();
-		Server.turnController = new TurnController();
-		Server.gameController = new GameController();
+		Server.turnController = new TurnController(consoleView);
+		Server.gameController = new GameController(consoleView);
 		Server.inputReader = new InputReader(consoleView);
 		initializeGameSettings();
 	}
@@ -69,17 +69,37 @@ public class Server {
 		while(true) {
 			Carte currentCard = Server.gameController.showLastCardPlayed();
 			PlayerController currentPlayer = Server.turnController.findNextPlayer();
-			Carte cardChosen = currentPlayer.startTurn(inputReader,currentCard);
-			GameFlags effect = Server.gameController.playCard(cardChosen);
-			applyEffects(effect);
+			playOneTurn(currentCard, currentPlayer);
 		}
 	}
-	
+
+	private void playOneTurn(Carte currentCard, PlayerController currentPlayer) {
+		if(currentPlayer.hasAtLeastOnePlayableCard(currentCard)) {
+			chooseCardAndPlayIt(currentCard, currentPlayer);
+		} else {
+			Carte cardDrawn = Server.gameController.drawOneCard();
+			currentPlayer.pickUpOneCard(cardDrawn);
+			if(currentPlayer.hasAtLeastOnePlayableCard(currentCard)) {
+				System.out.println("WIN");
+				chooseCardAndPlayIt(currentCard, currentPlayer);
+			} else {
+				System.out.println("NOPE");
+				currentPlayer.unableToPlayThisTurn(currentCard);
+			}
+		}
+	}
+
+	private void chooseCardAndPlayIt(Carte currentCard, PlayerController currentPlayer) {
+		Carte cardChosen = currentPlayer.startTurn(inputReader,currentCard);
+		GameFlags effect = Server.gameController.playCard(cardChosen);
+		applyEffects(effect);
+	}
+
 	private void applyEffects(GameFlags effect) {
 		if(effect.equals(GameFlags.INVERSION)) {
 			Server.turnController.reverseCurrentOrder();
 		} else if(effect.equals(GameFlags.INVERSION)) {
-			
+
 		}
 	}
 }

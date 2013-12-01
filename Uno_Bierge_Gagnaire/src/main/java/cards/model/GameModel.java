@@ -19,16 +19,21 @@ public class GameModel extends AbstractModel {
 	}
 	
 	private void drawStarterCard() {
+		this.talon.receiveCard(drawOneCard());
+	}
+	
+	public Carte drawOneCard() {
 		refillStockIfNeeded(1);
-		Carte starterCard = this.pioche.drawOneCard();
-		this.talon.receiveCard(starterCard);
+		return this.pioche.drawOneCard();
 	}
 	
 	public Collection<Carte> drawCards(int count) {
 		refillStockIfNeeded(count);
 		return this.pioche.drawCards(count);
 	}
-
+	
+	
+	
 	private void refillStockIfNeeded(int count) {
 		if(this.pioche.hasNotEnoughCards(count)) {
 			Collection<Carte> cardsFromPile = talon.emptyPile();

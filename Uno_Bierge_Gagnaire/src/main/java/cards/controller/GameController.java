@@ -7,12 +7,16 @@ import com.google.common.base.Preconditions;
 import main.java.cards.model.basics.Carte;
 import main.java.cards.model.basics.CarteSpeciale;
 import main.java.cards.model.GameModel;
+import main.java.console.view.View;
 import main.java.gameContext.model.GameFlags;
 
 public class GameController {
 	private GameModel gameModel;
-	public GameController() {
+	private View consoleView;
+	
+	public GameController(View consoleView) {
 		this.gameModel = new GameModel();
+		this.consoleView = consoleView;
 	}
 	
 	public Collection<Carte> drawCards(int count) {
@@ -20,6 +24,10 @@ public class GameController {
 		return this.gameModel.drawCards(count);
 	}
 
+	public Carte drawOneCard() {
+		return this.gameModel.drawOneCard();
+	}
+	
 	public Carte showLastCardPlayed() {
 		return gameModel.showLastCardPlayed();
 	}

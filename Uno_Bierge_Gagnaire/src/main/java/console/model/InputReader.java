@@ -35,11 +35,9 @@ public class InputReader {
 	}
 	
 	public int getFirstValidIndexFromInput(String alias, Collection<Carte> cardCollection, Carte currentCard) {
-		consoleView.insertBlankLine();
-		consoleView.displayBoldText("========== Your turn, " + alias + "==========");
-		consoleView.displayBoldText("* Your cards are : "); 
+		consoleView.appendBoldText("* Your cards are : "); 
 		this.consoleView.displayCardCollection(cardCollection);
-		consoleView.displayBoldText("* The last card play was : ");
+		consoleView.appendBoldText("* The last card play was : ");
 		this.consoleView.displayCard(currentCard);
 		consoleView.displayBoldText("Please choose a card to play");
 		return getValidIndex(cardCollection.size());
@@ -48,9 +46,9 @@ public class InputReader {
 	public int getAnotherValidIndexFromInputDueToIncompatibleCard(String alias, Collection<Carte> cardCollection, Carte currentCard) {
 		consoleView.insertBlankLine();
 		consoleView.displayErrorText("[ERROR] Choosen card is not compatible, please pick another one");
-		consoleView.displayBoldText("* Your cards are : "); 
+		consoleView.appendBoldText("* Your cards are : "); 
 		this.consoleView.displayCardCollection(cardCollection);
-		consoleView.displayBoldText("* The last card play was : ");
+		consoleView.appendBoldText("* The last card play was : ");
 		this.consoleView.displayCard(currentCard);
 		consoleView.displayBoldText("Please choose a card to play");
 		return getValidIndex(cardCollection.size());

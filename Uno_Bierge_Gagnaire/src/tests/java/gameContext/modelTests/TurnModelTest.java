@@ -12,7 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class TurnModelTest {
-	private TurnModel turnModel;
+	/*private TurnModel turnModel;
 	private TurnModel turnModelWithNoPlayer;
 	private Collection<String> playerNames;
 	
@@ -98,5 +98,5 @@ public class TurnModelTest {
 		
 		currentPlayer = this.turnModelWithNoPlayer.cycleThroughPlayers();
 		assertEquals("player3",currentPlayer.getAlias());
-	}
+	}*/
 }
