@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import com.google.common.base.Preconditions;
 
+import main.java.cards.model.basics.Carte;
 import main.java.gameContext.model.TurnModel;
 import main.java.player.controller.PlayerController;
 
@@ -31,7 +32,10 @@ public class TurnController {
 	}
 	
 	public PlayerController findNextPlayer() {
-		return turnModel.cycleThroughPlayers();
+		return this.turnModel.cycleThroughPlayers();
 	}
 	
+	public void giveCardsToNextPlayer(Collection<Carte> cards) {
+		this.turnModel.giveCardsToNextPlayer(cards);
+	}
 }

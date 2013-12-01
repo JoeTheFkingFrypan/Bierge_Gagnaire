@@ -1,28 +1,28 @@
 package main.java.main;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.Collection;
-import com.google.common.base.CharMatcher;
 
-import main.java.console.model.ConsoleException;
-import main.java.gameContext.controller.GameController;
+import main.java.cards.model.basics.Carte;
+import main.java.console.model.InputReader;
+import main.java.console.view.ConsoleView;
+import main.java.console.view.View;
+import main.java.cards.controller.GameController;
 import main.java.gameContext.controller.TurnController;
+import main.java.gameContext.model.GameFlags;
+import main.java.player.controller.PlayerController;
 
 public class Server {
 	private static Server server;
 	private static TurnController turnController;
-	private static PrintStream outputStream;
-	private static BufferedReader inputReader;
-
+	private static GameController gameController;
+	private static InputReader inputReader;
+	private static View consoleView;
+	
 	private Server() {
+		Server.consoleView = new ConsoleView();
 		Server.turnController = new TurnController();
-		new GameController();
-		Server.outputStream = System.out;
-		Server.inputReader = new BufferedReader(new InputStreamReader(System.in));
+		Server.gameController = new GameController();
+		Server.inputReader = new InputReader(consoleView);
 		initializeGameSettings();
 	}
 
@@ -41,72 +41,45 @@ public class Server {
 
 	private static void initializeGameSettings() {
 		//TODO: settings in a .ini file
+		Server.consoleView.displayTitle("SETTINGS");
 		int playerNumber = askForPlayerNumber();
 		askForPlayerNames(playerNumber);
-		giveAllPlayers7Cards();
+		giveAllPlayers7Cards(playerNumber);
 	}
 
 	private static int askForPlayerNumber() {
-		String answer = "";
-		outputStream.println("How many players? [expected : 2-7]");
-		answer = readAnotherLine();
-		return validateNumberUsingRegexOrAskNewOne(answer);
-	}
-	
-	private static int validateNumberUsingRegexOrAskNewOne(String answer) {
-		int playerNumber = getNumberFromString(answer);
-		while(playerNumber < 2 || playerNumber > 7) {
-			outputStream.println("[ERROR] There can only 2 to 7 players");
-			outputStream.println("Please enter a valid player number");
-			playerNumber = getNumberFromString(readAnotherLine());
-		}
-		return playerNumber;
+		return Server.inputReader.getValidPlayerNumber();
 	}
 
-	private static int getNumberFromString(String answer) {
-		String answerToTest = answer;
-		while(CharMatcher.DIGIT.countIn(answerToTest) < 1) {
-			outputStream.println("[ERROR] Only numbers are allowed");
-			outputStream.println("Please enter a VALID player number, any invalid characters will be removed");
-			answerToTest = readAnotherLine();
-		}
-		String digitsFromAnswer = CharMatcher.DIGIT.retainFrom(answerToTest);
-		return Integer.parseInt(digitsFromAnswer);
-	}
-	
+
 	private static void askForPlayerNames(int playerNumber) {
-		String playerNameFromInput = "";
-		outputStream.println("you successfully chose [" + playerNumber + "] players, please enter their name (one at a time -multi word aliases allowed)");
-		Collection<String> playerNames = new ArrayList<String>();
-		for(int i=0; i<playerNumber; i++) {
-			playerNameFromInput = readAnotherLine();
-			while(playerNames.contains(playerNameFromInput)) {
-				outputStream.println("[ERROR] There already is a player with this name");
-				outputStream.println("Please pick another one");
-				playerNameFromInput = readAnotherLine();
-			}
-			playerNames.add(playerNameFromInput);
-			outputStream.println("Player [" + playerNameFromInput + "] created");
-		}
-		outputStream.println("Player creation complete, " + playerNames + " will compete against each other");
+		Collection<String> playerNames = Server.inputReader.getAllPlayerNames(playerNumber);
 		Server.turnController.createPlayersFrom(playerNames);
 	}
 
-	private static String readAnotherLine() {
-		try {
-			return inputReader.readLine();
-		} catch (IOException e) {
-			throw new ConsoleException("[ERROR] Something went wrong while reading line from console input");
+	private static void giveAllPlayers7Cards(int playerNumber) {
+		for(int i=0; i<playerNumber; i++) {
+			Collection<Carte> cardsDrawn = Server.gameController.drawCards(7);
+			Server.turnController.giveCardsToNextPlayer(cardsDrawn);
 		}
 	}
 
-	private static void giveAllPlayers7Cards() {
-		//TODO: [URGENT] finish that shit
-		/*
-		for(PlayerController player : Server.players) {
-			outputStream.print(player.getAlias() + ", ");
-			Collection<Carte> cardsDrawn = Server.gameController.drawCards(7);
-			player.pickUpCards(cardsDrawn);
-		}*/
+	public void cycleForever() {
+		Server.consoleView.displayTitle("GAME STARTING");
+		while(true) {
+			Carte currentCard = Server.gameController.showLastCardPlayed();
+			PlayerController currentPlayer = Server.turnController.findNextPlayer();
+			Carte cardChosen = currentPlayer.startTurn(inputReader,currentCard);
+			GameFlags effect = Server.gameController.playCard(cardChosen);
+			applyEffects(effect);
+		}
+	}
+	
+	private void applyEffects(GameFlags effect) {
+		if(effect.equals(GameFlags.INVERSION)) {
+			Server.turnController.reverseCurrentOrder();
+		} else if(effect.equals(GameFlags.INVERSION)) {
+			
+		}
 	}
 }

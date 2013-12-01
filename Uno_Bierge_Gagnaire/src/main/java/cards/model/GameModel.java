@@ -1,4 +1,4 @@
-package main.java.gameContext.model;
+package main.java.cards.model;
 
 import java.util.Collection;
 
@@ -6,6 +6,7 @@ import main.java.cards.model.basics.Carte;
 import main.java.cards.model.pile.Talon;
 import main.java.cards.model.stock.Pioche;
 import main.java.console.model.AbstractModel;
+import main.java.main.ServerException;
 
 public class GameModel extends AbstractModel {
 	private Pioche pioche;
@@ -35,15 +36,14 @@ public class GameModel extends AbstractModel {
 		}
 	}
 	
-	public boolean playCard(Carte chosenCard) {
+	public void playCard(Carte chosenCard) {
 		if(this.talon.accept(chosenCard)) {
 			this.talon.receiveCard(chosenCard);
-			return true;
 		} else {
-			return false;
+			throw new ServerException("[FATAL ERROR] Card could not be played --Something went terribly wrong somewhere");
 		}
 	}
-
+	
 	public Carte showLastCardPlayed() {
 		return this.talon.showLastCardPlayed();
 	}

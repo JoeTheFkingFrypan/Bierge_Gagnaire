@@ -101,6 +101,8 @@ public class Carte implements Comparable<Carte> {
 			return true;
 		} else if(this.hasSameValueThan(otherCard.getValeur())) {
 			return true;
+		} else if(otherCard.getCouleur().equals(Couleur.JOKER)){
+			return true;
 		} else {
 			return false;
 		}

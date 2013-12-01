@@ -5,6 +5,7 @@ import java.util.Collection;
 import com.google.common.base.Preconditions;
 
 import main.java.cards.model.basics.Carte;
+import main.java.console.model.InputReader;
 import main.java.player.model.PlayerModel;
 
 public class PlayerController {
@@ -42,5 +43,22 @@ public class PlayerController {
 	@Override
 	public String toString() {
 		return this.player.toString();
+	}
+	
+	private Collection<Carte> getDisplayableCardCollection() {
+		return this.player.generateDisplayableCardCollection();
+	}
+	
+	public Carte startTurn(InputReader inputReader, Carte currentCard) {
+		String alias = this.player.getAlias();
+		Collection<Carte> cardCollection = this.getDisplayableCardCollection();
+		
+		int index = inputReader.getFirstValidIndexFromInput(alias,cardCollection,currentCard);
+		Carte choosenCard = this.player.peekAtCard(index);
+		while(!choosenCard.isCompatibleWith(currentCard)) {
+			index = inputReader.getAnotherValidIndexFromInputDueToIncompatibleCard(alias,cardCollection,currentCard);
+			choosenCard = this.player.peekAtCard(index);
+		}
+		return this.player.playCard(index);
 	}
 }

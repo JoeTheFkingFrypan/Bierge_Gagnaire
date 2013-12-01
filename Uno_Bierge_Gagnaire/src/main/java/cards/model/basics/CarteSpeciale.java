@@ -1,5 +1,7 @@
 package main.java.cards.model.basics;
 
+import main.java.gameContext.model.GameFlags;
+
 import com.google.common.base.Preconditions;
 
 /**
@@ -31,9 +33,10 @@ public class CarteSpeciale extends Carte {
 
 	/**
 	 * Méthode permettant de déclencher l'execution d'un effet
+	 * @return 
 	 */
-	public void declencherEffet() {
-		this.effet.declencherEffet();
+	public GameFlags declencherEffet() {
+		return this.effet.declencherEffet();
 	}
 
 	/**
@@ -84,6 +87,8 @@ public class CarteSpeciale extends Carte {
 		if(this.hasSameColorThan(otherCard.getCouleur())) {
 			return true;
 		} else if(this.hasSameEffectThan(otherCard.getEffet())) {
+			return true;
+		} else if(otherCard.getCouleur().equals(Couleur.JOKER)){
 			return true;
 		} else {
 			return false;

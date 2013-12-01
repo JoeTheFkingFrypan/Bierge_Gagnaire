@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 
+import main.java.cards.model.basics.Carte;
 import main.java.player.controller.PlayerController;
 
 public class TurnModel {
@@ -72,5 +73,10 @@ public class TurnModel {
 
 	public int getNumberOfPlayers() {
 		return this.players.size();
+	}
+
+	public void giveCardsToNextPlayer(Collection<Carte> cards) {
+		PlayerController currentPlayer = cycleThroughPlayers();
+		currentPlayer.pickUpCards(cards);
 	}
 }

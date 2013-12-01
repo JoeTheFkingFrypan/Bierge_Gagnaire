@@ -63,9 +63,6 @@ public class PiocheTest {
 		PowerMockito.doReturn(this.baseQueue.contains(this.carte03)).when(mockedPioche,"contains",this.carte03);
 		PowerMockito.doReturn(this.baseQueue.contains(this.carte04)).when(mockedPioche,"contains",this.carte04);
 		PowerMockito.doReturn(this.baseQueue.contains(this.carte05)).when(mockedPioche,"contains",this.carte05);
-		//this.mockedPioche = mock(Pioche.class);
-		//when(this.mockedPioche.size()).thenReturn(this.baseQueue.size());
-		//when(this.mockedPioche.contains((Carte)any())).thenReturn(this.baseQueue.contains((Carte)any()));
 	}
 	
 	@Test
@@ -142,6 +139,7 @@ public class PiocheTest {
 	@Test
 	public void testDrawOneCard() {
 		Carte cardDrawn = this.pioche.drawOneCard();
+		assertNotNull(cardDrawn);
 	}
 	
 	@Test(expected=IllegalStateException.class)

@@ -4,7 +4,7 @@
 
 	<groupId>Uno_Bierge_Gagnaire</groupId>
 	<artifactId>Uno_Bierge_Gagnaire</artifactId>
-	<version>0.0.1</version>
+	<version>0.5.0</version>
 	<packaging>jar</packaging>
 
 	<name>LO02-UnoProject-Bierge-Gagnaire</name>
@@ -50,6 +50,12 @@
 			<artifactId>powermock-module-junit4</artifactId>
 			<version>1.5.1</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<!-- Fancy console Display -->
+			<groupId>org.fusesource.jansi</groupId>
+			<artifactId>jansi</artifactId>
+			<version>1.11</version>
 		</dependency>
 	</dependencies>
 </project>

@@ -40,6 +40,14 @@ public class PlayerModel {
 		}
 	}
 
+	public Carte peekAtCard(int index) {
+		Preconditions.checkState(this.main.size() > 0, "[ERROR] Cannot play that card : player has no card");
+		Preconditions.checkArgument(index >= 0, "[ERROR] Cannot play that card : provided index must not be negative");
+		Preconditions.checkArgument(index < this.main.size(), "[ERROR] Cannot play that card : provided index is too high (doesn't exists for this player)");
+		Carte cardToPlay = this.main.get(index);
+		return cardToPlay;
+	}
+	
 	public Carte playCard(int index) {
 		Preconditions.checkState(this.main.size() > 0, "[ERROR] Cannot play that card : player has no card");
 		Preconditions.checkArgument(index >= 0, "[ERROR] Cannot play that card : provided index must not be negative");
@@ -60,5 +68,10 @@ public class PlayerModel {
 	@Override
 	public String toString() {
 		return "[JOUEUR] " + getAlias() + " a " + getScore() + " points. Il lui reste " + this.main.size() + " cartes en main";
+	}
+
+	public Collection<Carte> generateDisplayableCardCollection() {//getCardsInHand
+		Collection<Carte> cardsInHand = this.main;
+		return cardsInHand;
 	}
 }

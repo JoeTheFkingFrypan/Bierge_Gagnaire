@@ -1,5 +1,7 @@
 package main.java.cards.model.basics;
 
+import main.java.gameContext.model.GameFlags;
+
 /**
  * Effet permettant au joueur actuel de forcer le joueur suivant à piocher un certain nombre de cartes 
  */
@@ -11,17 +13,19 @@ public class EffetPiocherCarte implements Effet {
 	}
 	
 	@Override
-	public void declencherEffet() {
-		System.out.println("[EFFET DECLENCHE] Le joueur suivant devra piocher " + this.cartesDevantEtrePiochees + " cartes");
+	public GameFlags declencherEffet() {
+		return GameFlags.PLUS_TWO;
 	}
 
 	@Override
 	public String toString() {
-		return "Cette carte permet de faire piocher " + this.cartesDevantEtrePiochees + " cartes à l'adversaire";
+		return "+" + this.cartesDevantEtrePiochees;
 	}
 	
 	@Override
 	public String afficherDescription() {
 		return toString();
 	}
+	
+	//System.out.println("[EFFET DECLENCHE] Le joueur suivant devra piocher " + this.cartesDevantEtrePiochees + " cartes");
 }

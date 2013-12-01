@@ -111,8 +111,7 @@ public class PlayerModelTest {
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testFailToPickupCardsDueToEmptyCollection() {
-		Collection<Carte> noCards = new ArrayList<Carte>();
-		this.p1.pickUpCards(noCards);
+		this.p1.pickUpCards(this.emptyCollection);
 	}
 	
 	@Test
