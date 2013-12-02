@@ -14,10 +14,14 @@ import main.java.cards.model.basics.Carte;
 public class Talon {
 	private final Stack<Carte> talon;
 
+	/* ========================================= CONSTRUCTOR ========================================= */
+
 	public Talon() {
 		this.talon = new Stack<Carte>();
 	}
 
+	/* ========================================= PLAY CARD ========================================= */
+	
 	/**
 	 * Méthode permettant de jouer une carte
 	 * @param c Carte à jouer
@@ -38,38 +42,23 @@ public class Talon {
 		return this.talon.peek().isCompatibleWith(chosenCard);
 	}
 
+	/* ========================================= EMPTYING (USED TO REFILL) ========================================= */
+
 	/**
 	 * Méthode permettant de vider le talon de ses cartes (sauf de la dernière jouée) et de les transférer
 	 * @return L'ensemble des cartes (exceptée la dernière jouée) provenant du talon
 	 */
 	public Collection<Carte> emptyPile() {
-		if(this.talon.isEmpty()) {
-			return new Stack<Carte>();
-		} else {
-			Collection<Carte> allCardsExceptLastPlayed = new Stack<Carte>();
-			Carte lastCardPlayed = this.talon.pop();
-			allCardsExceptLastPlayed.addAll(this.talon);
-			this.talon.clear();
-			this.talon.add(lastCardPlayed);
-			return allCardsExceptLastPlayed;
-		}
+		Preconditions.checkState(size() > 0, "[ERROR] Impossible to refill stock : pile is empty");
+		Collection<Carte> allCardsExceptLastPlayed = new Stack<Carte>();
+		Carte lastCardPlayed = this.talon.pop();
+		allCardsExceptLastPlayed.addAll(this.talon);
+		this.talon.clear();
+		this.talon.add(lastCardPlayed);
+		return allCardsExceptLastPlayed;
 	}
 
-	/**
-	 * Méthode permettant spécifiant la façon dont s'affiche le talon
-	 */
-	@Override
-	public String toString() {
-		return "[Talon] " + talon.size() + " cartes ont été jouées";
-	}
-
-	/**
-	 * Méthode permettant de récuperer le nombre de cartes contenues dans le talon
-	 * @return Nombre de cartes présentes dans le talon
-	 */
-	public int size() {
-		return this.talon.size();
-	}
+	/* ========================================= GETTERS & DISPLAY ========================================= */
 
 	/**
 	 * Méthode permettant de visionner la dernière carte jouée
@@ -77,5 +66,21 @@ public class Talon {
 	 */
 	public Carte showLastCardPlayed() {
 		return this.talon.peek();
+	}
+	
+	/**
+	 * Méthode permettant de récuperer le nombre de cartes contenues dans le talon
+	 * @return Nombre de cartes présentes dans le talon
+	 */
+	public int size() {
+		return this.talon.size();
+	}
+	
+	/**
+	 * Méthode permettant spécifiant la façon dont s'affiche le talon
+	 */
+	@Override
+	public String toString() {
+		return "[Talon] " + talon.size() + " cartes ont été jouées";
 	}
 }

@@ -48,6 +48,8 @@ public class CarteSpecialeTest {
 		when(this.completelyDifferentMockedEffect.afficherDescription()).thenReturn("Super effet special totalement different du premier");
 	}
 	
+	/* ========================================= CONSTRUCTOR ========================================= */
+	
 	@Test(expected=IllegalArgumentException.class) 
 	public void failToCreateCardValueTooLow() {
 		CarteSpeciale wayTooLowValue = new CarteSpeciale(-999,Couleur.ROUGE,this.referenceMockedEffect);
@@ -66,29 +68,7 @@ public class CarteSpecialeTest {
 		wayTooLowValue.isSpecial();
 	}
 	
-	@Test
-	public void testGetValeur() {
-		assertEquals(this.referenceValue,this.referenceCard.getValeur());
-		assertEquals(this.completelyDifferentValue,this.compatibleCardSameEffect.getValeur());
-		assertEquals(this.completelyDifferentValue,this.compatibleCardSameColor.getValeur());
-		assertEquals(this.referenceValue,this.incompatibleCard.getValeur());
-	}
-	
-	@Test
-	public void testGetCouleur() {
-		assertEquals(this.referenceColor, this.referenceCard.getCouleur());
-		assertEquals(this.completelyDifferentColor, this.compatibleCardSameEffect.getCouleur());
-		assertEquals(this.referenceColor,this.compatibleCardSameColor.getCouleur());
-		assertEquals(this.completelyDifferentColor,this.incompatibleCard.getCouleur());
-	}
-	
-	@Test
-	public void testEstSpeciale() {
-		assertTrue(this.referenceCard.isSpecial());
-		assertTrue(this.compatibleCardSameEffect.isSpecial());
-		assertTrue(this.compatibleCardSameColor.isSpecial());
-		assertTrue(this.incompatibleCard.isSpecial());
-	}
+	/* ========================================= EFFECT ========================================= */
 	
 	@Test
 	public void testDeclencherEffet() {
@@ -96,13 +76,7 @@ public class CarteSpecialeTest {
 		this.compatibleCardSameEffect.declencherEffet();
 	}
 	
-	@Test
-	public void testAffichageCarte() {
-		assertEquals("[CARTE SPECIALE] Valeur=50, Couleur=BLEUE, Effet=Super effet special",this.referenceCard.toString());
-		assertEquals("[CARTE SPECIALE] Valeur=20, Couleur=ROUGE, Effet=Super effet special",this.compatibleCardSameEffect.toString());
-		assertEquals("[CARTE SPECIALE] Valeur=20, Couleur=BLEUE, Effet=Super effet special totalement different du premier",this.compatibleCardSameColor.toString());
-		assertEquals("[CARTE SPECIALE] Valeur=50, Couleur=ROUGE, Effet=Super effet special totalement different du premier",this.incompatibleCard.toString());
-	}
+	/* ========================================= ADVANCED COMPARAISON ========================================= */
 	
 	@Test
 	public void testIsCompatibleWith() {
@@ -110,6 +84,8 @@ public class CarteSpecialeTest {
 		assertTrue(this.referenceCard.isCompatibleWith(this.compatibleCardSameEffect));
 		assertFalse(this.referenceCard.isCompatibleWith(this.incompatibleCard));
 	}
+	
+	/* ========================================= BASIC COMPARAISON ========================================= */
 	
 	@Test
 	public void testEquals() {
@@ -142,5 +118,59 @@ public class CarteSpecialeTest {
 		//Everything different
 		CarteSpeciale DV_DC_DE = new CarteSpeciale(20, Couleur.ROUGE, this.completelyDifferentMockedEffect);
 		assertFalse(reference.equals(DV_DC_DE));
+	}
+	
+	@Test
+	public void testCompareTo() {
+		int comparaison = this.referenceCard.compareTo(this.compatibleCardSameColor);
+		assertTrue(comparaison > 0);
+		comparaison = this.referenceCard.compareTo(this.compatibleCardSameEffect);
+		assertTrue(comparaison > 0);
+		comparaison = this.referenceCard.compareTo(this.incompatibleCard);
+		assertTrue(comparaison > 0);
+	}
+	
+	/* ========================================= GETTERS ========================================= */
+	
+	@Test
+	public void testGetEffet() {
+		assertEquals("Super effet special",this.referenceCard.getEffet());
+		assertEquals("Super effet special totalement different du premier",this.compatibleCardSameColor.getEffet());
+		assertEquals("Super effet special",this.compatibleCardSameEffect.getEffet());
+		assertEquals("Super effet special totalement different du premier",this.incompatibleCard.getEffet());
+	}
+	
+	@Test
+	public void testGetValeur() {
+		assertEquals(this.referenceValue,this.referenceCard.getValeur());
+		assertEquals(this.completelyDifferentValue,this.compatibleCardSameEffect.getValeur());
+		assertEquals(this.completelyDifferentValue,this.compatibleCardSameColor.getValeur());
+		assertEquals(this.referenceValue,this.incompatibleCard.getValeur());
+	}
+	
+	@Test
+	public void testGetCouleur() {
+		assertEquals(this.referenceColor, this.referenceCard.getCouleur());
+		assertEquals(this.completelyDifferentColor, this.compatibleCardSameEffect.getCouleur());
+		assertEquals(this.referenceColor,this.compatibleCardSameColor.getCouleur());
+		assertEquals(this.completelyDifferentColor,this.incompatibleCard.getCouleur());
+	}
+	
+	@Test
+	public void testEstSpeciale() {
+		assertTrue(this.referenceCard.isSpecial());
+		assertTrue(this.compatibleCardSameEffect.isSpecial());
+		assertTrue(this.compatibleCardSameColor.isSpecial());
+		assertTrue(this.incompatibleCard.isSpecial());
+	}
+	
+	/* ========================================= DISPLAY ========================================= */
+	
+	@Test
+	public void testAffichageCarte() {
+		assertEquals("[CARTE SPECIALE] Valeur=50, Couleur=BLEUE, Effet=Super effet special",this.referenceCard.toString());
+		assertEquals("[CARTE SPECIALE] Valeur=20, Couleur=ROUGE, Effet=Super effet special",this.compatibleCardSameEffect.toString());
+		assertEquals("[CARTE SPECIALE] Valeur=20, Couleur=BLEUE, Effet=Super effet special totalement different du premier",this.compatibleCardSameColor.toString());
+		assertEquals("[CARTE SPECIALE] Valeur=50, Couleur=ROUGE, Effet=Super effet special totalement different du premier",this.incompatibleCard.toString());
 	}
 }

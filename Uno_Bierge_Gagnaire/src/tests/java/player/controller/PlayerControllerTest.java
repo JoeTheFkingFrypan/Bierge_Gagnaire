@@ -1,6 +1,7 @@
 package tests.java.player.controller;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -10,20 +11,23 @@ import org.junit.Test;
 
 import main.java.cards.model.basics.Carte;
 import main.java.cards.model.basics.Couleur;
+import main.java.console.view.View;
 import main.java.player.controller.PlayerController;
 
 public class PlayerControllerTest {
-	/*private String referenceName;
+	private String referenceName;
 	private PlayerController playerController;
 	private ArrayList<Carte> cardsToPickUp;
 	private Carte firstCard;
 	private Carte secondCard;
 	private Carte thirdCard;
+	private View mockedView;
 	
 	@Before
 	public void setup() {
+		this.mockedView = mock(View.class);
 		this.referenceName = "player1";
-		this.playerController = new PlayerController(this.referenceName);
+		this.playerController = new PlayerController(this.referenceName,this.mockedView);
 		this.cardsToPickUp = new ArrayList<Carte>();
 		this.firstCard = new Carte(1,Couleur.BLEUE);
 		this.secondCard = new Carte(2,Couleur.VERTE);
@@ -33,23 +37,23 @@ public class PlayerControllerTest {
 		this.cardsToPickUp.add(thirdCard);
 	}
 	
-	@Test
-	public void testGetAlias() {
-		assertEquals(this.referenceName,this.playerController.getAlias());
+	/* ========================================= CONSTRUCTOR ========================================= */
+	
+	@Test(expected=NullPointerException.class)
+	public void testFailToCreatePlayerControllerDueToNullName() {
+		this.playerController = new PlayerController(null, this.mockedView);
 	}
 	
-	@Test
-	public void testGetScore() {
-		assertEquals(0,this.playerController.getScore());
+	@Test(expected=NullPointerException.class)
+	public void testFailToCreatePlayerControllerDueToNullView() {
+		this.playerController = new PlayerController(this.referenceName, null);
 	}
 	
-	@Test
-	public void testToString() {
-		assertEquals("[JOUEUR] player1 a 0 points. Il lui reste 0 cartes en main",this.playerController.toString());
-	}
+	/* ========================================= CARD PICKUP ========================================= */
 	
 	@Test
 	public void testPickupCards() {
+		assertEquals(0,this.playerController.getNumberOfCardsInHand());
 		this.playerController.pickUpCards(cardsToPickUp);
 		assertEquals(3,this.playerController.getNumberOfCardsInHand());
 	}
@@ -66,13 +70,13 @@ public class PlayerControllerTest {
 	}
 	
 	@Test
-	public void testGetNumberOfCardsInHands() {
+	public void testPickUpOneCard() {
 		assertEquals(0,this.playerController.getNumberOfCardsInHand());
-		this.playerController.pickUpCards(this.cardsToPickUp);
-		assertEquals(3,this.playerController.getNumberOfCardsInHand());
-		this.playerController.pickUpCards(this.cardsToPickUp);
-		assertEquals(6,this.playerController.getNumberOfCardsInHand());
+		this.playerController.pickUpOneCard(this.firstCard);
+		assertEquals(1,this.playerController.getNumberOfCardsInHand());
 	}
+	
+	/* ========================================= CARD PLAY ========================================= */
 	
 	@Test
 	public void testPlayCard() {
@@ -116,5 +120,35 @@ public class PlayerControllerTest {
 	public void testFailPlayCardDueToInexistingIndex() {
 		this.playerController.pickUpCards(this.cardsToPickUp);
 		this.playerController.playCard(999);
-	}*/
+	}
+	
+	/* ========================================= TURN HANDLING ========================================= */
+	
+	//TODO: do it
+	
+	/* ========================================= GETTERS & UTILS ========================================= */
+	
+	@Test
+	public void testGetNumberOfCardsInHands() {
+		assertEquals(0,this.playerController.getNumberOfCardsInHand());
+		this.playerController.pickUpCards(this.cardsToPickUp);
+		assertEquals(3,this.playerController.getNumberOfCardsInHand());
+		this.playerController.pickUpCards(this.cardsToPickUp);
+		assertEquals(6,this.playerController.getNumberOfCardsInHand());
+	}
+	
+	@Test
+	public void testGetAlias() {
+		assertEquals(this.referenceName,this.playerController.getAlias());
+	}
+	
+	@Test
+	public void testGetScore() {
+		assertEquals(0,this.playerController.getScore());
+	}
+	
+	@Test
+	public void testToString() {
+		assertEquals("[JOUEUR] player1 a 0 points. Il lui reste 0 cartes en main",this.playerController.toString());
+	}
 }

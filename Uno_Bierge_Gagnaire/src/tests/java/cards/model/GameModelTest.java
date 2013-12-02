@@ -1,23 +1,30 @@
-package tests.java.gameContext.modelTests;
+package tests.java.cards.model;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Collection;
 
 import main.java.cards.model.basics.Carte;
+import main.java.cards.model.basics.CarteSpeciale;
 import main.java.cards.model.basics.Couleur;
+import main.java.cards.model.basics.Effet;
 import main.java.cards.model.GameModel;
 
 public class GameModelTest {
 	private GameModel gameModel;
+	private Effet mockedEffect;
 
 	@Before
 	public void setup() {
 		this.gameModel = new GameModel();
+		this.mockedEffect = mock(Effet.class);
 	}
 
+	/* ========================================= CARD DRAW ========================================= */
+	
 	@Test
 	public void testDrawOneCard() {
 		assertEquals(1,this.gameModel.getPileSize());
@@ -38,6 +45,8 @@ public class GameModelTest {
 		assertEquals(100,this.gameModel.getStockSize());
 	}
 
+	/* ========================================= PLAY CARD ========================================= */
+	
 	@Test
 	public void testPlayCard() {
 		Carte randomCard = new Carte(7,Couleur.BLEUE);
@@ -57,20 +66,17 @@ public class GameModelTest {
 	}
 
 	private int playOneCardAndAssertBasedOnPlayability(int currentPileSize, Carte cardToPlay, Carte referenceCard) {
-		//TODO: fix it
-		/*
 		if(cardToPlay.isCompatibleWith(referenceCard)) {
 			int increasedCurrentPileSize = currentPileSize + 1;
-			assertTrue(this.gameModel.playCard(cardToPlay));
+			this.gameModel.playCard(cardToPlay);
+			assertEquals(cardToPlay,this.gameModel.showLastCardPlayed());
 			assertEquals(increasedCurrentPileSize,this.gameModel.getPileSize());
 			return increasedCurrentPileSize;
 		} else {
-			assertFalse(this.gameModel.playCard(cardToPlay));
+			assertEquals(referenceCard,this.gameModel.showLastCardPlayed());
 			assertEquals(currentPileSize,this.gameModel.getPileSize());
 			return currentPileSize;
 		}
-		*/
-		return 0;
 	}
 
 	@Test
@@ -85,4 +91,32 @@ public class GameModelTest {
 			this.gameModel.playCard(c);
 		}
 	}
+	
+	/* ========================================= UTILS ========================================= */
+	
+	@Test
+	public void testGetStockSize() {
+		assertEquals(107,this.gameModel.getStockSize());
+		this.gameModel.drawOneCard();
+		assertEquals(106,this.gameModel.getStockSize());
+		this.gameModel.drawCards(6);
+		assertEquals(100,this.gameModel.getStockSize());
+	}
+	
+	@Test
+	public void testGetPileSize() {
+		assertEquals(1,this.gameModel.getPileSize());
+		Carte firstCard = this.gameModel.showLastCardPlayed();
+		this.gameModel.playCard(generateCompatibleCardFrom(firstCard));
+		assertEquals(2,this.gameModel.getPileSize());
+	}
+	
+	private Carte generateCompatibleCardFrom(Carte firstCard) {
+		if(firstCard.isSpecial()) {
+			return new CarteSpeciale(20,firstCard.getCouleur(),this.mockedEffect);
+		} else {
+			return new Carte(2,firstCard.getCouleur());
+		}
+	}
+	
 }

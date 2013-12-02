@@ -23,6 +23,8 @@ import main.java.cards.model.basics.EffetPlus4;
  */
 class CardGenerator {
 	
+	/* ========================================= COLLECTIONS CREATION ========================================= */
+	
 	/**
 	 * Méthode permettant d'initialiser la pioche en générant les 108 cartes de départ dans un ordre aléatoire
 	 * @return Une Queue contenant les 108 cartes
@@ -37,15 +39,6 @@ class CardGenerator {
 	}
 	
 	/**
-	 * Méthode privée permettant de mélanger une liste de cartes
-	 * @param cards Liste de cartes à mélanger
-	 */
-	private void shuffleCards(List<Carte> cards) {
-		long seed = System.nanoTime();
-		Collections.shuffle(cards, new Random(seed));
-	}
-	
-	/**
 	 * Méthode privée permettant de générer les 108 cartes dans un ordre aléatoire
 	 * @return Une List de carte mélangées
 	 */
@@ -56,6 +49,17 @@ class CardGenerator {
 		shuffleCards(cards);
 		return cards;
 	}
+	
+	/**
+	 * Méthode privée permettant de mélanger une liste de cartes
+	 * @param cards Liste de cartes à mélanger
+	 */
+	private void shuffleCards(List<Carte> cards) {
+		long seed = System.nanoTime();
+		Collections.shuffle(cards, new Random(seed));
+	}
+	
+	/* ========================================= REFILL ========================================= */
 	
 	/**
 	 * Méthode permettant de renvoyer une collection de cartes mélangées à partir d'une collection fournie
@@ -72,7 +76,7 @@ class CardGenerator {
 		return finalCards;
 	}
 	
-	/*=============== CARTES NUMEROTEES ===============*/
+	/* ========================================= NUMBERED CARD CREATION ========================================= */
 	
 	/**
 	 * Méthode permettant de créer toutes les cartes "non-spéciales", donc toutes les cartes numérotées
@@ -123,7 +127,7 @@ class CardGenerator {
 		}
 	}
 	
-	/*=============== CARTES SPECIALES ===============*/
+	/* ========================================= SPECIAL CARD CREATION ========================================= */
 	
 	/**
 	 * Méthode privée permettant de créer toutes les cartes spéciales (colorées, ou joker)
@@ -185,5 +189,5 @@ class CardGenerator {
 		for(int i=0; i<amount; i++) {
 			currentCards.add(new CarteSpeciale(pointsValue,color,effect));
 		}
-	}	
+	}
 }

@@ -1,7 +1,7 @@
-package tests.java.gameContext.controllerTests;
+package tests.java.cards.controller;
 
 import static org.junit.Assert.*;
-
+import static org.mockito.Mockito.mock;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -10,15 +10,27 @@ import java.util.Collection;
 import main.java.cards.model.basics.Carte;
 import main.java.cards.model.basics.Couleur;
 import main.java.cards.controller.GameController;
+import main.java.console.view.View;
 
 public class GameControllerTest {
 	private GameController gameController;
-	//TODO: fix it
-	/*@Before
+	private View mockedView;
+	
+	@Before
 	public void setup() {
-		this.gameController = new GameController();
+		this.mockedView = mock(View.class);
+		this.gameController = new GameController(this.mockedView);
 	}
 
+	/* ========================================= CONSTRUCTOR ========================================= */
+	
+	@Test(expected=NullPointerException.class) 
+	public void testFailToCreateGameControllerDueToNullView() {
+		this.gameController = new GameController(null);
+	}
+	
+	/* ========================================= CARD DRAW ========================================= */
+	
 	@Test
 	public void testDrawCard() {
 		Collection<Carte> cardsDrawn;
@@ -29,9 +41,16 @@ public class GameControllerTest {
 	}
 
 	@Test(expected=IllegalArgumentException.class)
-	public void testFailToDrawCardDueToNullAmount() {
+	public void testFailToDrawCardDueToNegativeAmount() {
 		this.gameController.drawCards(-999);
 	}
+	
+	@Test
+	public void testDrawnOneCard() {
+		assertNotNull(this.gameController.drawOneCard());
+	}
+	
+	/* ========================================= PLAY CARD ========================================= */
 
 	@Test
 	public void testPlayCardAndShowLastCardPlayed() {
@@ -48,9 +67,9 @@ public class GameControllerTest {
 	}
 
 	private void tryToPlayAnotherCardAndReturnLastCardSuccessfullyPlayed(Carte cardToPlay) {
-		
-		/*Carte reference = this.gameController.showLastCardPlayed();
-		if(this.gameController.playCard(cardToPlay)) {
+		Carte reference = this.gameController.showLastCardPlayed();
+		this.gameController.playCard(cardToPlay);
+		if(reference.isCompatibleWith(cardToPlay)) {
 			assertEquals(cardToPlay,this.gameController.showLastCardPlayed());
 		} else {
 			assertEquals(reference,this.gameController.showLastCardPlayed());
@@ -60,5 +79,5 @@ public class GameControllerTest {
 	@Test(expected=NullPointerException.class)
 	public void testFailPlayCardDueToNullCard() {
 		this.gameController.playCard(null);
-	}*/
+	}
 }

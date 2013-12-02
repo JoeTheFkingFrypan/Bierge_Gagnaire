@@ -2,33 +2,37 @@ package tests.java.cards.model.basicsTests;
 
 import static org.junit.Assert.assertEquals;
 import main.java.cards.model.basics.EffetChangerSens;
+import main.java.gameContext.model.GameFlags;
 
 import org.junit.Before;
 import org.junit.Test;
 
-
 public class EffetChangerSensTest {
 	private EffetChangerSens effetChangerSens;
-	private String description;
+	private String expectedDescription;
+	private String expectedString;
+	private GameFlags expectedFlag;
 	
 	@Before
 	public void setup() {
 		this.effetChangerSens = new EffetChangerSens();
-		this.description = "Cette carte permet d'inverser le sens du jeu";
+		this.expectedDescription = "Le sens de jeu est inversé";
+		this.expectedString = "Inversion";
+		this.expectedFlag = GameFlags.INVERSION;
 	}
 	
 	@Test
 	public void testDeclencherEffet() {
-		//this.effetChangerSens.declencherEffet();
+		assertEquals(this.expectedFlag,this.effetChangerSens.declencherEffet());
 	}
 	
 	@Test
 	public void testToString() {
-		assertEquals(description, this.effetChangerSens.toString());
+		assertEquals(this.expectedString, this.effetChangerSens.toString());
 	}
 	
 	@Test
 	public void testAfficherDescription() {
-		assertEquals(description, this.effetChangerSens.afficherDescription());
+		assertEquals(this.expectedDescription, this.effetChangerSens.afficherDescription());
 	}
 }

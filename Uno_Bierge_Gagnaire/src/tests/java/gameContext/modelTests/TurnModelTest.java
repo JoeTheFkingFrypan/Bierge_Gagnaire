@@ -1,10 +1,12 @@
 package tests.java.gameContext.modelTests;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
+import main.java.console.view.View;
 import main.java.gameContext.model.TurnModel;
 import main.java.player.controller.PlayerController;
 
@@ -12,15 +14,17 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class TurnModelTest {
-	/*private TurnModel turnModel;
+	private View mockedView;
+	private TurnModel turnModel;
 	private TurnModel turnModelWithNoPlayer;
 	private Collection<String> playerNames;
 	
 	@Before
 	public void setup() {
+		this.mockedView = mock(View.class);
 		this.playerNames = fillPlayerCollection();
 		this.turnModel = new TurnModel();
-		this.turnModel.createPlayersFrom(this.playerNames);
+		this.turnModel.createPlayersFrom(this.playerNames,this.mockedView);
 		this.turnModelWithNoPlayer = new TurnModel();
 	}
 	
@@ -32,24 +36,16 @@ public class TurnModelTest {
 		return playersNames;
 	}
 	
-	@Test
-	public void testGetNumberOfPlayers() {
-		assertEquals(3,this.turnModel.getNumberOfPlayers());
-		assertEquals(0,this.turnModelWithNoPlayer.getNumberOfPlayers());
-	}
+	/* ========================================= PLAYER CREATION ========================================= */
 	
 	@Test
 	public void testCreatePlayersFrom() {
 		assertEquals(0,this.turnModelWithNoPlayer.getNumberOfPlayers());
-		this.turnModelWithNoPlayer.createPlayersFrom(this.playerNames);
+		this.turnModelWithNoPlayer.createPlayersFrom(this.playerNames,this.mockedView);
 		assertEquals(3,this.turnModelWithNoPlayer.getNumberOfPlayers());
 	}
-	
-	@Test
-	public void testIndicatesDefaultTurnOrder() {
-		assertTrue(this.turnModel.indicatesDefaultTurnOrder());
-		assertTrue(this.turnModelWithNoPlayer.indicatesDefaultTurnOrder());
-	}
+
+	/* ========================================= TURN ORDER ========================================= */
 	
 	@Test
 	public void testReverseTurnOrder() {
@@ -66,8 +62,16 @@ public class TurnModelTest {
 	}
 	
 	@Test
+	public void testIndicatesDefaultTurnOrder() {
+		assertTrue(this.turnModel.indicatesDefaultTurnOrder());
+		assertTrue(this.turnModelWithNoPlayer.indicatesDefaultTurnOrder());
+	}
+	
+	/* ========================================= PLAYER CYCLING ========================================= */
+	
+	@Test
 	public void testCycleThroughPlayersWithDefaultTurnOrder() {
-		this.turnModelWithNoPlayer.createPlayersWithoutScramblingFrom(this.playerNames);
+		this.turnModelWithNoPlayer.createPlayersWithoutScramblingFrom(this.playerNames,this.mockedView);
 		
 		PlayerController currentPlayer = this.turnModelWithNoPlayer.cycleThroughPlayers();
 		assertEquals("player1",currentPlayer.getAlias());
@@ -84,7 +88,7 @@ public class TurnModelTest {
 	
 	@Test
 	public void testCycleThroughPlayersWithReversedTurnOrder() {
-		this.turnModelWithNoPlayer.createPlayersWithoutScramblingFrom(this.playerNames);
+		this.turnModelWithNoPlayer.createPlayersWithoutScramblingFrom(this.playerNames,this.mockedView);
 		this.turnModelWithNoPlayer.reverseCurrentOrder();
 
 		PlayerController currentPlayer = this.turnModelWithNoPlayer.cycleThroughPlayers();
@@ -98,5 +102,13 @@ public class TurnModelTest {
 		
 		currentPlayer = this.turnModelWithNoPlayer.cycleThroughPlayers();
 		assertEquals("player3",currentPlayer.getAlias());
-	}*/
+	}
+	
+	/* ========================================= GETTERS & UTILS ========================================= */
+	
+	@Test
+	public void testGetNumberOfPlayers() {
+		assertEquals(3,this.turnModel.getNumberOfPlayers());
+		assertEquals(0,this.turnModelWithNoPlayer.getNumberOfPlayers());
+	}
 }

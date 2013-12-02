@@ -1,5 +1,8 @@
 package main.java.console.model;
 
+/**
+ * Classe d'exception permettant de remonter les problèmes en liaison avec la console
+ */
 public class ConsoleException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 	

@@ -16,10 +16,14 @@ public class Pioche extends AbstractModel {
 	private CardGenerator generator;
 	private Queue<Carte> pioche;
 	
+	/* ========================================= CONSTRUCTOR ========================================= */
+	
 	public Pioche() {
 		this.generator = new CardGenerator();
 		this.pioche = generateShuffledCards();
 	}
+	
+	/* ========================================= CARD CREATION & REFILL ========================================= */
 	
 	/**
 	 * Méthode privée permettant d'initialiser la pioche (création des 108 cartes dans un ordre aléatoire)
@@ -29,6 +33,32 @@ public class Pioche extends AbstractModel {
 		return this.generator.generateCards();
 	}
 	
+	/**
+	 * Méthode permettant de s'assurer que la pioche a suffisament de cartes pour satisfaire les besoins des joueurs
+	 * @param cardCountToBeDrawn Nombre de cartes devant être piochées
+	 * @return TRUE s'il y a suffisament de cartes, FALSE sinon
+	 */
+	public boolean hasNotEnoughCards(int cardCountToBeDrawn) {
+		Preconditions.checkArgument(cardCountToBeDrawn>0,"[ERROR] Amount of cards drawn must be stricly higher than 0 (Expected : 1+)");
+		return cardCountToBeDrawn > this.size();
+	}
+	
+	/**
+	 * Méthode permettant de remplir la pioche si jamais il n'y a plus suffisament de cartes
+	 * @param givenCards Collection de cartes à utiliser pour reconstituer la pioche
+	 */
+	public void refill(Collection<Carte> givenCards) {
+		Preconditions.checkNotNull(givenCards,"[ERROR] Cannot refill cards : given card collection is null");
+		Preconditions.checkArgument(givenCards.size()>0,"[ERROR] Cannot refill cards : no cards provided");
+		this.pioche = generator.refillCardsFrom(givenCards);
+	}
+	
+	/* ========================================= DRAW CARD ========================================= */
+	
+	/**
+	 * Méthode permettant de tirer une unique carte depuis la pioche
+	 * @return Première carte de la pioche
+	 */
 	public Carte drawOneCard() {
 		Preconditions.checkState(this.pioche.size() >= 1,"[ERROR] Cannont draw [1] card : not enough cards");
 		return pioche.poll();
@@ -48,23 +78,7 @@ public class Pioche extends AbstractModel {
 		return cardsToDeal;
 	}
 		
-	/**
-	 * Méthode permettant de remplir la pioche si jamais il n'y a plus suffisament de cartes
-	 * @param givenCards Collection de cartes à utiliser pour reconstituer la pioche
-	 */
-	public void refill(Collection<Carte> givenCards) {
-		Preconditions.checkNotNull(givenCards,"[ERROR] Cannot refill cards : given card collection is null");
-		Preconditions.checkArgument(givenCards.size()>0,"[ERROR] Cannot refill cards : no cards provided");
-		this.pioche = generator.refillCardsFrom(givenCards);
-	}
-	
-	/**
-	 * Méthode permettant spécifiant la façon dont s'affiche la pioche
-	 */
-	@Override
-	public String toString() {
-		return "[Pioche] Contient actuellement " + this.size() + " cartes";
-	}
+	/* ========================================= GETTERS & UTILS ========================================= */
 	
 	/**
 	 * Méthode permettant de récuperer le nombre de cartes contenues dans la pioche
@@ -72,11 +86,6 @@ public class Pioche extends AbstractModel {
 	 */
 	public int size() {
 		return this.pioche.size();
-	}
-	
-	public boolean hasNotEnoughCards(int cardCountToBeDrawn) {
-		Preconditions.checkArgument(cardCountToBeDrawn>0,"[ERROR] Amount of cards drawn must be stricly higher than 0 (Expected : 1+)");
-		return cardCountToBeDrawn > this.size();
 	}
 	
 	/**
@@ -87,5 +96,13 @@ public class Pioche extends AbstractModel {
 	public Boolean contains(Carte c) {
 		Preconditions.checkNotNull(c,"[ERROR] Cannot verfify if stock contains card, because provided reference is null");
 		return this.pioche.contains(c);
+	}
+	
+	/**
+	 * Méthode permettant spécifiant la façon dont s'affiche la pioche
+	 */
+	@Override
+	public String toString() {
+		return "[Pioche] Contient actuellement " + this.size() + " cartes";
 	}
 }

@@ -1,5 +1,8 @@
 package main.java.main;
 
+/**
+ * Classe d'exception permettant de remonter les problèmes en liaison avec le serveur
+ */
 public class ServerException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 

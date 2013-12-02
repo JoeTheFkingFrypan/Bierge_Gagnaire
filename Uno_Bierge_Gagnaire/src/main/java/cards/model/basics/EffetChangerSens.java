@@ -18,8 +18,6 @@ public class EffetChangerSens implements Effet {
 	
 	@Override
 	public String afficherDescription() {
-		return toString();
+		return "Le sens de jeu est inversé";
 	}
-	
-	//System.out.println("[EFFET DECLENCHE] Le sens de jeu est inversé");
 }

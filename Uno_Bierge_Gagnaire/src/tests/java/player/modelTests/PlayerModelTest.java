@@ -66,35 +66,15 @@ public class PlayerModelTest {
 		this.collectionOfMultipleCards.add(this.c4);
 	}
 	
+	/* ========================================= CONSTRUCTOR ========================================= */
+	
 	@Test(expected=NullPointerException.class)
 	public void failToCreatePlayerNullAlias() {
 		PlayerModel nullAlias = new PlayerModel(null);
 		nullAlias.getAlias();
 	}
 	
-	@Test
-	public void testGetAlias() {
-		assertEquals(this.p1Name, this.p1.getAlias());
-		assertEquals(this.p2Name, this.p2.getAlias());
-	}
-	
-	@Test
-	public void testGetScore() {
-		assertEquals(this.initialScore, this.p1.getScore());
-		assertEquals(this.initialScore, this.p2.getScore());
-	}
-	
-	@Test
-	public void testGetNumberOfCardsInHand() {
-		assertEquals(0,this.p1.getNumberOfCardsInHand());
-		assertEquals(0,this.p2.getNumberOfCardsInHand());
-	}
-	
-	@Test
-	public void testToString() {
-		assertEquals("[JOUEUR] joueur1 a 0 points. Il lui reste 0 cartes en main", this.p1.toString());
-		assertEquals("[JOUEUR] joueur2 a 0 points. Il lui reste 0 cartes en main", this.p2.toString());
-	}
+	/* ========================================= CARD PICKUP ========================================= */
 	
 	@Test
 	public void testPickupCardsUsingCollectionOfMultipleCards() {
@@ -113,6 +93,8 @@ public class PlayerModelTest {
 	public void testFailToPickupCardsDueToEmptyCollection() {
 		this.p1.pickUpCards(this.emptyCollection);
 	}
+	
+	/* ========================================= CARD PLAY ========================================= */
 	
 	@Test
 	public void testPlayCardAssumingPlayerHasAtLeastOne() {
@@ -140,5 +122,31 @@ public class PlayerModelTest {
 	public void failToPlayCardDueToNegativeIndex() {
 		this.p1.pickUpCards(this.collectionOfMultipleCards);
 		this.p1.playCard(-999);
+	}
+	
+	/* ========================================= GETTERS & UTILS ========================================= */
+	
+	@Test
+	public void testGetNumberOfCardsInHand() {
+		assertEquals(0,this.p1.getNumberOfCardsInHand());
+		assertEquals(0,this.p2.getNumberOfCardsInHand());
+	}
+	
+	@Test
+	public void testGetAlias() {
+		assertEquals(this.p1Name, this.p1.getAlias());
+		assertEquals(this.p2Name, this.p2.getAlias());
+	}
+	
+	@Test
+	public void testGetScore() {
+		assertEquals(this.initialScore, this.p1.getScore());
+		assertEquals(this.initialScore, this.p2.getScore());
+	}
+	
+	@Test
+	public void testToString() {
+		assertEquals("[JOUEUR] joueur1 a 0 points. Il lui reste 0 cartes en main", this.p1.toString());
+		assertEquals("[JOUEUR] joueur2 a 0 points. Il lui reste 0 cartes en main", this.p2.toString());
 	}
 }

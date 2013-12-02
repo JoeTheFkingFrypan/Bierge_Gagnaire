@@ -10,6 +10,8 @@ import com.google.common.base.Preconditions;
 public class CarteSpeciale extends Carte {	
 	private final Effet effet;
 
+	/* ========================================= CONSTRUCTOR ========================================= */
+	
 	/**
 	 * Constructeur de carte spéciale, soumis à plusieurs contraintes
 	 * @param valeur Valeur de la carte (doit être supérieure à 0)
@@ -22,14 +24,7 @@ public class CarteSpeciale extends Carte {
 		this.effet = effet;
 	}
 
-	/**
-	 * Méthode permettant de vérifier si une carte est spéciale ou non
-	 * @return TRUE s'il s'agit d'une CarteSpeciale, FALSE sinon
-	 */
-	@Override
-	public Boolean isSpecial() {
-		return true;
-	}
+	/* ========================================= EFFECT ========================================= */
 
 	/**
 	 * Méthode permettant de déclencher l'execution d'un effet
@@ -38,43 +33,8 @@ public class CarteSpeciale extends Carte {
 	public GameFlags declencherEffet() {
 		return this.effet.declencherEffet();
 	}
-
-	/**
-	 * Méthode permettant de récuperer la description d'un effet
-	 * @return String contenant la description de l'effet de la carte
-	 */
-	public String getEffet() {
-		return this.effet.afficherDescription();
-	}
-
-	/*=============== METHODES d'AFFCHAGE ===============*/
-
-	/**
-	 * Méthode permettant spécifiant la façon dont s'affiche une carte spéciale
-	 */
-	@Override
-	public String toString() {
-		return "[CARTE SPECIALE] Valeur=" + super.getValeur() + ", Couleur=" + super.getCouleur() + ", Effet=" + this.effet;
-	}
-
-	/*=============== METHODES de COMPARAISON ===============*/
-
-	/**
-	 * Méthode définissant les critères d'égalité entre deux cartes spéciales
-	 */
-	@Override
-	public boolean equals(Object other) {
-		boolean isSpecialCard = other.getClass().equals(CarteSpeciale.class);
-		if(!isSpecialCard) {
-			return false;
-		} else {
-			CarteSpeciale otherSpecialCard = (CarteSpeciale)other;
-			boolean sameColor = hasSameColorThan(otherSpecialCard.getCouleur());
-			boolean sameValue = hasSameValueThan(otherSpecialCard.getValeur());
-			boolean sameEffect = hasSameEffectThan(otherSpecialCard.getEffet());
-			return sameColor && sameValue && sameEffect;
-		}
-	}
+	
+/* ========================================= ADVANCED COMPARAISON ========================================= */
 	
 	/**
 	 * Méthode permettant de savoir si une carte peut être jouée par dessus la carte actuelle 
@@ -102,5 +62,55 @@ public class CarteSpeciale extends Carte {
 	 */
 	private boolean hasSameEffectThan(String effectFromAnotherCard) {
 		return this.getEffet().equals(effectFromAnotherCard);
+	}
+	
+	
+	
+	/* ========================================= BASIC COMPARAISON ========================================= */
+
+	/**
+	 * Méthode définissant les critères d'égalité entre deux cartes spéciales
+	 */
+	@Override
+	public boolean equals(Object other) {
+		boolean isSpecialCard = other.getClass().equals(CarteSpeciale.class);
+		if(!isSpecialCard) {
+			return false;
+		} else {
+			CarteSpeciale otherSpecialCard = (CarteSpeciale)other;
+			boolean sameColor = hasSameColorThan(otherSpecialCard.getCouleur());
+			boolean sameValue = hasSameValueThan(otherSpecialCard.getValeur());
+			boolean sameEffect = hasSameEffectThan(otherSpecialCard.getEffet());
+			return sameColor && sameValue && sameEffect;
+		}
+	}
+	
+	/* ========================================= GETTERS ========================================= */
+	
+	/**
+	 * Méthode permettant de récuperer la description d'un effet
+	 * @return String contenant la description de l'effet de la carte
+	 */
+	public String getEffet() {
+		return this.effet.afficherDescription();
+	}
+	
+	/**
+	 * Méthode permettant de vérifier si une carte est spéciale ou non
+	 * @return TRUE s'il s'agit d'une CarteSpeciale, FALSE sinon
+	 */
+	@Override
+	public Boolean isSpecial() {
+		return true;
+	}
+
+	/* ========================================= DISPLAY ========================================= */
+
+	/**
+	 * Méthode permettant spécifiant la façon dont s'affiche une carte spéciale
+	 */
+	@Override
+	public String toString() {
+		return "[CARTE SPECIALE] Valeur=" + super.getValeur() + ", Couleur=" + super.getCouleur() + ", Effet=" + this.effet;
 	}
 }

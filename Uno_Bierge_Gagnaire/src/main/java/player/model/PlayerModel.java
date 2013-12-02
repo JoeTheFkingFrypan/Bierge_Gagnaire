@@ -9,13 +9,15 @@ import com.google.common.base.Preconditions;
 import main.java.cards.model.basics.Carte;
 
 /**
- * Classe correspondant à un joueur
+ * Classe correspondant aux données d'un joueur
  */
 public class PlayerModel {
 	private List<Carte> main;
 	private final String alias;
 	private int score;
 
+	/* ========================================= CONSTRUCTOR ========================================= */
+	
 	public PlayerModel(String alias) {
 		Preconditions.checkNotNull(alias);
 		this.main = new ArrayList<Carte>();
@@ -23,28 +25,34 @@ public class PlayerModel {
 		this.score = 0;
 	}
 
-	public int getNumberOfCardsInHand() {
-		return this.main.size();
-	}
+	/* ========================================= CARD PICKUP ========================================= */
 
-	public void pickUpCards(Collection<Carte> c) {
-		Preconditions.checkNotNull(c,"[ERROR] Cannot pickup cards : provided collection is null");
-		Preconditions.checkArgument(c.size() > 0, "[ERROR] Cannot pickup cards : provided collection is empty");
-		this.main.addAll(c);
+	/**
+	 * Méthode permettant de récupérer une collection de cartes et de toutes les ajouter dans la main du joueur
+	 * @param cards Collection de cartes à ajouter dans la main
+	 */
+	public void pickUpCards(Collection<Carte> cards) {
+		Preconditions.checkNotNull(cards,"[ERROR] Cannot pickup cards : provided collection is null");
+		Preconditions.checkArgument(cards.size() > 0, "[ERROR] Cannot pickup cards : provided collection is empty");
+		this.main.addAll(cards);
 	}
 	
+	/**
+	 * Méthode permettant de récupérer une unique carte et de l'ajouter dans la main du joueur
+	 * @param cards Carte à ajouter dans la main
+	 */
 	public void pickUpOneCard(Carte card) {
 		Preconditions.checkNotNull(card,"[ERROR] Cannot pickup card : provided card is null");
 		this.main.add(card);
 	}
+	
+	/* ========================================= CARD PLAY ========================================= */
 
-	public void displayHand() {
-		System.out.println();
-		for(Carte c : this.main) {
-			System.out.println("* " + c);
-		}
-	}
-
+	/**
+	 * Méthode permettant de récupérer la carte choisie par l'utilisateur, sans la retirer de sa main
+	 * @param index Index de la carte choisie
+	 * @return Carte choisie par l'utilsateur
+	 */
 	public Carte peekAtCard(int index) {
 		Preconditions.checkState(this.main.size() > 0, "[ERROR] Cannot play that card : player has no card");
 		Preconditions.checkArgument(index >= 0, "[ERROR] Cannot play that card : provided index must not be negative");
@@ -53,6 +61,11 @@ public class PlayerModel {
 		return cardToPlay;
 	}
 	
+	/**
+	 * Méthode permettant de récupérer la carte choisie par l'utilisateur et de la retirer de sa main
+	 * @param index Index de la carte choisie
+	 * @return Carte choisie par l'utilsateur
+	 */
 	public Carte playCard(int index) {
 		Preconditions.checkState(this.main.size() > 0, "[ERROR] Cannot play that card : player has no card");
 		Preconditions.checkArgument(index >= 0, "[ERROR] Cannot play that card : provided index must not be negative");
@@ -61,22 +74,47 @@ public class PlayerModel {
 		this.main.remove(index);
 		return cardToPlay;
 	}
+	
+	/**
+	 * Méthode permettant de récuperer les cartes dans la main du joueur
+	 * @return Collection comprenant les cartes en main
+	 */
+	public Collection<Carte> getCardsInHand() {
+		Collection<Carte> cardsInHand = this.main;
+		return cardsInHand;
+	}
+	
+	/* ========================================= GETTERS & UTILS ========================================= */
 
+	/**
+	 * Méthode permettant de récuperer le nombre de cartes actuel du joueur
+	 * @return int correspondant au nombre de cartes en main
+	 */ 
+	public int getNumberOfCardsInHand() {
+		return this.main.size();
+	}
+	
+	/**
+	 * Méthode permettant de récuperer le pseudo du joueur
+	 * @return String correspondant au pseudo du joueur
+	 */
 	public String getAlias() {
 		return this.alias;
 	}
 
+	/**
+	 * Méthode permettant de récuperer le score du joueur
+	 * @return int correspondant au score du joueur
+	 */
 	public int getScore() {
 		return this.score;
 	}
 
+	/**
+	 * Méthode définissant la façon dont s'affiche les instances de cette classe
+	 */
 	@Override
 	public String toString() {
 		return "[JOUEUR] " + getAlias() + " a " + getScore() + " points. Il lui reste " + this.main.size() + " cartes en main";
-	}
-
-	public Collection<Carte> getCardsInHand() {
-		Collection<Carte> cardsInHand = this.main;
-		return cardsInHand;
 	}
 }

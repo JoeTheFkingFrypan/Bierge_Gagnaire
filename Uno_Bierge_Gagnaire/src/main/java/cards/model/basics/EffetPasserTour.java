@@ -8,7 +8,7 @@ import main.java.gameContext.model.GameFlags;
 public class EffetPasserTour implements Effet {
 	@Override
 	public GameFlags declencherEffet() {
-		return GameFlags.COLOR_PICK;
+		return GameFlags.INTERDICTION;
 	}
 
 	@Override
@@ -18,8 +18,6 @@ public class EffetPasserTour implements Effet {
 	
 	@Override
 	public String afficherDescription() {
-		return toString();
+		return "Le joueur suivant devra passer son tour";
 	}
-	
-	//System.out.println("[EFFET DECLENCHE] Le joueur suivant devra passer son tour");
 }

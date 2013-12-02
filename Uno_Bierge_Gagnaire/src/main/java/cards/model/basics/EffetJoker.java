@@ -19,8 +19,6 @@ public class EffetJoker implements Effet {
 
 	@Override
 	public String afficherDescription() {
-		return toString();
+		return "Le joueur actuel doit choisir une couleur";
 	}
-	
-	//System.out.println("Le joueur actuel doit choisir une couleur");
 }

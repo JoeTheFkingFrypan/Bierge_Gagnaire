@@ -19,8 +19,6 @@ public class EffetPlus4 implements Effet {
 
 	@Override
 	public String toString() {
-		return afficherDescription();
+		return "Le joueur actuel choisit une couleur et le joueur suivant devra piocher 4 cartes";
 	}
-
-	//System.out.println("[EFFET DECLENCHE] Le joueur actuel choisit une couleur et le joueur suivant devra piocher 4 cartes");
 }

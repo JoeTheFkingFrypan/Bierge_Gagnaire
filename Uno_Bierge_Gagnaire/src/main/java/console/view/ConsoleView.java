@@ -1,6 +1,12 @@
 package main.java.console.view;
 
+/**
+ * Classe d'affichage permettant d'avoir une interface console
+ */
 public class ConsoleView extends View {
+	
+	/* ========================================= CONSTRUCTOR ========================================= */
+	
 	public ConsoleView() {
 		super();
 		clearDisplay();
@@ -8,6 +14,11 @@ public class ConsoleView extends View {
 		displayAuthors();
 	}
 	
+	/* ========================================= HEADER & TITLE DISPLAYS ========================================= */
+	
+	/**
+	 * Méthode privée permettant d'afficher le titre du programme
+	 */
 	private void displayHeader() {
 		this.consoleDisplay.generateRedEmphasis("  UUUUUUUU     UUUUUUUU  NNNNNNNN        NNNNNNNN       OOOOOOOOO     ");
 		this.consoleDisplay.generateRedEmphasis("  U::::::U     U::::::U  N:::::::N       N::::::N     OO:::::::::OO   ");
@@ -28,6 +39,9 @@ public class ConsoleView extends View {
 		this.consoleDisplay.generateRedEmphasis("");
 	}
 	
+	/**
+	 * Méthode privée permettant d'afficher les auteurs du programme
+	 */
 	private void displayAuthors() {
 		this.consoleDisplay.generateGreenEmphasis("  ___  _ ____ ____ ____ ____      /    ____ ____ ____ _  _ ____ _ ____ ____");
 		this.consoleDisplay.generateGreenEmphasis("  |__] | |___ |__/ | __ |___     /     | __ |__| | __ |\\ | |__| | |__/ |___");

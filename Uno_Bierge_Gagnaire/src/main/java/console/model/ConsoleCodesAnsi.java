@@ -1,7 +1,8 @@
 package main.java.console.model;
 
-
-
+/**
+ * Classe contenant une énumération statique de codes ANSI
+ */
 public class ConsoleCodesAnsi {
 	//Styles
 	public static final String ANSI_BOLD = "\u001b[1m";					//Bold

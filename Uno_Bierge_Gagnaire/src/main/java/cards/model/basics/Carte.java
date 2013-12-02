@@ -10,6 +10,8 @@ public class Carte implements Comparable<Carte> {
 	private final int numero;
 	private final Couleur couleur;
 
+	/* ========================================= CONSTRUCTOR ========================================= */
+	
 	/**
 	 * Constructeur de carte, soumis à plusieurs contraintes
 	 * @param valeur Numéro de la carte (doit être supérieure à 0 dans tous les cas, et inférieur à 9 s'il s'agit d'une carte numérotée)
@@ -26,69 +28,7 @@ public class Carte implements Comparable<Carte> {
 		this.couleur = couleur;
 	}
 
-	/**
-	 * Méthode permettant de vérifier si une carte est spéciale ou non
-	 * @return TRUE s'il s'agit d'une CarteSpeciale, FALSE sinon
-	 */
-	public Boolean isSpecial() {
-		return false;
-	}
-
-	/**
-	 * Méthode permettant de récuperer la valeur d'une carte
-	 * @return La valeur de la carte (dans le cas d'une carte numérotée, il s'agit aussi de son numéro)
-	 */
-	public Integer getValeur() {
-		return this.numero;
-	}
-
-	/**
-	 * Méthode permettant de récuperer la couleur d'une carte
-	 * @return La couleur de la carte
-	 */
-	public Couleur getCouleur () {
-		return this.couleur;
-	}
-
-	/*=============== METHODES d'AFFCHAGE ===============*/
-
-	/**
-	 * Méthode permettant spécifiant la façon dont s'affiche une carte
-	 */
-	@Override
-	public String toString() {
-		return "[CARTE NUMEROTEE] Numero=" + this.getValeur() + ", Couleur=" + this.getCouleur();
-	}
-
-	/*=============== METHODES de COMPARAISON ===============*/
-	
-	/**
-	 * Méthode définissant les critères d'égalité entre deux cartes
-	 */
-	@Override
-	public boolean equals(Object other) {
-		boolean isNumberedCard = other.getClass().equals(Carte.class);
-		if(!isNumberedCard) {
-			return false;
-		} else {
-			Carte otherCard = (Carte)other;
-			boolean sameColor = this.getCouleur().equals(otherCard.getCouleur());
-			boolean sameValue = this.getValeur().equals(otherCard.getValeur());
-			return sameColor && sameValue;
-		}
-	}
-
-	/**
-	 * Méthode définissant les critères de comparaison entre deux cartes
-	 */
-	@Override
-	public int compareTo(Carte otherCard) {
-		if(!this.getValeur().equals(otherCard.getValeur())) {
-			return this.getValeur().compareTo(otherCard.getValeur());
-		} else {
-			return this.getCouleur().compareTo(otherCard.getCouleur());
-		}
-	}
+	/* ========================================= ADVANCED COMPARAISON ========================================= */
 	
 	/**
 	 * Méthode permettant de savoir si une carte peut être jouée par dessus la carte actuelle
@@ -114,6 +54,7 @@ public class Carte implements Comparable<Carte> {
 	 * @return TRUE si les 2 couleurs sont identiques, FALSE sinon
 	 */
 	protected boolean hasSameColorThan(Couleur colorFromAnotherCard) {
+		Preconditions.checkNotNull(colorFromAnotherCard,"[ERROR] Cannot verify if both have same color : provided color is null");
 		return this.getCouleur().equals(colorFromAnotherCard);
 	}
 	
@@ -124,5 +65,71 @@ public class Carte implements Comparable<Carte> {
 	 */
 	protected boolean hasSameValueThan(int valueFromAnotherCard) {
 		return this.getValeur().equals(valueFromAnotherCard);
+	}
+	
+	/* ========================================= BASIC COMPARAISON ========================================= */
+	
+	/**
+	 * Méthode définissant les critères d'égalité entre deux cartes
+	 */
+	@Override
+	public boolean equals(Object other) {
+		boolean isNumberedCard = other.getClass().equals(Carte.class);
+		if(!isNumberedCard) {
+			return false;
+		} else {
+			Carte otherCard = (Carte)other;
+			boolean sameColor = hasSameColorThan(otherCard.getCouleur());
+			boolean sameValue = hasSameValueThan(otherCard.getValeur());
+			return sameColor && sameValue;
+		}
+	}
+
+	/**
+	 * Méthode définissant les critères de comparaison entre deux cartes
+	 */
+	@Override
+	public int compareTo(Carte otherCard) {
+		if(hasSameValueThan(otherCard.getValeur())) {
+			return this.getCouleur().compareTo(otherCard.getCouleur());
+		} else {
+			return this.getValeur().compareTo(otherCard.getValeur());
+		}
+	}
+	
+/* ========================================= GETTERS ========================================= */
+	
+	/**
+	 * Méthode permettant de vérifier si une carte est spéciale ou non
+	 * @return TRUE s'il s'agit d'une CarteSpeciale, FALSE sinon
+	 */
+	public Boolean isSpecial() {
+		return false;
+	}
+
+	/**
+	 * Méthode permettant de récuperer la valeur d'une carte
+	 * @return La valeur de la carte (dans le cas d'une carte numérotée, il s'agit aussi de son numéro)
+	 */
+	public Integer getValeur() {
+		return this.numero;
+	}
+
+	/**
+	 * Méthode permettant de récuperer la couleur d'une carte
+	 * @return La couleur de la carte
+	 */
+	public Couleur getCouleur () {
+		return this.couleur;
+	}
+
+	/* ========================================= DISPLAY ========================================= */
+
+	/**
+	 * Méthode permettant spécifiant la façon dont s'affiche une carte
+	 */
+	@Override
+	public String toString() {
+		return "[CARTE NUMEROTEE] Numero=" + this.getValeur() + ", Couleur=" + this.getCouleur();
 	}
 }

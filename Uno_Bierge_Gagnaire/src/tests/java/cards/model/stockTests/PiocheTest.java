@@ -46,6 +46,8 @@ public class PiocheTest {
 		defineBehaviourForMockedObjects();
 	}
 	
+	/* ========================================= CONSTRUCTOR ========================================= */
+	
 	private Queue<Carte> fillCardsInsideQueue() {
 		Queue<Carte> baseQueue = new LinkedList<Carte>();
 		baseQueue.add(this.carte01);
@@ -64,6 +66,77 @@ public class PiocheTest {
 		PowerMockito.doReturn(this.baseQueue.contains(this.carte04)).when(mockedPioche,"contains",this.carte04);
 		PowerMockito.doReturn(this.baseQueue.contains(this.carte05)).when(mockedPioche,"contains",this.carte05);
 	}
+	
+	/* ========================================= CARD CREATION & REFILL ========================================= */
+	
+	@Test
+	public void testHasNotEnoughCards() {
+		assertFalse(this.pioche.hasNotEnoughCards(1));
+		assertFalse(this.pioche.hasNotEnoughCards(107));
+		assertTrue(this.pioche.hasNotEnoughCards(999));
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testFailToHasNotEnoughCards() {
+		this.pioche.hasNotEnoughCards(-999);
+	}
+	
+	@Test
+	public void testRefillCards() {
+		Collection<Carte> givenCards = new ArrayList<Carte>();
+		Carte firstCard = new Carte(1,Couleur.JAUNE);
+		Carte secondCard = new Carte(2,Couleur.JAUNE);
+		Carte thirdCard = new Carte(3,Couleur.JAUNE);
+		givenCards.add(firstCard);
+		givenCards.add(secondCard);
+		givenCards.add(thirdCard);
+		this.pioche.refill(givenCards);
+		assertEquals(3,this.pioche.size());
+		assertTrue(this.pioche.contains(firstCard));
+		assertTrue(this.pioche.contains(secondCard));
+		assertTrue(this.pioche.contains(thirdCard));
+	}
+	
+	@Test(expected=NullPointerException.class)
+	public void testFailToRefillCardsDueToNullCollection() {
+		this.pioche.refill(null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testFailToRefillCardsDueToEmptyCollection() {
+		Collection<Carte> noCards = new ArrayList<Carte>();
+		this.pioche.refill(noCards);
+	}
+	
+	/* ========================================= DRAW CARD ========================================= */
+	
+	@Test
+	public void testDrawCard() {
+		Collection<Carte> cardsDrawn;
+		cardsDrawn = this.pioche.drawCards(1);
+		assertEquals(1,cardsDrawn.size());
+		cardsDrawn = this.pioche.drawCards(7);
+		assertEquals(7,cardsDrawn.size());
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testFailToDrawCardDueToNotEnoughCards() {
+		this.pioche.drawCards(999);
+	}
+	
+	@Test
+	public void testDrawOneCard() {
+		Carte cardDrawn = this.pioche.drawOneCard();
+		assertNotNull(cardDrawn);
+	}
+	
+	@Test(expected=IllegalStateException.class)
+	public void testFailToDrawOneCard() {
+		this.pioche.drawCards(108);
+		this.pioche.drawOneCard();
+	}
+	
+	/* ========================================= GETTERS & UTILS ========================================= */
 	
 	@Test
 	public void testCardCount() {
@@ -96,74 +169,7 @@ public class PiocheTest {
 	}
 	
 	@Test
-	public void testRefillCards() {
-		Collection<Carte> givenCards = new ArrayList<Carte>();
-		Carte firstCard = new Carte(1,Couleur.JAUNE);
-		Carte secondCard = new Carte(2,Couleur.JAUNE);
-		Carte thirdCard = new Carte(3,Couleur.JAUNE);
-		givenCards.add(firstCard);
-		givenCards.add(secondCard);
-		givenCards.add(thirdCard);
-		this.pioche.refill(givenCards);
-		assertEquals(3,this.pioche.size());
-		assertTrue(this.pioche.contains(firstCard));
-		assertTrue(this.pioche.contains(secondCard));
-		assertTrue(this.pioche.contains(thirdCard));
-	}
-	
-	@Test(expected=NullPointerException.class)
-	public void testFailRefillCardsDueToNullCollection() {
-		this.pioche.refill(null);
-	}
-	
-	@Test(expected=IllegalArgumentException.class)
-	public void testFailRefillCardsDueToEmptyCollection() {
-		Collection<Carte> noCards = new ArrayList<Carte>();
-		this.pioche.refill(noCards);
-	}
-	
-	@Test
-	public void testDrawCard() {
-		Collection<Carte> cardsDrawn;
-		cardsDrawn = this.pioche.drawCards(1);
-		assertEquals(1,cardsDrawn.size());
-		cardsDrawn = this.pioche.drawCards(7);
-		assertEquals(7,cardsDrawn.size());
-	}
-	
-	@Test(expected=IllegalArgumentException.class)
-	public void testFailDrawCardDueToNotEnoughCards() {
-		this.pioche.drawCards(999);
-	}
-	
-	@Test
-	public void testDrawOneCard() {
-		Carte cardDrawn = this.pioche.drawOneCard();
-		assertNotNull(cardDrawn);
-	}
-	
-	@Test(expected=IllegalStateException.class)
-	public void testFailDrawOneCard() {
-		this.pioche.drawCards(108);
-		this.pioche.drawOneCard();
-	}
-	
-	@Test
-	public void testHasNotEnoughCards() {
-		assertFalse(this.pioche.hasNotEnoughCards(1));
-		assertFalse(this.pioche.hasNotEnoughCards(107));
-		assertTrue(this.pioche.hasNotEnoughCards(999));
-	}
-	
-	@Test(expected=IllegalArgumentException.class)
-	public void testFailHasNotEnoughCards() {
-		this.pioche.hasNotEnoughCards(-999);
-	}
-	
-	@Test
 	public void testToString() {
 		assertEquals("[Pioche] Contient actuellement 108 cartes",this.pioche.toString());
 	}
-	
-	
 }

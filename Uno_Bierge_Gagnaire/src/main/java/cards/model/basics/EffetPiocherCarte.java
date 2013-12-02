@@ -24,8 +24,6 @@ public class EffetPiocherCarte implements Effet {
 	
 	@Override
 	public String afficherDescription() {
-		return toString();
+		return "Le joueur suivant devra piocher " + this.cartesDevantEtrePiochees + " cartes";
 	}
-	
-	//System.out.println("[EFFET DECLENCHE] Le joueur suivant devra piocher " + this.cartesDevantEtrePiochees + " cartes");
 }

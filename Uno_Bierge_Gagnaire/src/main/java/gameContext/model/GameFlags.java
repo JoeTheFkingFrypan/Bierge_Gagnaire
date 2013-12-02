@@ -1,9 +1,14 @@
 package main.java.gameContext.model;
 
+/**
+ * Enumeration comprenant tous les états de jeu pouvant se produire lors du jeu d'une carte
+ */
 public enum GameFlags {
 	NORMAL,
 	INVERSION,
+	INTERDICTION,
+	COLOR_PICK,
 	PLUS_TWO,
 	PLUS_FOUR,
-	COLOR_PICK
+	PLUS_FOUR_BLUFFING
 }

@@ -40,14 +40,10 @@ public class TalonTest {
 		return stack;	
 	}
 
-	@Test
-	public void testSize() {
-		assertEquals(0,this.emptyStack.size());
-		assertEquals(3,this.filledStack.size());
-	}
+	/* ========================================= PLAY CARD ========================================= */
 	
 	@Test
-	public void testPlayCard() {
+	public void testReceiveCard() {
 		this.emptyStack.receiveCard(this.oneCard);
 		assertEquals(1,this.emptyStack.size());
 		this.emptyStack.receiveCard(this.compatibleCard);
@@ -57,36 +53,33 @@ public class TalonTest {
 	}
 	
 	@Test(expected=NullPointerException.class)
-	public void testFailPlayCardDueToNullCard() {
+	public void testFailToPlayCardDueToNullCard() {
 		this.emptyStack.receiveCard(null);
 	}
 	
 	@Test
-	public void testAccept() {
+	public void testAcceptCard() {
 		this.emptyStack.receiveCard(this.oneCard);
 		assertTrue(this.emptyStack.accept(this.compatibleCard));
 		assertFalse(this.emptyStack.accept(this.incompatibleCard));
 	}
 	
 	@Test(expected=NullPointerException.class)
-	public void testFailAcceptDueToNullCard() {
+	public void testFailToAcceptDueToNullCard() {
 		this.emptyStack.accept(null);
 	}
 	
 	@Test(expected=IllegalStateException.class)
-	public void testFailAcceptDueToLackOfCards() {
+	public void testFailToAcceptDueToLackOfCards() {
 		this.emptyStack.accept(this.oneCard);
 	}
+
+	/* ========================================= EMPTYING (USED TO REFILL) ========================================= */
 	
 	@Test
 	public void testEmptyPile() {
-		Collection<Carte> cardsFromEmptyStack = this.emptyStack.emptyPile();
 		Collection<Carte> cardsFromFilledStack = this.filledStack.emptyPile();
-		//Verification du nombre de carte dans les 2 talons
-		assertEquals(0,this.emptyStack.size());
 		assertEquals(1,this.filledStack.size());
-		//Verification du nombre de carte dans les collections reçues
-		assertEquals(0,cardsFromEmptyStack.size());
 		assertEquals(2,cardsFromFilledStack.size());
 		//Verification des cartes presentes dans la collection où des cartes existent
 		assertFalse(cardsFromFilledStack.contains(this.yetAnotherCard));
@@ -94,11 +87,12 @@ public class TalonTest {
 		assertTrue(cardsFromFilledStack.contains(this.compatibleCard));
 	}
 	
-	@Test
-	public void testToString() {
-		assertEquals("[Talon] 0 cartes ont été jouées",this.emptyStack.toString());
-		assertEquals("[Talon] 3 cartes ont été jouées",this.filledStack.toString());
+	@Test(expected=IllegalStateException.class)
+	public void testFailToEmptyPileDueToPileAlreadyEmpty() {
+		this.emptyStack.emptyPile();
 	}
+	
+	/* ========================================= GETTERS & DISPLAY ========================================= */
 	
 	@Test
 	public void testShowLastCardPlayed() {
@@ -106,5 +100,17 @@ public class TalonTest {
 		assertEquals(this.oneCard,this.emptyStack.showLastCardPlayed());
 		this.emptyStack.receiveCard(this.compatibleCard);
 		assertEquals(this.compatibleCard,this.emptyStack.showLastCardPlayed());
+	}
+	
+	@Test
+	public void testSize() {
+		assertEquals(0,this.emptyStack.size());
+		assertEquals(3,this.filledStack.size());
+	}
+	
+	@Test
+	public void testToString() {
+		assertEquals("[Talon] 0 cartes ont été jouées",this.emptyStack.toString());
+		assertEquals("[Talon] 3 cartes ont été jouées",this.filledStack.toString());
 	}
 }
