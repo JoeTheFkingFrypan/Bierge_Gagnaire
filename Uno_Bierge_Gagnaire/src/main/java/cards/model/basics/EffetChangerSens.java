@@ -13,11 +13,11 @@ public class EffetChangerSens implements Effet {
 
 	@Override
 	public String toString() {
-		return "Inversion";
+		return "Le sens de jeu est inversé";
 	}
 	
 	@Override
 	public String afficherDescription() {
-		return "Le sens de jeu est inversé";
+		return "Inversion";
 	}
 }

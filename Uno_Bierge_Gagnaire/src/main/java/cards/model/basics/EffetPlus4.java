@@ -14,11 +14,11 @@ public class EffetPlus4 implements Effet {
 
 	@Override
 	public String afficherDescription() {
-		return "+4";
+		return "Le joueur actuel choisit une couleur et le joueur suivant devra piocher 4 cartes";
 	}
 
 	@Override
 	public String toString() {
-		return "Le joueur actuel choisit une couleur et le joueur suivant devra piocher 4 cartes";
+		return "+4";
 	}
 }

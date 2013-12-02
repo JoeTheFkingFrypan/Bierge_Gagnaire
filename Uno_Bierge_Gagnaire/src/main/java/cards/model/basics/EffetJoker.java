@@ -14,11 +14,11 @@ public class EffetJoker implements Effet {
 	
 	@Override
 	public String toString() {
-		return "Joker";
+		return "Le joueur actuel doit choisir une couleur";
 	}
 
 	@Override
 	public String afficherDescription() {
-		return "Le joueur actuel doit choisir une couleur";
+		return "Joker";
 	}
 }

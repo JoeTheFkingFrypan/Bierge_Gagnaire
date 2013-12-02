@@ -19,11 +19,11 @@ public class EffetPiocherCarte implements Effet {
 
 	@Override
 	public String toString() {
-		return "+" + this.cartesDevantEtrePiochees;
+		return "Le joueur suivant devra piocher " + this.cartesDevantEtrePiochees + " cartes";
 	}
 	
 	@Override
 	public String afficherDescription() {
-		return "Le joueur suivant devra piocher " + this.cartesDevantEtrePiochees + " cartes";
+		return "+" + this.cartesDevantEtrePiochees;
 	}
 }
