@@ -2,7 +2,9 @@ package main.java.main;
 
 import java.util.Collection;
 
-import main.java.cards.model.basics.Carte;
+import main.java.cards.model.GameModelBean;
+import main.java.cards.model.basics.Card;
+import main.java.cards.model.basics.Color;
 import main.java.console.model.InputReader;
 import main.java.console.view.ConsoleView;
 import main.java.console.view.View;
@@ -19,6 +21,7 @@ public class Server {
 	private static TurnController turnController;
 	private static GameController gameController;
 	private static InputReader inputReader;
+	private static GameFlags gameFlag;
 	private static View consoleView;
 
 	/* ========================================= CONSTRUCTOR ========================================= */
@@ -60,6 +63,7 @@ public class Server {
 	 */
 	private static void initializeGameSettings() {
 		//TODO: settings in a .ini file
+		Server.gameFlag = GameFlags.NORMAL;
 		Server.consoleView.displayTitle("SETTINGS");
 		int playerNumber = askForPlayerNumber();
 		askForPlayerNames(playerNumber);
@@ -89,7 +93,7 @@ public class Server {
 	 */
 	private static void giveAllPlayers7Cards(int playerNumber) {
 		for(int i=0; i<playerNumber; i++) {
-			Collection<Carte> cardsDrawn = Server.gameController.drawCards(7);
+			Collection<Card> cardsDrawn = Server.gameController.drawCards(7);
 			Server.turnController.giveCardsToNextPlayer(cardsDrawn);
 		}
 	}
@@ -103,54 +107,65 @@ public class Server {
 	public void cycleForever() {
 		Server.consoleView.displayTitle("GAME STARTING");
 		while(true) {
-			Carte currentCard = Server.gameController.showLastCardPlayed();
+			GameModelBean requiredGameInfo = Server.gameController.getRequiredGameInfo();
 			PlayerController currentPlayer = Server.turnController.findNextPlayer();
-			playOneTurn(currentCard, currentPlayer);
+			playOneTurn(requiredGameInfo, currentPlayer);
+			applyEffects(currentPlayer);
 		}
 	}
-
+	
 	/**
 	 * Méthode privée permettant de permettre à un joueur de jouer son tour (en lui permettant de piocher si besoin, ou de passer son tour s'il n'a pas de cartes jouables)
-	 * @param currentCard Carte dernièrement jouée (celle sur le talon, donc carte de référence)
+	 * @param gameModelbean Carte dernièrement jouée (celle sur le talon, donc carte de référence)
 	 * @param currentPlayer Joueur actuel
+	 * @param currentColor Couleur globale définie lorsqu'une carte JOKER est jouée (et qu'une couleur est choisie par un joueur)
 	 */
-	private void playOneTurn(Carte currentCard, PlayerController currentPlayer) {
-		if(currentPlayer.hasAtLeastOnePlayableCard(currentCard)) {
-			chooseCardAndPlayIt(currentCard, currentPlayer);
+	private void playOneTurn(GameModelBean gameModelbean, PlayerController currentPlayer) {
+		if(currentPlayer.hasAtLeastOnePlayableCard(gameModelbean)) {
+			chooseCardAndPlayIt(gameModelbean, currentPlayer);
 		} else {
-			Carte cardDrawn = Server.gameController.drawOneCard();
+			Card cardDrawn = Server.gameController.drawOneCard();
 			currentPlayer.pickUpOneCard(cardDrawn);
-			if(currentPlayer.hasAtLeastOnePlayableCard(currentCard)) {
-				System.out.println("WIN");
-				chooseCardAndPlayIt(currentCard, currentPlayer);
+			if(currentPlayer.hasAtLeastOnePlayableCard(gameModelbean)) {
+				chooseCardAndPlayIt(gameModelbean, currentPlayer);
 			} else {
-				System.out.println("NOPE");
-				currentPlayer.unableToPlayThisTurn(currentCard);
+				currentPlayer.unableToPlayThisTurn(gameModelbean);
 			}
 		}
 	}
-
-	/**
-	 * Méthode privée permettant à un joueur de choisir une carte depuis sa main
-	 * @param currentCard Carte dernièrement jouée (celle sur le talon, donc carte de référence)
-	 * @param currentPlayer Joueur actuel
-	 */
-	private void chooseCardAndPlayIt(Carte currentCard, PlayerController currentPlayer) {
-		Carte cardChosen = currentPlayer.startTurn(inputReader,currentCard);
-		GameFlags effect = Server.gameController.playCard(cardChosen);
-		applyEffects(effect);
-	}
-
+	
 	/**
 	 * Méthode privée permettant d'appliquer les effets des cartes spéciales sur la partie
-	 * @param effect Effet provenant de la carte spéciale dernièrement jouée
+	 * @param currentPlayer 
 	 */
 	//TODO: finish applyEffects
-	private void applyEffects(GameFlags effect) {
-		if(effect.equals(GameFlags.INVERSION)) {
+	private void applyEffects(PlayerController currentPlayer) {
+		if(Server.gameFlag.equals(GameFlags.REVERSE)) {
 			Server.turnController.reverseCurrentOrder();
-		} else if(effect.equals(GameFlags.INVERSION)) {
-
-		}
+		} else if(Server.gameFlag.equals(GameFlags.SKIP)) {
+			Server.turnController.skipNextPlayer();
+		} else if(Server.gameFlag.equals(GameFlags.PLUS_TWO)) {
+			Collection<Card> cards = Server.gameController.drawCards(2);
+			Server.turnController.giveCardPenaltyToNextPlayer(cards);
+		} else if(Server.gameFlag.equals(GameFlags.COLOR_PICK)) {
+			Color chosenColor = currentPlayer.hasToChooseColor(Server.inputReader);
+			Server.gameController.setGlobalColor(chosenColor);
+		} else if(Server.gameFlag.equals(GameFlags.PLUS_FOUR)) {
+			Collection<Card> cards = Server.gameController.drawCards(4);
+			Server.turnController.giveCardPenaltyToNextPlayer(cards);
+			Color chosenColor = currentPlayer.hasToChooseColor(Server.inputReader);
+			Server.gameController.setGlobalColor(chosenColor);
+		} 
+		Server.gameFlag = GameFlags.NORMAL;
+	}
+	
+	/**
+	 * Méthode privée permettant à un joueur de choisir une carte depuis sa main
+	 * @param gameModelbean Carte dernièrement jouée (celle sur le talon, donc carte de référence)
+	 * @param currentPlayer Joueur actuel
+	 */
+	private void chooseCardAndPlayIt(GameModelBean gameModelbean, PlayerController currentPlayer) {
+		Card cardChosen = currentPlayer.startTurn(inputReader,gameModelbean);
+		Server.gameFlag = Server.gameController.playCard(cardChosen);
 	}
 }

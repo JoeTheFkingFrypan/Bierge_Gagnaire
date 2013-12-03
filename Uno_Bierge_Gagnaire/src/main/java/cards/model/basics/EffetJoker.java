@@ -5,10 +5,10 @@ import main.java.gameContext.model.GameFlags;
 /**
  * Effet permettant au joueur de choisir la couleur à utiliser
  */
-public class EffetJoker implements Effet {
+public class EffetJoker implements Effect {
 
 	@Override
-	public GameFlags declencherEffet() {
+	public GameFlags triggerEffect() {
 		return GameFlags.COLOR_PICK;
 	}
 	
@@ -18,7 +18,7 @@ public class EffetJoker implements Effet {
 	}
 
 	@Override
-	public String afficherDescription() {
+	public String getDescription() {
 		return "Joker";
 	}
 }

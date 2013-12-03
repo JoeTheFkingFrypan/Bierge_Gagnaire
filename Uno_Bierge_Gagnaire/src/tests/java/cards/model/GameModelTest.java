@@ -7,20 +7,20 @@ import org.junit.Test;
 
 import java.util.Collection;
 
-import main.java.cards.model.basics.Carte;
-import main.java.cards.model.basics.CarteSpeciale;
-import main.java.cards.model.basics.Couleur;
-import main.java.cards.model.basics.Effet;
+import main.java.cards.model.basics.Card;
+import main.java.cards.model.basics.CardSpecial;
+import main.java.cards.model.basics.Color;
+import main.java.cards.model.basics.Effect;
 import main.java.cards.model.GameModel;
 
 public class GameModelTest {
 	private GameModel gameModel;
-	private Effet mockedEffect;
+	private Effect mockedEffect;
 
 	@Before
 	public void setup() {
 		this.gameModel = new GameModel();
-		this.mockedEffect = mock(Effet.class);
+		this.mockedEffect = mock(Effect.class);
 	}
 
 	/* ========================================= CARD DRAW ========================================= */
@@ -29,7 +29,7 @@ public class GameModelTest {
 	public void testDrawOneCard() {
 		assertEquals(1,this.gameModel.getPileSize());
 		assertEquals(107,this.gameModel.getStockSize());
-		Collection<Carte> cardsDrawn = this.gameModel.drawCards(1);
+		Collection<Card> cardsDrawn = this.gameModel.drawCards(1);
 		assertEquals(1,cardsDrawn.size());
 		assertEquals(1,this.gameModel.getPileSize());
 		assertEquals(106,this.gameModel.getStockSize());
@@ -39,7 +39,7 @@ public class GameModelTest {
 	public void testDrawSevenCards() {
 		assertEquals(1,this.gameModel.getPileSize());
 		assertEquals(107,this.gameModel.getStockSize());
-		Collection<Carte> cardsDrawn = this.gameModel.drawCards(7);
+		Collection<Card> cardsDrawn = this.gameModel.drawCards(7);
 		assertEquals(7,cardsDrawn.size());
 		assertEquals(1,this.gameModel.getPileSize());
 		assertEquals(100,this.gameModel.getStockSize());
@@ -49,13 +49,13 @@ public class GameModelTest {
 	
 	@Test
 	public void testPlayCard() {
-		Carte randomCard = new Carte(7,Couleur.BLEUE);
-		Carte anotherRandomCard = new Carte(5,Couleur.BLEUE);
-		Carte yetAnotherRandomCard = new Carte(2,Couleur.ROUGE);
+		Card randomCard = new Card(7,Color.BLUE);
+		Card anotherRandomCard = new Card(5,Color.BLUE);
+		Card yetAnotherRandomCard = new Card(2,Color.RED);
 
 		int expectedPileSize = 1;
 
-		Carte referenceCard = this.gameModel.showLastCardPlayed();
+		Card referenceCard = this.gameModel.showLastCardPlayed();
 		expectedPileSize = playOneCardAndAssertBasedOnPlayability(expectedPileSize,randomCard,referenceCard);
 
 		referenceCard = this.gameModel.showLastCardPlayed();
@@ -65,7 +65,7 @@ public class GameModelTest {
 		expectedPileSize = playOneCardAndAssertBasedOnPlayability(expectedPileSize,yetAnotherRandomCard,referenceCard);
 	}
 
-	private int playOneCardAndAssertBasedOnPlayability(int currentPileSize, Carte cardToPlay, Carte referenceCard) {
+	private int playOneCardAndAssertBasedOnPlayability(int currentPileSize, Card cardToPlay, Card referenceCard) {
 		if(cardToPlay.isCompatibleWith(referenceCard)) {
 			int increasedCurrentPileSize = currentPileSize + 1;
 			this.gameModel.playCard(cardToPlay);
@@ -81,13 +81,14 @@ public class GameModelTest {
 
 	@Test
 	public void testRefillCards() {
-		Collection<Carte> oneHundredAndSevenCards = this.gameModel.drawCards(107);
+		Collection<Card> oneHundredAndSevenCards = this.gameModel.drawCards(107);
 		playAsMuchCardsAsPossibleFrom(oneHundredAndSevenCards);
 		this.gameModel.drawCards(10);
 	}
 
-	private void playAsMuchCardsAsPossibleFrom(Collection<Carte> cardsToPlay) {
-		for(Carte c : cardsToPlay) {
+	//TODO: fix it, fix it, fix it, fix it
+	private void playAsMuchCardsAsPossibleFrom(Collection<Card> cardsToPlay) {
+		for(Card c : cardsToPlay) {
 			this.gameModel.playCard(c);
 		}
 	}
@@ -106,16 +107,16 @@ public class GameModelTest {
 	@Test
 	public void testGetPileSize() {
 		assertEquals(1,this.gameModel.getPileSize());
-		Carte firstCard = this.gameModel.showLastCardPlayed();
+		Card firstCard = this.gameModel.showLastCardPlayed();
 		this.gameModel.playCard(generateCompatibleCardFrom(firstCard));
 		assertEquals(2,this.gameModel.getPileSize());
 	}
 	
-	private Carte generateCompatibleCardFrom(Carte firstCard) {
+	private Card generateCompatibleCardFrom(Card firstCard) {
 		if(firstCard.isSpecial()) {
-			return new CarteSpeciale(20,firstCard.getCouleur(),this.mockedEffect);
+			return new CardSpecial(20,firstCard.getCouleur(),this.mockedEffect);
 		} else {
-			return new Carte(2,firstCard.getCouleur());
+			return new Card(2,firstCard.getCouleur());
 		}
 	}
 	

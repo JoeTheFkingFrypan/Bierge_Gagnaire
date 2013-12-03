@@ -5,19 +5,19 @@ import main.java.gameContext.model.GameFlags;
 /**
  * Effet permettant à un joueur de forcer le joueur suivant à passer son tour
  */
-public class EffetPasserTour implements Effet {
+public class EffectSkip implements Effect {
 	@Override
-	public GameFlags declencherEffet() {
-		return GameFlags.INTERDICTION;
+	public GameFlags triggerEffect() {
+		return GameFlags.SKIP;
 	}
 
 	@Override
 	public String toString() {
-		return "Passe";
+		return "Le joueur suivant devra passer son tour";
 	}
 	
 	@Override
-	public String afficherDescription() {
-		return "Le joueur suivant devra passer son tour";
+	public String getDescription() {
+		return "Passe";
 	}
 }

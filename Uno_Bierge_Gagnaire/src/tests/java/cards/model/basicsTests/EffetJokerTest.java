@@ -23,7 +23,7 @@ public class EffetJokerTest {
 
 	@Test
 	public void testDeclencherEffet() {
-		assertEquals(this.expectedFlag,this.effetJoker.declencherEffet());
+		assertEquals(this.expectedFlag,this.effetJoker.triggerEffect());
 	}
 
 	@Test
@@ -33,6 +33,6 @@ public class EffetJokerTest {
 
 	@Test
 	public void testAfficherDescription() {
-		assertEquals(this.expectedDescription, this.effetJoker.afficherDescription());
+		assertEquals(this.expectedDescription, this.effetJoker.getDescription());
 	}
 }

@@ -1,7 +1,7 @@
 package tests.java.cards.model.basicsTests;
 
 import static org.junit.Assert.assertEquals;
-import main.java.cards.model.basics.EffetPiocherCarte;
+import main.java.cards.model.basics.EffectPlus2;
 import main.java.gameContext.model.GameFlags;
 
 import org.junit.Before;
@@ -9,8 +9,8 @@ import org.junit.Test;
 
 
 public class EffetPiocherCarteTest {
-	private EffetPiocherCarte effetPiocher2Cartes;
-	private EffetPiocherCarte effetPiocher7Cartes;
+	private EffectPlus2 effetPiocher2Cartes;
+	private EffectPlus2 effetPiocher7Cartes;
 	private String expectedDescription2cards;
 	private String expectedDescription7cards;
 	private String expectedString2Cards;
@@ -19,8 +19,8 @@ public class EffetPiocherCarteTest {
 
 	@Before
 	public void setup() {
-		this.effetPiocher2Cartes = new EffetPiocherCarte(2);
-		this.effetPiocher7Cartes = new EffetPiocherCarte(7);
+		this.effetPiocher2Cartes = new EffectPlus2(2);
+		this.effetPiocher7Cartes = new EffectPlus2(7);
 		this.expectedDescription2cards = "Le joueur suivant devra piocher 2 cartes";
 		this.expectedDescription7cards = "Le joueur suivant devra piocher 7 cartes";
 		this.expectedString2Cards = "+2";
@@ -30,8 +30,8 @@ public class EffetPiocherCarteTest {
 
 	@Test
 	public void testDeclencherEffet() {
-		assertEquals(this.expectedFlag,this.effetPiocher2Cartes.declencherEffet());
-		assertEquals(this.expectedFlag,this.effetPiocher7Cartes.declencherEffet());
+		assertEquals(this.expectedFlag,this.effetPiocher2Cartes.triggerEffect());
+		assertEquals(this.expectedFlag,this.effetPiocher7Cartes.triggerEffect());
 	}
 
 	@Test
@@ -42,7 +42,7 @@ public class EffetPiocherCarteTest {
 
 	@Test
 	public void testAfficherDescription() {
-		assertEquals(this.expectedDescription2cards, this.effetPiocher2Cartes.afficherDescription());
-		assertEquals(this.expectedDescription7cards, this.effetPiocher7Cartes.afficherDescription());
+		assertEquals(this.expectedDescription2cards, this.effetPiocher2Cartes.getDescription());
+		assertEquals(this.expectedDescription7cards, this.effetPiocher7Cartes.getDescription());
 	}
 }

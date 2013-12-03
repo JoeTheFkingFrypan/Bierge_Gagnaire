@@ -4,7 +4,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 
-import main.java.cards.model.basics.Carte;
+import com.google.common.base.Preconditions;
+
+import main.java.cards.model.basics.Card;
 import main.java.console.view.View;
 import main.java.player.controller.PlayerController;
 
@@ -76,19 +78,52 @@ public class TurnModel {
 	public boolean indicatesDefaultTurnOrder() {
 		return this.turnOrder.equals(TurnOrder.Clockwise);
 	}
+	
+	/* ========================================= CARD DEAL ========================================= */
+	
+	/**
+	 * Méthode permettant d'intialiser la main d'un joueur
+	 * @param cards Cartes à ajouter dans la main du joueur
+	 */
+	public void giveCardsToNextPlayer(Collection<Card> cards) {
+		PlayerController currentPlayer = cycleThroughPlayers();
+		currentPlayer.pickUpCards(cards);
+	}
+
+	public void giveCardPenaltyToNextPlayer(Collection<Card> cards) {
+		PlayerController currentPlayer = cycleThroughPlayersWithoutChangingCurrentPlayer();
+		currentPlayer.isForcedToPickUpCards(cards);
+	}
 
 	/* ========================================= PLAYER CYCLING ========================================= */
+	
+	public PlayerController findCurrentPlayer() {
+		return this.players.get(this.currentPlayerIndex);
+	}
 	
 	/**
 	 * Méthode permettant de trouver le prochain joueur devant jouer son tour
 	 * @return Le controlleur de joueur associé au joueur dont le tour est venu
 	 */
 	public PlayerController cycleThroughPlayers() {
+		int playerIndex;
 		if(this.indicatesDefaultTurnOrder()) {
-			return this.players.get(findNextPlayerIndex());
+			playerIndex = findNextPlayerIndex();
 		} else {
-			return this.players.get(findPreviousPlayerIndex());
+			playerIndex = findPreviousPlayerIndex();
 		}
+		moveOnToCurrentPlayer(playerIndex);
+		return this.players.get(playerIndex);
+	}
+	
+	public PlayerController cycleThroughPlayersWithoutChangingCurrentPlayer() {
+		int playerIndex;
+		if(this.indicatesDefaultTurnOrder()) {
+			playerIndex = findNextPlayerIndex();
+		} else {
+			playerIndex = findPreviousPlayerIndex();
+		}
+		return this.players.get(playerIndex);
 	}
 
 	/**
@@ -96,11 +131,12 @@ public class TurnModel {
 	 * @return Le controlleur de joueur associé au joueur dont le tour est venu
 	 */
 	private int findNextPlayerIndex() {
-		++(this.currentPlayerIndex);
-		if(this.currentPlayerIndex >= this.players.size()) {
-			this.currentPlayerIndex = 0;
+		int index = getCurrentPlayerIndex();
+		index = index + 1;
+		if(index >= this.players.size()) {
+			return 0;
 		}
-		return this.currentPlayerIndex;
+		return index;
 	}
 
 	/**
@@ -108,12 +144,13 @@ public class TurnModel {
 	 * @return Le controlleur de joueur associé au joueur dont le tour est venu
 	 */
 	private int findPreviousPlayerIndex() {
-		--(this.currentPlayerIndex);
-		if(this.currentPlayerIndex < 0) {
-			this.currentPlayerIndex = this.players.size() - 1;
+		int index = getCurrentPlayerIndex();
+		index = index - 1;
+		if(index < 0) {
+			return this.players.size() - 1;
 		}
-		return this.currentPlayerIndex;
-	}
+		return index;
+	}	
 	
 	/* ========================================= GETTERS & UTILS ========================================= */
 
@@ -124,13 +161,13 @@ public class TurnModel {
 	public int getNumberOfPlayers() {
 		return this.players.size();
 	}
-
-	/**
-	 * Méthode permettant d'intialiser la main d'un joueur
-	 * @param cards Cartes à ajouter dans la main du joueur
-	 */
-	public void giveCardsToNextPlayer(Collection<Carte> cards) {
-		PlayerController currentPlayer = cycleThroughPlayers();
-		currentPlayer.pickUpCards(cards);
+	
+	public int getCurrentPlayerIndex() {
+		return this.currentPlayerIndex;
+	}
+	
+	public void moveOnToCurrentPlayer(int newPlayerIndex) {
+		Preconditions.checkArgument(newPlayerIndex >= 0, "[ERROR] Current index cannot be under 0");
+		this.currentPlayerIndex = newPlayerIndex;
 	}
 }

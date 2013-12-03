@@ -8,32 +8,30 @@ import java.util.Collection;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.java.cards.model.basics.Carte;
-import main.java.cards.model.basics.CarteSpeciale;
-import main.java.cards.model.basics.Couleur;
+import main.java.cards.model.basics.Card;
+import main.java.cards.model.basics.CardSpecial;
+import main.java.cards.model.basics.Color;
 import main.java.cards.model.basics.EffetJoker;
-import main.java.cards.model.pile.Talon;
+import main.java.cards.model.pile.Pile;
 
 public class TalonTest {
-	private Talon emptyStack;
-	private Talon filledStack;
-	private Carte oneCard;
-	private Carte compatibleCard;
-	private Carte yetAnotherCard;
-	private Carte incompatibleCard;
+	private Pile emptyStack;
+	private Pile filledStack;
+	private Card oneCard;
+	private Card compatibleCard;
+	private Card yetAnotherCard;
 	
 	@Before
 	public void setup() {
-		this.oneCard = new Carte(7,Couleur.ROUGE);
-		this.compatibleCard = new Carte(7,Couleur.BLEUE);
-		this.incompatibleCard = new Carte(2,Couleur.JAUNE);
-		this.yetAnotherCard = new CarteSpeciale(20,Couleur.JOKER,new EffetJoker());
-		this.emptyStack = new Talon();
+		this.oneCard = new Card(7,Color.RED);
+		this.compatibleCard = new Card(7,Color.BLUE);
+		this.yetAnotherCard = new CardSpecial(20,Color.JOKER,new EffetJoker());
+		this.emptyStack = new Pile();
 		this.filledStack = fillStackWithCards();
 	}
 	
-	private Talon fillStackWithCards() {
-		Talon stack = new Talon();
+	private Pile fillStackWithCards() {
+		Pile stack = new Pile();
 		stack.receiveCard(this.oneCard);
 		stack.receiveCard(this.compatibleCard);
 		stack.receiveCard(this.yetAnotherCard);
@@ -56,29 +54,12 @@ public class TalonTest {
 	public void testFailToPlayCardDueToNullCard() {
 		this.emptyStack.receiveCard(null);
 	}
-	
-	@Test
-	public void testAcceptCard() {
-		this.emptyStack.receiveCard(this.oneCard);
-		assertTrue(this.emptyStack.accept(this.compatibleCard));
-		assertFalse(this.emptyStack.accept(this.incompatibleCard));
-	}
-	
-	@Test(expected=NullPointerException.class)
-	public void testFailToAcceptDueToNullCard() {
-		this.emptyStack.accept(null);
-	}
-	
-	@Test(expected=IllegalStateException.class)
-	public void testFailToAcceptDueToLackOfCards() {
-		this.emptyStack.accept(this.oneCard);
-	}
 
 	/* ========================================= EMPTYING (USED TO REFILL) ========================================= */
 	
 	@Test
 	public void testEmptyPile() {
-		Collection<Carte> cardsFromFilledStack = this.filledStack.emptyPile();
+		Collection<Card> cardsFromFilledStack = this.filledStack.emptyPile();
 		assertEquals(1,this.filledStack.size());
 		assertEquals(2,cardsFromFilledStack.size());
 		//Verification des cartes presentes dans la collection où des cartes existent

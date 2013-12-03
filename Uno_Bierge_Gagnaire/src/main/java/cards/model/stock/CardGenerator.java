@@ -8,15 +8,15 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Random;
 
-import main.java.cards.model.basics.Carte;
-import main.java.cards.model.basics.CarteSpeciale;
-import main.java.cards.model.basics.Couleur;
-import main.java.cards.model.basics.Effet;
-import main.java.cards.model.basics.EffetChangerSens;
+import main.java.cards.model.basics.Card;
+import main.java.cards.model.basics.CardSpecial;
+import main.java.cards.model.basics.Color;
+import main.java.cards.model.basics.Effect;
+import main.java.cards.model.basics.EffectReverse;
 import main.java.cards.model.basics.EffetJoker;
-import main.java.cards.model.basics.EffetPasserTour;
-import main.java.cards.model.basics.EffetPiocherCarte;
-import main.java.cards.model.basics.EffetPlus4;
+import main.java.cards.model.basics.EffectSkip;
+import main.java.cards.model.basics.EffectPlus2;
+import main.java.cards.model.basics.EffectPlus4;
 
 /**
  * Classe a qui a été délégué le rôle de la création des cartes (et de leur mélange)
@@ -29,10 +29,10 @@ class CardGenerator {
 	 * Méthode permettant d'initialiser la pioche en générant les 108 cartes de départ dans un ordre aléatoire
 	 * @return Une Queue contenant les 108 cartes
 	 */
-	public Queue<Carte> generateCards() {
-		Queue<Carte> queuedCards = new LinkedList<Carte>();
-		List<Carte> cards = generateShuffledCards();
-		for(Carte c : cards) {
+	public Queue<Card> generateCards() {
+		Queue<Card> queuedCards = new LinkedList<Card>();
+		List<Card> cards = generateShuffledCards();
+		for(Card c : cards) {
 			queuedCards.add(c);
 		}
 		return queuedCards;
@@ -42,8 +42,8 @@ class CardGenerator {
 	 * Méthode privée permettant de générer les 108 cartes dans un ordre aléatoire
 	 * @return Une List de carte mélangées
 	 */
-	private List<Carte> generateShuffledCards() {
-		List<Carte> cards = new ArrayList<Carte>();
+	private List<Card> generateShuffledCards() {
+		List<Card> cards = new ArrayList<Card>();
 		cards.addAll(createAllNonSpecialCards());
 		cards.addAll(createAllSpecialCards());
 		shuffleCards(cards);
@@ -54,7 +54,7 @@ class CardGenerator {
 	 * Méthode privée permettant de mélanger une liste de cartes
 	 * @param cards Liste de cartes à mélanger
 	 */
-	private void shuffleCards(List<Carte> cards) {
+	private void shuffleCards(List<Card> cards) {
 		long seed = System.nanoTime();
 		Collections.shuffle(cards, new Random(seed));
 	}
@@ -66,11 +66,11 @@ class CardGenerator {
 	 * @param givenCards Collection de cartes à mélanger
 	 * @return Une Queue contenant les cartes mélangées 
 	 */
-	public Queue<Carte> refillCardsFrom(Collection<Carte> givenCards) {
-		List<Carte> cardsToShuffle = new ArrayList<Carte>(givenCards);
-		Queue<Carte> finalCards = new LinkedList<Carte>();
+	public Queue<Card> refillCardsFrom(Collection<Card> givenCards) {
+		List<Card> cardsToShuffle = new ArrayList<Card>(givenCards);
+		Queue<Card> finalCards = new LinkedList<Card>();
 		shuffleCards(cardsToShuffle);
-		for(Carte c : cardsToShuffle) {
+		for(Card c : cardsToShuffle) {
 			finalCards.add(c);
 		}
 		return finalCards;
@@ -82,12 +82,12 @@ class CardGenerator {
 	 * Méthode permettant de créer toutes les cartes "non-spéciales", donc toutes les cartes numérotées
 	 * @return Liste comprenant toutes les cartes sus-citées (1 carte Zéro et 2 cartes par numéro de 1 à 9 pour chaque couleur)
 	 */
-	private List<Carte> createAllNonSpecialCards() {
-		List<Carte> nonSpecialCards = new ArrayList<Carte>();
-		nonSpecialCards.addAll(createAllCardsWithSpecificColor(Couleur.ROUGE));
-		nonSpecialCards.addAll(createAllCardsWithSpecificColor(Couleur.BLEUE));
-		nonSpecialCards.addAll(createAllCardsWithSpecificColor(Couleur.JAUNE));
-		nonSpecialCards.addAll(createAllCardsWithSpecificColor(Couleur.VERTE));
+	private List<Card> createAllNonSpecialCards() {
+		List<Card> nonSpecialCards = new ArrayList<Card>();
+		nonSpecialCards.addAll(createAllCardsWithSpecificColor(Color.RED));
+		nonSpecialCards.addAll(createAllCardsWithSpecificColor(Color.BLUE));
+		nonSpecialCards.addAll(createAllCardsWithSpecificColor(Color.YELLOW));
+		nonSpecialCards.addAll(createAllCardsWithSpecificColor(Color.GREEN));
 		return nonSpecialCards;
 	}
 	
@@ -96,8 +96,8 @@ class CardGenerator {
 	 * @param color Couleur commune des cartes
 	 * @return Un ensemble de 19 cartes (1 carte Zéro et 2 cartes par numéro de 1 à 9) de même couleur
 	 */
-	private List<Carte> createAllCardsWithSpecificColor(Couleur color) {
-		List<Carte> cardsWithSpecificColor = new ArrayList<Carte>();
+	private List<Card> createAllCardsWithSpecificColor(Color color) {
+		List<Card> cardsWithSpecificColor = new ArrayList<Card>();
 		addAmountOfCardsOf(1, cardsWithSpecificColor, 0, color);
 		addAllOtherColoredNumberedCards(color, cardsWithSpecificColor);
 		return cardsWithSpecificColor;
@@ -108,7 +108,7 @@ class CardGenerator {
 	 * @param color Couleur commune des cartes
 	 * @param currentCards Collection de cartes à remplir
 	 */
-	private void addAllOtherColoredNumberedCards(Couleur color, List<Carte> currentCards) {
+	private void addAllOtherColoredNumberedCards(Color color, List<Card> currentCards) {
 		for(int number=1; number<=9; number++) {
 			addAmountOfCardsOf(2, currentCards, number, color);
 		}
@@ -121,9 +121,9 @@ class CardGenerator {
 	 * @param number Numéro de la carte
 	 * @param color Couleur de la carte
 	 */
-	private void addAmountOfCardsOf(int amount, List<Carte> currentCards, int number, Couleur color) {
+	private void addAmountOfCardsOf(int amount, List<Card> currentCards, int number, Color color) {
 		for(int i=0; i<amount; i++) {
-			currentCards.add(new Carte(number,color));
+			currentCards.add(new Card(number,color));
 		}
 	}
 	
@@ -133,8 +133,8 @@ class CardGenerator {
 	 * Méthode privée permettant de créer toutes les cartes spéciales (colorées, ou joker)
 	 * @return Une collection de cartes contenant uniquement les cartes spéciales
 	 */
-	private List<Carte> createAllSpecialCards() {
-		List<Carte> specialCards = new ArrayList<Carte>();
+	private List<Card> createAllSpecialCards() {
+		List<Card> specialCards = new ArrayList<Card>();
 		specialCards.addAll(createAllColoredSpecialCards());
 		specialCards.addAll(createAllColorlessSpecialCards());
 		return specialCards;
@@ -144,12 +144,12 @@ class CardGenerator {
 	 * Méthode privée permettant de créer toutes les cartes spéciales colorées (6 par couleur)
 	 * @return Une collection de cartes contenant uniquement les cartes spéciales colorées
 	 */
-	private List<Carte> createAllColoredSpecialCards() {
-		List<Carte> coloredSpecialCards = new ArrayList<Carte>();
-		coloredSpecialCards.addAll(createAllSpecialCardsWtihSpecificColor(Couleur.ROUGE));
-		coloredSpecialCards.addAll(createAllSpecialCardsWtihSpecificColor(Couleur.BLEUE));
-		coloredSpecialCards.addAll(createAllSpecialCardsWtihSpecificColor(Couleur.JAUNE));
-		coloredSpecialCards.addAll(createAllSpecialCardsWtihSpecificColor(Couleur.VERTE));
+	private List<Card> createAllColoredSpecialCards() {
+		List<Card> coloredSpecialCards = new ArrayList<Card>();
+		coloredSpecialCards.addAll(createAllSpecialCardsWtihSpecificColor(Color.RED));
+		coloredSpecialCards.addAll(createAllSpecialCardsWtihSpecificColor(Color.BLUE));
+		coloredSpecialCards.addAll(createAllSpecialCardsWtihSpecificColor(Color.YELLOW));
+		coloredSpecialCards.addAll(createAllSpecialCardsWtihSpecificColor(Color.GREEN));
 		return coloredSpecialCards;
 	}
 
@@ -158,11 +158,11 @@ class CardGenerator {
 	 * @param color Couleur commune à toutes les cartes spéciales
 	 * @return Une Collection de cartes contenant uniquement les cartes spéciales numérotées d'une couleur donnée
 	 */
-	private List<Carte> createAllSpecialCardsWtihSpecificColor(Couleur color) {
-		List<Carte> coloredSpecialCards = new ArrayList<Carte>();
-		addAmountOfSpecialCardsOf(2, coloredSpecialCards, 20, color, new EffetPiocherCarte(2));
-		addAmountOfSpecialCardsOf(2, coloredSpecialCards, 20, color, new EffetChangerSens());
-		addAmountOfSpecialCardsOf(2, coloredSpecialCards, 20, color, new EffetPasserTour());
+	private List<Card> createAllSpecialCardsWtihSpecificColor(Color color) {
+		List<Card> coloredSpecialCards = new ArrayList<Card>();
+		addAmountOfSpecialCardsOf(2, coloredSpecialCards, 20, color, new EffectPlus2(2));
+		addAmountOfSpecialCardsOf(2, coloredSpecialCards, 20, color, new EffectReverse());
+		addAmountOfSpecialCardsOf(2, coloredSpecialCards, 20, color, new EffectSkip());
 		return coloredSpecialCards;
 	}
 	
@@ -170,10 +170,10 @@ class CardGenerator {
 	 * Méthode privée permettant de créer les cartes spéciales non colorées (Joker)
 	 * @return Une collection de cartes comprenant uniquement les cartes joker
 	 */
-	private List<Carte> createAllColorlessSpecialCards() {
-		List<Carte> colorlessSpecialCards = new ArrayList<Carte>();
-		addAmountOfSpecialCardsOf(4, colorlessSpecialCards, 50, Couleur.JOKER, new EffetJoker());
-		addAmountOfSpecialCardsOf(4, colorlessSpecialCards, 50, Couleur.JOKER, new EffetPlus4());
+	private List<Card> createAllColorlessSpecialCards() {
+		List<Card> colorlessSpecialCards = new ArrayList<Card>();
+		addAmountOfSpecialCardsOf(4, colorlessSpecialCards, 50, Color.JOKER, new EffetJoker());
+		addAmountOfSpecialCardsOf(4, colorlessSpecialCards, 50, Color.JOKER, new EffectPlus4());
 		return colorlessSpecialCards;
 	}
 	
@@ -185,9 +185,9 @@ class CardGenerator {
 	 * @param color Couleur de la carte
 	 * @param effect Effet de la carte
 	 */
-	private void addAmountOfSpecialCardsOf(int amount, List<Carte> currentCards, int pointsValue, Couleur color, Effet effect) {
+	private void addAmountOfSpecialCardsOf(int amount, List<Card> currentCards, int pointsValue, Color color, Effect effect) {
 		for(int i=0; i<amount; i++) {
-			currentCards.add(new CarteSpeciale(pointsValue,color,effect));
+			currentCards.add(new CardSpecial(pointsValue,color,effect));
 		}
 	}
 }

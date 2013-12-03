@@ -9,18 +9,18 @@ import java.util.Collection;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.java.cards.model.basics.Carte;
-import main.java.cards.model.basics.Couleur;
+import main.java.cards.model.basics.Card;
+import main.java.cards.model.basics.Color;
 import main.java.console.view.View;
 import main.java.player.controller.PlayerController;
 
 public class PlayerControllerTest {
 	private String referenceName;
 	private PlayerController playerController;
-	private ArrayList<Carte> cardsToPickUp;
-	private Carte firstCard;
-	private Carte secondCard;
-	private Carte thirdCard;
+	private ArrayList<Card> cardsToPickUp;
+	private Card firstCard;
+	private Card secondCard;
+	private Card thirdCard;
 	private View mockedView;
 	
 	@Before
@@ -28,10 +28,10 @@ public class PlayerControllerTest {
 		this.mockedView = mock(View.class);
 		this.referenceName = "player1";
 		this.playerController = new PlayerController(this.referenceName,this.mockedView);
-		this.cardsToPickUp = new ArrayList<Carte>();
-		this.firstCard = new Carte(1,Couleur.BLEUE);
-		this.secondCard = new Carte(2,Couleur.VERTE);
-		this.thirdCard = new Carte(1,Couleur.ROUGE);
+		this.cardsToPickUp = new ArrayList<Card>();
+		this.firstCard = new Card(1,Color.BLUE);
+		this.secondCard = new Card(2,Color.GREEN);
+		this.thirdCard = new Card(1,Color.RED);
 		this.cardsToPickUp.add(firstCard);
 		this.cardsToPickUp.add(secondCard);
 		this.cardsToPickUp.add(thirdCard);
@@ -65,7 +65,7 @@ public class PlayerControllerTest {
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testFailPickupCardsDueToEmptyCollection() {
-		Collection<Carte> noCards = new ArrayList<Carte>();
+		Collection<Card> noCards = new ArrayList<Card>();
 		this.playerController.pickUpCards(noCards);
 	}
 	
@@ -80,7 +80,7 @@ public class PlayerControllerTest {
 	
 	@Test
 	public void testPlayCard() {
-		Carte cardChosen;
+		Card cardChosen;
 		
 		//Picking up cards one by one
 		this.playerController.pickUpCards(this.cardsToPickUp);

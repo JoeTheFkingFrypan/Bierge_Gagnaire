@@ -7,8 +7,8 @@ import com.google.common.base.Preconditions;
 /**
  * Classe correspondant à une carte spéciale (carte avec un effet)
  */
-public class CarteSpeciale extends Carte {	
-	private final Effet effet;
+public class CardSpecial extends Card {	
+	private final Effect effet;
 
 	/* ========================================= CONSTRUCTOR ========================================= */
 	
@@ -18,7 +18,7 @@ public class CarteSpeciale extends Carte {
 	 * @param couleur Couleur de la carte (ne doit pas être null)
 	 * @param effet Effet de la carte (ne doit pas être null)
 	 */
-	public CarteSpeciale(int valeur, Couleur couleur, Effet effet) {
+	public CardSpecial(int valeur, Color couleur, Effect effet) {
 		super(valeur, couleur);
 		Preconditions.checkNotNull(effet,"[ERROR] Effect cannot be null");
 		this.effet = effet;
@@ -31,10 +31,20 @@ public class CarteSpeciale extends Carte {
 	 * @return 
 	 */
 	public GameFlags declencherEffet() {
-		return this.effet.declencherEffet();
+		return this.effet.triggerEffect();
 	}
 	
 /* ========================================= ADVANCED COMPARAISON ========================================= */
+	
+	@Override
+	public boolean isCompatibleWith(Card otherCard) {
+		if(otherCard.isSpecial()) {
+			CardSpecial explicitConversionFromOtherCard = (CardSpecial)otherCard;
+			return isCompatibleWithSpecialCard(explicitConversionFromOtherCard);
+		} else {
+			return isCompatibleWithNumberedCard(otherCard);
+		}
+	}
 	
 	/**
 	 * Méthode permettant de savoir si une carte peut être jouée par dessus la carte actuelle 
@@ -42,13 +52,23 @@ public class CarteSpeciale extends Carte {
 	 * @param otherCard Carte que l'on souhaite eventuellement jouer
 	 * @return TRUE si la carte est "compatible" (si elle peut être jouée), false sinon
 	 */
-	public boolean isCompatibleWith(CarteSpeciale otherCard) {
-		//TODO: handle global colors (joker)
+	private boolean isCompatibleWithSpecialCard(CardSpecial otherCard) {
 		if(this.hasSameColorThan(otherCard.getCouleur())) {
 			return true;
 		} else if(this.hasSameEffectThan(otherCard.getEffet())) {
 			return true;
-		} else if(otherCard.getCouleur().equals(Couleur.JOKER)){
+		} else if(otherCard.getCouleur().equals(Color.JOKER)){
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	private boolean isCompatibleWithNumberedCard(Card otherCard) {
+		if(this.hasSameColorThan(otherCard.getCouleur())) {
+			System.out.println("--[SPECIAL] Color match");
+			return true;
+		} else if(otherCard.getCouleur().equals(Color.JOKER)){
 			return true;
 		} else {
 			return false;
@@ -73,11 +93,11 @@ public class CarteSpeciale extends Carte {
 	 */
 	@Override
 	public boolean equals(Object other) {
-		boolean isSpecialCard = other.getClass().equals(CarteSpeciale.class);
+		boolean isSpecialCard = other.getClass().equals(CardSpecial.class);
 		if(!isSpecialCard) {
 			return false;
 		} else {
-			CarteSpeciale otherSpecialCard = (CarteSpeciale)other;
+			CardSpecial otherSpecialCard = (CardSpecial)other;
 			boolean sameColor = hasSameColorThan(otherSpecialCard.getCouleur());
 			boolean sameValue = hasSameValueThan(otherSpecialCard.getValeur());
 			boolean sameEffect = hasSameEffectThan(otherSpecialCard.getEffet());
@@ -92,7 +112,7 @@ public class CarteSpeciale extends Carte {
 	 * @return String contenant la description de l'effet de la carte
 	 */
 	public String getEffet() {
-		return this.effet.afficherDescription();
+		return this.effet.getDescription();
 	}
 	
 	/**

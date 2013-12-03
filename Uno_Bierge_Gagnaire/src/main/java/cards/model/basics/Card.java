@@ -6,9 +6,9 @@ import com.google.common.base.Preconditions;
  * Classe mère correspondant à une carte de jeu (valeur, numéro, couleur)
  * Définit les comportements communs à toutes les cartes
  */
-public class Carte implements Comparable<Carte> {
+public class Card implements Comparable<Card> {
 	private final int numero;
-	private final Couleur couleur;
+	private final Color couleur;
 
 	/* ========================================= CONSTRUCTOR ========================================= */
 	
@@ -17,12 +17,12 @@ public class Carte implements Comparable<Carte> {
 	 * @param valeur Numéro de la carte (doit être supérieure à 0 dans tous les cas, et inférieur à 9 s'il s'agit d'une carte numérotée)
 	 * @param couleur Couleur de la carte (doit être différent de null, et être différent de Joker s'il s'agit d'une carte numérotée)
 	 */
-	public Carte (int valeur, Couleur couleur) {
+	public Card (int valeur, Color couleur) {
 		Preconditions.checkNotNull(couleur,"[ERROR] Color cannot be null");
 		Preconditions.checkArgument(valeur >= 0,"[ERROR] Invalid card number (expected > 0, was : " + valeur + ")");
 		if(!isSpecial()) {
 			Preconditions.checkArgument(valeur <= 9,"[ERROR] Invalid card number (expected 0-9, was : " + valeur + ")");
-			Preconditions.checkArgument(!couleur.equals(Couleur.JOKER),"[ERROR] Invalid card color (expected {ROUGE, BLEUE, VERTE, JAUNE} was : " + couleur + ")");
+			Preconditions.checkArgument(!couleur.equals(Color.JOKER),"[ERROR] Invalid card color (expected {ROUGE, BLEUE, VERTE, JAUNE} was : " + couleur + ")");
 		}
 		this.numero = valeur;
 		this.couleur = couleur;
@@ -35,13 +35,12 @@ public class Carte implements Comparable<Carte> {
 	 * @param otherCard Carte que l'on souhaite eventuellement jouer
 	 * @return TRUE si la carte est "compatible" (si elle peut être jouée), false sinon
 	 */
-	public boolean isCompatibleWith(Carte otherCard) {
-		//TODO: handle global colors (joker)
-		if(this.hasSameColorThan(otherCard.getCouleur())) {
+	public boolean isCompatibleWith(Card otherCard) {
+		if(this.hasSameValueThan(otherCard.getValeur())) {
 			return true;
-		} else if(this.hasSameValueThan(otherCard.getValeur())) {
+		} else if(this.hasSameColorThan(otherCard.getCouleur())) {
 			return true;
-		} else if(otherCard.getCouleur().equals(Couleur.JOKER)){
+		} else if(otherCard.getCouleur().equals(Color.JOKER)){
 			return true;
 		} else {
 			return false;
@@ -53,7 +52,7 @@ public class Carte implements Comparable<Carte> {
 	 * @param colorFromAnotherCard Couleur d'une 2ème carte, passée en paramètre
 	 * @return TRUE si les 2 couleurs sont identiques, FALSE sinon
 	 */
-	protected boolean hasSameColorThan(Couleur colorFromAnotherCard) {
+	protected boolean hasSameColorThan(Color colorFromAnotherCard) {
 		Preconditions.checkNotNull(colorFromAnotherCard,"[ERROR] Cannot verify if both have same color : provided color is null");
 		return this.getCouleur().equals(colorFromAnotherCard);
 	}
@@ -74,11 +73,11 @@ public class Carte implements Comparable<Carte> {
 	 */
 	@Override
 	public boolean equals(Object other) {
-		boolean isNumberedCard = other.getClass().equals(Carte.class);
+		boolean isNumberedCard = other.getClass().equals(Card.class);
 		if(!isNumberedCard) {
 			return false;
 		} else {
-			Carte otherCard = (Carte)other;
+			Card otherCard = (Card)other;
 			boolean sameColor = hasSameColorThan(otherCard.getCouleur());
 			boolean sameValue = hasSameValueThan(otherCard.getValeur());
 			return sameColor && sameValue;
@@ -89,7 +88,7 @@ public class Carte implements Comparable<Carte> {
 	 * Méthode définissant les critères de comparaison entre deux cartes
 	 */
 	@Override
-	public int compareTo(Carte otherCard) {
+	public int compareTo(Card otherCard) {
 		if(hasSameValueThan(otherCard.getValeur())) {
 			return this.getCouleur().compareTo(otherCard.getCouleur());
 		} else {
@@ -119,7 +118,7 @@ public class Carte implements Comparable<Carte> {
 	 * Méthode permettant de récuperer la couleur d'une carte
 	 * @return La couleur de la carte
 	 */
-	public Couleur getCouleur () {
+	public Color getCouleur () {
 		return this.couleur;
 	}
 

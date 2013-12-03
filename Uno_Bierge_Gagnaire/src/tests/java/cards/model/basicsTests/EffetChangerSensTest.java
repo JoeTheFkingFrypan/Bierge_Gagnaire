@@ -1,29 +1,29 @@
 package tests.java.cards.model.basicsTests;
 
 import static org.junit.Assert.assertEquals;
-import main.java.cards.model.basics.EffetChangerSens;
+import main.java.cards.model.basics.EffectReverse;
 import main.java.gameContext.model.GameFlags;
 
 import org.junit.Before;
 import org.junit.Test;
 
 public class EffetChangerSensTest {
-	private EffetChangerSens effetChangerSens;
+	private EffectReverse effetChangerSens;
 	private String expectedDescription;
 	private String expectedString;
 	private GameFlags expectedFlag;
 	
 	@Before
 	public void setup() {
-		this.effetChangerSens = new EffetChangerSens();
+		this.effetChangerSens = new EffectReverse();
 		this.expectedDescription = "Le sens de jeu est inversé";
 		this.expectedString = "Inversion";
-		this.expectedFlag = GameFlags.INVERSION;
+		this.expectedFlag = GameFlags.REVERSE;
 	}
 	
 	@Test
 	public void testDeclencherEffet() {
-		assertEquals(this.expectedFlag,this.effetChangerSens.declencherEffet());
+		assertEquals(this.expectedFlag,this.effetChangerSens.triggerEffect());
 	}
 	
 	@Test
@@ -33,6 +33,6 @@ public class EffetChangerSensTest {
 	
 	@Test
 	public void testAfficherDescription() {
-		assertEquals(this.expectedDescription, this.effetChangerSens.afficherDescription());
+		assertEquals(this.expectedDescription, this.effetChangerSens.getDescription());
 	}
 }

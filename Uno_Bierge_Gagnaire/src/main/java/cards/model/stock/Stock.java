@@ -6,19 +6,19 @@ import java.util.Queue;
 
 import com.google.common.base.Preconditions;
 
-import main.java.cards.model.basics.Carte;
+import main.java.cards.model.basics.Card;
 import main.java.console.model.AbstractModel;
 
 /**
  * Classe permettant de piocher des cartes, comprenant initialement l'ensemble des 108 cartes de jeu
  */
-public class Pioche extends AbstractModel {
+public class Stock extends AbstractModel {
 	private CardGenerator generator;
-	private Queue<Carte> pioche;
+	private Queue<Card> pioche;
 	
 	/* ========================================= CONSTRUCTOR ========================================= */
 	
-	public Pioche() {
+	public Stock() {
 		this.generator = new CardGenerator();
 		this.pioche = generateShuffledCards();
 	}
@@ -29,7 +29,7 @@ public class Pioche extends AbstractModel {
 	 * Méthode privée permettant d'initialiser la pioche (création des 108 cartes dans un ordre aléatoire)
 	 * @return Une Queue contenant toutes les cartes dans un ordre aléatoire
 	 */
-	private Queue<Carte> generateShuffledCards() {
+	private Queue<Card> generateShuffledCards() {
 		return this.generator.generateCards();
 	}
 	
@@ -47,7 +47,7 @@ public class Pioche extends AbstractModel {
 	 * Méthode permettant de remplir la pioche si jamais il n'y a plus suffisament de cartes
 	 * @param givenCards Collection de cartes à utiliser pour reconstituer la pioche
 	 */
-	public void refill(Collection<Carte> givenCards) {
+	public void refill(Collection<Card> givenCards) {
 		Preconditions.checkNotNull(givenCards,"[ERROR] Cannot refill cards : given card collection is null");
 		Preconditions.checkArgument(givenCards.size()>0,"[ERROR] Cannot refill cards : no cards provided");
 		this.pioche = generator.refillCardsFrom(givenCards);
@@ -59,7 +59,7 @@ public class Pioche extends AbstractModel {
 	 * Méthode permettant de tirer une unique carte depuis la pioche
 	 * @return Première carte de la pioche
 	 */
-	public Carte drawOneCard() {
+	public Card drawOneCard() {
 		Preconditions.checkState(this.pioche.size() >= 1,"[ERROR] Cannont draw [1] card : not enough cards");
 		return pioche.poll();
 	}
@@ -69,9 +69,9 @@ public class Pioche extends AbstractModel {
 	 * @param count Nombre de cartes à tirer
 	 * @return Une collection contenant le nombre de cartes donné
 	 */
-	public Collection<Carte> drawCards(int count) {
+	public Collection<Card> drawCards(int count) {
 		Preconditions.checkArgument(this.pioche.size() >= count,"[ERROR] Cannont draw [" + count + "] cards : not enough cards");
-		Collection<Carte> cardsToDeal = new LinkedList<Carte>();
+		Collection<Card> cardsToDeal = new LinkedList<Card>();
 		for(int i=0; i<count; i++) {
 			cardsToDeal.add(pioche.poll());
 		}
@@ -93,7 +93,7 @@ public class Pioche extends AbstractModel {
 	 * @param c Carte dont la présence est à tester
 	 * @return TRUE si la carte est contenue, FALSE sinon
 	 */
-	public Boolean contains(Carte c) {
+	public Boolean contains(Card c) {
 		Preconditions.checkNotNull(c,"[ERROR] Cannot verfify if stock contains card, because provided reference is null");
 		return this.pioche.contains(c);
 	}

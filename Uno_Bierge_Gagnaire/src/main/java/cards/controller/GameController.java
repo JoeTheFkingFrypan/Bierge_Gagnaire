@@ -4,9 +4,11 @@ import java.util.Collection;
 
 import com.google.common.base.Preconditions;
 
-import main.java.cards.model.basics.Carte;
-import main.java.cards.model.basics.CarteSpeciale;
+import main.java.cards.model.basics.Card;
+import main.java.cards.model.basics.CardSpecial;
+import main.java.cards.model.basics.Color;
 import main.java.cards.model.GameModel;
+import main.java.cards.model.GameModelBean;
 import main.java.console.view.View;
 import main.java.gameContext.model.GameFlags;
 
@@ -29,7 +31,7 @@ public class GameController {
 	 * @param count Nombre de carte à tirer
 	 * @return Une collection de cartes contenant les n premières cartes de la pioche
 	 */
-	public Collection<Carte> drawCards(int count) {
+	public Collection<Card> drawCards(int count) {
 		Preconditions.checkArgument(count>0, "[ERROR] Amount of cards drawn must be strictly higher than 0 (Expected : 1+)");
 		return this.gameModel.drawCards(count);
 	}
@@ -38,7 +40,7 @@ public class GameController {
 	 * Méthode permettant de tirer une unique carte
 	 * @return La première carte de la pioche
 	 */
-	public Carte drawOneCard() {
+	public Card drawOneCard() {
 		return this.gameModel.drawOneCard();
 	}
 	
@@ -48,7 +50,7 @@ public class GameController {
 	 * Méthode permettant d'avoir un apperçu de la dernière carte jouée (sans la retirer du talon)
 	 * @return La première carte du talon (la dernière ayant été jouée)
 	 */
-	public Carte showLastCardPlayed() {
+	public Card showLastCardPlayed() {
 		return gameModel.showLastCardPlayed();
 	}
 	
@@ -57,7 +59,7 @@ public class GameController {
 	 * @param chosenCard Carte choisie par le joueur
 	 * @return Une valeur d'énumération correspondant à l'effet qui s'est délenché (ou NORMAL, s'il n'y en a pas eu)
 	 */
-	public GameFlags playCard(Carte chosenCard) {
+	public GameFlags playCard(Card chosenCard) {
 		Preconditions.checkNotNull(chosenCard, "[ERROR] Card to play cannot be null");
 		this.gameModel.playCard(chosenCard);
 		return triggerItsEffectIfItHasOne(chosenCard);
@@ -68,16 +70,39 @@ public class GameController {
 	 * @param chosenCard Carte choisie par le joueur
 	 * @return Une valeur d'énumération correspondant à l'effet qui s'est délenché (ou NORMAL, s'il n'y en a pas eu)
 	 */
-	private GameFlags triggerItsEffectIfItHasOne(Carte chosenCard) {
+	private GameFlags triggerItsEffectIfItHasOne(Card chosenCard) {
 		if(chosenCard.isSpecial()) {
-			CarteSpeciale explicitSpecialCard = (CarteSpeciale)chosenCard;
+			CardSpecial explicitSpecialCard = (CardSpecial)chosenCard;
 			return explicitSpecialCard.declencherEffet();
 		} else {
 			return GameFlags.NORMAL;
 		}
 	}
+
+	public void setGlobalColor(Color chosenColor) {
+		this.consoleView.appendJokerText("Color is now ");
+		appendCorrectColorText(chosenColor);
+		this.gameModel.setGlobalColor(chosenColor);
+		this.consoleView.insertBlankLine();
+	}
 	
-	public void test() {
-		this.consoleView.clearDisplay();
+	private void appendCorrectColorText(Color chosenColor) {
+		if(chosenColor.equals(Color.BLUE)) {
+			this.consoleView.appendBoldBlueText(chosenColor.toString());
+		} else if(chosenColor.equals(Color.RED)) {
+			this.consoleView.appendBoldRedText(chosenColor.toString());
+		} else if(chosenColor.equals(Color.GREEN)) {
+			this.consoleView.appendBoldGreenText(chosenColor.toString());
+		} else if(chosenColor.equals(Color.YELLOW)) {
+			this.consoleView.appendBoldYellowText(chosenColor.toString());
+		}
+	}
+
+	public Color getGlobalColor() {
+		return this.gameModel.getGlobalColor();
+	}
+
+	public GameModelBean getRequiredGameInfo() {
+		return new GameModelBean(showLastCardPlayed(), getGlobalColor(), this.consoleView);
 	}
 }

@@ -5,13 +5,13 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import main.java.cards.model.basics.Carte;
-import main.java.cards.model.basics.CarteSpeciale;
-import main.java.cards.model.basics.Couleur;
-import main.java.cards.model.basics.EffetChangerSens;
+import main.java.cards.model.basics.Card;
+import main.java.cards.model.basics.CardSpecial;
+import main.java.cards.model.basics.Color;
+import main.java.cards.model.basics.EffectReverse;
 import main.java.cards.model.basics.EffetJoker;
-import main.java.cards.model.basics.EffetPiocherCarte;
-import main.java.cards.model.stock.Pioche;
+import main.java.cards.model.basics.EffectPlus2;
+import main.java.cards.model.stock.Stock;
 
 import org.junit.Test;
 import org.junit.Before;
@@ -21,35 +21,35 @@ import static org.junit.Assert.*;
 import org.powermock.api.mockito.PowerMockito;
 
 public class PiocheTest {
-	private Pioche pioche;
-	private Pioche mockedPioche;
-	private Queue<Carte> baseQueue;
-	private Carte carte01;
-	private Carte carte02;
-	private Carte carte03;
-	private Carte carte04;
-	private Carte carte05;
+	private Stock pioche;
+	private Stock mockedPioche;
+	private Queue<Card> baseQueue;
+	private Card carte01;
+	private Card carte02;
+	private Card carte03;
+	private Card carte04;
+	private Card carte05;
 	
 	@Before
 	public void setup() throws Exception {
 		//Création de 5 cartes
-		this.carte01 = new Carte(8,Couleur.ROUGE);
-		this.carte02 = new Carte(0,Couleur.BLEUE);
-		this.carte03 = new CarteSpeciale(20, Couleur.VERTE, new EffetChangerSens());
-		this.carte04 = new CarteSpeciale(20, Couleur.JAUNE, new EffetPiocherCarte(2));
-		this.carte05 = new CarteSpeciale(50, Couleur.JOKER, new EffetJoker());
+		this.carte01 = new Card(8,Color.RED);
+		this.carte02 = new Card(0,Color.BLUE);
+		this.carte03 = new CardSpecial(20, Color.GREEN, new EffectReverse());
+		this.carte04 = new CardSpecial(20, Color.YELLOW, new EffectPlus2(2));
+		this.carte05 = new CardSpecial(50, Color.JOKER, new EffetJoker());
 		//Création des pioches
-		this.pioche = new Pioche();
+		this.pioche = new Stock();
 		this.baseQueue = fillCardsInsideQueue();
 		//Spécifications du comportement des objets mockés
-		this.mockedPioche = PowerMockito.spy(new Pioche());
+		this.mockedPioche = PowerMockito.spy(new Stock());
 		defineBehaviourForMockedObjects();
 	}
 	
 	/* ========================================= CONSTRUCTOR ========================================= */
 	
-	private Queue<Carte> fillCardsInsideQueue() {
-		Queue<Carte> baseQueue = new LinkedList<Carte>();
+	private Queue<Card> fillCardsInsideQueue() {
+		Queue<Card> baseQueue = new LinkedList<Card>();
 		baseQueue.add(this.carte01);
 		baseQueue.add(this.carte02);
 		baseQueue.add(this.carte03);
@@ -83,10 +83,10 @@ public class PiocheTest {
 	
 	@Test
 	public void testRefillCards() {
-		Collection<Carte> givenCards = new ArrayList<Carte>();
-		Carte firstCard = new Carte(1,Couleur.JAUNE);
-		Carte secondCard = new Carte(2,Couleur.JAUNE);
-		Carte thirdCard = new Carte(3,Couleur.JAUNE);
+		Collection<Card> givenCards = new ArrayList<Card>();
+		Card firstCard = new Card(1,Color.YELLOW);
+		Card secondCard = new Card(2,Color.YELLOW);
+		Card thirdCard = new Card(3,Color.YELLOW);
 		givenCards.add(firstCard);
 		givenCards.add(secondCard);
 		givenCards.add(thirdCard);
@@ -104,7 +104,7 @@ public class PiocheTest {
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testFailToRefillCardsDueToEmptyCollection() {
-		Collection<Carte> noCards = new ArrayList<Carte>();
+		Collection<Card> noCards = new ArrayList<Card>();
 		this.pioche.refill(noCards);
 	}
 	
@@ -112,7 +112,7 @@ public class PiocheTest {
 	
 	@Test
 	public void testDrawCard() {
-		Collection<Carte> cardsDrawn;
+		Collection<Card> cardsDrawn;
 		cardsDrawn = this.pioche.drawCards(1);
 		assertEquals(1,cardsDrawn.size());
 		cardsDrawn = this.pioche.drawCards(7);
@@ -126,7 +126,7 @@ public class PiocheTest {
 	
 	@Test
 	public void testDrawOneCard() {
-		Carte cardDrawn = this.pioche.drawOneCard();
+		Card cardDrawn = this.pioche.drawOneCard();
 		assertNotNull(cardDrawn);
 	}
 	
@@ -162,7 +162,7 @@ public class PiocheTest {
 		assertTrue(this.pioche.contains(this.carte05));
 		assertTrue(this.mockedPioche.contains(this.carte05));
 		//N'importe quelle autre carte (valide)
-		Carte carte06 = new Carte(9,Couleur.JAUNE);
+		Card carte06 = new Card(9,Color.YELLOW);
 		PowerMockito.doReturn(this.baseQueue.contains(carte06)).when(mockedPioche,"contains",carte06);
 		assertTrue(this.pioche.contains(carte06));
 		assertFalse(this.mockedPioche.contains(carte06));

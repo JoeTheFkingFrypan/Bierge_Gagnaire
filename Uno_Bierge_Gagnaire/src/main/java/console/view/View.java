@@ -2,9 +2,9 @@ package main.java.console.view;
 
 import java.util.Collection;
 
-import main.java.cards.model.basics.Carte;
-import main.java.cards.model.basics.CarteSpeciale;
-import main.java.cards.model.basics.Couleur;
+import main.java.cards.model.basics.Card;
+import main.java.cards.model.basics.CardSpecial;
+import main.java.cards.model.basics.Color;
 
 
 public abstract class View {
@@ -95,9 +95,9 @@ public abstract class View {
 	 * Méthode permettant d'afficher une collection de cartes complète et d'aller à la ligne
 	 * @param cardsToDisplay Collection de cartes à afficher
 	 */
-	public void displayCardCollection(Collection<Carte> cardsToDisplay) {
+	public void displayCardCollection(Collection<Card> cardsToDisplay) {
 		int index = 0;
-		for(Carte currentCard : cardsToDisplay) {
+		for(Card currentCard : cardsToDisplay) {
 			displayOneCard(currentCard,index++);
 		}
 		insertBlankLine();
@@ -107,7 +107,7 @@ public abstract class View {
 	 * Méthode permettant d'afficher une unique carte et d'aller à la ligne
 	 * @param cardToDisplay Carte à afficher
 	 */
-	public void displayCard(Carte cardToDisplay) {
+	public void displayCard(Card cardToDisplay) {
 		displayOneCard(cardToDisplay);
 		insertBlankLine();
 	}
@@ -116,9 +116,9 @@ public abstract class View {
 	 * Méthode privée permettant d'afficher une carte avec gestion de sa couleur et de son type (numérotée, spéciale)
 	 * @param cardToDisplay Carte à afficher
 	 */
-	private void displayOneCard(Carte cardToDisplay) {
+	private void displayOneCard(Card cardToDisplay) {
 		if(cardToDisplay.isSpecial()) {
-			CarteSpeciale explictSpecialCardToDisplay = (CarteSpeciale)cardToDisplay;
+			CardSpecial explictSpecialCardToDisplay = (CardSpecial)cardToDisplay;
 			displaySpecialCard(explictSpecialCardToDisplay);
 		} else {
 			displayNumberedCard(cardToDisplay);
@@ -130,9 +130,9 @@ public abstract class View {
 	 * @param cardToDisplay Carte à afficher
 	 * @param index Index de la carte 
 	 */
-	private void displayOneCard(Carte cardToDisplay, int index) {
+	private void displayOneCard(Card cardToDisplay, int index) {
 		if(cardToDisplay.isSpecial()) {
-			CarteSpeciale explictSpecialCardToDisplay = (CarteSpeciale)cardToDisplay;
+			CardSpecial explictSpecialCardToDisplay = (CardSpecial)cardToDisplay;
 			displaySpecialCard(explictSpecialCardToDisplay,index);
 		} else {
 			displayNumberedCard(cardToDisplay,index);
@@ -145,16 +145,16 @@ public abstract class View {
 	 * Méthode privée permettant d'afficher une carte spéciale dans la console (avec gestion de la couleur et de son effet)
 	 * @param cardToDisplay Carte à afficher
 	 */
-	private void displaySpecialCard(CarteSpeciale cardToDisplay) {
-		Couleur color = cardToDisplay.getCouleur();
+	private void displaySpecialCard(CardSpecial cardToDisplay) {
+		Color color = cardToDisplay.getCouleur();
 		String effect = cardToDisplay.getEffet();
-		if(color.equals(Couleur.BLEUE)) {
+		if(color.equals(Color.BLUE)) {
 			this.consoleDisplay.appendBlueText("[" + effect + "] ");
-		} else if(color.equals(Couleur.ROUGE)) {
+		} else if(color.equals(Color.RED)) {
 			this.consoleDisplay.appendRedText("[" + effect + "] ");
-		} else if(color.equals(Couleur.VERTE)) {
+		} else if(color.equals(Color.GREEN)) {
 			this.consoleDisplay.appendGreenText("[" + effect + "] ");
-		} else if(color.equals(Couleur.JAUNE)) {
+		} else if(color.equals(Color.YELLOW)) {
 			this.consoleDisplay.appendYellowText("[" + effect + "] ");
 		} else { 	//if(colorFromCard.equals(Couleur.JOKER)
 			this.consoleDisplay.appendJokerText("[" + effect + "] ");
@@ -166,24 +166,24 @@ public abstract class View {
 	 * @param cardToDisplay Carte à afficher
 	 * @param index Index de la carte
 	 */
-	private void displaySpecialCard(CarteSpeciale cardToDisplay, int index) {
-		Couleur color = cardToDisplay.getCouleur();
+	private void displaySpecialCard(CardSpecial cardToDisplay, int index) {
+		Color color = cardToDisplay.getCouleur();
 		String effect = cardToDisplay.getEffet();
-		if(color.equals(Couleur.BLEUE)) {
-			this.consoleDisplay.appendBoldIndex(index);
-			this.consoleDisplay.appendBlueText("[" + effect + "] ");
-		} else if(color.equals(Couleur.ROUGE)) {
-			this.consoleDisplay.appendBoldIndex(index);
-			this.consoleDisplay.appendRedText("[" + effect + "] ");
-		} else if(color.equals(Couleur.VERTE)) {
-			this.consoleDisplay.appendBoldIndex(index);
-			this.consoleDisplay.appendGreenText("[" + effect + "] ");
-		} else if(color.equals(Couleur.JAUNE)) {
-			this.consoleDisplay.appendBoldIndex(index);
-			this.consoleDisplay.appendYellowText("[" + effect + "] ");
+		if(color.equals(Color.BLUE)) {
+			//this.consoleDisplay.appendBoldIndex();
+			this.consoleDisplay.appendBlueText(index + ":[" + effect + "] ");
+		} else if(color.equals(Color.RED)) {
+			//this.consoleDisplay.appendBoldIndex(index);
+			this.consoleDisplay.appendRedText(index + ":[" + effect + "] ");
+		} else if(color.equals(Color.GREEN)) {
+			//this.consoleDisplay.appendBoldIndex(index);
+			this.consoleDisplay.appendGreenText(index + ":[" + effect + "] ");
+		} else if(color.equals(Color.YELLOW)) {
+			//this.consoleDisplay.appendBoldIndex(index);
+			this.consoleDisplay.appendYellowText(index + ":[" + effect + "] ");
 		} else { 	//if(colorFromCard.equals(Couleur.JOKER)
-			this.consoleDisplay.appendBoldIndex(index);
-			this.consoleDisplay.appendJokerText("[" + effect + "] ");
+			//this.consoleDisplay.appendBoldIndex(index);
+			this.consoleDisplay.appendJokerText(index + ":[" + effect + "] ");
 		}
 	}
 	
@@ -193,14 +193,14 @@ public abstract class View {
 	 * Méthode privée permettant d'afficher une carte numérotée (avec gestion de sa couleur) 
 	 * @param cardToDisplay Carte à afficher
 	 */
-	private void displayNumberedCard(Carte cardToDisplay) {
-		Couleur color = cardToDisplay.getCouleur();
+	private void displayNumberedCard(Card cardToDisplay) {
+		Color color = cardToDisplay.getCouleur();
 		int value = cardToDisplay.getValeur();
-		if(color.equals(Couleur.BLEUE)) {
+		if(color.equals(Color.BLUE)) {
 			this.consoleDisplay.appendBlueText("[" + value + "] ");
-		} else if(color.equals(Couleur.ROUGE)) {
+		} else if(color.equals(Color.RED)) {
 			this.consoleDisplay.appendRedText("[" + value + "] ");
-		} else if(color.equals(Couleur.VERTE)) {
+		} else if(color.equals(Color.GREEN)) {
 			this.consoleDisplay.appendGreenText("[" + value + "] ");
 		} else {	//if(colorFromCard.equals(Couleur.JAUNE)
 			this.consoleDisplay.appendYellowText("[" + value + "] ");
@@ -212,21 +212,39 @@ public abstract class View {
 	 * @param cardToDisplay Carte à afficher
 	 * @param index Index de la carte
 	 */
-	private void displayNumberedCard(Carte cardToDisplay, int index) {
-		Couleur color = cardToDisplay.getCouleur();
+	private void displayNumberedCard(Card cardToDisplay, int index) {
+		Color color = cardToDisplay.getCouleur();
 		int value = cardToDisplay.getValeur();
-		if(color.equals(Couleur.BLEUE)) {
-			this.consoleDisplay.appendBoldIndex(index);
-			this.consoleDisplay.appendBlueText("[" + value + "] ");
-		} else if(color.equals(Couleur.ROUGE)) {
-			this.consoleDisplay.appendBoldIndex(index);
-			this.consoleDisplay.appendRedText("[" + value + "] ");
-		} else if(color.equals(Couleur.VERTE)) {
-			this.consoleDisplay.appendBoldIndex(index);
-			this.consoleDisplay.appendGreenText("[" + value + "] ");
+		if(color.equals(Color.BLUE)) {
+			this.consoleDisplay.appendBlueText(index + ":[" + value + "] ");
+		} else if(color.equals(Color.RED)) {
+			this.consoleDisplay.appendRedText(index + ":[" + value + "] ");
+		} else if(color.equals(Color.GREEN)) {
+			this.consoleDisplay.appendGreenText(index + ":[" + value + "] ");
 		} else {	//if(colorFromCard.equals(Couleur.JAUNE)
-			this.consoleDisplay.appendBoldIndex(index);
-			this.consoleDisplay.appendYellowText("[" + value + "] ");
+			this.consoleDisplay.appendYellowText(index + ":[" + value + "] ");
 		}
+	}
+	
+	/* ========================================= STANDARD TEXT ========================================= */
+	
+	public void appendBoldRedText(String text) {
+		this.consoleDisplay.appendRedText(text);
+	}
+	
+	public void appendBoldBlueText(String text) {
+		this.consoleDisplay.appendBlueText(text);
+	}
+	
+	public void appendBoldGreenText(String text) {
+		this.consoleDisplay.appendGreenText(text);
+	}
+	
+	public void appendBoldYellowText(String text) {
+		this.consoleDisplay.appendYellowText(text);
+	}
+
+	public void appendJokerText(String text) {
+		this.consoleDisplay.appendJokerText(text);
 	}
 }

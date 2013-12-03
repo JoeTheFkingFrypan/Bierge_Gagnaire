@@ -5,10 +5,10 @@ import main.java.gameContext.model.GameFlags;
 /**
  * Effet permettant d'inverser le sens de jeu
  */
-public class EffetChangerSens implements Effet {
+public class EffectReverse implements Effect {
 	@Override
-	public GameFlags declencherEffet() {
-		return GameFlags.INVERSION;
+	public GameFlags triggerEffect() {
+		return GameFlags.REVERSE;
 	}
 
 	@Override
@@ -17,7 +17,7 @@ public class EffetChangerSens implements Effet {
 	}
 	
 	@Override
-	public String afficherDescription() {
+	public String getDescription() {
 		return "Inversion";
 	}
 }

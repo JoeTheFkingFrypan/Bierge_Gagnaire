@@ -8,10 +8,10 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.java.cards.model.basics.Carte;
-import main.java.cards.model.basics.CarteSpeciale;
-import main.java.cards.model.basics.Couleur;
-import main.java.cards.model.basics.Effet;
+import main.java.cards.model.basics.Card;
+import main.java.cards.model.basics.CardSpecial;
+import main.java.cards.model.basics.Color;
+import main.java.cards.model.basics.Effect;
 import main.java.player.model.PlayerModel;
 
 public class PlayerModelTest {
@@ -20,14 +20,14 @@ public class PlayerModelTest {
 	private String p2Name;
 	private PlayerModel p1;
 	private PlayerModel p2;
-	private Carte c1;
-	private Carte c2;
-	private CarteSpeciale c3;
-	private CarteSpeciale c4;
-	private Effet mockedEffect;
-	private Collection<Carte> emptyCollection;
-	private Collection<Carte> collectionOfJustOneCard;
-	private Collection<Carte> collectionOfMultipleCards;
+	private Card c1;
+	private Card c2;
+	private CardSpecial c3;
+	private CardSpecial c4;
+	private Effect mockedEffect;
+	private Collection<Card> emptyCollection;
+	private Collection<Card> collectionOfJustOneCard;
+	private Collection<Card> collectionOfMultipleCards;
 	
 	@Before
 	public void setup() {
@@ -48,18 +48,18 @@ public class PlayerModelTest {
 	}
 	
 	private void initializeCards() {
-		this.mockedEffect = mock(Effet.class);
-		this.c1 = new Carte(0,Couleur.BLEUE);
-		this.c2 = new Carte(7,Couleur.VERTE);
-		this.c3 = new CarteSpeciale(20, Couleur.ROUGE, mockedEffect);
-		this.c4 = new CarteSpeciale(50, Couleur.JOKER, mockedEffect);
+		this.mockedEffect = mock(Effect.class);
+		this.c1 = new Card(0,Color.BLUE);
+		this.c2 = new Card(7,Color.GREEN);
+		this.c3 = new CardSpecial(20, Color.RED, mockedEffect);
+		this.c4 = new CardSpecial(50, Color.JOKER, mockedEffect);
 	}
 
 	private void initializeCardCollections() {
-		this.emptyCollection = new ArrayList<Carte>();
-		this.collectionOfJustOneCard = new ArrayList<Carte>();
+		this.emptyCollection = new ArrayList<Card>();
+		this.collectionOfJustOneCard = new ArrayList<Card>();
 		this.collectionOfJustOneCard.add(this.c1);
-		this.collectionOfMultipleCards = new ArrayList<Carte>();
+		this.collectionOfMultipleCards = new ArrayList<Card>();
 		this.collectionOfMultipleCards.add(this.c1);
 		this.collectionOfMultipleCards.add(this.c2);
 		this.collectionOfMultipleCards.add(this.c3);
@@ -102,7 +102,7 @@ public class PlayerModelTest {
 		this.p1.pickUpCards(this.collectionOfJustOneCard);
 		assertEquals(1,this.p1.getNumberOfCardsInHand());
 		//Défausse de cette carte
-		Carte playedCard = this.p1.playCard(0);
+		Card playedCard = this.p1.playCard(0);
 		assertEquals(this.c1,playedCard);
 		assertEquals(0,this.p1.getNumberOfCardsInHand());
 	}

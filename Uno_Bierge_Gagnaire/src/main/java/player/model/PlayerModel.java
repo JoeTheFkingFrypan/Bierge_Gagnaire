@@ -6,13 +6,13 @@ import java.util.List;
 
 import com.google.common.base.Preconditions;
 
-import main.java.cards.model.basics.Carte;
+import main.java.cards.model.basics.Card;
 
 /**
  * Classe correspondant aux données d'un joueur
  */
 public class PlayerModel {
-	private List<Carte> main;
+	private List<Card> main;
 	private final String alias;
 	private int score;
 
@@ -20,7 +20,7 @@ public class PlayerModel {
 	
 	public PlayerModel(String alias) {
 		Preconditions.checkNotNull(alias);
-		this.main = new ArrayList<Carte>();
+		this.main = new ArrayList<Card>();
 		this.alias = alias;
 		this.score = 0;
 	}
@@ -31,7 +31,7 @@ public class PlayerModel {
 	 * Méthode permettant de récupérer une collection de cartes et de toutes les ajouter dans la main du joueur
 	 * @param cards Collection de cartes à ajouter dans la main
 	 */
-	public void pickUpCards(Collection<Carte> cards) {
+	public void pickUpCards(Collection<Card> cards) {
 		Preconditions.checkNotNull(cards,"[ERROR] Cannot pickup cards : provided collection is null");
 		Preconditions.checkArgument(cards.size() > 0, "[ERROR] Cannot pickup cards : provided collection is empty");
 		this.main.addAll(cards);
@@ -41,7 +41,7 @@ public class PlayerModel {
 	 * Méthode permettant de récupérer une unique carte et de l'ajouter dans la main du joueur
 	 * @param cards Carte à ajouter dans la main
 	 */
-	public void pickUpOneCard(Carte card) {
+	public void pickUpOneCard(Card card) {
 		Preconditions.checkNotNull(card,"[ERROR] Cannot pickup card : provided card is null");
 		this.main.add(card);
 	}
@@ -53,11 +53,11 @@ public class PlayerModel {
 	 * @param index Index de la carte choisie
 	 * @return Carte choisie par l'utilsateur
 	 */
-	public Carte peekAtCard(int index) {
+	public Card peekAtCard(int index) {
 		Preconditions.checkState(this.main.size() > 0, "[ERROR] Cannot play that card : player has no card");
 		Preconditions.checkArgument(index >= 0, "[ERROR] Cannot play that card : provided index must not be negative");
 		Preconditions.checkArgument(index < this.main.size(), "[ERROR] Cannot play that card : provided index is too high (doesn't exists for this player)");
-		Carte cardToPlay = this.main.get(index);
+		Card cardToPlay = this.main.get(index);
 		return cardToPlay;
 	}
 	
@@ -66,11 +66,11 @@ public class PlayerModel {
 	 * @param index Index de la carte choisie
 	 * @return Carte choisie par l'utilsateur
 	 */
-	public Carte playCard(int index) {
+	public Card playCard(int index) {
 		Preconditions.checkState(this.main.size() > 0, "[ERROR] Cannot play that card : player has no card");
 		Preconditions.checkArgument(index >= 0, "[ERROR] Cannot play that card : provided index must not be negative");
 		Preconditions.checkArgument(index < this.main.size(), "[ERROR] Cannot play that card : provided index is too high (doesn't exists for this player)");
-		Carte cardToPlay = this.main.get(index);
+		Card cardToPlay = this.main.get(index);
 		this.main.remove(index);
 		return cardToPlay;
 	}
@@ -79,8 +79,8 @@ public class PlayerModel {
 	 * Méthode permettant de récuperer les cartes dans la main du joueur
 	 * @return Collection comprenant les cartes en main
 	 */
-	public Collection<Carte> getCardsInHand() {
-		Collection<Carte> cardsInHand = this.main;
+	public Collection<Card> getCardsInHand() {
+		Collection<Card> cardsInHand = this.main;
 		return cardsInHand;
 	}
 	

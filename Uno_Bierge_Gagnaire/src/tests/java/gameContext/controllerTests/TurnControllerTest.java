@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-import main.java.cards.model.basics.Carte;
-import main.java.cards.model.basics.Couleur;
+import main.java.cards.model.basics.Card;
+import main.java.cards.model.basics.Color;
 import main.java.console.view.View;
 import main.java.gameContext.controller.TurnController;
 import main.java.player.controller.PlayerController;
@@ -68,10 +68,10 @@ public class TurnControllerTest {
 	
 	@Test
 	public void testGiveCardsToNextPlayer() {
-		Carte c1 = new Carte(1,Couleur.BLEUE);
-		Carte c2 = new Carte(2,Couleur.BLEUE);
-		Carte c3 = new Carte(3,Couleur.BLEUE);
-		Collection<Carte> cards = Arrays.asList(c1,c2,c3);
+		Card c1 = new Card(1,Color.BLUE);
+		Card c2 = new Card(2,Color.BLUE);
+		Card c3 = new Card(3,Color.BLUE);
+		Collection<Card> cards = Arrays.asList(c1,c2,c3);
 		this.turnControllerWithoutScramble.giveCardsToNextPlayer(cards);
 		PlayerController currentPlayer = this.turnControllerWithoutScramble.findNextPlayer();
 		assertEquals(10,currentPlayer.getNumberOfCardsInHand());

@@ -5,8 +5,8 @@ package main.java.gameContext.model;
  */
 public enum GameFlags {
 	NORMAL,
-	INVERSION,
-	INTERDICTION,
+	REVERSE,
+	SKIP,
 	COLOR_PICK,
 	PLUS_TWO,
 	PLUS_FOUR,

@@ -5,12 +5,12 @@ import main.java.gameContext.model.GameFlags;
 /**
  * Interface spécifiant les comportements communs de tous les effets
  */
-public interface Effet {
+public interface Effect {
 	/**
 	 * Méthode permettant de déclencher un effet et de récuperer l'état associé
 	 * @return Enumeration d'etat résultat du déclenchement de l'effet
 	 */
-	public GameFlags declencherEffet();
+	public GameFlags triggerEffect();
 	
 	/**
 	 * Méthode permettant d'afficher un effet dans l'interface
@@ -22,5 +22,5 @@ public interface Effet {
 	 * Méthode permettant d'afficher la description d'un effet
 	 * @return String correspondant à la description de l'effet
 	 */
-	public String afficherDescription();
+	public String getDescription();
 }

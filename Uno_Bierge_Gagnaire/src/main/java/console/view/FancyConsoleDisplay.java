@@ -65,7 +65,7 @@ public class FancyConsoleDisplay {
 	 * @param text Texte à afficher
 	 */
 	public void displaySeparationText(String text) {
-		generateBlueEmphasis(text);
+		generateWhiteOnBlueEmphasis(text);
 	}
 
 	/* ========================================= HEADER UTILS ========================================= */
@@ -94,7 +94,7 @@ public class FancyConsoleDisplay {
 	 * Méthode permettant d'afficher un message de séparation dans la console -en blanc sur fond bleu (avec retour à la ligne)
 	 * @param text Texte à afficher
 	 */
-	public void generateBlueEmphasis(String text) {
+	public void generateWhiteOnBlueEmphasis(String text) {
 		text = turnBold(text);
 		text = whiteOnBlue(text);
 		printText(text);
@@ -102,14 +102,7 @@ public class FancyConsoleDisplay {
 
 	/* ========================================= APPEND TEXT ========================================= */
 
-	/**
-	 * Méthode permettant d'ajouter l'index de la carte devant son affichage (pour une sélection plus aisée)
-	 * @param index Index de la carte
-	 */
-	public void appendBoldIndex(Integer index) {
-		String text = turnBold(index.toString() + ":");
-		appendText(text);
-	}
+	
 	
 	/**
 	 * Méthode permettant d'ajouter du texte de couleur bleue dans la console (sans aller à la ligne)

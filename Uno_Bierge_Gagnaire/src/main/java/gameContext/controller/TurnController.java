@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import com.google.common.base.Preconditions;
 
-import main.java.cards.model.basics.Carte;
+import main.java.cards.model.basics.Card;
 import main.java.console.view.View;
 import main.java.gameContext.model.TurnModel;
 import main.java.player.controller.PlayerController;
@@ -50,8 +50,12 @@ public class TurnController {
 	 * Méthode permettant d'initialiser la main des joueurs en leur donnant 7 cartes chacun
 	 * @param cards Collection initiale de 7 cartes
 	 */
-	public void giveCardsToNextPlayer(Collection<Carte> cards) {
+	public void giveCardsToNextPlayer(Collection<Card> cards) {
 		this.turnModel.giveCardsToNextPlayer(cards);
+	}
+	
+	public void giveCardPenaltyToNextPlayer(Collection<Card> cards) {
+		this.turnModel.giveCardPenaltyToNextPlayer(cards);
 	}
 	
 	/* ========================================= TURN ORDER ========================================= */
@@ -60,7 +64,13 @@ public class TurnController {
 	 * Méthode permettant d'inverser le sens dans lequel est choisi le joueur suivant
 	 */
 	public void reverseCurrentOrder() {
+		this.consoleView.appendJokerText("Turn order has been inverted");
+		this.consoleView.insertBlankLine();
 		this.turnModel.reverseCurrentOrder();
+	}
+	
+	public PlayerController findCurrentPlayer() {
+		return this.turnModel.findCurrentPlayer();
 	}
 	
 	/**
@@ -72,5 +82,15 @@ public class TurnController {
 		consoleView.insertBlankLine();
 		consoleView.displaySeparationText("========== Your turn, " + currentPlayer.getAlias() + " ==========");
 		return currentPlayer;
+	}
+
+	public void skipNextPlayer() {
+		PlayerController currentPlayer = this.turnModel.cycleThroughPlayers();
+		consoleView.insertBlankLine();
+		consoleView.displaySeparationText("========== Your turn, " + currentPlayer.getAlias() + " ==========");
+		consoleView.appendJokerText("Sadly, you are not allowed to play this turn");
+		consoleView.insertBlankLine();
+		consoleView.appendJokerText("Previous player used a Skip card");
+		consoleView.insertBlankLine();
 	}
 }

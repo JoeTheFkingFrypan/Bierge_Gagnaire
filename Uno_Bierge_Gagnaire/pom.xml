@@ -4,7 +4,7 @@
 
 	<groupId>Uno_Bierge_Gagnaire</groupId>
 	<artifactId>Uno_Bierge_Gagnaire</artifactId>
-	<version>0.5.0</version>
+	<version>0.7.0</version>
 	<packaging>jar</packaging>
 
 	<name>LO02-UnoProject-Bierge-Gagnaire</name>

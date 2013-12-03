@@ -7,8 +7,8 @@ import org.junit.Test;
 
 import java.util.Collection;
 
-import main.java.cards.model.basics.Carte;
-import main.java.cards.model.basics.Couleur;
+import main.java.cards.model.basics.Card;
+import main.java.cards.model.basics.Color;
 import main.java.cards.controller.GameController;
 import main.java.console.view.View;
 
@@ -33,7 +33,7 @@ public class GameControllerTest {
 	
 	@Test
 	public void testDrawCard() {
-		Collection<Carte> cardsDrawn;
+		Collection<Card> cardsDrawn;
 		cardsDrawn = this.gameController.drawCards(1);
 		assertEquals(1,cardsDrawn.size());
 		cardsDrawn = this.gameController.drawCards(7);
@@ -56,18 +56,18 @@ public class GameControllerTest {
 	public void testPlayCardAndShowLastCardPlayed() {
 		//NOTE: Both methods "playCard" AND "showLastCardPlayed" are tested at the same time
 		//That way we can ensure that every single card is played (or rejected) as intended
-		Carte redCard = new Carte(1,Couleur.ROUGE);
+		Card redCard = new Card(1,Color.RED);
 		tryToPlayAnotherCardAndReturnLastCardSuccessfullyPlayed(redCard);
-		Carte blueCard = new Carte(2,Couleur.BLEUE);
+		Card blueCard = new Card(2,Color.BLUE);
 		tryToPlayAnotherCardAndReturnLastCardSuccessfullyPlayed(blueCard);
-		Carte greenCard = new Carte(3,Couleur.VERTE);
+		Card greenCard = new Card(3,Color.GREEN);
 		tryToPlayAnotherCardAndReturnLastCardSuccessfullyPlayed(greenCard);
-		Carte yellowCard = new Carte(4,Couleur.JAUNE);
+		Card yellowCard = new Card(4,Color.YELLOW);
 		tryToPlayAnotherCardAndReturnLastCardSuccessfullyPlayed(yellowCard);
 	}
 
-	private void tryToPlayAnotherCardAndReturnLastCardSuccessfullyPlayed(Carte cardToPlay) {
-		Carte reference = this.gameController.showLastCardPlayed();
+	private void tryToPlayAnotherCardAndReturnLastCardSuccessfullyPlayed(Card cardToPlay) {
+		Card reference = this.gameController.showLastCardPlayed();
 		this.gameController.playCard(cardToPlay);
 		if(reference.isCompatibleWith(cardToPlay)) {
 			assertEquals(cardToPlay,this.gameController.showLastCardPlayed());

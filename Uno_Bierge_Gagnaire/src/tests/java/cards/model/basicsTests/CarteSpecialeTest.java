@@ -5,31 +5,31 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.java.cards.model.basics.CarteSpeciale;
-import main.java.cards.model.basics.Couleur;
-import main.java.cards.model.basics.Effet;
+import main.java.cards.model.basics.CardSpecial;
+import main.java.cards.model.basics.Color;
+import main.java.cards.model.basics.Effect;
 
 public class CarteSpecialeTest {
 	//Elements composant les différentes cartes
 	private Integer referenceValue;
 	private Integer completelyDifferentValue;
-	private Couleur referenceColor;
-	private Couleur completelyDifferentColor;
-	private Effet referenceMockedEffect;
-	private Effet completelyDifferentMockedEffect;
+	private Color referenceColor;
+	private Color completelyDifferentColor;
+	private Effect referenceMockedEffect;
+	private Effect completelyDifferentMockedEffect;
 	//Cartes
-	private CarteSpeciale referenceCard;
-	private CarteSpeciale compatibleCardSameEffect;
-	private CarteSpeciale compatibleCardSameColor;
-	private CarteSpeciale incompatibleCard;
+	private CardSpecial referenceCard;
+	private CardSpecial compatibleCardSameEffect;
+	private CardSpecial compatibleCardSameColor;
+	private CardSpecial incompatibleCard;
 	
 	@Before
 	public void setup() {
 		initializeAttributesAndDefineBehaviourForMockedObjects();		
-		this.referenceCard = new CarteSpeciale(this.referenceValue, this.referenceColor, this.referenceMockedEffect);
-		this.compatibleCardSameEffect = new CarteSpeciale(this.completelyDifferentValue, this.completelyDifferentColor, this.referenceMockedEffect);
-		this.compatibleCardSameColor = new CarteSpeciale(this.completelyDifferentValue, this.referenceColor, this.completelyDifferentMockedEffect);
-		this.incompatibleCard = new CarteSpeciale(this.referenceValue, this.completelyDifferentColor, this.completelyDifferentMockedEffect);
+		this.referenceCard = new CardSpecial(this.referenceValue, this.referenceColor, this.referenceMockedEffect);
+		this.compatibleCardSameEffect = new CardSpecial(this.completelyDifferentValue, this.completelyDifferentColor, this.referenceMockedEffect);
+		this.compatibleCardSameColor = new CardSpecial(this.completelyDifferentValue, this.referenceColor, this.completelyDifferentMockedEffect);
+		this.incompatibleCard = new CardSpecial(this.referenceValue, this.completelyDifferentColor, this.completelyDifferentMockedEffect);
 	}
 
 	private void initializeAttributesAndDefineBehaviourForMockedObjects() {
@@ -37,34 +37,34 @@ public class CarteSpecialeTest {
 		this.referenceValue = new Integer(50);
 		this.completelyDifferentValue = new Integer(20);
 		//Couleurs
-		this.referenceColor = Couleur.BLEUE;
-		this.completelyDifferentColor = Couleur.ROUGE;
+		this.referenceColor = Color.BLUE;
+		this.completelyDifferentColor = Color.RED;
 		//Effets
-		this.referenceMockedEffect = mock(Effet.class);
-		this.completelyDifferentMockedEffect = mock(Effet.class);
+		this.referenceMockedEffect = mock(Effect.class);
+		this.completelyDifferentMockedEffect = mock(Effect.class);
 		when(this.referenceMockedEffect.toString()).thenReturn("Super effet special");
-		when(this.referenceMockedEffect.afficherDescription()).thenReturn("Super effet special");
+		when(this.referenceMockedEffect.getDescription()).thenReturn("Super effet special");
 		when(this.completelyDifferentMockedEffect.toString()).thenReturn("Super effet special totalement different du premier");
-		when(this.completelyDifferentMockedEffect.afficherDescription()).thenReturn("Super effet special totalement different du premier");
+		when(this.completelyDifferentMockedEffect.getDescription()).thenReturn("Super effet special totalement different du premier");
 	}
 	
 	/* ========================================= CONSTRUCTOR ========================================= */
 	
 	@Test(expected=IllegalArgumentException.class) 
 	public void failToCreateCardValueTooLow() {
-		CarteSpeciale wayTooLowValue = new CarteSpeciale(-999,Couleur.ROUGE,this.referenceMockedEffect);
+		CardSpecial wayTooLowValue = new CardSpecial(-999,Color.RED,this.referenceMockedEffect);
 		wayTooLowValue.isSpecial();
 	}
 	
 	@Test(expected=NullPointerException.class) 
 	public void failToCreateCardValueNullColor() {
-		CarteSpeciale wayTooLowValue = new CarteSpeciale(7,null,this.referenceMockedEffect);
+		CardSpecial wayTooLowValue = new CardSpecial(7,null,this.referenceMockedEffect);
 		wayTooLowValue.isSpecial();
 	}
 	
 	@Test(expected=NullPointerException.class) 
 	public void failToCreateCardValueNullEffect() {
-		CarteSpeciale wayTooLowValue = new CarteSpeciale(7,Couleur.ROUGE,null);
+		CardSpecial wayTooLowValue = new CardSpecial(7,Color.RED,null);
 		wayTooLowValue.isSpecial();
 	}
 	
@@ -93,30 +93,30 @@ public class CarteSpecialeTest {
 		//Same Value = sv -- Different Value = DV
 		//Same Color = sc -- Different Color = DC
 		//Same Effect = se -- Different Effect = DE
-		CarteSpeciale reference = new CarteSpeciale(50, Couleur.BLEUE, this.referenceMockedEffect);
+		CardSpecial reference = new CardSpecial(50, Color.BLUE, this.referenceMockedEffect);
 		
 		//No difference
-		CarteSpeciale sv_sc_se = new CarteSpeciale(50, Couleur.BLEUE, this.referenceMockedEffect);
+		CardSpecial sv_sc_se = new CardSpecial(50, Color.BLUE, this.referenceMockedEffect);
 		assertTrue(reference.equals(sv_sc_se));
 		
 		//One difference
-		CarteSpeciale DV_sc_se = new CarteSpeciale(20, Couleur.BLEUE, this.referenceMockedEffect);
-		CarteSpeciale sv_DC_se = new CarteSpeciale(50, Couleur.ROUGE, this.referenceMockedEffect);
-		CarteSpeciale sv_sc_DE = new CarteSpeciale(50, Couleur.BLEUE, this.completelyDifferentMockedEffect);
+		CardSpecial DV_sc_se = new CardSpecial(20, Color.BLUE, this.referenceMockedEffect);
+		CardSpecial sv_DC_se = new CardSpecial(50, Color.RED, this.referenceMockedEffect);
+		CardSpecial sv_sc_DE = new CardSpecial(50, Color.BLUE, this.completelyDifferentMockedEffect);
 		assertFalse(reference.equals(DV_sc_se));
 		assertFalse(reference.equals(sv_DC_se));
 		assertFalse(reference.equals(sv_sc_DE));
 		
 		//Combinaison of 2 differences
-		CarteSpeciale DV_DC_se = new CarteSpeciale(20, Couleur.ROUGE, this.referenceMockedEffect);
-		CarteSpeciale DV_sc_DE = new CarteSpeciale(20, Couleur.BLEUE, this.completelyDifferentMockedEffect);
-		CarteSpeciale sv_DC_DE = new CarteSpeciale(50, Couleur.ROUGE, this.completelyDifferentMockedEffect);
+		CardSpecial DV_DC_se = new CardSpecial(20, Color.RED, this.referenceMockedEffect);
+		CardSpecial DV_sc_DE = new CardSpecial(20, Color.BLUE, this.completelyDifferentMockedEffect);
+		CardSpecial sv_DC_DE = new CardSpecial(50, Color.RED, this.completelyDifferentMockedEffect);
 		assertFalse(reference.equals(DV_DC_se));
 		assertFalse(reference.equals(DV_sc_DE));
 		assertFalse(reference.equals(sv_DC_DE));
 		
 		//Everything different
-		CarteSpeciale DV_DC_DE = new CarteSpeciale(20, Couleur.ROUGE, this.completelyDifferentMockedEffect);
+		CardSpecial DV_DC_DE = new CardSpecial(20, Color.RED, this.completelyDifferentMockedEffect);
 		assertFalse(reference.equals(DV_DC_DE));
 	}
 	

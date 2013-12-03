@@ -2,8 +2,8 @@ package main.java.player.IA;
 
 import java.util.ArrayList;
 
-import main.java.cards.model.basics.Carte;
+import main.java.cards.model.basics.Card;
 
 public interface CardPickerStrategy {
-	public Carte choseCardFrom(ArrayList<Carte> cards);
+	public Card choseCardFrom(ArrayList<Card> cards);
 }
