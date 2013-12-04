@@ -44,7 +44,22 @@ public class GameController {
 		return this.gameModel.drawOneCard();
 	}
 	
+	public GameFlags applyEffectFromFirstCard() {
+		Card firstCard = showLastCardPlayed();
+		return applyEffectFromCardIfITHasOne(firstCard);
+	}
+	
+	public GameFlags applyEffectFromAnotherFirstCard() {
+		Card c = this.gameModel.drawOneCard();
+		this.gameModel.playCard(c);
+		return applyEffectFromCardIfITHasOne(c);
+	}
+	
 	/* ========================================= PLAY CARD ========================================= */
+	
+	public GameFlags applyEffectFromCardIfITHasOne(Card firstCard) {
+		return triggerItsEffectIfItHasOne(firstCard);
+	}
 	
 	/**
 	 * Méthode permettant d'avoir un apperçu de la dernière carte jouée (sans la retirer du talon)

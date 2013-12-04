@@ -4,6 +4,7 @@ import main.java.gameContext.model.GameFlags;
 
 import com.google.common.base.Preconditions;
 
+
 /**
  * Classe correspondant à une carte spéciale (carte avec un effet)
  */
@@ -66,7 +67,6 @@ public class CardSpecial extends Card {
 	
 	private boolean isCompatibleWithNumberedCard(Card otherCard) {
 		if(this.hasSameColorThan(otherCard.getCouleur())) {
-			System.out.println("--[SPECIAL] Color match");
 			return true;
 		} else if(otherCard.getCouleur().equals(Color.JOKER)){
 			return true;

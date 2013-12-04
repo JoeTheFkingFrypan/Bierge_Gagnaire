@@ -16,8 +16,8 @@ public class EffetChangerSensTest {
 	@Before
 	public void setup() {
 		this.effetChangerSens = new EffectReverse();
-		this.expectedDescription = "Le sens de jeu est inversé";
-		this.expectedString = "Inversion";
+		this.expectedDescription = "Inversion";
+		this.expectedString = "Le sens de jeu est inversé";
 		this.expectedFlag = GameFlags.REVERSE;
 	}
 	

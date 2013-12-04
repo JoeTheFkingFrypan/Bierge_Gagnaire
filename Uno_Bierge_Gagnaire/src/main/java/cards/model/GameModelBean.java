@@ -80,7 +80,6 @@ public class GameModelBean {
 	private boolean globalComparaisonIsEnough(Card currentCard) {
 		if(globalColorIsSet()) {
 			if(currentCard.getCouleur().equals(this.globalColor)) {
-				System.out.println("--Global color matched : ["+this.globalColor+"] .vs. ["+currentCard.getCouleur()+"]");
 				return true;
 			}
 		}

@@ -168,9 +168,9 @@ public class CarteSpecialeTest {
 	
 	@Test
 	public void testAffichageCarte() {
-		assertEquals("[CARTE SPECIALE] Valeur=50, Couleur=BLEUE, Effet=Super effet special",this.referenceCard.toString());
-		assertEquals("[CARTE SPECIALE] Valeur=20, Couleur=ROUGE, Effet=Super effet special",this.compatibleCardSameEffect.toString());
-		assertEquals("[CARTE SPECIALE] Valeur=20, Couleur=BLEUE, Effet=Super effet special totalement different du premier",this.compatibleCardSameColor.toString());
-		assertEquals("[CARTE SPECIALE] Valeur=50, Couleur=ROUGE, Effet=Super effet special totalement different du premier",this.incompatibleCard.toString());
+		assertEquals("[CARTE SPECIALE] Valeur=50, Couleur=BLUE, Effet=Super effet special",this.referenceCard.toString());
+		assertEquals("[CARTE SPECIALE] Valeur=20, Couleur=RED, Effet=Super effet special",this.compatibleCardSameEffect.toString());
+		assertEquals("[CARTE SPECIALE] Valeur=20, Couleur=BLUE, Effet=Super effet special totalement different du premier",this.compatibleCardSameColor.toString());
+		assertEquals("[CARTE SPECIALE] Valeur=50, Couleur=RED, Effet=Super effet special totalement different du premier",this.incompatibleCard.toString());
 	}
 }

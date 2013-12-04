@@ -16,8 +16,8 @@ public class EffetJokerTest {
 	@Before
 	public void setup() {
 		this.effetJoker = new EffetJoker();
-		this.expectedDescription = "Le joueur actuel doit choisir une couleur";
-		this.expectedString = "Joker";
+		this.expectedString = "Le joueur actuel doit choisir une couleur";
+		this.expectedDescription = "Joker";
 		this.expectedFlag = GameFlags.COLOR_PICK;
 	}
 

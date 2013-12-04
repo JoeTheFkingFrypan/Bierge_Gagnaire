@@ -68,13 +68,16 @@ public class TurnControllerTest {
 	
 	@Test
 	public void testGiveCardsToNextPlayer() {
+		//TODO: fix it
 		Card c1 = new Card(1,Color.BLUE);
 		Card c2 = new Card(2,Color.BLUE);
 		Card c3 = new Card(3,Color.BLUE);
 		Collection<Card> cards = Arrays.asList(c1,c2,c3);
+		Collection<String> playerNames =generatePlayers();
+		this.turnControllerWithoutScramble.createPlayersWithoutScamblingFrom(playerNames);
+		PlayerController currentPlayer = this.turnControllerWithoutScramble.findNextPlayerWithoutChangingCurrentPlayer();
 		this.turnControllerWithoutScramble.giveCardsToNextPlayer(cards);
-		PlayerController currentPlayer = this.turnControllerWithoutScramble.findNextPlayer();
-		assertEquals(10,currentPlayer.getNumberOfCardsInHand());
+		assertEquals(3,currentPlayer.getNumberOfCardsInHand());
 	}
 	
 	/* ========================================= TURN ORDER ========================================= */

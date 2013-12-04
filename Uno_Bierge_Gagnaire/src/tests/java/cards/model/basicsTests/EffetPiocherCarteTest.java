@@ -21,10 +21,10 @@ public class EffetPiocherCarteTest {
 	public void setup() {
 		this.effetPiocher2Cartes = new EffectPlus2(2);
 		this.effetPiocher7Cartes = new EffectPlus2(7);
-		this.expectedDescription2cards = "Le joueur suivant devra piocher 2 cartes";
-		this.expectedDescription7cards = "Le joueur suivant devra piocher 7 cartes";
-		this.expectedString2Cards = "+2";
-		this.expectedString7Cards = "+7";
+		this.expectedString2Cards = "Le joueur suivant devra piocher 2 cartes";
+		this.expectedString7Cards = "Le joueur suivant devra piocher 7 cartes";
+		this.expectedDescription2cards = "+2";
+		this.expectedDescription7cards = "+7";
 		this.expectedFlag = GameFlags.PLUS_TWO;
 	}
 

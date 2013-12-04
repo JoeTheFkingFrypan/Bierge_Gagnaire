@@ -170,4 +170,12 @@ public class TurnModel {
 		Preconditions.checkArgument(newPlayerIndex >= 0, "[ERROR] Current index cannot be under 0");
 		this.currentPlayerIndex = newPlayerIndex;
 	}
+
+	public void resetPlayerIndex() {
+		if(indicatesDefaultTurnOrder()) {
+			this.currentPlayerIndex = -1;
+		} else {
+			this.currentPlayerIndex = this.players.size() + 1;
+		}
+	}
 }

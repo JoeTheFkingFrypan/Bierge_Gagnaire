@@ -83,6 +83,14 @@ public class TurnController {
 		consoleView.displaySeparationText("========== Your turn, " + currentPlayer.getAlias() + " ==========");
 		return currentPlayer;
 	}
+	
+	public void resetPlayerIndex() {
+		this.turnModel.resetPlayerIndex();
+	}
+	
+	public PlayerController findNextPlayerWithoutChangingCurrentPlayer() {
+		return this.turnModel.cycleThroughPlayersWithoutChangingCurrentPlayer();
+	}
 
 	public void skipNextPlayer() {
 		PlayerController currentPlayer = this.turnModel.cycleThroughPlayers();
@@ -92,5 +100,9 @@ public class TurnController {
 		consoleView.insertBlankLine();
 		consoleView.appendJokerText("Previous player used a Skip card");
 		consoleView.insertBlankLine();
+	}
+	
+	public void skipFirstPlayer() {
+		PlayerController currentPlayer = this.turnModel.cycleThroughPlayers();
 	}
 }

@@ -118,9 +118,9 @@ public class CarteTest {
 	
 	@Test
 	public void testAffichage() {
-		assertEquals("[CARTE NUMEROTEE] Numero=0, Couleur=JAUNE",this.referenceCard.toString());
-		assertEquals("[CARTE NUMEROTEE] Numero=0, Couleur=BLEUE",this.compatibleCardSameNumber.toString());
-		assertEquals("[CARTE NUMEROTEE] Numero=9, Couleur=JAUNE",this.compatibleCardSameColor.toString());
-		assertEquals("[CARTE NUMEROTEE] Numero=7, Couleur=ROUGE",this.incompatibleCard.toString());
+		assertEquals("[CARTE NUMEROTEE] Numero=0, Couleur=YELLOW",this.referenceCard.toString());
+		assertEquals("[CARTE NUMEROTEE] Numero=0, Couleur=BLUE",this.compatibleCardSameNumber.toString());
+		assertEquals("[CARTE NUMEROTEE] Numero=9, Couleur=YELLOW",this.compatibleCardSameColor.toString());
+		assertEquals("[CARTE NUMEROTEE] Numero=7, Couleur=RED",this.incompatibleCard.toString());
 	}
 }

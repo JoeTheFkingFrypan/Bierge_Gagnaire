@@ -17,8 +17,8 @@ public class EffetPasserTourTest {
 	@Before
 	public void setup() {
 		this.effetPasserTour = new EffectSkip();
-		this.expectedDescription = "Le joueur suivant devra passer son tour";
-		this.expectedString = "Passe";
+		this.expectedString = "Le joueur suivant devra passer son tour";
+		this.expectedDescription = "Passe";
 		this.expectedFlag = GameFlags.SKIP;
 	}
 

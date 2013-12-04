@@ -32,6 +32,12 @@ public class Server {
 		Server.gameController = new GameController(consoleView);
 		Server.inputReader = new InputReader(consoleView);
 		initializeGameSettings();
+		applyEffectFromFirstCardIfITHasOne();
+	}
+
+	private void applyEffectFromFirstCardIfITHasOne() {
+		GameFlags effectFromFirstCard = Server.gameController.applyEffectFromFirstCard();
+		applyFirstEffect(effectFromFirstCard);
 	}
 
 	/**
@@ -138,7 +144,6 @@ public class Server {
 	 * Méthode privée permettant d'appliquer les effets des cartes spéciales sur la partie
 	 * @param currentPlayer 
 	 */
-	//TODO: finish applyEffects
 	private void applyEffects(PlayerController currentPlayer) {
 		if(Server.gameFlag.equals(GameFlags.REVERSE)) {
 			Server.turnController.reverseCurrentOrder();
@@ -158,6 +163,29 @@ public class Server {
 		} 
 		Server.gameFlag = GameFlags.NORMAL;
 	}
+	
+	private void applyFirstEffect(GameFlags effectFromFirstCard) {
+		if(effectFromFirstCard.equals(GameFlags.REVERSE)) {
+			Server.turnController.reverseCurrentOrder();
+			Server.turnController.resetPlayerIndex();
+		} else if(effectFromFirstCard.equals(GameFlags.SKIP)) {
+			Server.turnController.skipNextPlayer();
+		} else if(effectFromFirstCard.equals(GameFlags.PLUS_TWO)) {
+			Server.turnController.findNextPlayer();
+			Collection<Card> cards = Server.gameController.drawCards(2);
+			Server.turnController.giveCardPenaltyToNextPlayer(cards);
+		} else if(effectFromFirstCard.equals(GameFlags.COLOR_PICK)) {
+			PlayerController currentPlayer = Server.turnController.findNextPlayer();
+			Color chosenColor = currentPlayer.hasToChooseColor(Server.inputReader);
+			Server.gameController.setGlobalColor(chosenColor);
+			Server.turnController.resetPlayerIndex();
+		} else if(effectFromFirstCard.equals(GameFlags.PLUS_FOUR)) {
+			GameFlags gameFlag = Server.gameController.applyEffectFromAnotherFirstCard();
+			applyFirstEffect(gameFlag);
+		} 
+		Server.gameFlag = GameFlags.NORMAL;
+	}
+	
 	
 	/**
 	 * Méthode privée permettant à un joueur de choisir une carte depuis sa main

@@ -126,7 +126,6 @@ public class GameModel extends AbstractModel {
 	}
 
 	private void resetGlobalColor() {
-		System.out.println("RESET :D");
 		this.globalColor = Color.JOKER;
 	}
 }
