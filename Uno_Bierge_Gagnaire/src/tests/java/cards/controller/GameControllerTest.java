@@ -8,7 +8,6 @@ import org.junit.Test;
 import java.util.Collection;
 
 import main.java.cards.model.basics.Card;
-import main.java.cards.model.basics.Color;
 import main.java.cards.controller.GameController;
 import main.java.console.view.View;
 

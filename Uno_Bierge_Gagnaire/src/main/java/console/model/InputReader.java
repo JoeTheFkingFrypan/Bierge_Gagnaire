@@ -23,6 +23,10 @@ public class InputReader {
 
 	/* ========================================= CONSTRUCTOR ========================================= */
 
+	/**
+	 * Constructeur d'Input Reader
+	 * @param consoleView Vue permettant d'afficher des informations dans l'interface
+	 */
 	public InputReader(View consoleView) {
 		Preconditions.checkNotNull(consoleView,"[ERROR] Impossible to create input reader : provided view is null");
 		this.inputReader = new BufferedReader(new InputStreamReader(System.in));
@@ -58,6 +62,7 @@ public class InputReader {
 	 * @return 
 	 */
 	private int getNumberFromString(String answer) {
+		Preconditions.checkNotNull(answer,"[ERROR] Couldn't read answer : provided one was null");
 		while(CharMatcher.DIGIT.countIn(answer) < 1) {
 			this.consoleView.insertBlankLine();
 			this.consoleView.displayErrorText("[ERROR] Only numbers are allowed");
@@ -88,6 +93,7 @@ public class InputReader {
 	 * @return Une collection contenant le nom de chaque joueur
 	 */
 	public Collection<String> getAllPlayerNames(int playerNumber) {
+		Preconditions.checkArgument(playerNumber > 0, "[ERROR] Impossible to get all player names : player count is invalid");
 		this.consoleView.insertBlankLine();
 		this.consoleView.displaySuccessText("You successfully chose [" + playerNumber + "] players"); 
 		this.consoleView.displayBoldText("Please enter their name, one at a time (multi word aliases allowed)");
@@ -106,6 +112,7 @@ public class InputReader {
 	 * @param playerNames Une collection contenant le nom de chaque joueur
 	 */
 	private void addValidNameFromInput(Collection<String> playerNames) {
+		Preconditions.checkNotNull(playerNames, "[ERROR] Impossible to add another name : provided collection is null");
 		String playerNameFromInput = getValidAlias();
 		while(playerNames.contains(playerNameFromInput)) {
 			this.consoleView.insertBlankLine();
@@ -143,6 +150,9 @@ public class InputReader {
 	 * @return Un int correpondant au numéro de la carte choisie
 	 */
 	public int getFirstValidIndexFromInput(String alias, Collection<Card> cardCollection, GameModelBean gameModelbean) {
+		Preconditions.checkNotNull(alias, "[ERROR] Impossible to get card index from player's cards : provided alias is null");
+		Preconditions.checkNotNull(cardCollection, "[ERROR] Impossible to get card index from player's cards : provided collection is null");
+		Preconditions.checkNotNull(gameModelbean, "[ERROR] Impossible to get card index from player's cards : provided gameModelBean is null");
 		displayCardsInfo(cardCollection, gameModelbean);
 		return getValidIndexDisplayingInfo(cardCollection,gameModelbean);
 	}
@@ -155,6 +165,9 @@ public class InputReader {
 	 * @return Un int correpondant au numéro de la carte choisie
 	 */
 	public int getAnotherValidIndexFromInputDueToIncompatibleCard(String alias, Collection<Card> cardCollection, GameModelBean gameModelbean) {
+		Preconditions.checkNotNull(alias, "[ERROR] Impossible to get card index from player's cards : provided alias is null");
+		Preconditions.checkNotNull(cardCollection, "[ERROR] Impossible to get card index from player's cards : provided collection is null");
+		Preconditions.checkNotNull(gameModelbean, "[ERROR] Impossible to get card index from player's cards : provided gameModelBean is null");
 		this.consoleView.insertBlankLine();
 		this.consoleView.displayErrorText("[ERROR] Choosen card is not compatible, please pick another one");
 		displayCardsInfo(cardCollection, gameModelbean);
@@ -167,6 +180,7 @@ public class InputReader {
 	 * @return Un int correspondant à l'index choisi
 	 */
 	private int getValidIndex(int boundLimit) {
+		Preconditions.checkArgument(boundLimit >= 0, "[ERROR] Impossible to get index because of invalid bound limit");
 		String answer = readAnotherLine();
 		int choosenIndex = getNumberFromString(answer);
 		while(choosenIndex < 0 || choosenIndex >= boundLimit) {
@@ -180,6 +194,8 @@ public class InputReader {
 	}
 	
 	private int getValidIndexDisplayingInfo(Collection<Card> cardCollection, GameModelBean gameModelbean) {
+		Preconditions.checkNotNull(cardCollection, "[ERROR] Impossible to get card index from player's cards : provided collection is null");
+		Preconditions.checkNotNull(gameModelbean, "[ERROR] Impossible to get card index from player's cards : provided gameModelBean is null");
 		int boundLimit = cardCollection.size();
 		String answer = readAnotherLine();
 		int choosenIndex = getNumberFromStringDisplayingCardInfo(answer,cardCollection,gameModelbean);
@@ -195,6 +211,8 @@ public class InputReader {
 	}
 
 	private void displayCardsInfo(Collection<Card> cardCollection, GameModelBean gameModelbean) {
+		Preconditions.checkNotNull(cardCollection, "[ERROR] Impossible to get card index from player's cards : provided collection is null");
+		Preconditions.checkNotNull(gameModelbean, "[ERROR] Impossible to get card index from player's cards : provided gameModelBean is null");
 		this.consoleView.appendBoldText("* Your cards are : "); 
 		this.consoleView.displayCardCollection(cardCollection);
 		this.consoleView.appendBoldText("* The last card play was : ");
@@ -221,13 +239,13 @@ public class InputReader {
 		switch(colorNumber) {
 			case 0:
 				return Color.RED;
-		case 1:
+			case 1:
 				return Color.BLUE;
-		case 2:
+			case 2:
 				return Color.GREEN;
-		case 3:
+			case 3:
 				return Color.YELLOW;
-		default:
+			default:
 				this.consoleView.displayErrorText("[ERROR] Something went terribly wrong with indexes, please pick another one");
 				return getValidColor();
 		}

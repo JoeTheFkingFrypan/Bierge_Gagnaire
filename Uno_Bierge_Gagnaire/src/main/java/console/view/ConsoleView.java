@@ -7,6 +7,10 @@ public class ConsoleView extends View {
 	
 	/* ========================================= CONSTRUCTOR ========================================= */
 	
+	/**
+	 * Constructeur de ConsoleView
+	 * Affiche le titre dans la console, ainsi que les auteurs
+	 */
 	public ConsoleView() {
 		super();
 		clearDisplay();

@@ -16,8 +16,15 @@ public class Pile {
 
 	/* ========================================= CONSTRUCTOR ========================================= */
 
+	/**
+	 * Constructeur de talon
+	 */
 	public Pile() {
 		this.talon = new Stack<Card>();
+	}
+	
+	public void resetCards() {
+		this.talon.clear();
 	}
 
 	/* ========================================= PLAY CARD ========================================= */

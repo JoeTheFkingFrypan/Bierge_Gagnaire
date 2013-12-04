@@ -1,6 +1,6 @@
 package main.java.cards.model.basics;
 
-import main.java.gameContext.model.GameFlags;
+import main.java.gameContext.model.GameFlag;
 
 import com.google.common.base.Preconditions;
 
@@ -14,10 +14,10 @@ public class CardSpecial extends Card {
 	/* ========================================= CONSTRUCTOR ========================================= */
 	
 	/**
-	 * Constructeur de carte spéciale, soumis à plusieurs contraintes
+	 * Constructeur de carte spéciale
 	 * @param valeur Valeur de la carte (doit être supérieure à 0)
-	 * @param couleur Couleur de la carte (ne doit pas être null)
-	 * @param effet Effet de la carte (ne doit pas être null)
+	 * @param couleur Couleur de la carte
+	 * @param effet Effet de la carte
 	 */
 	public CardSpecial(int valeur, Color couleur, Effect effet) {
 		super(valeur, couleur);
@@ -31,7 +31,7 @@ public class CardSpecial extends Card {
 	 * Méthode permettant de déclencher l'execution d'un effet
 	 * @return 
 	 */
-	public GameFlags declencherEffet() {
+	public GameFlag declencherEffet() {
 		return this.effet.triggerEffect();
 	}
 	
@@ -39,6 +39,7 @@ public class CardSpecial extends Card {
 	
 	@Override
 	public boolean isCompatibleWith(Card otherCard) {
+		Preconditions.checkNotNull(otherCard,"[ERROR] Impossible to test compatibility : provided card is null");
 		if(otherCard.isSpecial()) {
 			CardSpecial explicitConversionFromOtherCard = (CardSpecial)otherCard;
 			return isCompatibleWithSpecialCard(explicitConversionFromOtherCard);
@@ -48,12 +49,13 @@ public class CardSpecial extends Card {
 	}
 	
 	/**
-	 * Méthode permettant de savoir si une carte peut être jouée par dessus la carte actuelle 
+	 * Méthode permettant de savoir si une carte peut être jouée par dessus la carte actuelle (dans le cas d'une carte SPECIALE)
 	 * A noter que dans le cas des cartes spéciales, la valeur n'est pas un critère de compatibilité
 	 * @param otherCard Carte que l'on souhaite eventuellement jouer
-	 * @return TRUE si la carte est "compatible" (si elle peut être jouée), false sinon
+	 * @return TRUE si la carte est "compatible" (si elle peut être jouée), FALSE sinon
 	 */
 	private boolean isCompatibleWithSpecialCard(CardSpecial otherCard) {
+		Preconditions.checkNotNull(otherCard,"[ERROR] Impossible to test compatibility : provided card is null");
 		if(this.hasSameColorThan(otherCard.getCouleur())) {
 			return true;
 		} else if(this.hasSameEffectThan(otherCard.getEffet())) {
@@ -65,7 +67,13 @@ public class CardSpecial extends Card {
 		}
 	}
 	
+	/**
+	 * Méthode privée permettant de gérer la comparaison entre carte spéciale et la carte passée en paramètre (dans le cas d'une carte NUMEROTEE)
+	 * @param otherCard Carte dont on souhaite tester la compatibilité
+	 * @return TRUE si la carte est compatible, FALSE sinon
+	 */
 	private boolean isCompatibleWithNumberedCard(Card otherCard) {
+		Preconditions.checkNotNull(otherCard,"[ERROR] Impossible to test compatibility : provided card is null");
 		if(this.hasSameColorThan(otherCard.getCouleur())) {
 			return true;
 		} else if(otherCard.getCouleur().equals(Color.JOKER)){
@@ -81,6 +89,7 @@ public class CardSpecial extends Card {
 	 * @return TRUE si les 2 effets sont identiques, FALSE sinon
 	 */
 	private boolean hasSameEffectThan(String effectFromAnotherCard) {
+		Preconditions.checkNotNull(effectFromAnotherCard,"[ERROR] Impossible to compare effets : provided effect is null");
 		return this.getEffet().equals(effectFromAnotherCard);
 	}
 	

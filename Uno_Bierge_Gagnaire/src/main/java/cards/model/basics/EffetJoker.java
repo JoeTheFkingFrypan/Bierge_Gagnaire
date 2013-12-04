@@ -1,6 +1,6 @@
 package main.java.cards.model.basics;
 
-import main.java.gameContext.model.GameFlags;
+import main.java.gameContext.model.GameFlag;
 
 /**
  * Effet permettant au joueur de choisir la couleur à utiliser
@@ -8,8 +8,8 @@ import main.java.gameContext.model.GameFlags;
 public class EffetJoker implements Effect {
 
 	@Override
-	public GameFlags triggerEffect() {
-		return GameFlags.COLOR_PICK;
+	public GameFlag triggerEffect() {
+		return GameFlag.COLOR_PICK;
 	}
 	
 	@Override

@@ -2,7 +2,7 @@ package tests.java.cards.model.basicsTests;
 
 import static org.junit.Assert.assertEquals;
 import main.java.cards.model.basics.EffectReverse;
-import main.java.gameContext.model.GameFlags;
+import main.java.gameContext.model.GameFlag;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,14 +11,14 @@ public class EffetChangerSensTest {
 	private EffectReverse effetChangerSens;
 	private String expectedDescription;
 	private String expectedString;
-	private GameFlags expectedFlag;
+	private GameFlag expectedFlag;
 	
 	@Before
 	public void setup() {
 		this.effetChangerSens = new EffectReverse();
 		this.expectedDescription = "Inversion";
 		this.expectedString = "Le sens de jeu est inversé";
-		this.expectedFlag = GameFlags.REVERSE;
+		this.expectedFlag = GameFlag.REVERSE;
 	}
 	
 	@Test

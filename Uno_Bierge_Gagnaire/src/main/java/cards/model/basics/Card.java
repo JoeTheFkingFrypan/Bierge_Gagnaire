@@ -13,9 +13,9 @@ public class Card implements Comparable<Card> {
 	/* ========================================= CONSTRUCTOR ========================================= */
 	
 	/**
-	 * Constructeur de carte, soumis à plusieurs contraintes
+	 * Constructeur de carte
 	 * @param valeur Numéro de la carte (doit être supérieure à 0 dans tous les cas, et inférieur à 9 s'il s'agit d'une carte numérotée)
-	 * @param couleur Couleur de la carte (doit être différent de null, et être différent de Joker s'il s'agit d'une carte numérotée)
+	 * @param couleur Couleur de la carte (doit être différent de Joker s'il s'agit d'une carte numérotée)
 	 */
 	public Card (int valeur, Color couleur) {
 		Preconditions.checkNotNull(couleur,"[ERROR] Color cannot be null");
@@ -33,7 +33,7 @@ public class Card implements Comparable<Card> {
 	/**
 	 * Méthode permettant de savoir si une carte peut être jouée par dessus la carte actuelle
 	 * @param otherCard Carte que l'on souhaite eventuellement jouer
-	 * @return TRUE si la carte est "compatible" (si elle peut être jouée), false sinon
+	 * @return TRUE si la carte est "compatible" (si elle peut être jouée), FALSE sinon
 	 */
 	public boolean isCompatibleWith(Card otherCard) {
 		if(this.hasSameValueThan(otherCard.getValeur())) {

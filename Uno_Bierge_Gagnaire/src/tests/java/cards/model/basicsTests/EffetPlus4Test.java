@@ -2,7 +2,7 @@ package tests.java.cards.model.basicsTests;
 
 import static org.junit.Assert.assertEquals;
 import main.java.cards.model.basics.EffectPlus4;
-import main.java.gameContext.model.GameFlags;
+import main.java.gameContext.model.GameFlag;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,14 +11,14 @@ public class EffetPlus4Test {
 	private EffectPlus4 effetPlus4;
 	private String expectedDescription;
 	private String expectedString;
-	private GameFlags expectedFlag;
+	private GameFlag expectedFlag;
 
 	@Before
 	public void setup() {
 		this.effetPlus4 = new EffectPlus4();
 		this.expectedDescription = "+4";
 		this.expectedString = "Le joueur actuel choisit une couleur et le joueur suivant devra piocher 4 cartes";
-		this.expectedFlag = GameFlags.PLUS_FOUR;
+		this.expectedFlag = GameFlag.PLUS_FOUR;
 	}
 
 	@Test

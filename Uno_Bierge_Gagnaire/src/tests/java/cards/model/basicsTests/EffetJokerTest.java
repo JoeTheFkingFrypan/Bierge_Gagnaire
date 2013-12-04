@@ -2,7 +2,7 @@ package tests.java.cards.model.basicsTests;
 
 import static org.junit.Assert.assertEquals;
 import main.java.cards.model.basics.EffetJoker;
-import main.java.gameContext.model.GameFlags;
+import main.java.gameContext.model.GameFlag;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,14 +11,14 @@ public class EffetJokerTest {
 	private EffetJoker effetJoker;
 	private String expectedDescription;
 	private String expectedString;
-	private GameFlags expectedFlag;
+	private GameFlag expectedFlag;
 
 	@Before
 	public void setup() {
 		this.effetJoker = new EffetJoker();
 		this.expectedString = "Le joueur actuel doit choisir une couleur";
 		this.expectedDescription = "Joker";
-		this.expectedFlag = GameFlags.COLOR_PICK;
+		this.expectedFlag = GameFlag.COLOR_PICK;
 	}
 
 	@Test

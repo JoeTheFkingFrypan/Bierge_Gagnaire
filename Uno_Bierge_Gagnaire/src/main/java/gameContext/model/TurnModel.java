@@ -20,6 +20,11 @@ public class TurnModel {
 	
 	/* ========================================= CONSTRUCTOR ========================================= */
 
+	/**
+	 * Constructeur de TurnModel
+	 * Initialise l'index du joueur en cours
+	 * Initialise également le sens de jeu par défaut (sens des aiguilles d'une montre)
+	 */
 	public TurnModel() {
 		this.turnOrder = TurnOrder.Clockwise;
 		this.players = new LinkedList<PlayerController>();
@@ -34,6 +39,8 @@ public class TurnModel {
 	 * @param consoleView Vue qui sera utilisée dans le controlleur de joueurs
 	 */
 	public void createPlayersFrom(Collection<String> playerNames, View consoleView) {
+		Preconditions.checkNotNull(playerNames,"[ERROR] Couldn't create players from their names : provided name collection is null");
+		Preconditions.checkNotNull(consoleView,"[ERROR] Couldn't create players from their names : provided view is null");
 		for(String name: playerNames) {
 			this.players.add(new PlayerController(name,consoleView));
 		}
@@ -46,6 +53,8 @@ public class TurnModel {
 	 * @param consoleView Vue qui sera utilisée dans le controlleur de joueurs
 	 */
 	public void createPlayersWithoutScramblingFrom(Collection<String> playerNames, View consoleView) {
+		Preconditions.checkNotNull(playerNames,"[ERROR] Couldn't create players from their names : provided name collection is null");
+		Preconditions.checkNotNull(consoleView,"[ERROR] Couldn't create players from their names : provided view is null");
 		for(String name: playerNames) {
 			this.players.add(new PlayerController(name,consoleView));
 		}
@@ -86,11 +95,13 @@ public class TurnModel {
 	 * @param cards Cartes à ajouter dans la main du joueur
 	 */
 	public void giveCardsToNextPlayer(Collection<Card> cards) {
+		Preconditions.checkNotNull(cards,"[ERROR] Couldn't give cards : provided card collection is null");
 		PlayerController currentPlayer = cycleThroughPlayers();
 		currentPlayer.pickUpCards(cards);
 	}
 
 	public void giveCardPenaltyToNextPlayer(Collection<Card> cards) {
+		Preconditions.checkNotNull(cards,"[ERROR] Couldn't give card penalty : provided card collection is null");
 		PlayerController currentPlayer = cycleThroughPlayersWithoutChangingCurrentPlayer();
 		currentPlayer.isForcedToPickUpCards(cards);
 	}
@@ -176,6 +187,20 @@ public class TurnModel {
 			this.currentPlayerIndex = -1;
 		} else {
 			this.currentPlayerIndex = this.players.size() + 1;
+		}
+	}
+
+	public int sumAllPlayerScore() {
+		int sumPlayerScore = 0;
+		for(PlayerController currentPlayer : this.players) {
+			sumPlayerScore += currentPlayer.getPointsFromCardsInHand();
+		}
+		return sumPlayerScore;
+	}
+
+	public void resetAllHands() {
+		for(PlayerController currentPlayer : this.players) {
+			currentPlayer.resetHand();
 		}
 	}
 }

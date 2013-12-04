@@ -3,11 +3,11 @@ Idées
 	
 Optionnel
 * Règle du "doublon" : un joueur peut jouer plusieurs cartes du même CHIFFRE durant son tour
+* Règle optionnelle : Si un joueur joue un +4 après un +4 donne +8 au joueur suivant
+* Règle optionnelle : bluff sur pioche
 * Système de sauvegarde
 
 Notes
 * joueur runnable -> fin de la partie = fin de la méthode run
 * Problème : 2 comportements => jeu de cartes ET interruption du joueur en cours dans cas précis
 * Synchronisation conditionnelle? flag?
-
-* Joueur en cours?

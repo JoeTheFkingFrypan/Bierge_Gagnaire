@@ -2,7 +2,7 @@ package tests.java.cards.model.basicsTests;
 
 import static org.junit.Assert.assertEquals;
 import main.java.cards.model.basics.EffectPlus2;
-import main.java.gameContext.model.GameFlags;
+import main.java.gameContext.model.GameFlag;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +15,7 @@ public class EffetPiocherCarteTest {
 	private String expectedDescription7cards;
 	private String expectedString2Cards;
 	private String expectedString7Cards;
-	private GameFlags expectedFlag;
+	private GameFlag expectedFlag;
 
 	@Before
 	public void setup() {
@@ -25,7 +25,7 @@ public class EffetPiocherCarteTest {
 		this.expectedString7Cards = "Le joueur suivant devra piocher 7 cartes";
 		this.expectedDescription2cards = "+2";
 		this.expectedDescription7cards = "+7";
-		this.expectedFlag = GameFlags.PLUS_TWO;
+		this.expectedFlag = GameFlag.PLUS_TWO;
 	}
 
 	@Test

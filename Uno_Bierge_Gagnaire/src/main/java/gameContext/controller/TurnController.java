@@ -18,6 +18,10 @@ public class TurnController {
 	
 	/* ========================================= CONSTRUCTOR ========================================= */
 	
+	/**
+	 * Constructeur de TurnController
+	 * @param consoleView Vue permettant d'afficher des informations dans l'interface
+	 */
 	public TurnController(View consoleView) {
 		Preconditions.checkNotNull(consoleView,"[ERROR] Impossible to create turn controller : provided view is null");
 		this.turnModel = new TurnModel();
@@ -51,10 +55,12 @@ public class TurnController {
 	 * @param cards Collection initiale de 7 cartes
 	 */
 	public void giveCardsToNextPlayer(Collection<Card> cards) {
+		Preconditions.checkNotNull(cards,"[ERROR] Provided card collection cannot be null");
 		this.turnModel.giveCardsToNextPlayer(cards);
 	}
 	
 	public void giveCardPenaltyToNextPlayer(Collection<Card> cards) {
+		Preconditions.checkNotNull(cards,"[ERROR] Provided card collection cannot be null");
 		this.turnModel.giveCardPenaltyToNextPlayer(cards);
 	}
 	
@@ -67,6 +73,15 @@ public class TurnController {
 		this.consoleView.appendJokerText("Turn order has been inverted");
 		this.consoleView.insertBlankLine();
 		this.turnModel.reverseCurrentOrder();
+	}
+	
+	/**
+	 * Méthode permettant d'inverser le sens dans lequel est choisi le joueur suivant
+	 * Réinitialise également l'index du prochain joueur (utilisation lors du déclenchement de l'effet AVANT le 1er tour de jeu)
+	 */
+	public void reverseCurrentOrderAndResetPlayerIndex() {
+		this.reverseCurrentOrder();
+		this.resetPlayerIndex();
 	}
 	
 	public PlayerController findCurrentPlayer() {
@@ -101,8 +116,24 @@ public class TurnController {
 		consoleView.appendJokerText("Previous player used a Skip card");
 		consoleView.insertBlankLine();
 	}
-	
-	public void skipFirstPlayer() {
-		PlayerController currentPlayer = this.turnModel.cycleThroughPlayers();
+
+	public void computeEndOfTurn(PlayerController winningPlayer) {
+		Integer globalScore = this.turnModel.sumAllPlayerScore();
+		Integer playerScore = globalScore - winningPlayer.getPointsFromCardsInHand();
+		Integer requiredPointsToWin = 500 - playerScore;
+		this.turnModel.resetAllHands();
+		consoleView.insertBlankLine();
+		consoleView.appendBoldGreenText("Player [");
+		consoleView.appendBoldText(winningPlayer.getAlias());
+		consoleView.appendBoldGreenText("] has won this round, congratulations :D");
+		consoleView.insertBlankLine();
+		consoleView.appendJokerText("He successfully scored ");
+		consoleView.appendBoldText(playerScore.toString());
+		consoleView.appendJokerText(" points");
+		consoleView.insertBlankLine();
+		consoleView.appendJokerText("He needs ");
+		consoleView.appendBoldText(requiredPointsToWin.toString());
+		consoleView.appendJokerText(" more points to win");
+		consoleView.insertBlankLine();
 	}
 }

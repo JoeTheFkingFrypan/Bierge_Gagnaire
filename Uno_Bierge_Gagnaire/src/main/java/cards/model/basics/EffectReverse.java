@@ -1,14 +1,14 @@
 package main.java.cards.model.basics;
 
-import main.java.gameContext.model.GameFlags;
+import main.java.gameContext.model.GameFlag;
 
 /**
  * Effet permettant d'inverser le sens de jeu
  */
 public class EffectReverse implements Effect {
 	@Override
-	public GameFlags triggerEffect() {
-		return GameFlags.REVERSE;
+	public GameFlag triggerEffect() {
+		return GameFlag.REVERSE;
 	}
 
 	@Override

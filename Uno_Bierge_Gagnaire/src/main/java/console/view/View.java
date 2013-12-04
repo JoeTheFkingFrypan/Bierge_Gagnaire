@@ -2,16 +2,23 @@ package main.java.console.view;
 
 import java.util.Collection;
 
+import com.google.common.base.Preconditions;
+
 import main.java.cards.model.basics.Card;
 import main.java.cards.model.basics.CardSpecial;
 import main.java.cards.model.basics.Color;
 
-
+/**
+ * Classe définissant les méthodes d'affichage
+ */
 public abstract class View {
 	protected FancyConsoleDisplay consoleDisplay;
 	
 	/* ========================================= CONSTRUCTOR ========================================= */
 	
+	/**
+	 * Constructeur de vue
+	 */
 	public View() {
 		this.consoleDisplay = new FancyConsoleDisplay();
 	}
@@ -23,6 +30,7 @@ public abstract class View {
 	 * @param text Texte à afficher
 	 */
 	public void displayBoldText(String text) {
+		Preconditions.checkNotNull(text,"[ERROR] Impossible to display text : provided one is null");
 		this.consoleDisplay.displayBoldText(text);
 	}
 	
@@ -31,6 +39,7 @@ public abstract class View {
 	 * @param text Texte à afficher
 	 */
 	public void appendBoldText(String text) {
+		Preconditions.checkNotNull(text,"[ERROR] Impossible to display text : provided one is null");
 		this.consoleDisplay.appendBoldText(text);
 	}
 	
@@ -39,6 +48,7 @@ public abstract class View {
 	 * @param text Texte à afficher
 	 */
 	public void displayErrorText(String text) {
+		Preconditions.checkNotNull(text,"[ERROR] Impossible to display text : provided one is null");
 		this.consoleDisplay.displayErrorText(text);
 	}
 	
@@ -47,6 +57,7 @@ public abstract class View {
 	 * @param text Texte à afficher
 	 */
 	public void displaySuccessText(String text) {
+		Preconditions.checkNotNull(text,"[ERROR] Impossible to display text : provided one is null");
 		this.consoleDisplay.displaySuccessText(text);
 	}
 	
@@ -73,6 +84,7 @@ public abstract class View {
 	 * @param title Titre à afficher
 	 */
 	public void displayTitle(String title) {
+		Preconditions.checkNotNull(title,"[ERROR] Impossible to display text : provided one is null");
 		int length = title.length();
 		insertBlankLine();
 		this.consoleDisplay.displaySeparationBar(length);
@@ -86,6 +98,7 @@ public abstract class View {
 	 * @param text Texte à afficher
 	 */
 	public void displaySeparationText(String text) {
+		Preconditions.checkNotNull(text,"[ERROR] Impossible to display text : provided one is null");
 		this.consoleDisplay.displaySeparationText(text);
 	}
 	
@@ -96,6 +109,7 @@ public abstract class View {
 	 * @param cardsToDisplay Collection de cartes à afficher
 	 */
 	public void displayCardCollection(Collection<Card> cardsToDisplay) {
+		Preconditions.checkNotNull(cardsToDisplay,"[ERROR] Impossible to display card collection : provided one is null");
 		int index = 0;
 		for(Card currentCard : cardsToDisplay) {
 			displayOneCard(currentCard,index++);
@@ -108,6 +122,7 @@ public abstract class View {
 	 * @param cardToDisplay Carte à afficher
 	 */
 	public void displayCard(Card cardToDisplay) {
+		Preconditions.checkNotNull(cardToDisplay,"[ERROR] Impossible to display card : provided one is null");
 		displayOneCard(cardToDisplay);
 		insertBlankLine();
 	}
@@ -117,6 +132,7 @@ public abstract class View {
 	 * @param cardToDisplay Carte à afficher
 	 */
 	private void displayOneCard(Card cardToDisplay) {
+		Preconditions.checkNotNull(cardToDisplay,"[ERROR] Impossible to display card : provided one is null");
 		if(cardToDisplay.isSpecial()) {
 			CardSpecial explictSpecialCardToDisplay = (CardSpecial)cardToDisplay;
 			displaySpecialCard(explictSpecialCardToDisplay);
@@ -131,6 +147,8 @@ public abstract class View {
 	 * @param index Index de la carte 
 	 */
 	private void displayOneCard(Card cardToDisplay, int index) {
+		Preconditions.checkNotNull(cardToDisplay,"[ERROR] Impossible to display card : provided one is null");
+		Preconditions.checkArgument(index >= 0,"[ERROR] Impossible to display card : provided index is invalid");
 		if(cardToDisplay.isSpecial()) {
 			CardSpecial explictSpecialCardToDisplay = (CardSpecial)cardToDisplay;
 			displaySpecialCard(explictSpecialCardToDisplay,index);
@@ -146,6 +164,7 @@ public abstract class View {
 	 * @param cardToDisplay Carte à afficher
 	 */
 	private void displaySpecialCard(CardSpecial cardToDisplay) {
+		Preconditions.checkNotNull(cardToDisplay,"[ERROR] Impossible to display card : provided one is null");
 		Color color = cardToDisplay.getCouleur();
 		String effect = cardToDisplay.getEffet();
 		if(color.equals(Color.BLUE)) {
@@ -167,6 +186,8 @@ public abstract class View {
 	 * @param index Index de la carte
 	 */
 	private void displaySpecialCard(CardSpecial cardToDisplay, int index) {
+		Preconditions.checkNotNull(cardToDisplay,"[ERROR] Impossible to display card : provided one is null");
+		Preconditions.checkArgument(index >= 0,"[ERROR] Impossible to display card : provided index is invalid");
 		Color color = cardToDisplay.getCouleur();
 		String effect = cardToDisplay.getEffet();
 		if(color.equals(Color.BLUE)) {
@@ -194,6 +215,7 @@ public abstract class View {
 	 * @param cardToDisplay Carte à afficher
 	 */
 	private void displayNumberedCard(Card cardToDisplay) {
+		Preconditions.checkNotNull(cardToDisplay,"[ERROR] Impossible to display card : provided one is null");
 		Color color = cardToDisplay.getCouleur();
 		int value = cardToDisplay.getValeur();
 		if(color.equals(Color.BLUE)) {
@@ -213,6 +235,8 @@ public abstract class View {
 	 * @param index Index de la carte
 	 */
 	private void displayNumberedCard(Card cardToDisplay, int index) {
+		Preconditions.checkNotNull(cardToDisplay,"[ERROR] Impossible to display card : provided one is null");
+		Preconditions.checkArgument(index >= 0,"[ERROR] Impossible to display card : provided index is invalid");
 		Color color = cardToDisplay.getCouleur();
 		int value = cardToDisplay.getValeur();
 		if(color.equals(Color.BLUE)) {
@@ -229,22 +253,27 @@ public abstract class View {
 	/* ========================================= STANDARD TEXT ========================================= */
 	
 	public void appendBoldRedText(String text) {
+		Preconditions.checkNotNull(text,"[ERROR] Impossible to display text : provided one is null");
 		this.consoleDisplay.appendRedText(text);
 	}
 	
 	public void appendBoldBlueText(String text) {
+		Preconditions.checkNotNull(text,"[ERROR] Impossible to display text : provided one is null");
 		this.consoleDisplay.appendBlueText(text);
 	}
 	
 	public void appendBoldGreenText(String text) {
+		Preconditions.checkNotNull(text,"[ERROR] Impossible to display text : provided one is null");
 		this.consoleDisplay.appendGreenText(text);
 	}
 	
 	public void appendBoldYellowText(String text) {
+		Preconditions.checkNotNull(text,"[ERROR] Impossible to display text : provided one is null");
 		this.consoleDisplay.appendYellowText(text);
 	}
 
 	public void appendJokerText(String text) {
+		Preconditions.checkNotNull(text,"[ERROR] Impossible to display text : provided one is null");
 		this.consoleDisplay.appendJokerText(text);
 	}
 }

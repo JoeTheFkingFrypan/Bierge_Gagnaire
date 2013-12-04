@@ -1,6 +1,6 @@
 package main.java.cards.model.basics;
 
-import main.java.gameContext.model.GameFlags;
+import main.java.gameContext.model.GameFlag;
 
 /**
  * Effet permettant au joueur actuel de choisir une couleur et de forcer le joueur suivant à piocher 4 cartes
@@ -8,8 +8,8 @@ import main.java.gameContext.model.GameFlags;
 public class EffectPlus4 implements Effect {
 
 	@Override
-	public GameFlags triggerEffect() {
-		return GameFlags.PLUS_FOUR;
+	public GameFlag triggerEffect() {
+		return GameFlag.PLUS_FOUR;
 	}
 
 	@Override

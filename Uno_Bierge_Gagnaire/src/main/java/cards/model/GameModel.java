@@ -20,6 +20,11 @@ public class GameModel extends AbstractModel {
 
 	/* ========================================= CONSTRUCTOR ========================================= */
 
+	/**
+	 * Constructeur de GameModel (crée en interne la pioche et la pile) générant l'ensemble des 108 cartes
+	 * Initialise également le sens de rotation par défaut
+	 * Tire également la toute première carte depuis la pioche pour former le talon
+	 */
 	public GameModel () {
 		this.globalColor = Color.JOKER;
 		this.pioche = new Stock();
@@ -30,7 +35,6 @@ public class GameModel extends AbstractModel {
 	/**
 	 * Méthode privée permettant d'initialiser le talon (en tirant la première carte de la pioche)
 	 */
-	//TODO: handle starting events
 	private void drawStarterCard() {
 		this.talon.receiveCard(drawOneCard());
 	}
@@ -52,7 +56,7 @@ public class GameModel extends AbstractModel {
 	 * @return Les n premières carte de la pioche
 	 */
 	public Collection<Card> drawCards(int count) {
-		Preconditions.checkArgument(count>0,"[ERROR] Invalid card amount, must not be negative");
+		Preconditions.checkArgument(count > 0,"[ERROR] Invalid card amount, must not be negative");
 		refillStockIfNeeded(count);
 		return this.pioche.drawCards(count);
 	}
@@ -62,10 +66,9 @@ public class GameModel extends AbstractModel {
 	 * @param count Nombre de cartes souhaité
 	 */
 	private void refillStockIfNeeded(int count) {
-		Preconditions.checkArgument(count>0,"[ERROR] Invalid card amount, must not be negative");
+		Preconditions.checkArgument(count > 0,"[ERROR] Invalid card amount, must not be negative");
 		if(this.pioche.hasNotEnoughCards(count)) {
 			Collection<Card> cardsFromPile = talon.emptyPile();
-			System.out.println("RESTOCKED : " + cardsFromPile.size());
 			this.pioche.refill(cardsFromPile);
 		}
 	}
@@ -90,6 +93,45 @@ public class GameModel extends AbstractModel {
 		return this.talon.showLastCardPlayed();
 	}
 
+	/* ========================================= GLOBAL COLOR ========================================= */
+	
+	/**
+	 * Méthode permettant de définir la couleur globale (couleur spécifiée par l'utilisateur)
+	 * @param chosenColor Couleur choisie par l'utilisateur
+	 */
+	public void setGlobalColor(Color chosenColor) {
+		Preconditions.checkNotNull(chosenColor,"[ERROR] Impossible to set global color : provided one is null");
+		Preconditions.checkArgument(!chosenColor.equals(Color.JOKER),"[ERROR] Impossible to set global color : JOKER is not a valid global color");
+		this.globalColor = chosenColor;
+	}
+
+	/**
+	 * Méthode permettant de savoir si une couleur globale est définie (si un joker/+4 a été précédement joué)
+	 * @return TRUE si une couleur globale est définie, FALSE sinon
+	 */
+	public boolean globalColorIsSet() {
+		if(Color.JOKER.equals(getGlobalColor())) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	/**
+	 * Méthode permettant de récupérer la couleur globale définie
+	 * @return La couleur associée
+	 */
+	public Color getGlobalColor() {
+		return this.globalColor;
+	}
+
+	/**
+	 * Méthode privée permettant de ré-initialiser la couleur globale après qu'une carte ait été jouée
+	 */
+	private void resetGlobalColor() {
+		this.globalColor = Color.JOKER;
+	}
+	
 	/* ========================================= UTILS ========================================= */
 
 	/**
@@ -108,24 +150,8 @@ public class GameModel extends AbstractModel {
 		return this.talon.size();
 	}
 
-	public void setGlobalColor(Color chosenColor) {
-		Preconditions.checkNotNull(chosenColor,"[ERROR] Impossible to set global color : provided one is null");
-		this.globalColor = chosenColor;
-	}
-
-	public boolean globalColorIsSet() {
-		if(Color.JOKER.equals(getGlobalColor())) {
-			return false;
-		} else {
-			return true;
-		}
-	}
-
-	public Color getGlobalColor() {
-		return this.globalColor;
-	}
-
-	private void resetGlobalColor() {
-		this.globalColor = Color.JOKER;
+	public void resetCards() {
+		this.talon.resetCards();
+		this.pioche.resetCards();
 	}
 }

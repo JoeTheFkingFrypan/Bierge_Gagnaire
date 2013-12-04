@@ -83,6 +83,7 @@ public class PlayerController {
 	 * @return TRUE si le joueur en a au moins une, FALSE sinon
 	 */
 	public boolean hasAtLeastOnePlayableCard(GameModelBean gameModelBean) {
+		Preconditions.checkNotNull(gameModelBean,"[ERROR] gameModelBean cannot be null");
 		return gameModelBean.isCompatibleWith(this.getCardsInHand());
 	}
 	
@@ -103,6 +104,8 @@ public class PlayerController {
 	 * @return La carte choisie par l'utilisateur (qui est nécessairement compatible avec le talon)
 	 */
 	public Card startTurn(InputReader inputReader, GameModelBean gameModelbean) {
+		Preconditions.checkNotNull(inputReader,"[ERROR] Impossible to start turn, inputReader is null");
+		Preconditions.checkNotNull(gameModelbean,"[ERROR] Impossible to start turn, gameModelbean is null");
 		String alias = this.player.getAlias();
 		Collection<Card> cardCollection = this.getCardsInHand();
 		int index = inputReader.getFirstValidIndexFromInput(alias,cardCollection,gameModelbean);
@@ -119,6 +122,7 @@ public class PlayerController {
 	 * @param gameModelbean Carte du talon (carte de référence)
 	 */
 	public void unableToPlayThisTurn(GameModelBean gameModelbean) {
+		Preconditions.checkNotNull(gameModelbean,"[ERROR] Impossible to start turn, gameModelbean is null");
 		Collection<Card> cardsInHand = this.player.getCardsInHand();
 		this.consoleView.appendBoldText("You now have : ");
 		this.consoleView.displayCardCollection(cardsInHand);
@@ -139,6 +143,7 @@ public class PlayerController {
 	 * @return 
 	 */
 	public Color hasToChooseColor(InputReader inputReader) {
+		Preconditions.checkNotNull(inputReader,"[ERROR] Impossible to start turn, inputReader is null");
 		consoleView.insertBlankLine();
 		consoleView.appendJokerText("You played a Joker, please choose a color");
 		this.consoleView.insertBlankLine();
@@ -172,10 +177,30 @@ public class PlayerController {
 	}
 
 	/**
+	 * Méthode permettant de savoir si le joueur possède encore des cartes dans sa main
+	 * @return
+	 */
+	public boolean stillHasCards() {
+		return getNumberOfCardsInHand() > 0;
+	}
+	
+	/**
 	 * Méthode defissant comment les objets de cette classe s'affiche
 	 */
 	@Override
 	public String toString() {
 		return this.player.toString();
 	}
+
+	public int getPointsFromCardsInHand() {
+		int pointsFromCards = 0;
+		for(Card currentCard : this.player.getCardsInHand()) {
+			pointsFromCards += currentCard.getValeur();
+		}
+		return pointsFromCards;
+	}
+
+	public void resetHand() {
+		this.player.resetHand();	
+	}	
 }

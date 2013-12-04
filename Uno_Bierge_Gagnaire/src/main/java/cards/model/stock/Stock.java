@@ -18,8 +18,15 @@ public class Stock extends AbstractModel {
 	
 	/* ========================================= CONSTRUCTOR ========================================= */
 	
+	/**
+	 * Constructeur de pioche (génére les 108 cartes)
+	 */
 	public Stock() {
 		this.generator = new CardGenerator();
+		this.pioche = generateShuffledCards();
+	}
+	
+	public void resetCards() {
 		this.pioche = generateShuffledCards();
 	}
 	
@@ -39,7 +46,7 @@ public class Stock extends AbstractModel {
 	 * @return TRUE s'il y a suffisament de cartes, FALSE sinon
 	 */
 	public boolean hasNotEnoughCards(int cardCountToBeDrawn) {
-		Preconditions.checkArgument(cardCountToBeDrawn>0,"[ERROR] Amount of cards drawn must be stricly higher than 0 (Expected : 1+)");
+		Preconditions.checkArgument(cardCountToBeDrawn > 0,"[ERROR] Amount of cards drawn must be stricly higher than 0 (Expected : 1+)");
 		return cardCountToBeDrawn > this.size();
 	}
 	
@@ -49,7 +56,7 @@ public class Stock extends AbstractModel {
 	 */
 	public void refill(Collection<Card> givenCards) {
 		Preconditions.checkNotNull(givenCards,"[ERROR] Cannot refill cards : given card collection is null");
-		Preconditions.checkArgument(givenCards.size()>0,"[ERROR] Cannot refill cards : no cards provided");
+		Preconditions.checkArgument(givenCards.size() > 0,"[ERROR] Cannot refill cards : no cards provided");
 		this.pioche = generator.refillCardsFrom(givenCards);
 	}
 	
@@ -90,12 +97,12 @@ public class Stock extends AbstractModel {
 	
 	/**
 	 * Méthode permettant de s'assurer la présence d'une carte donnée dans la pioche
-	 * @param c Carte dont la présence est à tester
+	 * @param card Carte dont la présence est à tester
 	 * @return TRUE si la carte est contenue, FALSE sinon
 	 */
-	public Boolean contains(Card c) {
-		Preconditions.checkNotNull(c,"[ERROR] Cannot verfify if stock contains card, because provided reference is null");
-		return this.pioche.contains(c);
+	public Boolean contains(Card card) {
+		Preconditions.checkNotNull(card,"[ERROR] Cannot verfify if stock contains card, because provided reference is null");
+		return this.pioche.contains(card);
 	}
 	
 	/**

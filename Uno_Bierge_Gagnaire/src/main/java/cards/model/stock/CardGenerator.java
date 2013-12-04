@@ -19,7 +19,7 @@ import main.java.cards.model.basics.EffectPlus2;
 import main.java.cards.model.basics.EffectPlus4;
 
 /**
- * Classe a qui a été délégué le rôle de la création des cartes (et de leur mélange)
+ * Classe à qui a été délégué le rôle de la création des cartes (et de leur mélange)
  */
 class CardGenerator {
 	

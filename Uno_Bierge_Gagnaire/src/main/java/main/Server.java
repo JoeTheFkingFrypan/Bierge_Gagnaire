@@ -10,7 +10,7 @@ import main.java.console.view.ConsoleView;
 import main.java.console.view.View;
 import main.java.cards.controller.GameController;
 import main.java.gameContext.controller.TurnController;
-import main.java.gameContext.model.GameFlags;
+import main.java.gameContext.model.GameFlag;
 import main.java.player.controller.PlayerController;
 
 /**
@@ -21,11 +21,14 @@ public class Server {
 	private static TurnController turnController;
 	private static GameController gameController;
 	private static InputReader inputReader;
-	private static GameFlags gameFlag;
+	private static GameFlag gameFlag;
 	private static View consoleView;
 
 	/* ========================================= CONSTRUCTOR ========================================= */
 	
+	/**
+	 * Constructeur privé de serveur
+	 */
 	private Server() {
 		Server.consoleView = new ConsoleView();
 		Server.turnController = new TurnController(consoleView);
@@ -33,11 +36,6 @@ public class Server {
 		Server.inputReader = new InputReader(consoleView);
 		initializeGameSettings();
 		applyEffectFromFirstCardIfITHasOne();
-	}
-
-	private void applyEffectFromFirstCardIfITHasOne() {
-		GameFlags effectFromFirstCard = Server.gameController.applyEffectFromFirstCard();
-		applyFirstEffect(effectFromFirstCard);
 	}
 
 	/**
@@ -69,7 +67,7 @@ public class Server {
 	 */
 	private static void initializeGameSettings() {
 		//TODO: settings in a .ini file
-		Server.gameFlag = GameFlags.NORMAL;
+		Server.gameFlag = GameFlag.NORMAL;
 		Server.consoleView.displayTitle("SETTINGS");
 		int playerNumber = askForPlayerNumber();
 		askForPlayerNames(playerNumber);
@@ -111,13 +109,19 @@ public class Server {
 	 */
 	//TODO: clean that crap "cycleForever"
 	public void cycleForever() {
-		Server.consoleView.displayTitle("GAME STARTING");
-		while(true) {
+		Server.consoleView.displayTitle("NEW ROUND STARTING");
+		boolean playerStillHaveCards = true;
+		PlayerController winningPlayer = null;
+		while(playerStillHaveCards) {
 			GameModelBean requiredGameInfo = Server.gameController.getRequiredGameInfo();
-			PlayerController currentPlayer = Server.turnController.findNextPlayer();
-			playOneTurn(requiredGameInfo, currentPlayer);
-			applyEffects(currentPlayer);
+			winningPlayer = Server.turnController.findNextPlayer();
+			playerStillHaveCards = playOneTurn(requiredGameInfo, winningPlayer);
+			applyEffects(winningPlayer);
 		}
+		Server.turnController.computeEndOfTurn(winningPlayer);
+		//TODO: finish it (fix first card stuff)
+		//Server.gameController.resetCards();
+		//applyEffectFromFirstCardIfITHasOne();
 	}
 	
 	/**
@@ -125,8 +129,9 @@ public class Server {
 	 * @param gameModelbean Carte dernièrement jouée (celle sur le talon, donc carte de référence)
 	 * @param currentPlayer Joueur actuel
 	 * @param currentColor Couleur globale définie lorsqu'une carte JOKER est jouée (et qu'une couleur est choisie par un joueur)
+	 * @return 
 	 */
-	private void playOneTurn(GameModelBean gameModelbean, PlayerController currentPlayer) {
+	private boolean playOneTurn(GameModelBean gameModelbean, PlayerController currentPlayer) {
 		if(currentPlayer.hasAtLeastOnePlayableCard(gameModelbean)) {
 			chooseCardAndPlayIt(gameModelbean, currentPlayer);
 		} else {
@@ -138,6 +143,45 @@ public class Server {
 				currentPlayer.unableToPlayThisTurn(gameModelbean);
 			}
 		}
+		return currentPlayer.stillHasCards();
+	}
+	
+	/* ========================================= EFFECTS ========================================= */
+	
+	/**
+	 * Méthode permettant d'appliquer l'effet de la première carte tirée depuis la pioche
+	 */
+	private void applyEffectFromFirstCardIfITHasOne() {
+		GameFlag effectFromFirstCard = Server.gameController.applyEffectFromFirstCard();
+		applyFirstEffect(effectFromFirstCard);
+	}
+	
+	/**
+	 * Méthode privée permettant d'appliquer l'effet en provenance de la 1ère carte retournée du talon
+	 * @param effectFromFirstCard Effet provenant de la 1ère carte (initialisation)
+	 */
+	private void applyFirstEffect(GameFlag effectFromFirstCard) {
+		if(!effectFromFirstCard.equals(GameFlag.NORMAL)) {
+			Server.consoleView.displayTitle("UNUSUAL START");
+		}
+		if(effectFromFirstCard.equals(GameFlag.REVERSE)) {
+			Server.turnController.reverseCurrentOrderAndResetPlayerIndex();
+		} else if(effectFromFirstCard.equals(GameFlag.SKIP)) {
+			Server.turnController.skipNextPlayer();
+		} else if(effectFromFirstCard.equals(GameFlag.PLUS_TWO)) {
+			Server.turnController.findNextPlayer();
+			Collection<Card> cards = Server.gameController.drawCards(2);
+			Server.turnController.giveCardPenaltyToNextPlayer(cards);
+		} else if(effectFromFirstCard.equals(GameFlag.COLOR_PICK)) {
+			PlayerController currentPlayer = Server.turnController.findNextPlayer();
+			Color chosenColor = currentPlayer.hasToChooseColor(Server.inputReader);
+			Server.gameController.setGlobalColor(chosenColor);
+			Server.turnController.resetPlayerIndex();
+		} else if(effectFromFirstCard.equals(GameFlag.PLUS_FOUR)) {
+			GameFlag gameFlag = Server.gameController.applyEffectFromAnotherFirstCard();
+			applyFirstEffect(gameFlag);
+		} 
+		Server.gameFlag = GameFlag.NORMAL;
 	}
 	
 	/**
@@ -145,47 +189,24 @@ public class Server {
 	 * @param currentPlayer 
 	 */
 	private void applyEffects(PlayerController currentPlayer) {
-		if(Server.gameFlag.equals(GameFlags.REVERSE)) {
+		if(Server.gameFlag.equals(GameFlag.REVERSE)) {
 			Server.turnController.reverseCurrentOrder();
-		} else if(Server.gameFlag.equals(GameFlags.SKIP)) {
+		} else if(Server.gameFlag.equals(GameFlag.SKIP)) {
 			Server.turnController.skipNextPlayer();
-		} else if(Server.gameFlag.equals(GameFlags.PLUS_TWO)) {
+		} else if(Server.gameFlag.equals(GameFlag.PLUS_TWO)) {
 			Collection<Card> cards = Server.gameController.drawCards(2);
 			Server.turnController.giveCardPenaltyToNextPlayer(cards);
-		} else if(Server.gameFlag.equals(GameFlags.COLOR_PICK)) {
+		} else if(Server.gameFlag.equals(GameFlag.COLOR_PICK)) {
 			Color chosenColor = currentPlayer.hasToChooseColor(Server.inputReader);
 			Server.gameController.setGlobalColor(chosenColor);
-		} else if(Server.gameFlag.equals(GameFlags.PLUS_FOUR)) {
+		} else if(Server.gameFlag.equals(GameFlag.PLUS_FOUR)) {
 			Collection<Card> cards = Server.gameController.drawCards(4);
 			Server.turnController.giveCardPenaltyToNextPlayer(cards);
 			Color chosenColor = currentPlayer.hasToChooseColor(Server.inputReader);
 			Server.gameController.setGlobalColor(chosenColor);
 		} 
-		Server.gameFlag = GameFlags.NORMAL;
+		Server.gameFlag = GameFlag.NORMAL;
 	}
-	
-	private void applyFirstEffect(GameFlags effectFromFirstCard) {
-		if(effectFromFirstCard.equals(GameFlags.REVERSE)) {
-			Server.turnController.reverseCurrentOrder();
-			Server.turnController.resetPlayerIndex();
-		} else if(effectFromFirstCard.equals(GameFlags.SKIP)) {
-			Server.turnController.skipNextPlayer();
-		} else if(effectFromFirstCard.equals(GameFlags.PLUS_TWO)) {
-			Server.turnController.findNextPlayer();
-			Collection<Card> cards = Server.gameController.drawCards(2);
-			Server.turnController.giveCardPenaltyToNextPlayer(cards);
-		} else if(effectFromFirstCard.equals(GameFlags.COLOR_PICK)) {
-			PlayerController currentPlayer = Server.turnController.findNextPlayer();
-			Color chosenColor = currentPlayer.hasToChooseColor(Server.inputReader);
-			Server.gameController.setGlobalColor(chosenColor);
-			Server.turnController.resetPlayerIndex();
-		} else if(effectFromFirstCard.equals(GameFlags.PLUS_FOUR)) {
-			GameFlags gameFlag = Server.gameController.applyEffectFromAnotherFirstCard();
-			applyFirstEffect(gameFlag);
-		} 
-		Server.gameFlag = GameFlags.NORMAL;
-	}
-	
 	
 	/**
 	 * Méthode privée permettant à un joueur de choisir une carte depuis sa main

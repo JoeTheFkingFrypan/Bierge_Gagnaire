@@ -2,7 +2,7 @@ package tests.java.cards.model.basicsTests;
 
 import static org.junit.Assert.assertEquals;
 import main.java.cards.model.basics.EffectSkip;
-import main.java.gameContext.model.GameFlags;
+import main.java.gameContext.model.GameFlag;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,14 +12,14 @@ public class EffetPasserTourTest {
 	private EffectSkip effetPasserTour;
 	private String expectedDescription;
 	private String expectedString;
-	private GameFlags expectedFlag;
+	private GameFlag expectedFlag;
 
 	@Before
 	public void setup() {
 		this.effetPasserTour = new EffectSkip();
 		this.expectedString = "Le joueur suivant devra passer son tour";
 		this.expectedDescription = "Passe";
-		this.expectedFlag = GameFlags.SKIP;
+		this.expectedFlag = GameFlag.SKIP;
 	}
 
 	@Test

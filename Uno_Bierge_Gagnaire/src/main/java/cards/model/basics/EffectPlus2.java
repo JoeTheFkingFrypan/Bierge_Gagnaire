@@ -1,6 +1,6 @@
 package main.java.cards.model.basics;
 
-import main.java.gameContext.model.GameFlags;
+import main.java.gameContext.model.GameFlag;
 
 /**
  * Effet permettant au joueur actuel de forcer le joueur suivant à piocher un certain nombre de cartes 
@@ -13,8 +13,8 @@ public class EffectPlus2 implements Effect {
 	}
 	
 	@Override
-	public GameFlags triggerEffect() {
-		return GameFlags.PLUS_TWO;
+	public GameFlag triggerEffect() {
+		return GameFlag.PLUS_TWO;
 	}
 
 	@Override

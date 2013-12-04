@@ -18,6 +18,11 @@ public class PlayerModel {
 
 	/* ========================================= CONSTRUCTOR ========================================= */
 	
+	/**
+	 * Constructeur de PlayerModel
+	 * Initialise également le score à 0
+	 * @param alias Nom du joueur
+	 */
 	public PlayerModel(String alias) {
 		Preconditions.checkNotNull(alias);
 		this.main = new ArrayList<Card>();
@@ -116,5 +121,9 @@ public class PlayerModel {
 	@Override
 	public String toString() {
 		return "[JOUEUR] " + getAlias() + " a " + getScore() + " points. Il lui reste " + this.main.size() + " cartes en main";
+	}
+
+	public void resetHand() {
+		this.main.clear();		
 	}
 }
