@@ -21,6 +21,7 @@ public class CardSpecial extends Card {
 	 */
 	public CardSpecial(int valeur, Color couleur, Effect effet) {
 		super(valeur, couleur);
+		System.out.println("CREATING SPECIAL CARD WITH VALUE OF " + valeur);
 		Preconditions.checkNotNull(effet,"[ERROR] Effect cannot be null");
 		this.effet = effet;
 	}
@@ -33,6 +34,16 @@ public class CardSpecial extends Card {
 	 */
 	public GameFlag declencherEffet() {
 		return this.effet.triggerEffect();
+	}
+	
+	@Override
+	public Integer getValeur() {
+		return this.value;
+	}
+	
+	@Override
+	public Color getCouleur() {
+		return this.color;
 	}
 	
 /* ========================================= ADVANCED COMPARAISON ========================================= */

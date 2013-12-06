@@ -35,7 +35,6 @@ public class Server {
 		Server.gameController = new GameController(consoleView);
 		Server.inputReader = new InputReader(consoleView);
 		initializeGameSettings();
-		applyEffectFromFirstCardIfITHasOne();
 	}
 
 	/**
@@ -71,7 +70,6 @@ public class Server {
 		Server.consoleView.displayTitle("SETTINGS");
 		int playerNumber = askForPlayerNumber();
 		askForPlayerNames(playerNumber);
-		giveAllPlayers7Cards(playerNumber);
 	}
 
 	/**
@@ -103,13 +101,52 @@ public class Server {
 	}
 
 	/* ========================================= GAME LOGIC ========================================= */
+
+	//TODO: clean that crap "cycleForever"
+	public void cycleUntilSomeoneWins() {
+		PlayerController winningPlayer = null;
+		boolean nooneWonTheGame = true;
+		while(nooneWonTheGame) {
+			giveAllPlayers7Cards(Server.turnController.getNumberOfPlayers());
+			winningPlayer = cycleUntilOnePlayerWinsRound();
+			Server.turnController.computeEndOfTurn(winningPlayer);
+			Server.turnController.displayTotalScore();
+			Server.gameController.resetCards();
+			nooneWonTheGame = Server.turnController.findIfNooneWonTheGame();
+		}
+		handleWinEvent(winningPlayer);
+	}
+	
+	private void handleWinEvent(PlayerController winner) {
+		Server.consoleView.insertBlankLine();
+		Server.consoleView.appendBoldJokerText("Player [");
+		Server.consoleView.appendBoldText(winner.getAlias());
+		Server.consoleView.appendBoldJokerText("] won the game !");
+		Server.consoleView.insertBlankLine();
+		Server.consoleView.displayJokerText("Would you like to start another game ?");
+		Server.consoleView.insertBlankLine();
+		Server.consoleView.appendBoldGreenText("0:YES ");
+		Server.consoleView.appendBoldRedText("1:NO");
+		Server.consoleView.insertBlankLine();
+		int answer = Server.inputReader.getValidAnswer();
+		if(answer == 0) {
+			Server.consoleView.insertBlankLine();
+			Server.consoleView.appendBoldGreenText("LET'S ROLL :D");
+			Server.consoleView.insertBlankLine();
+		} else {
+			Server.consoleView.insertBlankLine();
+			Server.consoleView.appendBoldRedText("YOU SUCKS :(");
+			Server.consoleView.insertBlankLine();
+		}
+	}
 	
 	/**
 	 * Méthode permettant de boucler eternellement sur les joueurs
+	 * @return 
 	 */
-	//TODO: clean that crap "cycleForever"
-	public void cycleForever() {
+	private PlayerController cycleUntilOnePlayerWinsRound() {
 		Server.consoleView.displayTitle("NEW ROUND STARTING");
+		applyEffectFromFirstCardIfITHasOne();
 		boolean playerStillHaveCards = true;
 		PlayerController winningPlayer = null;
 		while(playerStillHaveCards) {
@@ -118,10 +155,7 @@ public class Server {
 			playerStillHaveCards = playOneTurn(requiredGameInfo, winningPlayer);
 			applyEffects(winningPlayer);
 		}
-		Server.turnController.computeEndOfTurn(winningPlayer);
-		//TODO: finish it (fix first card stuff)
-		//Server.gameController.resetCards();
-		//applyEffectFromFirstCardIfITHasOne();
+		return winningPlayer;
 	}
 	
 	/**
@@ -152,7 +186,7 @@ public class Server {
 	 * Méthode permettant d'appliquer l'effet de la première carte tirée depuis la pioche
 	 */
 	private void applyEffectFromFirstCardIfITHasOne() {
-		GameFlag effectFromFirstCard = Server.gameController.applyEffectFromFirstCard();
+		GameFlag effectFromFirstCard = Server.gameController.drawFirstCardAndApplyItsEffect();
 		applyFirstEffect(effectFromFirstCard);
 	}
 	

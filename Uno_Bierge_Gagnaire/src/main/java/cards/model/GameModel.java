@@ -29,14 +29,16 @@ public class GameModel extends AbstractModel {
 		this.globalColor = Color.JOKER;
 		this.pioche = new Stock();
 		this.talon = new Pile();
-		drawStarterCard();
 	}
 
 	/**
 	 * Méthode privée permettant d'initialiser le talon (en tirant la première carte de la pioche)
+	 * @return 
 	 */
-	private void drawStarterCard() {
-		this.talon.receiveCard(drawOneCard());
+	public Card drawStarterCard() {
+		Card starterCard = drawOneCard();
+		this.talon.receiveCard(starterCard);
+		return starterCard;
 	}
 
 	/* ========================================= CARD DRAW ========================================= */

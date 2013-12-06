@@ -102,7 +102,7 @@ public class InputReader {
 			addValidNameFromInput(playerNames);
 		}
 		this.consoleView.insertBlankLine();
-		this.consoleView.appendJokerText("Player creation complete, " + playerNames + " will compete against each other");
+		this.consoleView.appendBoldJokerText("Player creation complete, " + playerNames + " will compete against each other");
 		this.consoleView.insertBlankLine();
 		return playerNames;
 	}
@@ -263,5 +263,16 @@ public class InputReader {
 		} catch (IOException e) {
 			throw new ConsoleException("[ERROR] Something went wrong while reading line from console input");
 		}
+	}
+
+	public int getValidAnswer() {
+		int index = getNumberFromString(readAnotherLine());
+		while(index != 0 && index != 1) {
+			this.consoleView.insertBlankLine();
+			this.consoleView.displayErrorText("[ERROR] Only [0] and [1] are correct answers // " + index + " is not allowed");
+			this.consoleView.displayErrorText("Please enter a VALID number, any invalid characters will be removed");
+			index = getNumberFromString(readAnotherLine());
+		}
+		return index;
 	}
 }

@@ -92,8 +92,8 @@ public class GameController {
 	 * Méthode permettant de déclencher l'effet de la 1ère carte du talon
 	 * @return L'effet associé à la 1ère carte (ou NORMAL, si la carte n'a pas d'effet)
 	 */
-	public GameFlag applyEffectFromFirstCard() {
-		Card firstCard = showLastCardPlayed();
+	public GameFlag drawFirstCardAndApplyItsEffect() {
+		Card firstCard = this.gameModel.drawStarterCard();
 		return applyEffectFromCardIfITHasOne(firstCard);
 	}
 	
@@ -134,7 +134,7 @@ public class GameController {
 	public void setGlobalColor(Color chosenColor) {
 		Preconditions.checkNotNull(chosenColor,"[ERROR] Impossible to set global color : provided color is null");
 		Preconditions.checkArgument(!chosenColor.equals(Color.JOKER),"[ERROR] Impossible to set global color : JOKER is not a valid global color");
-		this.consoleView.appendJokerText("Color is now ");
+		this.consoleView.appendBoldJokerText("Color is now ");
 		appendCorrectColorText(chosenColor);
 		this.gameModel.setGlobalColor(chosenColor);
 		this.consoleView.insertBlankLine();

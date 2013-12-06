@@ -126,4 +126,10 @@ public class PlayerModel {
 	public void resetHand() {
 		this.main.clear();		
 	}
+
+	public void increaseScoreBy(Integer playerScore) {
+		Preconditions.checkNotNull(playerScore,"[ERROR] Impossible to set score, provided number is null");
+		Preconditions.checkArgument(playerScore > 0,"[ERROR] Impossible to set score, provided number must be positive");
+		this.score += playerScore;
+	}
 }

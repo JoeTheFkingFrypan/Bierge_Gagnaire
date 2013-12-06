@@ -112,6 +112,13 @@ public class FancyConsoleDisplay {
 		printText(text);
 	}
 
+	public void displayJokerText(String text) {
+		Preconditions.checkNotNull(text,"[ERROR] Impossible to display text : provided one is null");
+		text = turnBold(text);
+		text = turnMagenta(text);
+		printText(text);
+	}
+	
 	/* ========================================= APPEND TEXT ========================================= */
 
 	

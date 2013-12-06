@@ -7,8 +7,8 @@ import com.google.common.base.Preconditions;
  * Définit les comportements communs à toutes les cartes
  */
 public class Card implements Comparable<Card> {
-	private final int numero;
-	private final Color couleur;
+	protected final int value;
+	protected final Color color;
 
 	/* ========================================= CONSTRUCTOR ========================================= */
 	
@@ -24,8 +24,8 @@ public class Card implements Comparable<Card> {
 			Preconditions.checkArgument(valeur <= 9,"[ERROR] Invalid card number (expected 0-9, was : " + valeur + ")");
 			Preconditions.checkArgument(!couleur.equals(Color.JOKER),"[ERROR] Invalid card color (expected {ROUGE, BLEUE, VERTE, JAUNE} was : " + couleur + ")");
 		}
-		this.numero = valeur;
-		this.couleur = couleur;
+		this.value = valeur;
+		this.color = couleur;
 	}
 
 	/* ========================================= ADVANCED COMPARAISON ========================================= */
@@ -111,7 +111,7 @@ public class Card implements Comparable<Card> {
 	 * @return La valeur de la carte (dans le cas d'une carte numérotée, il s'agit aussi de son numéro)
 	 */
 	public Integer getValeur() {
-		return this.numero;
+		return this.value;
 	}
 
 	/**
@@ -119,7 +119,7 @@ public class Card implements Comparable<Card> {
 	 * @return La couleur de la carte
 	 */
 	public Color getCouleur () {
-		return this.couleur;
+		return this.color;
 	}
 
 	/* ========================================= DISPLAY ========================================= */

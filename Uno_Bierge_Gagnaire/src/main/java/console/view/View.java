@@ -61,6 +61,11 @@ public abstract class View {
 		this.consoleDisplay.displaySuccessText(text);
 	}
 	
+	public void displayJokerText(String text) {
+		Preconditions.checkNotNull(text,"[ERROR] Impossible to display text : provided one is null");
+		this.consoleDisplay.displayJokerText(text);
+	}
+	
 	/* ========================================= CLEARING ========================================= */
 	
 	/**
@@ -272,7 +277,7 @@ public abstract class View {
 		this.consoleDisplay.appendYellowText(text);
 	}
 
-	public void appendJokerText(String text) {
+	public void appendBoldJokerText(String text) {
 		Preconditions.checkNotNull(text,"[ERROR] Impossible to display text : provided one is null");
 		this.consoleDisplay.appendJokerText(text);
 	}

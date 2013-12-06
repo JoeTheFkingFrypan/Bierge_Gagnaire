@@ -186,7 +186,7 @@ public class TurnModel {
 		if(indicatesDefaultTurnOrder()) {
 			this.currentPlayerIndex = -1;
 		} else {
-			this.currentPlayerIndex = this.players.size() + 1;
+			this.currentPlayerIndex = this.players.size();
 		}
 	}
 
@@ -202,5 +202,18 @@ public class TurnModel {
 		for(PlayerController currentPlayer : this.players) {
 			currentPlayer.resetHand();
 		}
+	}
+
+	public Collection<PlayerController> getAllPlayers() {
+		return this.players;
+	}
+
+	public boolean findIfNooneWonTheGame() {
+		for(PlayerController currentPlayer : this.players) {
+			if(currentPlayer.getScore() > 10) {
+				return false;
+			}
+		}
+		return true;
 	}
 }

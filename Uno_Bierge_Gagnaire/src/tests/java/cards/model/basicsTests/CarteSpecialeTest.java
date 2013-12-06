@@ -140,13 +140,13 @@ public class CarteSpecialeTest {
 		assertEquals("Super effet special totalement different du premier",this.incompatibleCard.getEffet());
 	}
 	
-	@Test
+	/*@Test
 	public void testGetValeur() {
 		assertEquals(this.referenceValue,this.referenceCard.getValeur());
 		assertEquals(this.completelyDifferentValue,this.compatibleCardSameEffect.getValeur());
 		assertEquals(this.completelyDifferentValue,this.compatibleCardSameColor.getValeur());
 		assertEquals(this.referenceValue,this.incompatibleCard.getValeur());
-	}
+	}*/
 	
 	@Test
 	public void testGetCouleur() {

@@ -45,7 +45,7 @@ public class PlayerController {
 	 */
 	public void pickUpOneCard(Card card) {
 		Preconditions.checkNotNull(card,"[ERROR] Card picked up cannot be null");
-		this.consoleView.appendJokerText("You had no playable cards in you hand, you've drawn : ");
+		this.consoleView.appendBoldJokerText("You had no playable cards in you hand, you've drawn : ");
 		this.consoleView.displayCard(card);
 		this.consoleView.insertBlankLine();
 		this.player.pickUpOneCard(card);
@@ -59,7 +59,7 @@ public class PlayerController {
 		Preconditions.checkNotNull(cards,"[ERROR] Card collection picked up cannot be null");
 		Preconditions.checkArgument(cards.size()>0, "[ERROR] Card collection picked cannot be empty");
 		this.consoleView.insertBlankLine();
-		this.consoleView.appendJokerText("Player [" + getAlias() + "] was forced to draw " + cards.size() + " cards");
+		this.consoleView.appendBoldJokerText("Player [" + getAlias() + "] was forced to draw " + cards.size() + " cards");
 		this.consoleView.insertBlankLine();
 		this.player.pickUpCards(cards);
 	}
@@ -129,9 +129,9 @@ public class PlayerController {
 		this.consoleView.appendBoldText("The last card play was : ");
 		this.consoleView.displayCard(gameModelbean.getLastCardPlayed());
 		gameModelbean.appendGlobalColorIfItIsSet();
-		this.consoleView.appendJokerText("Sadly, even after picking a new card, you didn't have any playable");
+		this.consoleView.appendBoldJokerText("Sadly, even after picking a new card, you didn't have any playable");
 		this.consoleView.insertBlankLine();
-		this.consoleView.appendJokerText("Your turn will now automatically end");
+		this.consoleView.appendBoldJokerText("Your turn will now automatically end");
 		this.consoleView.insertBlankLine();
 	}
 	
@@ -145,7 +145,7 @@ public class PlayerController {
 	public Color hasToChooseColor(InputReader inputReader) {
 		Preconditions.checkNotNull(inputReader,"[ERROR] Impossible to start turn, inputReader is null");
 		consoleView.insertBlankLine();
-		consoleView.appendJokerText("You played a Joker, please choose a color");
+		consoleView.appendBoldJokerText("You played a Joker, please choose a color");
 		this.consoleView.insertBlankLine();
 		return inputReader.getValidColor();
 	}
@@ -196,11 +196,18 @@ public class PlayerController {
 		int pointsFromCards = 0;
 		for(Card currentCard : this.player.getCardsInHand()) {
 			pointsFromCards += currentCard.getValeur();
+			System.out.println("SUM = " + pointsFromCards);
 		}
 		return pointsFromCards;
 	}
 
 	public void resetHand() {
 		this.player.resetHand();	
+	}
+
+	public void increaseScoreBy(Integer playerScore) {
+		Preconditions.checkNotNull(playerScore,"[ERROR] Impossible to set score, provided number is null");
+		Preconditions.checkArgument(playerScore > 0,"[ERROR] Impossible to set score, provided number must be positive");
+		this.player.increaseScoreBy(playerScore);
 	}	
 }
