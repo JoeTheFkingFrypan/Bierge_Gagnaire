@@ -34,15 +34,15 @@ Version du projet : 0.7.0
 Outils utilisés :
 - Maven
 
-GroupId : Uno_Bierge_Gagnaire
-ArtifactId : Uno_Bierge_Gagnaire
-Version : 0.7.0
-Packaging : jar
+- GroupId : Uno_Bierge_Gagnaire
+- ArtifactId : Uno_Bierge_Gagnaire
+- Version : 0.7.0
+- Packaging : jar
 
 =====================================
 
 Utilisation des bibliothèques :
 - JUnit : tests unitaires
-- Mockito & PowerMock : amélioration des possibilités de tests unitaires permettant de simuler le comportement d'objets
-- Guava : multiples outils (gestion des préconditions, de regex simplifées, et bien d'autres)
+- Mockito & PowerMock : fonctionnalités avancées pour les tests unitaires (amélioration des possibilités de tests unitaires permettant de simuler le comportement d'objets)
+- Guava : multiples outils (gestion des préconditions, regex simplifées, matchers, entre autres)
 - Jansi : affichage en couleur dans la console
