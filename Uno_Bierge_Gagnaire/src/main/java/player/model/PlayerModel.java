@@ -12,8 +12,9 @@ import main.java.cards.model.basics.Card;
  * Classe correspondant aux données d'un joueur
  */
 public class PlayerModel {
-	private List<Card> main;
+	private boolean unoAnnoucement;
 	private final String alias;
+	private List<Card> main;
 	private int score;
 
 	/* ========================================= CONSTRUCTOR ========================================= */
@@ -26,6 +27,7 @@ public class PlayerModel {
 	public PlayerModel(String alias) {
 		Preconditions.checkNotNull(alias);
 		this.main = new ArrayList<Card>();
+		this.unoAnnoucement = false;
 		this.alias = alias;
 		this.score = 0;
 	}
@@ -131,5 +133,17 @@ public class PlayerModel {
 		Preconditions.checkNotNull(playerScore,"[ERROR] Impossible to set score, provided number is null");
 		Preconditions.checkArgument(playerScore > 0,"[ERROR] Impossible to set score, provided number must be positive");
 		this.score += playerScore;
+	}
+
+	public void setUnoAnnoucement() {
+		this.unoAnnoucement = true;
+	}
+	
+	public void resetUnoAnnoucement() {
+		this.unoAnnoucement = false;
+	}
+	
+	public boolean hasAnnouncedUno() {
+		return this.unoAnnoucement;
 	}
 }

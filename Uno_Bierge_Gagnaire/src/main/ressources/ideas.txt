@@ -11,3 +11,8 @@ Notes
 * joueur runnable -> fin de la partie = fin de la méthode run
 * Problème : 2 comportements => jeu de cartes ET interruption du joueur en cours dans cas précis
 * Synchronisation conditionnelle? flag?
+
+Gestion client server
+ waitForRequest()
+ fork()
+ handleRequest()

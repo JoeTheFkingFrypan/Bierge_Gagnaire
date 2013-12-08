@@ -21,7 +21,6 @@ public class CardSpecial extends Card {
 	 */
 	public CardSpecial(int valeur, Color couleur, Effect effet) {
 		super(valeur, couleur);
-		System.out.println("CREATING SPECIAL CARD WITH VALUE OF " + valeur);
 		Preconditions.checkNotNull(effet,"[ERROR] Effect cannot be null");
 		this.effet = effet;
 	}

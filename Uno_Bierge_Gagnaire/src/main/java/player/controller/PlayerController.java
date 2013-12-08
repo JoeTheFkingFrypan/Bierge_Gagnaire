@@ -37,6 +37,7 @@ public class PlayerController {
 		Preconditions.checkNotNull(cards,"[ERROR] Card collection picked up cannot be null");
 		Preconditions.checkArgument(cards.size()>0, "[ERROR] Card collection picked cannot be empty");
 		this.player.pickUpCards(cards);
+		this.player.resetUnoAnnoucement();
 	}
 
 	/**
@@ -49,6 +50,7 @@ public class PlayerController {
 		this.consoleView.displayCard(card);
 		this.consoleView.insertBlankLine();
 		this.player.pickUpOneCard(card);
+		this.player.resetUnoAnnoucement();
 	}
 
 	/**
@@ -108,15 +110,22 @@ public class PlayerController {
 		Preconditions.checkNotNull(gameModelbean,"[ERROR] Impossible to start turn, gameModelbean is null");
 		String alias = this.player.getAlias();
 		Collection<Card> cardCollection = this.getCardsInHand();
-		int index = inputReader.getFirstValidIndexFromInput(alias,cardCollection,gameModelbean);
+		String answer = inputReader.getValidAnswer(alias,cardCollection,gameModelbean);
+		int index = inputReader.getNumberFromString(answer);
+		boolean unoHasBeenAnnounced = inputReader.findIfUnoHasBeenAnnounced(answer);
 		Card choosenCard = this.player.peekAtCard(index);
 		while(!gameModelbean.isCompatibleWith(choosenCard)) {
-			index = inputReader.getAnotherValidIndexFromInputDueToIncompatibleCard(alias,cardCollection,gameModelbean);
+			answer = inputReader.getAnotherValidIndexFromInputDueToIncompatibleCard(alias,cardCollection,gameModelbean);
+			index = inputReader.getNumberFromString(answer);
+			unoHasBeenAnnounced = inputReader.findIfUnoHasBeenAnnounced(answer);
 			choosenCard = this.player.peekAtCard(index);
+		}
+		if(unoHasBeenAnnounced) {
+			this.player.setUnoAnnoucement();
 		}
 		return this.player.playCard(index);
 	}
-	
+
 	/**
 	 * Méthode privée permettant de gérer le cas où le joueur est dans l'incapacité de jouer son tour
 	 * @param gameModelbean Carte du talon (carte de référence)
@@ -209,5 +218,13 @@ public class PlayerController {
 		Preconditions.checkNotNull(playerScore,"[ERROR] Impossible to set score, provided number is null");
 		Preconditions.checkArgument(playerScore > 0,"[ERROR] Impossible to set score, provided number must be positive");
 		this.player.increaseScoreBy(playerScore);
-	}	
+	}
+	
+	public boolean hasAnnouncedUno() {
+		return this.player.hasAnnouncedUno();
+	}
+
+	public boolean deservesTheRightToAnnounceUno() {
+		return (this.player.getNumberOfCardsInHand() == 1);
+	}
 }

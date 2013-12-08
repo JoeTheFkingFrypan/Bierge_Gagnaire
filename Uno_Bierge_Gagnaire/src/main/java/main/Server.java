@@ -25,7 +25,7 @@ public class Server {
 	private static View consoleView;
 
 	/* ========================================= CONSTRUCTOR ========================================= */
-	
+
 	/**
 	 * Constructeur privé de serveur
 	 */
@@ -60,7 +60,7 @@ public class Server {
 	}
 
 	/* ========================================= SETTINGS ========================================= */
-	
+
 	/**
 	 * Méthode privée permettant d'initialiser les paramètres (nombre de joueurs, nom de chacun des joueurs)
 	 */
@@ -116,7 +116,7 @@ public class Server {
 		}
 		handleWinEvent(winningPlayer);
 	}
-	
+
 	private void handleWinEvent(PlayerController winner) {
 		Server.consoleView.insertBlankLine();
 		Server.consoleView.appendBoldJokerText("Player [");
@@ -139,7 +139,7 @@ public class Server {
 			Server.consoleView.insertBlankLine();
 		}
 	}
-	
+
 	/**
 	 * Méthode permettant de boucler eternellement sur les joueurs
 	 * @return 
@@ -157,7 +157,7 @@ public class Server {
 		}
 		return winningPlayer;
 	}
-	
+
 	/**
 	 * Méthode privée permettant de permettre à un joueur de jouer son tour (en lui permettant de piocher si besoin, ou de passer son tour s'il n'a pas de cartes jouables)
 	 * @param gameModelbean Carte dernièrement jouée (celle sur le talon, donc carte de référence)
@@ -179,9 +179,9 @@ public class Server {
 		}
 		return currentPlayer.stillHasCards();
 	}
-	
+
 	/* ========================================= EFFECTS ========================================= */
-	
+
 	/**
 	 * Méthode permettant d'appliquer l'effet de la première carte tirée depuis la pioche
 	 */
@@ -189,7 +189,7 @@ public class Server {
 		GameFlag effectFromFirstCard = Server.gameController.drawFirstCardAndApplyItsEffect();
 		applyFirstEffect(effectFromFirstCard);
 	}
-	
+
 	/**
 	 * Méthode privée permettant d'appliquer l'effet en provenance de la 1ère carte retournée du talon
 	 * @param effectFromFirstCard Effet provenant de la 1ère carte (initialisation)
@@ -217,7 +217,7 @@ public class Server {
 		} 
 		Server.gameFlag = GameFlag.NORMAL;
 	}
-	
+
 	/**
 	 * Méthode privée permettant d'appliquer les effets des cartes spéciales sur la partie
 	 * @param currentPlayer 
@@ -241,7 +241,7 @@ public class Server {
 		} 
 		Server.gameFlag = GameFlag.NORMAL;
 	}
-	
+
 	/**
 	 * Méthode privée permettant à un joueur de choisir une carte depuis sa main
 	 * @param gameModelbean Carte dernièrement jouée (celle sur le talon, donc carte de référence)
@@ -250,5 +250,25 @@ public class Server {
 	private void chooseCardAndPlayIt(GameModelBean gameModelbean, PlayerController currentPlayer) {
 		Card cardChosen = currentPlayer.startTurn(inputReader,gameModelbean);
 		Server.gameFlag = Server.gameController.playCard(cardChosen);
+		if(currentPlayer.hasAnnouncedUno()) {
+			handleUnoAnnoucement(currentPlayer);
+		}
+	}
+
+	//TODO : handle UNO f
+	private void handleUnoAnnoucement(PlayerController currentPlayer) {
+		Server.consoleView.insertBlankLine();
+		Server.consoleView.appendBoldJokerText("Player [");
+		Server.consoleView.appendBoldText(currentPlayer.getAlias());
+		Server.consoleView.appendBoldJokerText("] announced UNO");
+		if(!currentPlayer.deservesTheRightToAnnounceUno()) {
+			Server.consoleView.insertBlankLine();
+			Server.consoleView.appendBoldRedText("Since that annoucement is irrelevant (he's not playing his 2nd last card)");
+			Server.consoleView.insertBlankLine(); 
+			Server.consoleView.appendBoldRedText("He receives a 2 cards penalty. Pretty dumb, right?");
+			Collection<Card> cardPenalty = Server.gameController.drawCards(2);
+			currentPlayer.pickUpCards(cardPenalty);
+		}
+		Server.consoleView.insertBlankLine();
 	}
 }

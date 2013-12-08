@@ -61,7 +61,7 @@ public class InputReader {
 	 * @param answer String contenant la chaine entrée au clavier
 	 * @return 
 	 */
-	private int getNumberFromString(String answer) {
+	public int getNumberFromString(String answer) {
 		Preconditions.checkNotNull(answer,"[ERROR] Couldn't read answer : provided one was null");
 		while(CharMatcher.DIGIT.countIn(answer) < 1) {
 			this.consoleView.insertBlankLine();
@@ -73,18 +73,6 @@ public class InputReader {
 		return Integer.parseInt(digitsFromAnswer);
 	}
 
-	private int getNumberFromStringDisplayingCardInfo(String answer, Collection<Card> cardCollection, GameModelBean gameModelbean) {
-		while(CharMatcher.DIGIT.countIn(answer) < 1) {
-			this.consoleView.insertBlankLine();
-			this.consoleView.displayErrorText("[ERROR] Only numbers are allowed");
-			this.consoleView.displayErrorText("Please enter a VALID player number, any invalid characters will be removed");
-			displayCardsInfo(cardCollection, gameModelbean);
-			answer = readAnotherLine();
-		}
-		String digitsFromAnswer = CharMatcher.DIGIT.retainFrom(answer);
-		return Integer.parseInt(digitsFromAnswer);
-	}
-	
 	/* ========================================= PLAYER ALIAS ========================================= */
 
 	/**
@@ -142,58 +130,21 @@ public class InputReader {
 
 	/* ========================================= CARD INDEX FROM HAND ========================================= */
 
-	/**
-	 * Méthode permettant de récuperer le choix de carte de l'utilisateur
-	 * @param alias Pseudo du joueur
-	 * @param cardCollection Cartes en sa possession
-	 * @param currentCard Carte de référence (celle sur le talon)
-	 * @return Un int correpondant au numéro de la carte choisie
-	 */
-	public int getFirstValidIndexFromInput(String alias, Collection<Card> cardCollection, GameModelBean gameModelbean) {
+	public String getValidAnswer(String alias, Collection<Card> cardCollection, GameModelBean gameModelbean) {
 		Preconditions.checkNotNull(alias, "[ERROR] Impossible to get card index from player's cards : provided alias is null");
 		Preconditions.checkNotNull(cardCollection, "[ERROR] Impossible to get card index from player's cards : provided collection is null");
 		Preconditions.checkNotNull(gameModelbean, "[ERROR] Impossible to get card index from player's cards : provided gameModelBean is null");
 		displayCardsInfo(cardCollection, gameModelbean);
-		return getValidIndexDisplayingInfo(cardCollection,gameModelbean);
-	}
-
-	/**
-	 * Méthode permettant de récuperer le choix de carte de l'utilisateur (dans le cas où il a préalablement sélectionné une carte non compatible)
-	 * @param alias Pseudo du joueur
-	 * @param cardCollection Cartes en sa possession
-	 * @param gameModelbean Carte de référence (celle sur le talon)
-	 * @return Un int correpondant au numéro de la carte choisie
-	 */
-	public int getAnotherValidIndexFromInputDueToIncompatibleCard(String alias, Collection<Card> cardCollection, GameModelBean gameModelbean) {
-		Preconditions.checkNotNull(alias, "[ERROR] Impossible to get card index from player's cards : provided alias is null");
-		Preconditions.checkNotNull(cardCollection, "[ERROR] Impossible to get card index from player's cards : provided collection is null");
-		Preconditions.checkNotNull(gameModelbean, "[ERROR] Impossible to get card index from player's cards : provided gameModelBean is null");
-		this.consoleView.insertBlankLine();
-		this.consoleView.displayErrorText("[ERROR] Choosen card is not compatible, please pick another one");
-		displayCardsInfo(cardCollection, gameModelbean);
-		return getValidIndexDisplayingInfo(cardCollection,gameModelbean);
-	}
-
-	/**
-	 * Méthode privée permettant de récuperer une index valide par rapport à ceux possibles
-	 * @param boundLimit Index maximal non accessible
-	 * @return Un int correspondant à l'index choisi
-	 */
-	private int getValidIndex(int boundLimit) {
-		Preconditions.checkArgument(boundLimit >= 0, "[ERROR] Impossible to get index because of invalid bound limit");
-		String answer = readAnotherLine();
-		int choosenIndex = getNumberFromString(answer);
-		while(choosenIndex < 0 || choosenIndex >= boundLimit) {
-			this.consoleView.insertBlankLine();
-			this.consoleView.displayErrorText("[ERROR] Invalid card number (Expected: number from 0 to " + (boundLimit-1) + ")");
-			this.consoleView.displayErrorText("Please enter a VALID card number");
-			answer = readAnotherLine();
-			choosenIndex = getNumberFromString(answer);
-		}
-		return choosenIndex;
+		return getValidAnswerDisplayingInfo(cardCollection,gameModelbean);
 	}
 	
-	private int getValidIndexDisplayingInfo(Collection<Card> cardCollection, GameModelBean gameModelbean) {
+	public String getAnotherValidIndexFromInputDueToIncompatibleCard(String alias, Collection<Card> cardCollection, GameModelBean gameModelbean) {
+        this.consoleView.insertBlankLine();
+        this.consoleView.displayErrorText("[ERROR] Choosen card is not compatible, please pick another one");
+        return getValidAnswer(alias,cardCollection,gameModelbean);
+	}
+
+	private String getValidAnswerDisplayingInfo(Collection<Card> cardCollection, GameModelBean gameModelbean) {
 		Preconditions.checkNotNull(cardCollection, "[ERROR] Impossible to get card index from player's cards : provided collection is null");
 		Preconditions.checkNotNull(gameModelbean, "[ERROR] Impossible to get card index from player's cards : provided gameModelBean is null");
 		int boundLimit = cardCollection.size();
@@ -207,7 +158,19 @@ public class InputReader {
 			answer = readAnotherLine();
 			choosenIndex = getNumberFromString(answer);
 		}
-		return choosenIndex;
+		return answer;
+	}
+
+	private int getNumberFromStringDisplayingCardInfo(String answer, Collection<Card> cardCollection, GameModelBean gameModelbean) {
+		while(CharMatcher.DIGIT.countIn(answer) < 1) {
+			this.consoleView.insertBlankLine();
+			this.consoleView.displayErrorText("[ERROR] Only numbers are allowed --[NOTE] UNO word might also be used here");
+			this.consoleView.displayErrorText("Please enter a VALID player number, any other invalid characters will be removed");
+			displayCardsInfo(cardCollection, gameModelbean);
+			answer = readAnotherLine();
+		}
+		String digitsFromAnswer = CharMatcher.DIGIT.retainFrom(answer);
+		return Integer.parseInt(digitsFromAnswer);
 	}
 
 	private void displayCardsInfo(Collection<Card> cardCollection, GameModelBean gameModelbean) {
@@ -218,9 +181,9 @@ public class InputReader {
 		this.consoleView.appendBoldText("* The last card play was : ");
 		this.consoleView.displayCard(gameModelbean.getLastCardPlayed());
 		gameModelbean.appendGlobalColorIfItIsSet();
-		this.consoleView.displayBoldText("Please choose a card to play");
+		this.consoleView.displayBoldText("Please choose a card to play, remember to say UNO if you play your 2nd last card");
 	}
-	
+
 	/* ========================================= COLOR PICKING ========================================= */
 
 	public Color getValidColor() {
@@ -231,8 +194,17 @@ public class InputReader {
 		this.consoleView.appendBoldYellowText("3:Yellow ");
 		this.consoleView.insertBlankLine();
 		this.consoleView.displayBoldText("Please pick one using number");
-		int wantedColor = getValidIndex(4);
-		return findColorUsingItsNumber(wantedColor);
+
+		String answer = readAnotherLine();
+		int choosenIndex = getNumberFromString(answer);
+		while(choosenIndex < 0 || choosenIndex >= 4) {
+			this.consoleView.insertBlankLine();
+			this.consoleView.displayErrorText("[ERROR] Invalid number (Expected: number from 0 to 3");
+			this.consoleView.displayErrorText("Please enter a VALID card number");
+			answer = readAnotherLine();
+			choosenIndex = getNumberFromString(answer);
+		}
+		return findColorUsingItsNumber(choosenIndex);
 	}
 
 	private Color findColorUsingItsNumber(int colorNumber) {
@@ -274,5 +246,13 @@ public class InputReader {
 			index = getNumberFromString(readAnotherLine());
 		}
 		return index;
+	}
+
+	public boolean findIfUnoHasBeenAnnounced(String answer) {
+		Preconditions.checkNotNull(answer,"[ERROR] Cannot check if UNO has been announced : provided answer is null");
+		Preconditions.checkArgument(answer.length() > 0, "[ERROR] Cannot check if UNO has been announced : provided answer is empty");
+		String answerWithoutNumbers = CharMatcher.DIGIT.removeFrom(answer);
+		String pattern = "^( )*(U|u)( )*(N|n)( )*(O|o)( )*$";
+		return answerWithoutNumbers.matches(pattern);
 	}
 }
