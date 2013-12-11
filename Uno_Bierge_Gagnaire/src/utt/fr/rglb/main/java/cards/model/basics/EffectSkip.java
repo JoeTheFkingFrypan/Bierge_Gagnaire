@@ -6,6 +6,7 @@ import utt.fr.rglb.main.java.turns.model.GameFlag;
  * Effet permettant à un joueur de forcer le joueur suivant à passer son tour
  */
 public class EffectSkip implements Effect {
+	
 	@Override
 	public GameFlag triggerEffect() {
 		return GameFlag.SKIP;

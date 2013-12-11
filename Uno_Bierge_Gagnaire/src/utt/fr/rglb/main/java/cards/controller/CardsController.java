@@ -1,5 +1,6 @@
 package utt.fr.rglb.main.java.cards.controller;
 
+import com.google.common.base.Preconditions;
 import java.util.Collection;
 
 import utt.fr.rglb.main.java.cards.model.CardsModel;
@@ -9,9 +10,6 @@ import utt.fr.rglb.main.java.cards.model.basics.CardSpecial;
 import utt.fr.rglb.main.java.cards.model.basics.Color;
 import utt.fr.rglb.main.java.console.view.View;
 import utt.fr.rglb.main.java.turns.model.GameFlag;
-
-import com.google.common.base.Preconditions;
-
 
 /**
  * Classe dont le rôle est de gérer tout ce qui est associé aux cartes (compatibilité, pioche, jeu, etc)

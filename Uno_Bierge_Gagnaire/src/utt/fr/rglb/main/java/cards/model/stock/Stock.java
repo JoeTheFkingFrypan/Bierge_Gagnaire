@@ -1,14 +1,12 @@
 package utt.fr.rglb.main.java.cards.model.stock;
 
+import com.google.common.base.Preconditions;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Queue;
 
 import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.console.model.AbstractModel;
-
-import com.google.common.base.Preconditions;
-
 
 /**
  * Classe permettant de piocher des cartes, comprenant initialement l'ensemble des 108 cartes de jeu

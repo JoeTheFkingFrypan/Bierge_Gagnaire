@@ -1,5 +1,7 @@
 package utt.fr.rglb.main.java.console.model;
 
+import com.google.common.base.CharMatcher;
+import com.google.common.base.Preconditions;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -10,8 +12,6 @@ import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.cards.model.basics.Color;
 import utt.fr.rglb.main.java.console.view.View;
 import utt.fr.rglb.main.java.player.model.PlayersToCreate;
-import com.google.common.base.CharMatcher;
-import com.google.common.base.Preconditions;
 
 /**
  * Classe permettant de demander à l'utilisateur d'entrer des informations au clavier, et de les valider
@@ -266,7 +266,7 @@ public class InputReader {
 	}
 
 	/**
-	 * Méthode permettant d'obtenir un index valide (soit 0 soit 1) pour le choix donné
+	 * Méthode permettant d'obtenir un index valide (soit 0 soit 1) pour le choix donné (choix proposant 2 réponses)
 	 * @return int correspondant à l'index choisi
 	 */
 	public int getValidAnswerFromDualChoice() {
@@ -278,6 +278,10 @@ public class InputReader {
 		return index;
 	}
 	
+	/**
+	 * Méthode permettant d'obtenir un index valide (soit 0, 1 ou 2) pour le choix donné (choix proposant 3 réponses)
+	 * @return int correspondant à l'index choisi
+	 */
 	private int getValidAnswerFromTripleChoice() {
 		int index = getNumberFromString(readAnotherLine());
 		while(index != 0 && index != 1 && index != 2) {
@@ -300,6 +304,10 @@ public class InputReader {
 		return answerWithoutNumbers.matches(pattern);
 	}
 
+	/**
+	 * Méthode permettant de demander à l'utilisateur s'il souhaite charger le fichier de configuration (et récupérer sa réponse)
+	 * @return int correspondant à l'index de sa réponse <code>0</code> pour <code>OUI</code>, <code>1</code> pour <code>NON</code> 
+	 */
 	public boolean askForConfigurationFileUsage() {
 		this.consoleView.displayChoice("Would you like to load game settings from configuration file?","0:YES ", "1:NO ");
 		int choice = this.getValidAnswerFromDualChoice();

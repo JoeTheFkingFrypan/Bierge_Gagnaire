@@ -1,9 +1,7 @@
 package utt.fr.rglb.main.java.cards.model.basics;
 
 import utt.fr.rglb.main.java.turns.model.GameFlag;
-
 import com.google.common.base.Preconditions;
-
 
 /**
  * Classe correspondant à une carte spéciale (carte avec un effet)

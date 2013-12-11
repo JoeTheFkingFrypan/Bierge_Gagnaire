@@ -1,11 +1,9 @@
 package utt.fr.rglb.main.java.console.view;
 
-
+import com.google.common.base.Preconditions;
 import org.fusesource.jansi.AnsiConsole;
 
 import utt.fr.rglb.main.java.console.model.ConsoleCodesAnsi;
-
-import com.google.common.base.Preconditions;
 
 public class FancyConsoleDisplay {
 

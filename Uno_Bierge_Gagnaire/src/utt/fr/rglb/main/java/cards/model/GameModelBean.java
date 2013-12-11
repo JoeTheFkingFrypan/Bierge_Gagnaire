@@ -1,5 +1,6 @@
 package utt.fr.rglb.main.java.cards.model;
 
+import com.google.common.base.Preconditions;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -8,9 +9,6 @@ import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.cards.model.basics.CardSpecial;
 import utt.fr.rglb.main.java.cards.model.basics.Color;
 import utt.fr.rglb.main.java.console.view.View;
-
-import com.google.common.base.Preconditions;
-
 
 /**
  * Classe dont le rôle est de permettre un test de compatibilité entre la carte choisie par l'utilisateur et la carte de référence de manière plus aisée
@@ -97,7 +95,6 @@ public class GameModelBean {
 		}
 		return false;
 	}
-
 
 	/* ========================================= COMPARAISON - UTILS ========================================= */
 

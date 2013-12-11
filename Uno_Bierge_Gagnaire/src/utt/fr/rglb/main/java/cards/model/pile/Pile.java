@@ -1,12 +1,10 @@
 package utt.fr.rglb.main.java.cards.model.pile;
 
+import com.google.common.base.Preconditions;
 import java.util.Collection;
 import java.util.Stack;
 
 import utt.fr.rglb.main.java.cards.model.basics.Card;
-
-import com.google.common.base.Preconditions;
-
 
 /**
  * Classe permettant de réception les cartes jouées (avec comparaison par rapport à la dernière reçue).

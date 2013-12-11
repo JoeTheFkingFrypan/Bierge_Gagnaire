@@ -15,6 +15,9 @@ public enum Color {
 	YELLOW,
 	JOKER;
 	
+	/**
+	 * Méthode permettant de comparer les couleurs entre elles (la comparaison est effectuée par rapport à l'ordre dans lequel elles apparaissent dans l'énumération
+	 */
 	public final int compateTo(Color otherColor) {
 		System.out.println("[" + this + "]" + this.ordinal() + " .vs. [" + otherColor + "] " + otherColor.ordinal());
 		return this.ordinal() - otherColor.ordinal();

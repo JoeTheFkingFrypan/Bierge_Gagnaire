@@ -1,5 +1,6 @@
 package utt.fr.rglb.main.java.cards.model;
 
+import com.google.common.base.Preconditions;
 import java.util.Collection;
 
 import utt.fr.rglb.main.java.cards.model.basics.Card;
@@ -7,9 +8,6 @@ import utt.fr.rglb.main.java.cards.model.basics.Color;
 import utt.fr.rglb.main.java.cards.model.pile.Pile;
 import utt.fr.rglb.main.java.cards.model.stock.Stock;
 import utt.fr.rglb.main.java.console.model.AbstractModel;
-
-import com.google.common.base.Preconditions;
-
 
 /**
  * Classe comprenant les classes composant le jeu (pioche et talon) et leurs données

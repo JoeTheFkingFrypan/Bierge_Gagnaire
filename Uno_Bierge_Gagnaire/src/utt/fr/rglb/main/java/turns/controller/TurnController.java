@@ -11,7 +11,6 @@ import utt.fr.rglb.main.java.turns.model.TurnModel;
 
 import com.google.common.base.Preconditions;
 
-
 /**
  * Classe dont le rôle est de gérer tout ce qui touche aux joueurs, et passage au joueur suivant
  */

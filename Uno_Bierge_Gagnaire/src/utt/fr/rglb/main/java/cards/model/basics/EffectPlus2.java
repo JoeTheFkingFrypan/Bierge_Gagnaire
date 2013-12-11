@@ -8,6 +8,10 @@ import utt.fr.rglb.main.java.turns.model.GameFlag;
 public class EffectPlus2 implements Effect {
 	private final int cartesDevantEtrePiochees;
 
+	/**
+	 * Constructeur permettant de créer un EffectPlus2
+	 * @param cartesDevantEtrePiochees Nombre de cartes devant être piochées
+	 */
 	public EffectPlus2 (int cartesDevantEtrePiochees) {
 		this.cartesDevantEtrePiochees = cartesDevantEtrePiochees;
 	}

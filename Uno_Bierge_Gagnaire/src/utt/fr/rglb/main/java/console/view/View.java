@@ -1,13 +1,11 @@
 package utt.fr.rglb.main.java.console.view;
 
+import com.google.common.base.Preconditions;
 import java.util.Collection;
 
 import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.cards.model.basics.CardSpecial;
 import utt.fr.rglb.main.java.cards.model.basics.Color;
-
-import com.google.common.base.Preconditions;
-
 
 /**
  * Classe définissant les méthodes d'affichage
@@ -311,7 +309,6 @@ public abstract class View {
 		this.consoleDisplay.displayBlankLine();
 	}
 
-
 	/* ========================================= WHITE TEXT ========================================= */
 
 	/**
@@ -324,6 +321,23 @@ public abstract class View {
 		this.consoleDisplay.displayBlankLine();
 	}
 
+	/**
+	 * Méthode permettant d'afficher du texte de couleur blanche (avec 1 mot emphasé) sans aller à la ligne
+	 * @param part01 Première partie du texte à afficher
+	 * @param placeholder01 Partie mise en emphase (joker/magenta)
+	 * @param part02 Deuxième partie du texte à afficher
+	 */
+	public void StartOneLineOfBoldText(String part01, String placeholder01, String part02) {
+		this.consoleDisplay.displayBlankLine();
+		this.consoleDisplay.appendBoldText(part01);
+		this.consoleDisplay.appendJokerText(placeholder01);
+		this.consoleDisplay.appendBoldText(part02);
+	}
+	
+	/**
+	 * Méthode permettant d'afficher du texte de couleur blanche sur une ligne déjà existante
+	 * @param string Message à afficher
+	 */
 	public void AppendOneLineOfBoldText(String string) {
 		this.consoleDisplay.appendBoldText(string);
 	}
@@ -478,9 +492,9 @@ public abstract class View {
 
 	/**
 	 * Méthode permettant d'afficher les choix accessibles à l'utilisateur (Y/N question avec index et couleurs distinctives)
+	 * @param question Question à afficher à l'utilisateur
 	 * @param choice1 Premier choix (affiché en vert)
 	 * @param choice2 Deuxième choix (affiché en rouge)
-	 * @param string 
 	 */
 	public void displayChoice(String question, String choice1, String choice2) {
 		this.consoleDisplay.displayBlankLine();
@@ -491,6 +505,13 @@ public abstract class View {
 		this.consoleDisplay.displayBlankLine();
 	}
 
+	/**
+	 * Méthode permettant d'afficher les choix accessibles à l'utilisateur (A/B/C question avec index et couleurs distinctives)
+	 * @param question Question à afficher à l'utilisateur
+	 * @param choice1 Premier choix (affiché en vert)
+	 * @param choice2 Deuxième choix (affiché en jaune)
+	 * @param choice3 Troisième choix (affiché en rouge)
+	 */
 	public void displayChoice(String question, String choice1, String choice2, String choice3) {
 		this.consoleDisplay.displayBlankLine();
 		this.consoleDisplay.appendJokerText(question);
@@ -509,17 +530,5 @@ public abstract class View {
 	 */
 	public void clearDisplay() {
 		this.consoleDisplay.clearDisplay();
-	}
-	
-	public void StartOneLineOfBoldText(String part01, String placeholder01, String part02) {
-		this.consoleDisplay.displayBlankLine();
-		this.consoleDisplay.appendBoldText(part01);
-		this.consoleDisplay.appendJokerText(placeholder01);
-		this.consoleDisplay.appendBoldText(part02);
-	}
-
-	public void displayTwoLinesOfRedText(String string, String string2) {
-		// TODO Auto-generated method stub
-		
 	}
 }
