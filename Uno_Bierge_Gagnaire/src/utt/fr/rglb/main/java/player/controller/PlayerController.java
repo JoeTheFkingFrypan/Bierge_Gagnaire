@@ -7,6 +7,7 @@ import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.cards.model.basics.Color;
 import utt.fr.rglb.main.java.console.model.InputReader;
 import utt.fr.rglb.main.java.console.view.View;
+import utt.fr.rglb.main.java.main.ServerException;
 import utt.fr.rglb.main.java.player.model.PlayerModel;
 
 import com.google.common.base.Preconditions;
@@ -60,7 +61,7 @@ public class PlayerController {
 		Preconditions.checkNotNull(cards,"[ERROR] Card collection picked up cannot be null");
 		Preconditions.checkArgument(cards.size()>0, "[ERROR] Card collection picked cannot be empty");
 		Integer numberOfCards = cards.size();
-		this.consoleView.displayJokerEmphasisUsingPlaceholders("Player [",getAlias(),"] was forced to draw ",numberOfCards.toString()," cards");
+		this.consoleView.displayErrorMessageUsingPlaceholders("Player [",getAlias(),"] was forced to draw ",numberOfCards.toString()," cards");
 		this.player.pickUpCards(cards);
 		this.player.resetUnoAnnoucement();
 	}
@@ -108,7 +109,7 @@ public class PlayerController {
 	public Card startTurn(InputReader inputReader, GameModelBean gameModelBean) {
 		Preconditions.checkNotNull(inputReader,"[ERROR] Impossible to start turn, inputReader is null");
 		Preconditions.checkNotNull(gameModelBean,"[ERROR] Impossible to start turn, gameModelbean is null");
-		String alias = this.player.getAlias();
+		String alias = this.player.toString();
 		Collection<Card> cardCollection = this.getCardsInHand();
 		String answer = inputReader.getValidAnswer(alias,cardCollection,gameModelBean);
 		int index = inputReader.getNumberFromString(answer);
@@ -137,7 +138,7 @@ public class PlayerController {
 		this.consoleView.displayCard("The last card play was : ",gameModelbean.getLastCardPlayed());
 		gameModelbean.appendGlobalColorIfItIsSet();
 		this.consoleView.displayTwoLinesOfJokerText("Sadly, even after picking a new card, you didn't have any playable","Your turn will now automatically end");
-
+		chillForTwoSec("");
 	}
 	
 	/* ========================================= EFFECTS RELATED ========================================= */
@@ -160,7 +161,7 @@ public class PlayerController {
 	 * @return String correspondant à son pseudo
 	 */
 	public String getAlias() {
-		return this.player.getAlias();
+		return this.player.toString();
 	}
 
 	/**
@@ -200,6 +201,17 @@ public class PlayerController {
 	 */
 	public void resetHand() {
 		this.player.resetHand();	
+	}
+	
+	protected void chillForTwoSec(String stringToDisplay) {
+		try {
+			for(int i=0; i<4; i++) {
+				Thread.sleep(500);
+				this.consoleView.AppendOneLineOfBoldText(stringToDisplay);
+			}
+		} catch (InterruptedException e) {
+			throw new ServerException("[ERROR] Something went wrong while [IA] " + this.getAlias() + " was peacefully chilling",e);
+		}
 	}
 	
 	/* ========================================= POINTS ========================================= */

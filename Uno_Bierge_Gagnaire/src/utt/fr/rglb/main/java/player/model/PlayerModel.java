@@ -105,14 +105,6 @@ public class PlayerModel {
 	public int getNumberOfCardsInHand() {
 		return this.main.size();
 	}
-	
-	/**
-	 * Méthode permettant de récuperer le pseudo du joueur
-	 * @return String correspondant au pseudo du joueur
-	 */
-	public String getAlias() {
-		return this.alias;
-	}
 
 	/**
 	 * Méthode permettant de récuperer le score du joueur
@@ -127,7 +119,7 @@ public class PlayerModel {
 	 */
 	@Override
 	public String toString() {
-		return "[JOUEUR] " + getAlias() + " a " + getScore() + " points. Il lui reste " + this.main.size() + " cartes en main";
+		return this.alias;
 	}
 
 	/**

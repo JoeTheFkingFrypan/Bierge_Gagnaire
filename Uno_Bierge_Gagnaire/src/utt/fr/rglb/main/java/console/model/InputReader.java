@@ -207,7 +207,7 @@ public class InputReader {
 		Preconditions.checkNotNull(cardCollection, "[ERROR] Impossible to get card index from player's cards : provided collection is null");
 		Preconditions.checkNotNull(gameModelbean, "[ERROR] Impossible to get card index from player's cards : provided gameModelBean is null");
 		this.consoleView.displayCardCollection("* Your cards are : ", cardCollection);
-		this.consoleView.displayCard("* The last card play was : ", gameModelbean.getLastCardPlayed());
+		this.consoleView.displayCard("* The last card played was : ", gameModelbean.getLastCardPlayed());
 		gameModelbean.appendGlobalColorIfItIsSet();
 		this.consoleView.displayOneLineOfBoldText("Please choose a card to play, remember to say UNO if you play your 2nd last card");
 	}
@@ -298,5 +298,15 @@ public class InputReader {
 		String answerWithoutNumbers = CharMatcher.DIGIT.removeFrom(answer);
 		String pattern = "^( )*(U|u)( )*(N|n)( )*(O|o)( )*$";
 		return answerWithoutNumbers.matches(pattern);
+	}
+
+	public boolean askForConfigurationFileUsage() {
+		this.consoleView.displayChoice("Would you like to load game settings from configuration file?","0:YES ", "1:NO ");
+		int choice = this.getValidAnswerFromDualChoice();
+		if(choice == 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

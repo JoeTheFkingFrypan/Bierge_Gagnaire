@@ -18,7 +18,7 @@ public class PlayerStatus {
 		this.isHuman = false;
 		this.cardPickerStrategy = cardPickerStrategy;
 	}
-	
+
 	public String getAlias() {
 		return this.alias;
 	}

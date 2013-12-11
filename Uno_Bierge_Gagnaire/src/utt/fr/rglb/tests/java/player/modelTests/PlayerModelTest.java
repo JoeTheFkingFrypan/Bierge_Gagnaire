@@ -72,7 +72,7 @@ public class PlayerModelTest {
 	@Test(expected=NullPointerException.class)
 	public void failToCreatePlayerNullAlias() {
 		PlayerModel nullAlias = new PlayerModel(null);
-		nullAlias.getAlias();
+		nullAlias.toString();
 	}
 	
 	/* ========================================= CARD PICKUP ========================================= */
@@ -131,12 +131,6 @@ public class PlayerModelTest {
 	public void testGetNumberOfCardsInHand() {
 		assertEquals(0,this.p1.getNumberOfCardsInHand());
 		assertEquals(0,this.p2.getNumberOfCardsInHand());
-	}
-	
-	@Test
-	public void testGetAlias() {
-		assertEquals(this.p1Name, this.p1.getAlias());
-		assertEquals(this.p2Name, this.p2.getAlias());
 	}
 	
 	@Test

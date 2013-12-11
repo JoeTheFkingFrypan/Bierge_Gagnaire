@@ -3,6 +3,8 @@ package utt.fr.rglb.main.java.player.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.base.Preconditions;
+
 import utt.fr.rglb.main.java.console.view.View;
 import utt.fr.rglb.main.java.player.AI.DrawFirstCard;
 import utt.fr.rglb.main.java.player.AI.DrawFromColorMajority;
@@ -36,6 +38,9 @@ public class PlayersToCreate {
 	}
 
 	public void addIAPlayerProvidingStrategyIndex(String playerNameFromInput, int strategyIndex) {
+		Preconditions.checkNotNull(playerNameFromInput,"[ERROR] Impossible to create AI player : provided nickname is null");
+		Preconditions.checkNotNull(strategyIndex,"[ERROR] Impossible to create AI player : provided difficulty is null");
+		Preconditions.checkArgument(strategyIndex >= 0 && strategyIndex <= 2,"[ERROR] Impossible to create AI player : provided difficulty is invalid (must be between 0 and 2, was : " + strategyIndex + ")");
 		if(strategyIndex == 0) {
 			this.playersAwaitingCreation.add(new PlayerStatus(playerNameFromInput,new DrawFirstCard()));
 		} else if(strategyIndex == 1) {

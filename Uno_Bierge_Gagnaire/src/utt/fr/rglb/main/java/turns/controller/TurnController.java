@@ -67,7 +67,7 @@ public class TurnController {
 	 * Méthode permettant d'inverser le sens dans lequel est choisi le joueur suivant
 	 */
 	public void reverseCurrentOrder() {
-		this.consoleView.displayOneLineOfJokerText("Turn order has been inverted");
+		this.consoleView.displayOneLineOfRedText("Turn order has been inverted");
 		this.turnModel.reverseCurrentOrder();
 	}
 
@@ -110,7 +110,7 @@ public class TurnController {
 	public void skipNextPlayer() {
 		PlayerController currentPlayer = this.turnModel.cycleThroughPlayers();
 		consoleView.displaySeparationText("========== Your turn, " + currentPlayer.getAlias() + " ==========");
-		consoleView.displayTwoLinesOfJokerText("Sadly, you are not allowed to play this turn","Previous player used a Skip card");
+		consoleView.displayErrorMessage("Sadly, you are not allowed to play this turn","Previous player used a Skip card");
 	}
 
 	/**

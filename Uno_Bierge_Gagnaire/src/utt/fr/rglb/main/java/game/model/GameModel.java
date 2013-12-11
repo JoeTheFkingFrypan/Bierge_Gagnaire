@@ -8,6 +8,7 @@ import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.cards.model.basics.Color;
 import utt.fr.rglb.main.java.console.model.InputReader;
 import utt.fr.rglb.main.java.console.view.View;
+import utt.fr.rglb.main.java.dao.ConfigurationReader;
 import utt.fr.rglb.main.java.player.controller.PlayerController;
 import utt.fr.rglb.main.java.player.controller.PlayerControllerBean;
 import utt.fr.rglb.main.java.player.model.PlayersToCreate;
@@ -41,8 +42,15 @@ public class GameModel {
 	 * Méthode permettant d'initialiser les paramètres (nombre de joueurs, nom de chacun des joueurs)
 	 */
 	public void initializeGameSettings() {
-		int playerNumber = this.inputReader.getValidPlayerNumber();
-		PlayersToCreate playersAwaitingCreation = this.inputReader.getAllPlayerNames(playerNumber);
+		boolean configurationFileUsageRequired = this.inputReader.askForConfigurationFileUsage();
+		PlayersToCreate playersAwaitingCreation = null;
+		if(configurationFileUsageRequired) {
+			ConfigurationReader configurationReader = new ConfigurationReader();
+			playersAwaitingCreation = configurationReader.readConfigurationAt("dist/config.ini");
+		} else {
+			int playerNumber = this.inputReader.getValidPlayerNumber();
+			playersAwaitingCreation = this.inputReader.getAllPlayerNames(playerNumber);
+		}
 		this.turnController.createPlayersFrom(playersAwaitingCreation);
 	}
 
@@ -99,6 +107,12 @@ public class GameModel {
 	public boolean computeScores(PlayerControllerBean gameWinner) {
 		boolean playerWon = this.turnController.computeEndOfTurn(gameWinner);
 		this.turnController.displayTotalScore();
+		try {
+			Thread.sleep(2500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return playerWon;
 	}
 
@@ -153,9 +167,11 @@ public class GameModel {
 		} else if(this.gameFlag.equals(GameFlag.COLOR_PICK)) {
 			triggerColorPicking(currentPlayer);
 		} else if(this.gameFlag.equals(GameFlag.PLUS_TWO)) {
-			triggerPlusX(2,currentPlayer);
+			PlayerController nextPlayer = this.turnController.findNextPlayerWithoutChangingCurrentPlayer();
+			triggerPlusX(2,nextPlayer);
 		} else if(this.gameFlag.equals(GameFlag.PLUS_FOUR)) {
-			triggerPlusX(4,currentPlayer);
+			PlayerController nextPlayer = this.turnController.findNextPlayerWithoutChangingCurrentPlayer();
+			triggerPlusX(4,nextPlayer);
 			triggerColorPicking(currentPlayer);
 		} 
 		this.gameFlag = GameFlag.NORMAL;

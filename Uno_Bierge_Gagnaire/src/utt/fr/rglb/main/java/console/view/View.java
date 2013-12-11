@@ -60,7 +60,7 @@ public abstract class View {
 	public void displayCard(String string, Card card) {
 		Preconditions.checkNotNull(card,"[ERROR] Impossible to display card : provided one is null");
 		this.consoleDisplay.displayBlankLine();
-		this.consoleDisplay.appendJokerText(string);
+		this.consoleDisplay.appendBoldText(string);
 		displayOneCard(card);
 		this.consoleDisplay.displayBlankLine();
 	}
@@ -221,7 +221,7 @@ public abstract class View {
 	}
 
 	/* ========================================= JOKER TEXT ========================================= */
-
+	
 	/**
 	 * Méthode permettant d'afficher une unique ligne de couleur magenta dans l'interface
 	 * @param string Message à afficher
@@ -244,7 +244,7 @@ public abstract class View {
 		this.consoleDisplay.appendJokerText(string2);
 		this.consoleDisplay.displayBlankLine();
 	}
-
+	
 	/**
 	 * Méthode permettant d'afficher une unique ligne de couleur magenta dans l'interface (avec 1 mot mis en emphase)
 	 * @param part01 Première partie du texte à afficher
@@ -263,15 +263,11 @@ public abstract class View {
 	 * Méthode permettant d'afficher une unique ligne de couleur magenta dans l'interface (avec 1 mot mis en emphase et affichage d'une carte)
 	 * Utilisée lors du jeu d'une carte par l'IA --permet d'avoir un retour visuel sur ses décisions
 	 * @param part01 Première partie du texte à afficher
-	 * @param placeholder01 Partie mise en emphase (blanc)
-	 * @param part02 Deuxième partie du texte à afficher
 	 * @param card Carte à afficher
 	 */
-	public void displayJokerEmphasisUsingPlaceholders(String part01, String placeholder01, String part02, Card card) {
+	public void displayJokerEmphasisUsingPlaceholders(String part01, Card card) {
 		this.consoleDisplay.displayBlankLine();
 		this.consoleDisplay.appendJokerText(part01);
-		this.consoleDisplay.appendBoldText(placeholder01);
-		this.consoleDisplay.appendJokerText(part02);
 		displayOneCard(card);
 		this.consoleDisplay.displayBlankLine();
 	}
@@ -328,6 +324,10 @@ public abstract class View {
 		this.consoleDisplay.displayBlankLine();
 	}
 
+	public void AppendOneLineOfBoldText(String string) {
+		this.consoleDisplay.appendBoldText(string);
+	}
+	
 	/* ========================================= RED TEXT ========================================= */
 
 	/**
@@ -379,6 +379,24 @@ public abstract class View {
 		this.consoleDisplay.appendBoldText(placeholder01);
 		this.consoleDisplay.appendRedText(part02);
 		this.consoleDisplay.appendBoldText(placeholder02);
+		this.consoleDisplay.displayBlankLine();
+	}
+	
+	/**
+	 * Méthode permettant d'afficher une unique ligne de couleur rouge dans l'interface (avec 2 mots mis en emphase)
+	 * @param part01 Première partie du texte à afficher
+	 * @param placeholder01 Partie mise en emphase (blanc)
+	 * @param part02 Deuxième partie du texte à afficher
+	 * @param placeholder02 Partie mise en emphase (blanc)
+	 * @param string 
+	 */
+	public void displayErrorMessageUsingPlaceholders(String part01, String placeholder01, String part02, String placeholder02, String part03) {
+		this.consoleDisplay.displayBlankLine();
+		this.consoleDisplay.appendRedText(part01);
+		this.consoleDisplay.appendBoldText(placeholder01);
+		this.consoleDisplay.appendRedText(part02);
+		this.consoleDisplay.appendBoldText(placeholder02);
+		this.consoleDisplay.appendRedText(part03);
 		this.consoleDisplay.displayBlankLine();
 	}
 
@@ -491,5 +509,17 @@ public abstract class View {
 	 */
 	public void clearDisplay() {
 		this.consoleDisplay.clearDisplay();
+	}
+	
+	public void StartOneLineOfBoldText(String part01, String placeholder01, String part02) {
+		this.consoleDisplay.displayBlankLine();
+		this.consoleDisplay.appendBoldText(part01);
+		this.consoleDisplay.appendJokerText(placeholder01);
+		this.consoleDisplay.appendBoldText(part02);
+	}
+
+	public void displayTwoLinesOfRedText(String string, String string2) {
+		// TODO Auto-generated method stub
+		
 	}
 }

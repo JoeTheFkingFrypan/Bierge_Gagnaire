@@ -11,7 +11,7 @@ public interface CardPickerStrategy {
 	
 	/**
 	 * Méthode permettant à l'IA de déterminer quelle est la meilleure carte à jouer, parmis celles jouables
-	 * @param playbleIndexes Index des cartes jouables
+	 * @param playableIndexes Index des cartes jouables
 	 * @param cardCollection Cartes en main
 	 * @return int correspondant à l'index de la carte choisie
 	 */

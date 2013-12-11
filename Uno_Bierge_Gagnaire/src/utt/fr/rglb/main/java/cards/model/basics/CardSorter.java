@@ -13,7 +13,7 @@ public class CardSorter implements Comparator<Card> {
 			Integer valueFromSecondCard = secondCard.getValeur();
 			return valueFromFirstCard.compareTo(valueFromSecondCard);
 		} else {
-			return -1; 	//Valeur arbitraire
+			return 0;
 		}
 	}
 }
