@@ -74,7 +74,7 @@ public class CarteSpecialeTest {
 	@Test
 	public void testDeclencherEffet() {
 		//Pour rappel une seules les cartes spéciales ont un effet (pas les cartes classiques)
-		this.compatibleCardSameEffect.declencherEffet();
+		this.compatibleCardSameEffect.triggerEffect();
 	}
 	
 	/* ========================================= ADVANCED COMPARAISON ========================================= */
@@ -136,10 +136,10 @@ public class CarteSpecialeTest {
 	
 	@Test
 	public void testGetEffet() {
-		assertEquals("Super effet special",this.referenceCard.getEffet());
-		assertEquals("Super effet special totalement different du premier",this.compatibleCardSameColor.getEffet());
-		assertEquals("Super effet special",this.compatibleCardSameEffect.getEffet());
-		assertEquals("Super effet special totalement different du premier",this.incompatibleCard.getEffet());
+		assertEquals("Super effet special",this.referenceCard.getEffect());
+		assertEquals("Super effet special totalement different du premier",this.compatibleCardSameColor.getEffect());
+		assertEquals("Super effet special",this.compatibleCardSameEffect.getEffect());
+		assertEquals("Super effet special totalement different du premier",this.incompatibleCard.getEffect());
 	}
 	
 	/*@Test
@@ -152,10 +152,10 @@ public class CarteSpecialeTest {
 	
 	@Test
 	public void testGetCouleur() {
-		assertEquals(this.referenceColor, this.referenceCard.getCouleur());
-		assertEquals(this.completelyDifferentColor, this.compatibleCardSameEffect.getCouleur());
-		assertEquals(this.referenceColor,this.compatibleCardSameColor.getCouleur());
-		assertEquals(this.completelyDifferentColor,this.incompatibleCard.getCouleur());
+		assertEquals(this.referenceColor, this.referenceCard.getColor());
+		assertEquals(this.completelyDifferentColor, this.compatibleCardSameEffect.getColor());
+		assertEquals(this.referenceColor,this.compatibleCardSameColor.getColor());
+		assertEquals(this.completelyDifferentColor,this.incompatibleCard.getColor());
 	}
 	
 	@Test

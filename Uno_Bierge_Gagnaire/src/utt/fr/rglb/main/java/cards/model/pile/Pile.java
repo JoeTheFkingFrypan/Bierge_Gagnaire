@@ -21,23 +21,16 @@ public class Pile {
 	public Pile() {
 		this.talon = new Stack<Card>();
 	}
-	
-	/**
-	 * Méthode permettant de ré-initialiser le talon (suppression de toutes les cartes)
-	 */
-	public void resetCards() {
-		this.talon.clear();
-	}
 
 	/* ========================================= PLAY CARD ========================================= */
 	
 	/**
 	 * Méthode permettant de jouer une carte
-	 * @param c Carte à jouer
+	 * @param card Carte à jouer
 	 */
-	public void receiveCard(Card c) {
-		Preconditions.checkNotNull(c,"[ERROR] Cannot play card : provided card is null");
-		talon.push(c);
+	public void receiveCard(Card card) {
+		Preconditions.checkNotNull(card,"[ERROR] Cannot play card : provided card is null");
+		talon.push(card);
 	}
 
 	/* ========================================= EMPTYING (USED TO REFILL) ========================================= */
@@ -56,6 +49,15 @@ public class Pile {
 		return allCardsExceptLastPlayed;
 	}
 
+	/* ========================================= RESET ========================================= */
+	
+	/**
+	 * Méthode permettant de ré-initialiser le talon (suppression de toutes les cartes)
+	 */
+	public void resetCards() {
+		this.talon.clear();
+	}
+	
 	/* ========================================= GETTERS & DISPLAY ========================================= */
 
 	/**
@@ -81,4 +83,6 @@ public class Pile {
 	public String toString() {
 		return "[Talon] " + talon.size() + " cartes ont été jouées";
 	}
+	
+	
 }

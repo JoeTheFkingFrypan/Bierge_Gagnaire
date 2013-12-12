@@ -7,8 +7,18 @@ import utt.fr.rglb.main.java.player.model.PlayersToCreate;
 
 import com.google.gson.Gson;
 
+/**
+ * Classe permettant de parser des informations depuis un texte formatté en JSON
+ */
 public class JsonParser {
-
+	
+	/* ========================================= HIGH LEVEL ========================================= */
+	
+	/**
+	 * Méthode permettant de récupérer tous les joueurs à créer en parsant le fichier de configuration
+	 * @param jsonText Texte au format JSON
+	 * @return Objet encapsulant le nom de tous les joueurs et leur statut (humain, IA) associé, avec leur stratégie, pour peu qu'il s'agisse d'une IA
+	 */
 	public PlayersToCreate createPlayersFromConfigurationFile(String jsonText) {
 		PlayersToCreate playersToCreate = new PlayersToCreate();
 		Map<?,?> jsonRootObject = new Gson().fromJson(jsonText,Map.class);
@@ -22,6 +32,14 @@ public class JsonParser {
 		return playersToCreate;
 	}
 
+	/* ========================================= LOW LEVEL ========================================= */
+	
+	/**
+	 * Méthode permettant de récupérer toutes les informations d'un unique joueur depuis le fichier JSON, et de l'ajouter dans la collection de joueurs à créer
+	 * @param players Collection provenant du parsing du fichier
+	 * @param rank Indice du joueur en cours dans la collection
+	 * @param playersToCreate Objet encapsulant le nom de tous les joueurs et leur statut (humain, IA) associé, avec leur stratégie, pour peu qu'il s'agisse d'une IA
+	 */
 	private void parseAnotherPlayer(ArrayList<?> players, int rank, PlayersToCreate playersToCreate) {
 		Map<?,?> infoFromPlayer = (Map<?,?>) players.get(rank);
 		String nickname = (String) infoFromPlayer.get("nickname");

@@ -102,18 +102,18 @@ public class CarteTest {
 
 	@Test
 	public void testGetValeur() {
-		assertEquals(this.referenceValue, this.referenceCard.getValeur());
-		assertEquals(this.referenceValue, this.compatibleCardSameNumber.getValeur());
-		assertEquals(new Integer(7), this.incompatibleCard.getValeur());
-		assertEquals(new Integer(9), this.compatibleCardSameColor.getValeur());
+		assertEquals(this.referenceValue, this.referenceCard.getValue());
+		assertEquals(this.referenceValue, this.compatibleCardSameNumber.getValue());
+		assertEquals(new Integer(7), this.incompatibleCard.getValue());
+		assertEquals(new Integer(9), this.compatibleCardSameColor.getValue());
 	}
 	
 	@Test
 	public void testGetCouleur() {
-		assertEquals(this.referenceColor, this.referenceCard.getCouleur());
-		assertEquals(this.referenceColor, this.compatibleCardSameColor.getCouleur());
-		assertEquals(Color.BLUE, this.compatibleCardSameNumber.getCouleur());
-		assertEquals(Color.RED, this.incompatibleCard.getCouleur());
+		assertEquals(this.referenceColor, this.referenceCard.getColor());
+		assertEquals(this.referenceColor, this.compatibleCardSameColor.getColor());
+		assertEquals(Color.BLUE, this.compatibleCardSameNumber.getColor());
+		assertEquals(Color.RED, this.incompatibleCard.getColor());
 	}
 	
 	/* ========================================= DISPLAY ========================================= */

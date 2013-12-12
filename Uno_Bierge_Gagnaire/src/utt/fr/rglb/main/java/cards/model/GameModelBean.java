@@ -130,7 +130,7 @@ public class GameModelBean {
 	 */
 	private boolean globalComparaisonIsEnough(Card currentCard) {
 		if(globalColorIsSet()) {
-			if(currentCard.getCouleur().equals(this.globalColor)) {
+			if(currentCard.getColor().equals(this.globalColor)) {
 				return true;
 			}
 		}
@@ -139,6 +139,23 @@ public class GameModelBean {
 
 	/* ========================================= GETTERS ========================================= */
 
+	/**
+	 * Méthode permettant d'obtenir les index des cartes jouables en main
+	 * @param cardCollection Cartes actuellement en main
+	 * @return Liste d'index correspondant aux cartes jouables
+	 */
+	public List<Integer> findPlayableCardsFrom(Collection<Card> cardCollection) {
+		List<Integer> playableIndexes = new ArrayList<Integer>();
+		int currentIndex = 0;
+		for(Card currentCard : cardCollection) {
+			if(isCompatibleWith(currentCard)) {
+				playableIndexes.add(currentIndex);
+			}
+			currentIndex++;
+		}
+		return playableIndexes;
+	}
+	
 	/**
 	 * Méthode permettant de savoir si une couleur globale est définie (si un joker/+4 a été précédement joué)
 	 * @return TRUE si une couleur globale est définie, FALSE sinon
@@ -164,22 +181,5 @@ public class GameModelBean {
 		if(globalColorIsSet()) {
 			this.consoleView.displayTextBasedOnItsColor("* And global color is set to ",this.globalColor,"[RED]","[BLUE]","[GREEN]","[YELLOW]");		
 		}
-	}
-
-	/**
-	 * Méthode permettant d'obtenir les index des cartes jouables en main
-	 * @param cardCollection Cartes actuellement en main
-	 * @return Liste d'index correspondant aux cartes jouables
-	 */
-	public List<Integer> findPlayableCardsFrom(Collection<Card> cardCollection) {
-		List<Integer> playableIndexes = new ArrayList<Integer>();
-		int currentIndex = 0;
-		for(Card currentCard : cardCollection) {
-			if(isCompatibleWith(currentCard)) {
-				playableIndexes.add(currentIndex);
-			}
-			currentIndex++;
-		}
-		return playableIndexes;
 	}
 }

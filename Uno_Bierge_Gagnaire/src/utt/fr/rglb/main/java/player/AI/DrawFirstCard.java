@@ -1,12 +1,15 @@
 package utt.fr.rglb.main.java.player.AI;
 
+import com.google.common.base.Preconditions;
 import java.util.Collection;
 import java.util.Iterator;
 
-import com.google.common.base.Preconditions;
-
 import utt.fr.rglb.main.java.cards.model.basics.Card;
 
+/**
+ * Classe correspondant à l'implémentation d'une stratégie
+ * La carte choisie sera la 1ère carte jouable dans la main du joueur
+ */
 public class DrawFirstCard extends CardPickerStrategyImpl {
 	@Override
 	public int findBestCardToPlay(Collection<Integer> playableIndexes, Collection<Card> cardCollection) {

@@ -116,7 +116,7 @@ public abstract class View {
 	 */
 	private void displaySpecialCard(CardSpecial cardToDisplay) {
 		Preconditions.checkNotNull(cardToDisplay,"[ERROR] Impossible to display card : provided one is null");
-		String effect = cardToDisplay.getEffet();
+		String effect = cardToDisplay.getEffect();
 		if(cardToDisplay.isBlue()) {
 			this.consoleDisplay.appendBlueText("[" + effect + "] ");
 		} else if(cardToDisplay.isRed()) {
@@ -138,7 +138,7 @@ public abstract class View {
 	private void displaySpecialCard(CardSpecial cardToDisplay, int index) {
 		Preconditions.checkNotNull(cardToDisplay,"[ERROR] Impossible to display card : provided one is null");
 		Preconditions.checkArgument(index >= 0,"[ERROR] Impossible to display card : provided index is invalid");
-		String effect = cardToDisplay.getEffet();
+		String effect = cardToDisplay.getEffect();
 		if(cardToDisplay.isBlue()) {
 			this.consoleDisplay.appendBlueText(index + ":[" + effect + "] ");
 		} else if(cardToDisplay.isRed()) {
@@ -160,7 +160,7 @@ public abstract class View {
 	 */
 	private void displayNumberedCard(Card cardToDisplay) {
 		Preconditions.checkNotNull(cardToDisplay,"[ERROR] Impossible to display card : provided one is null");
-		int value = cardToDisplay.getValeur();
+		int value = cardToDisplay.getValue();
 		if(cardToDisplay.isBlue()) {
 			this.consoleDisplay.appendBlueText("[" + value + "] ");
 		} else if(cardToDisplay.isRed()) {
@@ -180,7 +180,7 @@ public abstract class View {
 	private void displayNumberedCard(Card cardToDisplay, int index) {
 		Preconditions.checkNotNull(cardToDisplay,"[ERROR] Impossible to display card : provided one is null");
 		Preconditions.checkArgument(index >= 0,"[ERROR] Impossible to display card : provided index is invalid");
-		int value = cardToDisplay.getValeur();
+		int value = cardToDisplay.getValue();
 		if(cardToDisplay.isBlue()) {
 			this.consoleDisplay.appendBlueText(index + ":[" + value + "] ");
 		} else if(cardToDisplay.isRed()) {

@@ -1,9 +1,8 @@
 package utt.fr.rglb.main.java.player.model;
 
+import com.google.common.base.Preconditions;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.google.common.base.Preconditions;
 
 import utt.fr.rglb.main.java.console.view.View;
 import utt.fr.rglb.main.java.player.AI.DrawFirstCard;
@@ -12,13 +11,25 @@ import utt.fr.rglb.main.java.player.AI.DrawMostValuableCard;
 import utt.fr.rglb.main.java.player.controller.PlayerControllerAI;
 import utt.fr.rglb.main.java.player.controller.PlayerController;
 
+/**
+ * Classe englobant tous les joeuurs devant être créés et les informations qui leur sont associés
+ */
 public class PlayersToCreate {
 	private List<PlayerStatus> playersAwaitingCreation;
+	
+	/* ========================================= CONSTRUCTOR ========================================= */
 	
 	public PlayersToCreate() {
 		this.playersAwaitingCreation = new ArrayList<PlayerStatus>();
 	}
 	
+	/* ========================================= COLLECTION HANDLING ========================================= */
+	
+	/**
+	 * Méthode permettant de vérifier si le pseudo founi est déjà présent dans les joueurs à créer
+	 * @param alias Pseudo dont on souhaite tester la présence
+	 * @return <code>TRUE</code> si le pseudo est présent, <code>FALSE</code> sinon
+	 */
 	public boolean contains(String alias) {
 		for(PlayerStatus ps : this.playersAwaitingCreation) {
 			if(ps.getAlias().equals(alias)) {
@@ -27,16 +38,20 @@ public class PlayersToCreate {
 		}
 		return false;
 	}
-	
-	@Override
-	public String toString() {
-		return this.playersAwaitingCreation.toString();
-	}
 
+	/**
+	 * Méthode permettant d'ajouter un joueur humain dans la collection de ceux à créer
+	 * @param playerNameFromInput Nom du joueur
+	 */
 	public void addHumanPlayer(String playerNameFromInput) {
 		this.playersAwaitingCreation.add(new PlayerStatus(playerNameFromInput));
 	}
 
+	/**
+	 * Méthode permettant d'ajouter un joueur IA dans la collection de ceux à créer
+	 * @param playerNameFromInput Nom du joueur
+	 * @param strategyIndex Index correspondant à la stratégie choisie
+	 */
 	public void addIAPlayerProvidingStrategyIndex(String playerNameFromInput, int strategyIndex) {
 		Preconditions.checkNotNull(playerNameFromInput,"[ERROR] Impossible to create AI player : provided nickname is null");
 		Preconditions.checkNotNull(strategyIndex,"[ERROR] Impossible to create AI player : provided difficulty is null");
@@ -50,6 +65,13 @@ public class PlayersToCreate {
 		}
 	}
 	
+	/* ========================================= PLAYER CREATION ========================================= */
+	
+	/**
+	 * Méthode permettant de créer tous les joueurs à partir de leurs informations associés 
+	 * @param consoleView Vue permettant d'afficher des informatios
+	 * @return Une Collection de PlayerController correspondant à tous les joueurs devant être créés
+	 */
 	public List<PlayerController> createAllPlayersFromTheirRespectiveData(View consoleView) {
 		List<PlayerController> players = new ArrayList<PlayerController>(); 
 		for(PlayerStatus curentPlayer : this.playersAwaitingCreation) {
@@ -58,11 +80,24 @@ public class PlayersToCreate {
 		return players;
 	}
 
+	/**
+	 * Méthode privée permettant de créer un joueur à partir des informations qui lui sont associés
+	 * @param curentPlayer Joueur actuel
+	 * @param consoleView Vue permettant d'afficher des informations
+	 * @return Le PlayerController associé au joueur
+	 */
 	private PlayerController createPlayerFrom(PlayerStatus curentPlayer, View consoleView) {
 		if(curentPlayer.isHuman()) {
 			return new PlayerController(curentPlayer.getAlias(), consoleView);
 		} else {
 			return new PlayerControllerAI(curentPlayer.getAlias(), consoleView, curentPlayer.getStrategy());
 		}
+	}
+	
+	/* ========================================= UTILS ========================================= */
+	
+	@Override
+	public String toString() {
+		return this.playersAwaitingCreation.toString();
 	}
 }

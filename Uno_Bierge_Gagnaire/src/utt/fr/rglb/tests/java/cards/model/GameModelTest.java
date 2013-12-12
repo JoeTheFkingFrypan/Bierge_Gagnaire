@@ -114,9 +114,9 @@ public class GameModelTest {
 	
 	private Card generateCompatibleCardFrom(Card firstCard) {
 		if(firstCard.isSpecial()) {
-			return new CardSpecial(20,firstCard.getCouleur(),this.mockedEffect);
+			return new CardSpecial(20,firstCard.getColor(),this.mockedEffect);
 		} else {
-			return new Card(2,firstCard.getCouleur());
+			return new Card(2,firstCard.getColor());
 		}
 	}
 	

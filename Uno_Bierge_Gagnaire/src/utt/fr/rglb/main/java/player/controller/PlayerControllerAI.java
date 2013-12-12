@@ -12,13 +12,30 @@ import utt.fr.rglb.main.java.console.model.InputReader;
 import utt.fr.rglb.main.java.console.view.View;
 import utt.fr.rglb.main.java.player.AI.CardPickerStrategy;
 
+/**
+ * Classe correspondant à un joueur controllé par une IA
+ */
 public class PlayerControllerAI extends PlayerController {
 	private CardPickerStrategy cardPickerStrategy;
+	
+	/* ========================================= CONSTRUCTOR ========================================= */
 	
 	public PlayerControllerAI(String name,View consoleView, CardPickerStrategy cardPickerStrategy) {
 		super(name,consoleView);
 		this.cardPickerStrategy = cardPickerStrategy;
 	}
+	
+	/* ========================================= CARD PICKUP ========================================= */
+	
+	@Override
+	public void pickUpOneCard(Card card) {
+		Preconditions.checkNotNull(card,"[ERROR] Card picked up cannot be null");
+		this.consoleView.displayCard("He had no playable cards in you hand, he has drawn : ",card);
+		this.player.pickUpOneCard(card);
+		this.player.resetUnoAnnoucement();
+	}
+	
+	/* ========================================= TURN HANDLING ========================================= */
 	
 	@Override
 	public Card startTurn(InputReader inputReader, GameModelBean gameModelBean) {
@@ -49,12 +66,6 @@ public class PlayerControllerAI extends PlayerController {
 	}
 	
 	@Override
-	public Color hasToChooseColor(InputReader inputReader) {
-		Collection<Card> cardCollection = this.getCardsInHand();
-		return this.cardPickerStrategy.chooseBestColor(cardCollection);
-	}
-	
-	@Override
 	public void unableToPlayThisTurn(GameModelBean gameModelbean) {
 		Preconditions.checkNotNull(gameModelbean,"[ERROR] Impossible to start turn, gameModelbean is null");
 		this.consoleView.displayCard("The last card play was : ",gameModelbean.getLastCardPlayed());
@@ -63,11 +74,11 @@ public class PlayerControllerAI extends PlayerController {
 		chillForTwoSec("");
 	}
 	
+	/* ========================================= EFFECTS RELATED ========================================= */
+	
 	@Override
-	public void pickUpOneCard(Card card) {
-		Preconditions.checkNotNull(card,"[ERROR] Card picked up cannot be null");
-		this.consoleView.displayCard("He had no playable cards in you hand, he has drawn : ",card);
-		this.player.pickUpOneCard(card);
-		this.player.resetUnoAnnoucement();
+	public Color hasToChooseColor(InputReader inputReader) {
+		Collection<Card> cardCollection = this.getCardsInHand();
+		return this.cardPickerStrategy.chooseBestColor(cardCollection);
 	}
 }

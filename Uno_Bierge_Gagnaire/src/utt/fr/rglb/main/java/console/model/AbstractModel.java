@@ -13,7 +13,7 @@ public class AbstractModel extends Observable {
 	public void addObserver(Observer anotherObserver) {
 		Preconditions.checkNotNull(anotherObserver);
 	}
-	
+
 	@Override
 	public void deleteObserver(Observer observer) {
 		this.observers.remove(observer);

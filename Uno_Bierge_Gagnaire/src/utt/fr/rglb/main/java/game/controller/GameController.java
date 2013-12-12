@@ -5,10 +5,19 @@ import utt.fr.rglb.main.java.game.model.GameModel;
 import utt.fr.rglb.main.java.player.controller.PlayerController;
 import utt.fr.rglb.main.java.player.controller.PlayerControllerBean;
 
+/**
+ * Classe permettant de gérer l'ensemble de la partie
+ */
 public class GameController {
 	private GameModel gameModel;
 	private View consoleView;
 
+	/* ========================================= CONSTRUCTOR ========================================= */
+	
+	/**
+	 * Constructeur de GameController
+	 * @param consoleView Vue permettant l'affichage d'informations
+	 */
 	public GameController(View consoleView) {
 		this.consoleView = consoleView;
 		this.gameModel = new GameModel(consoleView);
@@ -22,6 +31,13 @@ public class GameController {
 	private void initializeGameSettings() {
 		this.consoleView.displayTitle("SETTINGS");
 		this.gameModel.initializeGameSettings();
+	}
+
+	/**
+	 * Méthode permettant de tout ré-initialiser lors du demarrage d'une nouvelle partie
+	 */
+	private void resetEverything() {
+		this.gameModel.resetEverything();
 	}
 
 	/* ========================================= GAME LOGIC ========================================= */
@@ -76,6 +92,8 @@ public class GameController {
 		this.gameModel.drawFirstCardAndApplyItsEffect();
 	}
 	
+	/* ========================================= UNO HANDLING ========================================= */
+	
 	/**
 	 * Méthode privée permettant de gérer l'oubli de l'annonce UNO par un joueur ayant joué sa dernière carte
 	 * @param roundWinner PlayerControllerBean Objet englobant le joueur en cours, permettant d'avoir accès à des méthodes de haut niveau facilement
@@ -99,6 +117,8 @@ public class GameController {
 		}
 	}
 
+	/* ========================================= WIN EVENT ========================================= */
+	
 	/**
 	 * Méthode privée permettant de gérer l'évènement de victoire d'un des joueurs
 	 * @param winner PlayerControllerBean Objet englobant le joueur victorieux, permettant d'avoir accès à des méthodes de haut niveau facilement
@@ -114,9 +134,5 @@ public class GameController {
 		} else {
 			this.consoleView.displayOneLineOfRedText("Your call. --You'll probably regret that decision");
 		}
-	}
-
-	private void resetEverything() {
-		this.gameModel.resetEverything();
 	}
 }

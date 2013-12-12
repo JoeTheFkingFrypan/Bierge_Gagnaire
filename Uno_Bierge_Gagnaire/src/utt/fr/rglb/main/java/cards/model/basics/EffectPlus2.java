@@ -6,14 +6,14 @@ import utt.fr.rglb.main.java.turns.model.GameFlag;
  * Effet permettant au joueur actuel de forcer le joueur suivant à piocher un certain nombre de cartes 
  */
 public class EffectPlus2 implements Effect {
-	private final int cartesDevantEtrePiochees;
+	private final int cardsThatMustBeDrawn;
 
 	/**
 	 * Constructeur permettant de créer un EffectPlus2
 	 * @param cartesDevantEtrePiochees Nombre de cartes devant être piochées
 	 */
-	public EffectPlus2 (int cartesDevantEtrePiochees) {
-		this.cartesDevantEtrePiochees = cartesDevantEtrePiochees;
+	public EffectPlus2 (int cardsThatMustBeDrawn) {
+		this.cardsThatMustBeDrawn = cardsThatMustBeDrawn;
 	}
 	
 	@Override
@@ -23,11 +23,11 @@ public class EffectPlus2 implements Effect {
 
 	@Override
 	public String toString() {
-		return "Le joueur suivant devra piocher " + this.cartesDevantEtrePiochees + " cartes";
+		return "Le joueur suivant devra piocher " + this.cardsThatMustBeDrawn + " cartes";
 	}
 	
 	@Override
 	public String getDescription() {
-		return "+" + this.cartesDevantEtrePiochees;
+		return "+" + this.cardsThatMustBeDrawn;
 	}
 }

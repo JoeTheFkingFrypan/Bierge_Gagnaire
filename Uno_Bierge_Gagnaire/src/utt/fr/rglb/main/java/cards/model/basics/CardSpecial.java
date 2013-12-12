@@ -7,7 +7,7 @@ import com.google.common.base.Preconditions;
  * Classe correspondant à une carte spéciale (carte avec un effet)
  */
 public class CardSpecial extends Card {	
-	private final Effect effet;
+	private final Effect effect;
 
 	/* ========================================= CONSTRUCTOR ========================================= */
 	
@@ -15,12 +15,12 @@ public class CardSpecial extends Card {
 	 * Constructeur de carte spéciale
 	 * @param valeur Valeur de la carte (doit être supérieure à 0)
 	 * @param couleur Couleur de la carte
-	 * @param effet Effet de la carte
+	 * @param effect Effet de la carte
 	 */
-	public CardSpecial(int valeur, Color couleur, Effect effet) {
-		super(valeur, couleur);
-		Preconditions.checkNotNull(effet,"[ERROR] Effect cannot be null");
-		this.effet = effet;
+	public CardSpecial(int value, Color color, Effect effect) {
+		super(value, color);
+		Preconditions.checkNotNull(effect,"[ERROR] Effect cannot be null");
+		this.effect = effect;
 	}
 
 	/* ========================================= EFFECT ========================================= */
@@ -29,17 +29,17 @@ public class CardSpecial extends Card {
 	 * Méthode permettant de déclencher l'execution d'un effet
 	 * @return 
 	 */
-	public GameFlag declencherEffet() {
-		return this.effet.triggerEffect();
+	public GameFlag triggerEffect() {
+		return this.effect.triggerEffect();
 	}
 	
 	@Override
-	public Integer getValeur() {
+	public Integer getValue() {
 		return this.value;
 	}
 	
 	@Override
-	public Color getCouleur() {
+	public Color getColor() {
 		return this.color;
 	}
 	
@@ -64,11 +64,11 @@ public class CardSpecial extends Card {
 	 */
 	private boolean isCompatibleWithSpecialCard(CardSpecial otherCard) {
 		Preconditions.checkNotNull(otherCard,"[ERROR] Impossible to test compatibility : provided card is null");
-		if(this.hasSameColorThan(otherCard.getCouleur())) {
+		if(this.hasSameColorThan(otherCard.getColor())) {
 			return true;
-		} else if(this.hasSameEffectThan(otherCard.getEffet())) {
+		} else if(this.hasSameEffectThan(otherCard.getEffect())) {
 			return true;
-		} else if(otherCard.getCouleur().equals(Color.JOKER)){
+		} else if(otherCard.getColor().equals(Color.JOKER)){
 			return true;
 		} else {
 			return false;
@@ -82,7 +82,7 @@ public class CardSpecial extends Card {
 	 */
 	private boolean isCompatibleWithNumberedCard(Card otherCard) {
 		Preconditions.checkNotNull(otherCard,"[ERROR] Impossible to test compatibility : provided card is null");
-		if(this.hasSameColorThan(otherCard.getCouleur())) {
+		if(this.hasSameColorThan(otherCard.getColor())) {
 			return true;
 		} else if(otherCard.isJoker()){
 			return true;
@@ -98,7 +98,7 @@ public class CardSpecial extends Card {
 	 */
 	private boolean hasSameEffectThan(String effectFromAnotherCard) {
 		Preconditions.checkNotNull(effectFromAnotherCard,"[ERROR] Impossible to compare effets : provided effect is null");
-		return this.getEffet().equals(effectFromAnotherCard);
+		return this.getEffect().equals(effectFromAnotherCard);
 	}
 	
 	
@@ -115,9 +115,9 @@ public class CardSpecial extends Card {
 			return false;
 		} else {
 			CardSpecial otherSpecialCard = (CardSpecial)other;
-			boolean sameColor = hasSameColorThan(otherSpecialCard.getCouleur());
-			boolean sameValue = hasSameValueThan(otherSpecialCard.getValeur());
-			boolean sameEffect = hasSameEffectThan(otherSpecialCard.getEffet());
+			boolean sameColor = hasSameColorThan(otherSpecialCard.getColor());
+			boolean sameValue = hasSameValueThan(otherSpecialCard.getValue());
+			boolean sameEffect = hasSameEffectThan(otherSpecialCard.getEffect());
 			return sameColor && sameValue && sameEffect;
 		}
 	}
@@ -128,8 +128,8 @@ public class CardSpecial extends Card {
 	 * Méthode permettant de récuperer la description d'un effet
 	 * @return String contenant la description de l'effet de la carte
 	 */
-	public String getEffet() {
-		return this.effet.getDescription();
+	public String getEffect() {
+		return this.effect.getDescription();
 	}
 	
 	/**
@@ -148,6 +148,6 @@ public class CardSpecial extends Card {
 	 */
 	@Override
 	public String toString() {
-		return "[CARTE SPECIALE] Valeur=" + super.getValeur() + ", Couleur=" + super.getCouleur() + ", Effet=" + this.effet;
+		return "[CARTE SPECIALE] Valeur=" + super.getValue() + ", Couleur=" + super.getColor() + ", Effet=" + this.effect;
 	}
 }

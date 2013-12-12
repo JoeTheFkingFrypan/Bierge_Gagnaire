@@ -109,14 +109,14 @@ public class InputReader {
 			this.consoleView.displayChoice("What kind of behavior do you want him to have?","0:Naive ", "1:Demophobia ", "2:Joker O.C.D. ");
 			answer = this.getValidAnswerFromTripleChoice();
 			playersAwaitingCreation.addIAPlayerProvidingStrategyIndex(playerNameFromInput,answer);
-			
+
 		}
 		this.consoleView.displayGreenEmphasisUsingPlaceholders("Player [",playerNameFromInput,"] created");
 		if(!isTheLastOneToCreate) {
 			this.consoleView.displayOneLineOfBoldText("Please enter another player name");
 		}
 	}
-	
+
 	/**
 	 * Méthode privée de récupérer un pseudo valide (non vide) à partir du clavier
 	 * @return String correspondant au pseudo choisi
@@ -147,7 +147,7 @@ public class InputReader {
 		displayCardsInfo(cardCollection, gameModelbean);
 		return getValidAnswerDisplayingInfo(cardCollection,gameModelbean);
 	}
-	
+
 	/**
 	 * Méthode permettant d'afficher et message d'erreur et de demander une autre réponse valide (index de la carte choisie et évenutuellement l'annonce de UNO)
 	 * @param alias Pseudo du joueur
@@ -157,7 +157,7 @@ public class InputReader {
 	 */
 	public String getAnotherValidIndexFromInputDueToIncompatibleCard(String alias, Collection<Card> cardCollection, GameModelBean gameModelbean) {
 		this.consoleView.displayErrorMessage("[ERROR] Choosen card is not compatible","Please pick another one");
-        return getValidAnswer(alias,cardCollection,gameModelbean);
+		return getValidAnswer(alias,cardCollection,gameModelbean);
 	}
 
 	/**
@@ -237,17 +237,17 @@ public class InputReader {
 	 */
 	private Color findColorUsingItsNumber(int colorNumber) {
 		switch(colorNumber) {
-			case 0:
-				return Color.RED;
-			case 1:
-				return Color.BLUE;
-			case 2:
-				return Color.GREEN;
-			case 3:
-				return Color.YELLOW;
-			default:
-				this.consoleView.displayErrorMessage("[ERROR] Something went terribly wrong with indexes", "Please pick another one");
-				return getValidColor();
+		case 0:
+			return Color.RED;
+		case 1:
+			return Color.BLUE;
+		case 2:
+			return Color.GREEN;
+		case 3:
+			return Color.YELLOW;
+		default:
+			this.consoleView.displayErrorMessage("[ERROR] Something went terribly wrong with indexes", "Please pick another one");
+			return getValidColor();
 		}
 	}
 
@@ -277,7 +277,7 @@ public class InputReader {
 		}
 		return index;
 	}
-	
+
 	/**
 	 * Méthode permettant d'obtenir un index valide (soit 0, 1 ou 2) pour le choix donné (choix proposant 3 réponses)
 	 * @return int correspondant à l'index choisi

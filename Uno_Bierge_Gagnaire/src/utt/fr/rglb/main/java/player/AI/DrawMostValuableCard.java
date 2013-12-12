@@ -1,11 +1,15 @@
 package utt.fr.rglb.main.java.player.AI;
 
+import com.google.common.base.Preconditions;
 import java.util.ArrayList;
 import java.util.Collection;
-import com.google.common.base.Preconditions;
 
 import utt.fr.rglb.main.java.cards.model.basics.Card;
 
+/**
+ * Classe correspondant à l'implémentation d'une stratégie
+ * La carte choisie sera la carte jouable ayant la plus haute valeur en points
+ */
 public class DrawMostValuableCard extends CardPickerStrategyImpl {
 	@Override
 	public int findBestCardToPlay(Collection<Integer> playableIndexes, Collection<Card> cardCollection) {
@@ -15,8 +19,8 @@ public class DrawMostValuableCard extends CardPickerStrategyImpl {
 		int highestValue = -1;
 		for(Integer index : playableIndexes) {
 			Card playableCard = cards.get(index);
-			if(playableCard.getValeur() > highestValue) {
-				highestValue = playableCard.getValeur();
+			if(playableCard.getValue() > highestValue) {
+				highestValue = playableCard.getValue();
 				bestCardIndex = index;
 			}
 		}

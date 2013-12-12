@@ -9,6 +9,7 @@ import utt.fr.rglb.main.java.cards.model.basics.Color;
 import utt.fr.rglb.main.java.console.model.InputReader;
 import utt.fr.rglb.main.java.console.view.View;
 import utt.fr.rglb.main.java.dao.ConfigurationReader;
+import utt.fr.rglb.main.java.main.ServerException;
 import utt.fr.rglb.main.java.player.controller.PlayerController;
 import utt.fr.rglb.main.java.player.controller.PlayerControllerBean;
 import utt.fr.rglb.main.java.player.model.PlayersToCreate;
@@ -65,6 +66,23 @@ public class GameModel {
 		}
 	}
 	
+	/**
+	 * Méthode permettant de tout ré-initialiser (en cas de démarrage d'une nouvelle PARTIE)
+	 */
+	public void resetEverything() {
+		this.cardsController.resetCards();
+		this.turnController.resetTurn();
+		this.gameFlag = GameFlag.NORMAL;
+	}
+	
+	/**
+	 * Méthode permettant de réinitialiser les cartes (en cas de démarrage d'un nouveau round)
+	 */
+	public void resetCards() {
+		this.cardsController.resetCards();
+	}
+	
+	
 	/* ========================================= GAME LOGIC ========================================= */
 	
 	/**
@@ -107,26 +125,19 @@ public class GameModel {
 	public boolean computeScores(PlayerControllerBean gameWinner) {
 		boolean playerWon = this.turnController.computeEndOfTurn(gameWinner);
 		this.turnController.displayTotalScore();
-		try {
-			Thread.sleep(2500);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		waitForScoreDisplay();
 		return playerWon;
 	}
 
 	/**
-	 * Méthode permettant de réinitialiser les cartes
+	 * Méthode permettant de stopper le fonctionnement du programme pendant 2.5 secondes
 	 */
-	public void resetCards() {
-		this.cardsController.resetCards();
-	}
-	
-	public void resetEverything() {
-		this.cardsController.resetCards();
-		this.turnController.resetTurn();
-		this.gameFlag = GameFlag.NORMAL;
+	private void waitForScoreDisplay() {
+		try {
+			Thread.sleep(2500);
+		} catch (InterruptedException e) {
+			throw new ServerException("[ERROR] Something went wrong while waiting during score display",e);
+		}
 	}
 
 	/* ========================================= EFFECTS ========================================= */

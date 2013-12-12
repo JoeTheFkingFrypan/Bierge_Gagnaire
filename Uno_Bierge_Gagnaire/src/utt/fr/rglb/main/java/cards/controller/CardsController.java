@@ -81,7 +81,7 @@ public class CardsController {
 	private GameFlag triggerItsEffectIfItHasOne(Card chosenCard) {
 		if(chosenCard.isSpecial()) {
 			CardSpecial explicitSpecialCard = (CardSpecial)chosenCard;
-			return explicitSpecialCard.declencherEffet();
+			return explicitSpecialCard.triggerEffect();
 		} else {
 			return GameFlag.NORMAL;
 		}

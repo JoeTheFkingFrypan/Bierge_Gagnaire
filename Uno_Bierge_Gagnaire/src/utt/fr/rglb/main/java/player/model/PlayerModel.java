@@ -1,5 +1,6 @@
 package utt.fr.rglb.main.java.player.model;
 
+import com.google.common.base.Preconditions;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -8,16 +9,13 @@ import java.util.List;
 import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.cards.model.basics.CardSorter;
 
-import com.google.common.base.Preconditions;
-
-
 /**
  * Classe correspondant aux données d'un joueur
  */
 public class PlayerModel {
 	private boolean unoAnnoucement;
 	private final String alias;
-	private List<Card> main;
+	private List<Card> cardsInHand;
 	private int score;
 
 	/* ========================================= CONSTRUCTOR ========================================= */
@@ -29,7 +27,7 @@ public class PlayerModel {
 	 */
 	public PlayerModel(String alias) {
 		Preconditions.checkNotNull(alias);
-		this.main = new ArrayList<Card>();
+		this.cardsInHand = new ArrayList<Card>();
 		this.unoAnnoucement = false;
 		this.alias = alias;
 		this.score = 0;
@@ -44,8 +42,8 @@ public class PlayerModel {
 	public void pickUpCards(Collection<Card> cards) {
 		Preconditions.checkNotNull(cards,"[ERROR] Cannot pickup cards : provided collection is null");
 		Preconditions.checkArgument(cards.size() > 0, "[ERROR] Cannot pickup cards : provided collection is empty");
-		this.main.addAll(cards);
-		Collections.sort(this.main,new CardSorter());
+		this.cardsInHand.addAll(cards);
+		Collections.sort(this.cardsInHand,new CardSorter());
 	}
 	
 	/**
@@ -54,8 +52,8 @@ public class PlayerModel {
 	 */
 	public void pickUpOneCard(Card card) {
 		Preconditions.checkNotNull(card,"[ERROR] Cannot pickup card : provided card is null");
-		this.main.add(card);
-		Collections.sort(this.main,new CardSorter());
+		this.cardsInHand.add(card);
+		Collections.sort(this.cardsInHand,new CardSorter());
 	}
 	
 	/* ========================================= CARD PLAY ========================================= */
@@ -66,10 +64,10 @@ public class PlayerModel {
 	 * @return Carte choisie par l'utilsateur
 	 */
 	public Card peekAtCard(int index) {
-		Preconditions.checkState(this.main.size() > 0, "[ERROR] Cannot play that card : player has no card");
+		Preconditions.checkState(this.cardsInHand.size() > 0, "[ERROR] Cannot play that card : player has no card");
 		Preconditions.checkArgument(index >= 0, "[ERROR] Cannot play that card : provided index must not be negative");
-		Preconditions.checkArgument(index < this.main.size(), "[ERROR] Cannot play that card : provided index is too high (doesn't exists for this player)");
-		Card cardToPlay = this.main.get(index);
+		Preconditions.checkArgument(index < this.cardsInHand.size(), "[ERROR] Cannot play that card : provided index is too high (doesn't exists for this player)");
+		Card cardToPlay = this.cardsInHand.get(index);
 		return cardToPlay;
 	}
 	
@@ -79,11 +77,11 @@ public class PlayerModel {
 	 * @return Carte choisie par l'utilsateur
 	 */
 	public Card playCard(int index) {
-		Preconditions.checkState(this.main.size() > 0, "[ERROR] Cannot play that card : player has no card");
+		Preconditions.checkState(this.cardsInHand.size() > 0, "[ERROR] Cannot play that card : player has no card");
 		Preconditions.checkArgument(index >= 0, "[ERROR] Cannot play that card : provided index must not be negative");
-		Preconditions.checkArgument(index < this.main.size(), "[ERROR] Cannot play that card : provided index is too high (doesn't exists for this player)");
-		Card cardToPlay = this.main.get(index);
-		this.main.remove(index);
+		Preconditions.checkArgument(index < this.cardsInHand.size(), "[ERROR] Cannot play that card : provided index is too high (doesn't exists for this player)");
+		Card cardToPlay = this.cardsInHand.get(index);
+		this.cardsInHand.remove(index);
 		return cardToPlay;
 	}
 	
@@ -92,7 +90,7 @@ public class PlayerModel {
 	 * @return Collection comprenant les cartes en main
 	 */
 	public Collection<Card> getCardsInHand() {
-		Collection<Card> cardsInHand = this.main;
+		Collection<Card> cardsInHand = this.cardsInHand;
 		return cardsInHand;
 	}
 	
@@ -103,7 +101,7 @@ public class PlayerModel {
 	 * @return int correspondant au nombre de cartes en main
 	 */ 
 	public int getNumberOfCardsInHand() {
-		return this.main.size();
+		return this.cardsInHand.size();
 	}
 
 	/**
@@ -126,7 +124,7 @@ public class PlayerModel {
 	 * Méthode permettant de ré-initialiser la main du joueur
 	 */
 	public void resetHand() {
-		this.main.clear();		
+		this.cardsInHand.clear();		
 	}
 
 	/**

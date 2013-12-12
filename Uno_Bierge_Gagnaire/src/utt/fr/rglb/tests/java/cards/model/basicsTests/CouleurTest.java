@@ -39,30 +39,30 @@ public class CouleurTest {
 	@Test
 	public void testGetCouleurAvecCarteBleue() {
 		this.carteBleue = new Card(this.randomValue, couleurBleue);
-		assertEquals(this.couleurBleue, this.carteBleue.getCouleur());
+		assertEquals(this.couleurBleue, this.carteBleue.getColor());
 	}
 	
 	@Test
 	public void testGetCouleurAvecCarteVerte() {
 		this.carteJaune = new Card(this.randomValue, couleurVerte);
-		assertEquals(this.couleurVerte, this.carteJaune.getCouleur());
+		assertEquals(this.couleurVerte, this.carteJaune.getColor());
 	}
 	
 	@Test
 	public void testGetCouleurAvecCarteJaune() {
 		this.carteVerte = new Card(this.randomValue, couleurJaune);
-		assertEquals(this.couleurJaune, this.carteVerte.getCouleur());
+		assertEquals(this.couleurJaune, this.carteVerte.getColor());
 	}
 	
 	@Test
 	public void testGetCouleurAvecCarteRouge() {
 		this.carteRouge = new Card(this.randomValue, couleurRouge);
-		assertEquals(this.couleurRouge, this.carteRouge.getCouleur());
+		assertEquals(this.couleurRouge, this.carteRouge.getColor());
 	}
 	
 	@Test
 	public void testGetCouleurAvecCarteJoker() {
 		this.carteJoker = new CardSpecial(this.randomValue, this.couleurJoker, this.mockedEffet);
-		assertEquals(this.couleurJoker, this.carteJoker.getCouleur());
+		assertEquals(this.couleurJoker, this.carteJoker.getColor());
 	}
 }

@@ -82,7 +82,7 @@ public class PlayerController {
 	/**
 	 * Méthode permettant de savoir si le joueur a en sa possession au moins une carte compatible avec celle de référence
 	 * @param referenceCard Carte constituant le talon actuel
-	 * @return TRUE si le joueur en a au moins une, FALSE sinon
+	 * @return <code>TRUE</code> si le joueur en a au moins une, <code>FALSE</code> sinon
 	 */
 	public boolean hasAtLeastOnePlayableCard(GameModelBean gameModelBean) {
 		Preconditions.checkNotNull(gameModelBean,"[ERROR] gameModelBean cannot be null");
@@ -203,6 +203,10 @@ public class PlayerController {
 		this.player.resetHand();	
 	}
 	
+	/**
+	 * Méthode permettant de ralentir l'execution des décisions de l'IA en imposant un délai de 2 secondes (avec affichage de caractères répétés sur une même ligne typiquement "..." ou rien)
+	 * @param stringToDisplay Message à répété, permettant de simuler une attente
+	 */
 	protected void chillForTwoSec(String stringToDisplay) {
 		try {
 			for(int i=0; i<4; i++) {
@@ -223,7 +227,7 @@ public class PlayerController {
 	public int getPointsFromCardsInHand() {
 		int pointsFromCards = 0;
 		for(Card currentCard : this.player.getCardsInHand()) {
-			pointsFromCards += currentCard.getValeur();
+			pointsFromCards += currentCard.getValue();
 		}
 		return pointsFromCards;
 	}
@@ -231,7 +235,7 @@ public class PlayerController {
 	/**
 	 * Méthode permettant d'incrémenter le score du joueur
 	 * @param playerScore Nombre à ajouter au score actuel
-	 * @return TRUE si le joueur a atteint 500 points, FALSE sinon
+	 * @return <code>TRUE</code> si le joueur a atteint 500 points, <code>FALSE</code> sinon
 	 */
 	public boolean increaseScoreBy(Integer playerScore) {
 		Preconditions.checkNotNull(playerScore,"[ERROR] Impossible to set score, provided number is null");
@@ -244,7 +248,7 @@ public class PlayerController {
 	
 	/**
 	 * Méthode permettant de vérifier si le joueur a précédement annoncé UNO
-	 * @return TRUE si c'est le cas, FALSE sinon
+	 * @return <code>TRUE</code> si c'est le cas, <code>FALSE</code> sinon
 	 */
 	public boolean hasAnnouncedUno() {
 		return this.player.hasAnnouncedUno();
@@ -252,7 +256,7 @@ public class PlayerController {
 
 	/**
 	 * Méthode permettant de vérifier si le joueur avait effectivement le droit d'annoncer UNO
-	 * @return TRUE s'il reste au joueur 1 carte (annonce lors du jeu de l'avant dernière carte) OU 0 cartes (jeu de la dernière carte), FALSE sinon
+	 * @return <code>TRUE</code> s'il reste au joueur 1 carte (annonce lors du jeu de l'avant dernière carte) OU 0 cartes (jeu de la dernière carte), <code>FALSE</code> sinon
 	 */
 	public boolean deservesTheRightToAnnounceUno() {
 		return (this.player.getNumberOfCardsInHand() == 1) || (this.player.getNumberOfCardsInHand() == 0);
@@ -260,7 +264,7 @@ public class PlayerController {
 
 	/**
 	 * Méthode permettant de vérifier si le joueur a oublié d'annoncer UNO quand il joue sa dernière carte
-	 * @return TRUE si le joueur n'a pas plus de cartes et a effectivement oublié d'annoncer UNO, FALSE sinon
+	 * @return <code>TRUE</code> si le joueur n'a pas plus de cartes et a effectivement oublié d'annoncer UNO, <code>FALSE</code> sinon
 	 */
 	public boolean hasNoCardAndForgotToAnnounceUno() {
 		boolean hasNoCard = this.player.getNumberOfCardsInHand() == 0;

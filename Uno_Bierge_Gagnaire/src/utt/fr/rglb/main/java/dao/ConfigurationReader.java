@@ -9,13 +9,26 @@ import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
 import com.google.common.io.Files;
 
+/**
+ * Classe permettant de récupérer des informations stockées dans un fichier 
+ * Encapsule les classes requises pour être capable de parser du JSON depuis le fichier
+ */
 public class ConfigurationReader {
 	private JsonParser jsonParser;
+	
+	/* ========================================= CONSTRUCTOR ========================================= */
 	
 	public ConfigurationReader() {
 		this.jsonParser = new JsonParser();
 	}
 	
+	/* ========================================= FILE READING ========================================= */
+	
+	/**
+	 * Méthode permettant de créer tous les joueurs (humains et/ou IA) depuis le fichier de configuration
+	 * @param urlToFile String contenant le chemin du fichier
+	 * @return 
+	 */
 	public PlayersToCreate readConfigurationAt(String urlToFile) {
 		Preconditions.checkNotNull(urlToFile,"[ERROR] Impossible to read configuration file : provided URL is null");
 		Preconditions.checkArgument(urlToFile.length() > 0,"[ERROR] Impossible to read configuration file : provided URL is empty");

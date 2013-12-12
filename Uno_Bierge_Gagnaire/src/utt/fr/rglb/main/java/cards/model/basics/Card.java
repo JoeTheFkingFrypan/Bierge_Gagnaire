@@ -14,18 +14,18 @@ public class Card {
 
 	/**
 	 * Constructeur de carte
-	 * @param valeur Numéro de la carte (doit être supérieure à 0 dans tous les cas, et inférieur à 9 s'il s'agit d'une carte numérotée)
-	 * @param couleur Couleur de la carte (doit être différent de Joker s'il s'agit d'une carte numérotée)
+	 * @param value Numéro de la carte (doit être supérieure à 0 dans tous les cas, et inférieur à 9 s'il s'agit d'une carte numérotée)
+	 * @param color Couleur de la carte (doit être différent de Joker s'il s'agit d'une carte numérotée)
 	 */
-	public Card (int valeur, Color couleur) {
-		Preconditions.checkNotNull(couleur,"[ERROR] Color cannot be null");
-		Preconditions.checkArgument(valeur >= 0,"[ERROR] Invalid card number (expected > 0, was : " + valeur + ")");
+	public Card (int value, Color color) {
+		Preconditions.checkNotNull(color,"[ERROR] Color cannot be null");
+		Preconditions.checkArgument(value >= 0,"[ERROR] Invalid card number (expected > 0, was : " + value + ")");
 		if(!isSpecial()) {
-			Preconditions.checkArgument(valeur <= 9,"[ERROR] Invalid card number (expected 0-9, was : " + valeur + ")");
-			Preconditions.checkArgument(!couleur.equals(Color.JOKER),"[ERROR] Invalid card color (expected {ROUGE, BLEUE, VERTE, JAUNE} was : " + couleur + ")");
+			Preconditions.checkArgument(value <= 9,"[ERROR] Invalid card number (expected 0-9, was : " + value + ")");
+			Preconditions.checkArgument(!color.equals(Color.JOKER),"[ERROR] Invalid card color (expected {ROUGE, BLEUE, VERTE, JAUNE} was : " + color + ")");
 		}
-		this.value = valeur;
-		this.color = couleur;
+		this.value = value;
+		this.color = color;
 	}
 
 	/* ========================================= ADVANCED COMPARAISON ========================================= */
@@ -36,9 +36,9 @@ public class Card {
 	 * @return <code>TRUE</code> si la carte est "compatible" (si elle peut être jouée), <code>false</code> sinon
 	 */
 	public boolean isCompatibleWith(Card otherCard) {
-		if(this.hasSameValueThan(otherCard.getValeur())) {
+		if(this.hasSameValueThan(otherCard.getValue())) {
 			return true;
-		} else if(this.hasSameColorThan(otherCard.getCouleur())) {
+		} else if(this.hasSameColorThan(otherCard.getColor())) {
 			return true;
 		} else if(otherCard.isJoker()){
 			return true;
@@ -54,7 +54,7 @@ public class Card {
 	 */
 	protected boolean hasSameColorThan(Color colorFromAnotherCard) {
 		Preconditions.checkNotNull(colorFromAnotherCard,"[ERROR] Cannot verify if both have same color : provided color is null");
-		return this.getCouleur().equals(colorFromAnotherCard);
+		return this.getColor().equals(colorFromAnotherCard);
 	}
 
 	/**
@@ -63,7 +63,7 @@ public class Card {
 	 * @return <code>TRUE</code> si les 2 valeurs sont identiques, <code>false</code> sinon
 	 */
 	protected boolean hasSameValueThan(int valueFromAnotherCard) {
-		return this.getValeur().equals(valueFromAnotherCard);
+		return this.getValue().equals(valueFromAnotherCard);
 	}
 
 	/* ========================================= BASIC COMPARAISON ========================================= */
@@ -78,8 +78,8 @@ public class Card {
 			return false;
 		} else {
 			Card otherCard = (Card)other;
-			boolean sameColor = hasSameColorThan(otherCard.getCouleur());
-			boolean sameValue = hasSameValueThan(otherCard.getValeur());
+			boolean sameColor = hasSameColorThan(otherCard.getColor());
+			boolean sameValue = hasSameValueThan(otherCard.getValue());
 			return sameColor && sameValue;
 		}
 	}
@@ -98,7 +98,7 @@ public class Card {
 	 * Méthode permettant de récuperer la valeur d'une carte
 	 * @return La valeur de la carte (dans le cas d'une carte numérotée, il s'agit aussi de son numéro)
 	 */
-	public Integer getValeur() {
+	public Integer getValue() {
 		return this.value;
 	}
 
@@ -106,7 +106,7 @@ public class Card {
 	 * Méthode permettant de récuperer la couleur d'une carte
 	 * @return La couleur de la carte
 	 */
-	public Color getCouleur () {
+	public Color getColor () {
 		return this.color;
 	}
 
@@ -157,6 +157,6 @@ public class Card {
 	 */
 	@Override
 	public String toString() {
-		return "[CARTE NUMEROTEE] Numero=" + this.getValeur() + ", Couleur=" + this.getCouleur();
+		return "[CARTE NUMEROTEE] Numero=" + this.getValue() + ", Couleur=" + this.getColor();
 	}
 }

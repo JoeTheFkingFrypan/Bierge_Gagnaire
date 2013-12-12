@@ -11,13 +11,13 @@ public class CardSorter implements Comparator<Card> {
 	 * Tri par couleur puis par valeur/numéro
 	 */
 	public int compare(Card firstCard, Card secondCard){
-		if(!firstCard.getCouleur().equals(secondCard.getCouleur())) {
-			Color colorFromFirstCard = firstCard.getCouleur();
-			Color colorFromSecondCard = secondCard.getCouleur();
+		if(!firstCard.getColor().equals(secondCard.getColor())) {
+			Color colorFromFirstCard = firstCard.getColor();
+			Color colorFromSecondCard = secondCard.getColor();
 			return colorFromFirstCard.compareTo(colorFromSecondCard);
-		} else if(!firstCard.getValeur().equals(secondCard.getValeur())) {
-			Integer valueFromFirstCard = firstCard.getValeur();
-			Integer valueFromSecondCard = secondCard.getValeur();
+		} else if(!firstCard.getValue().equals(secondCard.getValue())) {
+			Integer valueFromFirstCard = firstCard.getValue();
+			Integer valueFromSecondCard = secondCard.getValue();
 			return valueFromFirstCard.compareTo(valueFromSecondCard);
 		} else {
 			return 0;

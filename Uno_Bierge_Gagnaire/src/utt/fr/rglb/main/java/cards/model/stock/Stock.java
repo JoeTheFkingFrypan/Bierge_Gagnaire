@@ -13,7 +13,7 @@ import utt.fr.rglb.main.java.console.model.AbstractModel;
  */
 public class Stock extends AbstractModel {
 	private CardGenerator generator;
-	private Queue<Card> pioche;
+	private Queue<Card> stock;
 	
 	/* ========================================= CONSTRUCTOR ========================================= */
 	
@@ -22,14 +22,14 @@ public class Stock extends AbstractModel {
 	 */
 	public Stock() {
 		this.generator = new CardGenerator();
-		this.pioche = null;
+		this.stock = null;
 	}
 	
 	/**
 	 * Méthode permettant de ré-initialiser le talon (génération de 108 cartes mélangées)
 	 */
 	public void resetCards() {
-		this.pioche = generateShuffledCards();
+		this.stock = generateShuffledCards();
 	}
 	
 	/* ========================================= CARD CREATION & REFILL ========================================= */
@@ -59,7 +59,7 @@ public class Stock extends AbstractModel {
 	public void refill(Collection<Card> givenCards) {
 		Preconditions.checkNotNull(givenCards,"[ERROR] Cannot refill cards : given card collection is null");
 		Preconditions.checkArgument(givenCards.size() > 0,"[ERROR] Cannot refill cards : no cards provided");
-		this.pioche = generator.refillCardsFrom(givenCards);
+		this.stock = generator.refillCardsFrom(givenCards);
 	}
 	
 	/* ========================================= DRAW CARD ========================================= */
@@ -69,8 +69,8 @@ public class Stock extends AbstractModel {
 	 * @return Première carte de la pioche
 	 */
 	public Card drawOneCard() {
-		Preconditions.checkState(this.pioche.size() >= 1,"[ERROR] Cannont draw [1] card : not enough cards");
-		return pioche.poll();
+		Preconditions.checkState(this.stock.size() >= 1,"[ERROR] Cannont draw [1] card : not enough cards");
+		return stock.poll();
 	}
 	
 	/**
@@ -79,10 +79,10 @@ public class Stock extends AbstractModel {
 	 * @return Une collection contenant le nombre de cartes donné
 	 */
 	public Collection<Card> drawCards(int count) {
-		Preconditions.checkArgument(this.pioche.size() >= count,"[ERROR] Cannont draw [" + count + "] cards : not enough cards");
+		Preconditions.checkArgument(this.stock.size() >= count,"[ERROR] Cannont draw [" + count + "] cards : not enough cards");
 		Collection<Card> cardsToDeal = new LinkedList<Card>();
 		for(int i=0; i<count; i++) {
-			cardsToDeal.add(pioche.poll());
+			cardsToDeal.add(stock.poll());
 		}
 		return cardsToDeal;
 	}
@@ -94,7 +94,7 @@ public class Stock extends AbstractModel {
 	 * @return Nombre de cartes présentes dans la pioche
 	 */
 	public int size() {
-		return this.pioche.size();
+		return this.stock.size();
 	}
 	
 	/**
@@ -104,7 +104,7 @@ public class Stock extends AbstractModel {
 	 */
 	public Boolean contains(Card card) {
 		Preconditions.checkNotNull(card,"[ERROR] Cannot verfify if stock contains card, because provided reference is null");
-		return this.pioche.contains(card);
+		return this.stock.contains(card);
 	}
 	
 	/**

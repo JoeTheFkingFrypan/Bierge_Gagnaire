@@ -14,8 +14,8 @@ import utt.fr.rglb.main.java.console.model.AbstractModel;
  */
 public class CardsModel extends AbstractModel {
 	private Color globalColor;
-	private Stock pioche;
-	private Pile talon;
+	private Stock stock;
+	private Pile pile;
 
 	/* ========================================= CONSTRUCTOR ========================================= */
 
@@ -26,8 +26,8 @@ public class CardsModel extends AbstractModel {
 	 */
 	public CardsModel () {
 		this.globalColor = Color.JOKER;
-		this.pioche = new Stock();
-		this.talon = new Pile();
+		this.stock = new Stock();
+		this.pile = new Pile();
 	}
 
 	/**
@@ -36,7 +36,7 @@ public class CardsModel extends AbstractModel {
 	 */
 	public Card drawStarterCard() {
 		Card starterCard = drawOneCard();
-		this.talon.receiveCard(starterCard);
+		this.pile.receiveCard(starterCard);
 		return starterCard;
 	}
 
@@ -48,7 +48,7 @@ public class CardsModel extends AbstractModel {
 	 */
 	public Card drawOneCard() {
 		refillStockIfNeeded(1);
-		return this.pioche.drawOneCard();
+		return this.stock.drawOneCard();
 	}
 
 	/**
@@ -59,7 +59,7 @@ public class CardsModel extends AbstractModel {
 	public Collection<Card> drawCards(int count) {
 		Preconditions.checkArgument(count > 0,"[ERROR] Invalid card amount, must not be negative");
 		refillStockIfNeeded(count);
-		return this.pioche.drawCards(count);
+		return this.stock.drawCards(count);
 	}
 
 	/**
@@ -68,9 +68,9 @@ public class CardsModel extends AbstractModel {
 	 */
 	private void refillStockIfNeeded(int count) {
 		Preconditions.checkArgument(count > 0,"[ERROR] Invalid card amount, must not be negative");
-		if(this.pioche.hasNotEnoughCards(count)) {
-			Collection<Card> cardsFromPile = talon.emptyPile();
-			this.pioche.refill(cardsFromPile);
+		if(this.stock.hasNotEnoughCards(count)) {
+			Collection<Card> cardsFromPile = pile.emptyPile();
+			this.stock.refill(cardsFromPile);
 		}
 	}
 
@@ -82,7 +82,7 @@ public class CardsModel extends AbstractModel {
 	 */
 	public void playCard(Card chosenCard) {
 		Preconditions.checkNotNull(chosenCard,"[ERROR] Impossible to play card : provided one is null");
-		this.talon.receiveCard(chosenCard);
+		this.pile.receiveCard(chosenCard);
 		resetGlobalColor();
 	}
 
@@ -91,7 +91,7 @@ public class CardsModel extends AbstractModel {
 	 * @return La dernière carte ayant été jouée
 	 */
 	public Card showLastCardPlayed() {
-		return this.talon.showLastCardPlayed();
+		return this.pile.showLastCardPlayed();
 	}
 
 	/* ========================================= GLOBAL COLOR ========================================= */
@@ -126,13 +126,6 @@ public class CardsModel extends AbstractModel {
 		return this.globalColor;
 	}
 
-	/**
-	 * Méthode privée permettant de ré-initialiser la couleur globale après qu'une carte ait été jouée
-	 */
-	private void resetGlobalColor() {
-		this.globalColor = Color.JOKER;
-	}
-	
 	/* ========================================= UTILS ========================================= */
 
 	/**
@@ -140,7 +133,7 @@ public class CardsModel extends AbstractModel {
 	 * @return La taille de la pioche
 	 */
 	public int getStockSize() {
-		return this.pioche.size();
+		return this.stock.size();
 	}
 
 	/**
@@ -148,14 +141,23 @@ public class CardsModel extends AbstractModel {
 	 * @return La taille de le talon
 	 */
 	public int getPileSize() {
-		return this.talon.size();
+		return this.pile.size();
 	}
-
+	
+	/**
+	 * Méthode privée permettant de ré-initialiser la couleur globale après qu'une carte ait été jouée
+	 */
+	private void resetGlobalColor() {
+		this.globalColor = Color.JOKER;
+	}
+	
+	/* ========================================= RESET ========================================= */
+	
 	/**
 	 * Méthode permettant de ré-initialiser les collections de cartes (talon et pioche)
 	 */
 	public void resetCards() {
-		this.talon.resetCards();
-		this.pioche.resetCards();
+		this.pile.resetCards();
+		this.stock.resetCards();
 	}
 }
