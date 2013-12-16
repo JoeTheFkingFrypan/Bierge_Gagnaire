@@ -11,6 +11,8 @@ import utt.fr.rglb.main.java.cards.model.basics.Card;
  * La carte choisie sera la 1ère carte jouable dans la main du joueur
  */
 public class DrawFirstCard extends CardPickerStrategyImpl {
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public int findBestCardToPlay(Collection<Integer> playableIndexes, Collection<Card> cardCollection) {
 		Preconditions.checkState(playableIndexes.size() > 0,"[ERROR] Cannot find best card to play : no available indexes");

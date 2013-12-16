@@ -1,6 +1,8 @@
 package utt.fr.rglb.main.java.console.view;
 
 import com.google.common.base.Preconditions;
+
+import java.io.Serializable;
 import java.util.Collection;
 
 import utt.fr.rglb.main.java.cards.model.basics.Card;
@@ -10,7 +12,8 @@ import utt.fr.rglb.main.java.cards.model.basics.Color;
 /**
  * Classe définissant les méthodes d'affichage
  */
-public abstract class View {
+public abstract class View implements Serializable {
+	private static final long serialVersionUID = 1L;
 	protected FancyConsoleDisplay consoleDisplay;
 
 	/* ========================================= CONSTRUCTOR ========================================= */
@@ -66,7 +69,7 @@ public abstract class View {
 	/**
 	 * Méthode permettant d'afficher une collection de cartes complète
 	 * @param string Message à afficher avant la collection
-	 * @param cardsToDisplay Collection de cartes à afficher
+	 * @param cards Collection de cartes à afficher
 	 */
 	public void displayCardCollection(String string, Collection<Card> cards) {
 		Preconditions.checkNotNull(cards,"[ERROR] Impossible to display card collection : provided one is null");
@@ -402,7 +405,7 @@ public abstract class View {
 	 * @param placeholder01 Partie mise en emphase (blanc)
 	 * @param part02 Deuxième partie du texte à afficher
 	 * @param placeholder02 Partie mise en emphase (blanc)
-	 * @param string 
+	 * @param part03 Troisième partie du texte à afficher
 	 */
 	public void displayErrorMessageUsingPlaceholders(String part01, String placeholder01, String part02, String placeholder02, String part03) {
 		this.consoleDisplay.displayBlankLine();

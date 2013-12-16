@@ -1,5 +1,6 @@
 package utt.fr.rglb.main.java.player.controller;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import utt.fr.rglb.main.java.cards.model.basics.Card;
@@ -7,7 +8,8 @@ import utt.fr.rglb.main.java.cards.model.basics.Card;
 /**
  * Classe encapsulant toutes les informations permettant d'accèder à un joueur, à ses cartes et toutes les informations necessaires à la terminaison d'un round et d'une partie
  */
-public class PlayerControllerBean {
+public class PlayerControllerBean implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private boolean stillHasCards;
 	private boolean hasAnnouncedUno;
 	private boolean hasNotWonTheGame;

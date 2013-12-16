@@ -1,5 +1,7 @@
 package utt.fr.rglb.main.java.main;
 
+import java.io.Serializable;
+
 import utt.fr.rglb.main.java.console.view.ConsoleView;
 import utt.fr.rglb.main.java.console.view.View;
 import utt.fr.rglb.main.java.game.controller.GameController;
@@ -7,7 +9,8 @@ import utt.fr.rglb.main.java.game.controller.GameController;
 /**
  * Classe correspondant au serveur de jeu comprenant tous les élements necessaire au fonctionnement d'une partie
  */
-public class Server {
+public class Server implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private static Server server;
 	private static GameController gameController;
 	private static View consoleView;

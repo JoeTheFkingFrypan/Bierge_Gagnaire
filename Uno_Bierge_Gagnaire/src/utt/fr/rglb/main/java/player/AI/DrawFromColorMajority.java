@@ -12,6 +12,8 @@ import utt.fr.rglb.main.java.cards.model.basics.Color;
  * La carte choisie sera la 1ère carte jouable dont la couleur est celle majoritaire dans la main du joueur
  */
 public class DrawFromColorMajority extends CardPickerStrategyImpl {
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	protected int findBestCardToPlay(Collection<Integer> playableIndexes, Collection<Card> cardCollection) {
 		Preconditions.checkState(playableIndexes.size() > 0,"[ERROR] Cannot find best card to play : no available indexes");

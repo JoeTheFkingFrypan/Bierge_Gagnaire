@@ -1,5 +1,6 @@
 package utt.fr.rglb.main.java.game.model;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import utt.fr.rglb.main.java.cards.controller.CardsController;
@@ -20,7 +21,8 @@ import utt.fr.rglb.main.java.turns.model.GameFlag;
 /**
  * Classe dont le rôle est de gérer le jeu en faisant appel à des méthodes de haut niveau
  */
-public class GameModel {
+public class GameModel implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private TurnController turnController;
 	private CardsController cardsController;
 	private InputReader inputReader;
@@ -235,12 +237,12 @@ public class GameModel {
 
 	/**
 	 * Méthode permettant de donner une pénalité au joueur donné
-	 * @param currentPlayer Joueur devant être pénalisé (encapsulée dans un PlayerControllerBean)
+	 * @param player Joueur devant être pénalisé (encapsulée dans un PlayerControllerBean)
 	 * @param cardCount Nombre de cartes devant être piochées
 	 */
-	public void giveCardPenaltyTo(PlayerControllerBean roundWinner, int cardCount) {
+ 	public void giveCardPenaltyTo(PlayerControllerBean player, int cardCount) {
 		Collection<Card> cardPenalty = this.cardsController.drawCards(cardCount);
-		roundWinner.isForcedToPickUpCards(cardPenalty);
+		player.isForcedToPickUpCards(cardPenalty);
 	}
 	
 	/**

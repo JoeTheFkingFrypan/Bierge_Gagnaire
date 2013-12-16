@@ -7,14 +7,15 @@ import com.google.common.base.Preconditions;
  * Classe correspondant à une carte spéciale (carte avec un effet)
  */
 public class CardSpecial extends Card {	
+	private static final long serialVersionUID = 1L;
 	private final Effect effect;
 
 	/* ========================================= CONSTRUCTOR ========================================= */
 	
 	/**
 	 * Constructeur de carte spéciale
-	 * @param valeur Valeur de la carte (doit être supérieure à 0)
-	 * @param couleur Couleur de la carte
+	 * @param value Valeur de la carte (doit être supérieure à 0)
+	 * @param color Couleur de la carte
 	 * @param effect Effet de la carte
 	 */
 	public CardSpecial(int value, Color color, Effect effect) {
@@ -27,7 +28,7 @@ public class CardSpecial extends Card {
 
 	/**
 	 * Méthode permettant de déclencher l'execution d'un effet
-	 * @return 
+	 * @return GameFlag correspondant à l'état induit par le déclenchement de l'effet
 	 */
 	public GameFlag triggerEffect() {
 		return this.effect.triggerEffect();
@@ -93,7 +94,7 @@ public class CardSpecial extends Card {
 	
 	/**
 	 * Méthode privée permettant de savoir si l'effet de la carte actuelle est le même que l'effet passé en paramètre
-	 * @param valueFromOtherCard Effet d'une 2ème carte, passé en paramètre
+	 * @param effectFromAnotherCard Effet d'une 2ème carte, passé en paramètre
 	 * @return TRUE si les 2 effets sont identiques, FALSE sinon
 	 */
 	private boolean hasSameEffectThan(String effectFromAnotherCard) {

@@ -1,12 +1,15 @@
 package utt.fr.rglb.main.java.cards.model.basics;
 
+import java.io.Serializable;
+
 import com.google.common.base.Preconditions;
 
 /**
  * Classe mère correspondant à une carte de jeu (valeur, numéro, couleur)
  * Définit les comportements communs à toutes les cartes
  */
-public class Card {
+public class Card implements Serializable {
+	private static final long serialVersionUID = 1L;
 	protected final int value;
 	protected final Color color;
 

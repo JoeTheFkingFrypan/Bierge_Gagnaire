@@ -27,7 +27,7 @@ public class ConfigurationReader {
 	/**
 	 * Méthode permettant de créer tous les joueurs (humains et/ou IA) depuis le fichier de configuration
 	 * @param urlToFile String contenant le chemin du fichier
-	 * @return 
+	 * @return PlayersToCreate Objet encapsulant les informations de tous les joueurs devant être créés
 	 */
 	public PlayersToCreate readConfigurationAt(String urlToFile) {
 		Preconditions.checkNotNull(urlToFile,"[ERROR] Impossible to read configuration file : provided URL is null");

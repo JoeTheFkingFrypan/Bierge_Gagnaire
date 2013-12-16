@@ -1,5 +1,6 @@
 package utt.fr.rglb.main.java.turns.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -14,7 +15,8 @@ import com.google.common.base.Preconditions;
 /**
  * Classe comprenant toutes les données en provanance des joueurs, et du passage au joueur suivant
  */
-public class TurnModel {
+public class TurnModel implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private List<PlayerController> players;
 	private TurnOrder turnOrder;
 	private int currentPlayerIndex;
@@ -30,6 +32,37 @@ public class TurnModel {
 		this.turnOrder = TurnOrder.Clockwise;
 		this.players = new ArrayList<PlayerController>();
 		this.currentPlayerIndex = -1;
+	}
+	
+	/* ========================================= RESET ========================================= */
+	
+	/**
+	 * Méthode permettant de ré-initialiser l'index du joueur en cours --en début de partie (fonction du sens de jeu)
+	 */
+	public void resetPlayerIndex() {
+		if(indicatesDefaultTurnOrder()) {
+			this.currentPlayerIndex = -1;
+		} else {
+			this.currentPlayerIndex = this.players.size();
+		}
+	}
+
+	/**
+	 * Méthode permettant de ré-initialiser les mains de tous les joueurs (supression de toutes leurs cartes)
+	 */
+	public void resetAllHands() {
+		for(PlayerController currentPlayer : this.players) {
+			currentPlayer.resetHand();
+		}
+	}
+	
+	/**
+	 * Méthode permettant de remettre le sens de jeu à sa valeur par défaut et de supprimer tous les joueurs
+	 */
+	public void resetTurn() {
+		this.turnOrder = TurnOrder.Clockwise;
+		this.players.clear();
+		resetPlayerIndex();
 	}
 	
 	/* ========================================= PLAYER CREATION ========================================= */
@@ -164,6 +197,20 @@ public class TurnModel {
 		return index;
 	}	
 	
+	/* ========================================= SCORE ========================================= */
+	
+	/**
+	 * Méthode permettant d'additioner les valeurs des cartes des différents joueurs
+	 * @return int correspondant au score obtenu
+	 */
+	public int sumAllPlayerScore() {
+		int sumPlayerScore = 0;
+		for(PlayerController currentPlayer : this.players) {
+			sumPlayerScore += currentPlayer.getPointsFromCardsInHand();
+		}
+		return sumPlayerScore;
+	}
+	
 	/* ========================================= GETTERS & UTILS ========================================= */
 
 	/**
@@ -189,44 +236,6 @@ public class TurnModel {
 	public void moveOnToCurrentPlayer(int newPlayerIndex) {
 		Preconditions.checkArgument(newPlayerIndex >= 0, "[ERROR] Current index cannot be under 0");
 		this.currentPlayerIndex = newPlayerIndex;
-	}
-
-	/**
-	 * Méthode permettant de ré-initialiser l'index du joueur en cours --en début de partie (fonction du sens de jeu)
-	 */
-	public void resetPlayerIndex() {
-		if(indicatesDefaultTurnOrder()) {
-			this.currentPlayerIndex = -1;
-		} else {
-			this.currentPlayerIndex = this.players.size();
-		}
-	}
-
-	/**
-	 * Méthode permettant d'additioner les valeurs des cartes des différents joueurs
-	 * @return int correspondant au score obtenu
-	 */
-	public int sumAllPlayerScore() {
-		int sumPlayerScore = 0;
-		for(PlayerController currentPlayer : this.players) {
-			sumPlayerScore += currentPlayer.getPointsFromCardsInHand();
-		}
-		return sumPlayerScore;
-	}
-
-	/**
-	 * Méthode permettant de ré-initialiser les mains de tous les joueurs (supression de toutes leurs cartes)
-	 */
-	public void resetAllHands() {
-		for(PlayerController currentPlayer : this.players) {
-			currentPlayer.resetHand();
-		}
-	}
-	
-	public void resetTurn() {
-		this.turnOrder = TurnOrder.Clockwise;
-		this.players.clear();
-		resetPlayerIndex();
 	}
 
 	/**

@@ -5,8 +5,9 @@ import utt.fr.rglb.main.java.turns.model.GameFlag;
 /**
  * Effet permettant d'inverser le sens de jeu
  */
-public class EffectReverse implements Effect {
-	
+public class EffectReverse extends EffectImpl {
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public GameFlag triggerEffect() {
 		return GameFlag.REVERSE;

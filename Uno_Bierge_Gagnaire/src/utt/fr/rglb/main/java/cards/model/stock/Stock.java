@@ -12,6 +12,7 @@ import utt.fr.rglb.main.java.console.model.AbstractModel;
  * Classe permettant de piocher des cartes, comprenant initialement l'ensemble des 108 cartes de jeu
  */
 public class Stock extends AbstractModel {
+	private static final long serialVersionUID = 1L;
 	private CardGenerator generator;
 	private Queue<Card> stock;
 	

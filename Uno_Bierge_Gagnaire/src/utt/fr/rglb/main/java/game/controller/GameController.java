@@ -1,5 +1,7 @@
 package utt.fr.rglb.main.java.game.controller;
 
+import java.io.Serializable;
+
 import utt.fr.rglb.main.java.console.view.View;
 import utt.fr.rglb.main.java.game.model.GameModel;
 import utt.fr.rglb.main.java.player.controller.PlayerController;
@@ -8,7 +10,8 @@ import utt.fr.rglb.main.java.player.controller.PlayerControllerBean;
 /**
  * Classe permettant de gérer l'ensemble de la partie
  */
-public class GameController {
+public class GameController implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private GameModel gameModel;
 	private View consoleView;
 

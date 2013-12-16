@@ -1,6 +1,8 @@
 package utt.fr.rglb.main.java.cards.model;
 
 import com.google.common.base.Preconditions;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -14,7 +16,8 @@ import utt.fr.rglb.main.java.console.view.View;
  * Classe dont le rôle est de permettre un test de compatibilité entre la carte choisie par l'utilisateur et la carte de référence de manière plus aisée
  * Elle comprend également la couleur globale définie lors du jeu d'un joker afin de centraliser tous les critères de validité lors du choix d'une carte
  */
-public class GameModelBean {
+public class GameModelBean implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private Card lastCardPlayed;
 	private Color globalColor;
 	private View consoleView;

@@ -5,7 +5,8 @@ import utt.fr.rglb.main.java.turns.model.GameFlag;
 /**
  * Effet permettant au joueur actuel de choisir une couleur et de forcer le joueur suivant à piocher 4 cartes
  */
-public class EffectPlus4 implements Effect {
+public class EffectPlus4 extends EffectImpl {
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	public GameFlag triggerEffect() {

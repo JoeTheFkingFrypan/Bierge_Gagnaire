@@ -5,6 +5,7 @@ import com.google.common.base.Preconditions;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.Collection;
 
 import utt.fr.rglb.main.java.cards.model.GameModelBean;
@@ -16,7 +17,8 @@ import utt.fr.rglb.main.java.player.model.PlayersToCreate;
 /**
  * Classe permettant de demander à l'utilisateur d'entrer des informations au clavier, et de les valider
  */
-public class InputReader {
+public class InputReader implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private BufferedReader inputReader;
 	private View consoleView;
 
@@ -90,9 +92,8 @@ public class InputReader {
 
 	/**
 	 * Méthode privée permettant de récupérer un pseudo à partir du clavier en s'assurant qu'il n'existe pas déjà
-	 * @param isTheLastOneToCreate 
-	 * @param playerNames Une collection contenant le nom de chaque joueur
-	 * @return 
+	 * @param playersAwaitingCreation Objet encapsulant les informations de tous les joueurs devant être créés
+	 * @param isTheLastOneToCreate Booléen indiquant s'il s'agit du dernier joueur à créer (permettant ainsi de ne pas afficher d'entrer un nouveau nom, si tous les noms ont été choisis) 
 	 */
 	private void addValidNameFromInput(PlayersToCreate playersAwaitingCreation, boolean isTheLastOneToCreate) {
 		Preconditions.checkNotNull(playersAwaitingCreation, "[ERROR] Impossible to add another name : provided collection is null");

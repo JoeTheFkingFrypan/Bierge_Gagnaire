@@ -1,5 +1,6 @@
 package utt.fr.rglb.main.java.cards.model.stock;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -22,10 +23,11 @@ import utt.fr.rglb.main.java.cards.model.basics.EffetJoker;
 /**
  * Classe à qui a été délégué le rôle de la création des cartes (et de leur mélange)
  */
-class CardGenerator {
+class CardGenerator implements Serializable {
+	private static final long serialVersionUID = 1L;
 	
 	/* ========================================= COLLECTIONS CREATION ========================================= */
-	
+
 	/**
 	 * Méthode permettant d'initialiser la pioche en générant les 108 cartes de départ dans un ordre aléatoire
 	 * @return Une Queue contenant les 108 cartes
@@ -182,7 +184,7 @@ class CardGenerator {
 	 * Méthode privée permettant d'ajouter un nombre défini de cartes spéciales identiques (même numéro, même couleur, même effet) à la collection
 	 * @param amount Nombre de cartes à ajouter à la collection
 	 * @param currentCards Collection de cartes à remplir
-	 * @param number Numéro de la carte
+	 * @param pointsValue Numéro de la carte
 	 * @param color Couleur de la carte
 	 * @param effect Effet de la carte
 	 */

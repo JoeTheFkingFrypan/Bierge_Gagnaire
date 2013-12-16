@@ -16,6 +16,7 @@ import utt.fr.rglb.main.java.player.AI.CardPickerStrategy;
  * Classe correspondant à un joueur controllé par une IA
  */
 public class PlayerControllerAI extends PlayerController {
+	private static final long serialVersionUID = 1L;
 	private CardPickerStrategy cardPickerStrategy;
 	
 	/* ========================================= CONSTRUCTOR ========================================= */

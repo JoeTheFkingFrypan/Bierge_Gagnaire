@@ -1,6 +1,8 @@
 package utt.fr.rglb.main.java.cards.model.pile;
 
 import com.google.common.base.Preconditions;
+
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.Stack;
 
@@ -10,7 +12,8 @@ import utt.fr.rglb.main.java.cards.model.basics.Card;
  * Classe permettant de réception les cartes jouées (avec comparaison par rapport à la dernière reçue).
  * Sert également à reconstituer la pioche lorsque cette dernière est vide.
  */
-public class Pile {
+public class Pile implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private final Stack<Card> talon;
 
 	/* ========================================= CONSTRUCTOR ========================================= */

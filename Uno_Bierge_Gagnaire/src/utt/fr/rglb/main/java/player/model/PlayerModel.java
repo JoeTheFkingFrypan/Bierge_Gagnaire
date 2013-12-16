@@ -1,6 +1,8 @@
 package utt.fr.rglb.main.java.player.model;
 
 import com.google.common.base.Preconditions;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -12,7 +14,8 @@ import utt.fr.rglb.main.java.cards.model.basics.CardSorter;
 /**
  * Classe correspondant aux données d'un joueur
  */
-public class PlayerModel {
+public class PlayerModel implements Serializable {
+	private static final long serialVersionUID = 8794541192476414284L;
 	private boolean unoAnnoucement;
 	private final String alias;
 	private List<Card> cardsInHand;
@@ -48,7 +51,7 @@ public class PlayerModel {
 	
 	/**
 	 * Méthode permettant de récupérer une unique carte et de l'ajouter dans la main du joueur
-	 * @param cards Carte à ajouter dans la main
+	 * @param card Carte à ajouter dans la main
 	 */
 	public void pickUpOneCard(Card card) {
 		Preconditions.checkNotNull(card,"[ERROR] Cannot pickup card : provided card is null");
@@ -155,7 +158,7 @@ public class PlayerModel {
 	
 	/**
 	 * Méthode permettant de vérifier si le joueur a annoncé UNO ou non
-	 * @return
+	 * @return TRUE si le joueur a annoncé UNO, FALSE sinon
 	 */
 	public boolean hasAnnouncedUno() {
 		return this.unoAnnoucement;

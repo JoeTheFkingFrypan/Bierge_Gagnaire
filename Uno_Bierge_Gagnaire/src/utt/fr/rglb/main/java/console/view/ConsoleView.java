@@ -4,9 +4,10 @@ package utt.fr.rglb.main.java.console.view;
  * Classe d'affichage permettant d'avoir une interface console
  */
 public class ConsoleView extends View {
-	
+	private static final long serialVersionUID = 1L;
+
 	/* ========================================= CONSTRUCTOR ========================================= */
-	
+
 	/**
 	 * Constructeur de ConsoleView
 	 * Affiche le titre dans la console, ainsi que les auteurs

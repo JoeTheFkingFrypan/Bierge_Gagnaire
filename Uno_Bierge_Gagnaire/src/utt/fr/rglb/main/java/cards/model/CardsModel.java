@@ -13,6 +13,7 @@ import utt.fr.rglb.main.java.console.model.AbstractModel;
  * Classe comprenant les classes composant le jeu (pioche et talon) et leurs données
  */
 public class CardsModel extends AbstractModel {
+	private static final long serialVersionUID = 1L;
 	private Color globalColor;
 	private Stock stock;
 	private Pile pile;
@@ -32,7 +33,7 @@ public class CardsModel extends AbstractModel {
 
 	/**
 	 * Méthode privée permettant d'initialiser le talon (en tirant la première carte de la pioche)
-	 * @return 
+	 * @return La première carte tirée depuis la pioche
 	 */
 	public Card drawStarterCard() {
 		Card starterCard = drawOneCard();

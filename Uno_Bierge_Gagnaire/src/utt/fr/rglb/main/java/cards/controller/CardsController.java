@@ -1,6 +1,8 @@
 package utt.fr.rglb.main.java.cards.controller;
 
 import com.google.common.base.Preconditions;
+
+import java.io.Serializable;
 import java.util.Collection;
 
 import utt.fr.rglb.main.java.cards.model.CardsModel;
@@ -14,7 +16,8 @@ import utt.fr.rglb.main.java.turns.model.GameFlag;
 /**
  * Classe dont le rôle est de gérer tout ce qui est associé aux cartes (compatibilité, pioche, jeu, etc)
  */
-public class CardsController {
+public class CardsController implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private CardsModel cardsModel;
 	private View consoleView;
 	

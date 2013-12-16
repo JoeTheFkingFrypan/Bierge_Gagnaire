@@ -2,18 +2,13 @@ package utt.fr.rglb.main.java.cards.model.basics;
 
 /**
  * Enumération contenant les différentes valeurs de couleur de cartes
- * @see [JOKER] Couleur joker (sans couleur)
- * @see [YELLOW] Couleur jaune
- * @see [GREEN] Couleur verte
- * @see [BLUE] Couleur bleue
- * @see [RED] Couleur rouge
  */
 public enum Color {
-	RED,
-	BLUE,
-	GREEN,
-	YELLOW,
-	JOKER;
+	RED,		//Rouge
+	BLUE,		//Bleu
+	GREEN,		//Vert
+	YELLOW,		//Jaune
+	JOKER;		//Joker (sans couleur)
 	
 	/**
 	 * Méthode permettant de comparer les couleurs entre elles (la comparaison est effectuée par rapport à l'ordre dans lequel elles apparaissent dans l'énumération

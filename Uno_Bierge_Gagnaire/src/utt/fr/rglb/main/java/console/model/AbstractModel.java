@@ -1,12 +1,15 @@
 package utt.fr.rglb.main.java.console.model;
 
 import com.google.common.base.Preconditions;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-public class AbstractModel extends Observable {
+public class AbstractModel extends Observable implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private List<Observer> observers = new ArrayList<Observer>(); 
 	
 	@Override

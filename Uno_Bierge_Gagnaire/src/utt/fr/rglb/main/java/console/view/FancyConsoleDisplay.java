@@ -1,11 +1,14 @@
 package utt.fr.rglb.main.java.console.view;
 
+import java.io.Serializable;
+
 import com.google.common.base.Preconditions;
 import org.fusesource.jansi.AnsiConsole;
 
 import utt.fr.rglb.main.java.console.model.ConsoleCodesAnsi;
 
-public class FancyConsoleDisplay {
+public class FancyConsoleDisplay implements Serializable {
+	private static final long serialVersionUID = 1L;
 
 	/* ========================================= WHITE TEXT ========================================= */
 
@@ -222,7 +225,7 @@ public class FancyConsoleDisplay {
 
 	/**
 	 * Méthode privée rajoutant les codes ANSI necessaires pour rendre la chaine de caractères en blanc sur fond bleu
-	 * @param whiteOnBlue Texte à transformer
+	 * @param textToInvert Texte à transformer
 	 * @return String contenant la chaine de caractère fournie entourée des codes ANSI appropriés
 	 */
 	private String whiteOnBlue(String textToInvert) {

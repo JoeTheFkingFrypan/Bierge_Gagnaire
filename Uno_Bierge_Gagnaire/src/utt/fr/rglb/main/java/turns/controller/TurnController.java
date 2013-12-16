@@ -1,5 +1,6 @@
 package utt.fr.rglb.main.java.turns.controller;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import utt.fr.rglb.main.java.cards.model.basics.Card;
@@ -14,7 +15,8 @@ import com.google.common.base.Preconditions;
 /**
  * Classe dont le rôle est de gérer tout ce qui touche aux joueurs, et passage au joueur suivant
  */
-public class TurnController {
+public class TurnController implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private TurnModel turnModel;
 	private View consoleView;
 
@@ -30,6 +32,22 @@ public class TurnController {
 		this.consoleView = consoleView;
 	}
 
+/* ========================================= RESET ========================================= */
+	
+	/**
+	 * Méthode permettant de ré-initialiser l'index du joueur devant commencer la partie (fonction du sens de jeu)
+	 */
+	public void resetPlayerIndex() {
+		this.turnModel.resetPlayerIndex();
+	}
+	
+	/**
+	 * Méthode permettant de ré-initialiser le système de tour de jeu (remise par défaut du sens de jeu, suppression de tous les joueurs)
+	 */
+	public void resetTurn() {
+		this.turnModel.resetTurn();
+	}
+	
 	/* ========================================= PLAYER CREATION ========================================= */
 
 	/**
@@ -89,13 +107,6 @@ public class TurnController {
 	}
 
 	/**
-	 * Méthode permettant de ré-initialiser l'index du joueur devant commencer la partie (fonction du sens de jeu)
-	 */
-	public void resetPlayerIndex() {
-		this.turnModel.resetPlayerIndex();
-	}
-
-	/**
 	 * Méthode permettant de trouver le joueur suivant (sans changer l'index du joueur actuel)
 	 * @return Le prochain joueur qui doit jouer
 	 */
@@ -103,6 +114,8 @@ public class TurnController {
 		return this.turnModel.cycleThroughPlayersWithoutChangingCurrentPlayer();
 	}
 
+	/* ========================================= EFFECT RELATED ========================================= */
+	
 	/**
 	 * Méthode permettant d'empêcher le joueur suivant de jouer
 	 */
@@ -111,7 +124,9 @@ public class TurnController {
 		consoleView.displaySeparationText("========== Your turn, " + currentPlayer.getAlias() + " ==========");
 		consoleView.displayErrorMessage("Sadly, you are not allowed to play this turn","Previous player used a Skip card");
 	}
-
+	
+	/* ========================================= ROUND WIN EVENT HANDLING ========================================= */
+	
 	/**
 	 * Méthode permettant de calculer le score du joueur ayant gagné
 	 * @param gameWinner Joueur ayant remporté le round
@@ -126,6 +141,8 @@ public class TurnController {
 		return hasWon;
 	}
 
+	/* ========================================= GETTERS & DISPLAY ========================================= */
+	
 	/**
 	 * Méthode permettant de récupérer le nombre de joueurs
 	 * @return int correspondant au nombre de joueurs
@@ -145,9 +162,5 @@ public class TurnController {
 			Integer pointsNeededToWin = 500 - currentScore;
 			consoleView.displayJokerEmphasisUsingPlaceholders(" * [", currentPlayer.getAlias(), "] : ", currentScore.toString(), " => ", pointsNeededToWin.toString(), " more points need to win the game");
 		}
-	}
-
-	public void resetTurn() {
-		this.turnModel.resetTurn();
 	}
 }

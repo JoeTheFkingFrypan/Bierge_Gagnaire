@@ -2,10 +2,8 @@ package utt.fr.rglb.main.java.turns.model;
 
 /**
  * Enumération définissant l'ordre de jeu
- * @see [CLOCKWISE] sens des aiguilles d'une montre (par défaut)
- * @see [COUNTERCLOCKWISE] sens inverse des aiguilles d'une montre
  */
 public enum TurnOrder {
-	Clockwise,
-	CounterClockwise
+	Clockwise,			//Sens des aiguilles d'une montre (par défaut)
+	CounterClockwise	//Sens inverse des aiguilles d'une montre
 }

@@ -1,5 +1,6 @@
 package utt.fr.rglb.main.java.player.controller;
 
+import java.io.Serializable;
 import java.util.Collection;
 
 import utt.fr.rglb.main.java.cards.model.GameModelBean;
@@ -16,7 +17,8 @@ import com.google.common.base.Preconditions;
 /**
  * Classe dont le rôle est de gérer tout ce qui touche à un joueur
  */
-public class PlayerController {
+public class PlayerController implements Serializable {
+	private static final long serialVersionUID = 1L;
 	protected PlayerModel player;
 	protected View consoleView;
 
@@ -81,7 +83,7 @@ public class PlayerController {
 	
 	/**
 	 * Méthode permettant de savoir si le joueur a en sa possession au moins une carte compatible avec celle de référence
-	 * @param referenceCard Carte constituant le talon actuel
+	 * @param gameModelBean Objet de référence encapsulant la dernière carte jouée et éventuellement la couleur globale
 	 * @return <code>TRUE</code> si le joueur en a au moins une, <code>FALSE</code> sinon
 	 */
 	public boolean hasAtLeastOnePlayableCard(GameModelBean gameModelBean) {
@@ -145,8 +147,8 @@ public class PlayerController {
 	
 	/**
 	 * Méthode permettant au joueur de choisir la couleur après avoir joué un joker (ou +4)
-	 * @param inputReader 
-	 * @return 
+	 * @param inputReader Objet permettant de lire (et valider) les données rentrées au clavier
+	 * @return La couleur choisie par l'utilsateur
 	 */
 	public Color hasToChooseColor(InputReader inputReader) {
 		Preconditions.checkNotNull(inputReader,"[ERROR] Impossible to start turn, inputReader is null");
@@ -182,7 +184,7 @@ public class PlayerController {
 
 	/**
 	 * Méthode permettant de savoir si le joueur possède encore des cartes dans sa main
-	 * @return
+	 * @return TRUE si le joueur a au moins une carte en main, FALSE sinon
 	 */
 	public boolean stillHasCards() {
 		return getNumberOfCardsInHand() > 0;
