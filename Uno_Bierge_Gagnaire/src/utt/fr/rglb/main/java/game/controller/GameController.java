@@ -2,10 +2,13 @@ package utt.fr.rglb.main.java.game.controller;
 
 import java.io.Serializable;
 
+import com.google.common.base.Preconditions;
+
 import utt.fr.rglb.main.java.console.view.View;
 import utt.fr.rglb.main.java.game.model.GameModel;
 import utt.fr.rglb.main.java.player.controller.PlayerController;
 import utt.fr.rglb.main.java.player.controller.PlayerControllerBean;
+import utt.fr.rglb.main.java.player.model.PlayerTeam;
 
 /**
  * Classe permettant de gérer l'ensemble de la partie
@@ -52,7 +55,7 @@ public class GameController implements Serializable {
 	public void startAnotherGame() {
 		initializeGameSettings();
 		PlayerControllerBean winningPlayer = cycleUntilSomeoneWins();
-		handleWinEvent(winningPlayer.getPlayer());
+		handleWinEvent(winningPlayer);
 	}
 
 	/**
@@ -102,6 +105,7 @@ public class GameController implements Serializable {
 	 * @param roundWinner PlayerControllerBean Objet englobant le joueur en cours, permettant d'avoir accès à des méthodes de haut niveau facilement
 	 */
 	private void handleMissingUnoAnnoucement(PlayerControllerBean roundWinner) {
+		Preconditions.checkNotNull(roundWinner,"[ERROR] Impossible to handle UNO annoucement : provided player is null");
 		PlayerController currentPlayer = roundWinner.getPlayer();
 		this.consoleView.displayJokerEmphasisUsingPlaceholders("Player [", currentPlayer.getAlias(), "] played his last card !");
 		this.consoleView.displayErrorMessageUsingPlaceholders("But since he forgot to announce ","UNO",", we gladly offer him ", "2 more cards");
@@ -113,6 +117,7 @@ public class GameController implements Serializable {
 	 * @param roundWinner PlayerControllerBean Objet englobant le joueur en cours, permettant d'avoir accès à des méthodes de haut niveau facilement
 	 */
 	private void handleUnoAnnoucement(PlayerControllerBean roundWinner) {
+		Preconditions.checkNotNull(roundWinner,"[ERROR] Impossible to handle UNO annoucement : provided player is null");
 		this.consoleView.displayJokerEmphasisUsingPlaceholders("Player [", roundWinner.getAlias(), "] announced UNO");
 		if(!roundWinner.deservesTheRightToAnnounceUno()) {
 			this.consoleView.displayErrorMessage("Since that annoucement is irrelevant (he's not playing his 2nd last card)", "He receives a 2 cards penalty. Pretty dumb, right?");
@@ -121,13 +126,19 @@ public class GameController implements Serializable {
 	}
 
 	/* ========================================= WIN EVENT ========================================= */
-	
+
 	/**
 	 * Méthode privée permettant de gérer l'évènement de victoire d'un des joueurs
-	 * @param winner PlayerControllerBean Objet englobant le joueur victorieux, permettant d'avoir accès à des méthodes de haut niveau facilement
+	 * @param winningPlayer PlayerControllerBean Objet englobant le joueur victorieux, permettant d'avoir accès à des méthodes de haut niveau facilement
 	 */
-	private void handleWinEvent(PlayerController winner) {
-		this.consoleView.displayJokerEmphasisUsingPlaceholders("Player [",winner.getAlias(),"] won the game !");
+	private void handleWinEvent(PlayerControllerBean winningPlayer) {
+		Preconditions.checkNotNull(winningPlayer,"[ERROR] Impossible to handle winning player : provided player is null");
+		if(this.gameModel.indicatesTeamPlayScoring()) {
+			PlayerTeam winningTeam = this.gameModel.findWinningTeam(winningPlayer);
+			this.consoleView.displayJokerEmphasisUsingPlaceholders("Player [",winningTeam.toString(),"] won the game !");
+		} else {
+			this.consoleView.displayJokerEmphasisUsingPlaceholders("Player [",winningPlayer.getAlias(),"] won the game !");
+		}
 		this.consoleView.displayChoice("Would you like to start another game ?","0:YES ","1:NO");
 		int answer = this.gameModel.getValidChoiceAnswer();
 		if(answer == 0) {
@@ -138,4 +149,6 @@ public class GameController implements Serializable {
 			this.consoleView.displayOneLineOfRedText("Your call. --You'll probably regret that decision");
 		}
 	}
+	
+
 }

@@ -1,5 +1,6 @@
 package utt.fr.rglb.main.java.player.controller;
 
+import com.google.common.base.Preconditions;
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -25,6 +26,7 @@ public class PlayerControllerBean implements Serializable {
 	}	
 	
 	public PlayerControllerBean(PlayerController currentPlayer) {
+		Preconditions.checkNotNull(currentPlayer,"[ERROR] Impossible create PlayerControllerBean : provided player is null");
 		this.currentPlayer = currentPlayer;
 		this.stillHasCards = currentPlayer.stillHasCards();
 		this.hasNotWonTheGame = this.currentPlayer.getScore() < 500;
@@ -96,6 +98,7 @@ public class PlayerControllerBean implements Serializable {
 	 * @param cardPenalty Collection de cartes correspondat à la pénalité reçue
 	 */
 	public void isForcedToPickUpCards(Collection<Card> cardPenalty) {
+		Preconditions.checkNotNull(cardPenalty,"[ERROR] Impossible to give card penalty to player : provided card collection is null");
 		this.currentPlayer.isForcedToPickUpCards(cardPenalty);
 		this.stillHasCards = this.currentPlayer.stillHasCards();
 	}
@@ -106,6 +109,7 @@ public class PlayerControllerBean implements Serializable {
 	 * @return <code>TRUE</code> si son score est inférieur à 500, <code>FALSE</code> sinon
 	 */
 	public boolean increaseScoreBy(Integer pointsReceived) {
+		Preconditions.checkNotNull(pointsReceived,"[ERROR] Impossible to increase score : provided amount of points is null");
 		this.currentPlayer.increaseScoreBy(pointsReceived);
 		this.hasNotWonTheGame = this.currentPlayer.getScore() < 500;
 		return this.hasNotWonTheGame;

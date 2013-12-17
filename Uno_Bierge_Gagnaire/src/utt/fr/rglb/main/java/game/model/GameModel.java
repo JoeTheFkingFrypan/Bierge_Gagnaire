@@ -13,9 +13,9 @@ import utt.fr.rglb.main.java.dao.ConfigurationReader;
 import utt.fr.rglb.main.java.main.ServerException;
 import utt.fr.rglb.main.java.player.controller.PlayerController;
 import utt.fr.rglb.main.java.player.controller.PlayerControllerBean;
+import utt.fr.rglb.main.java.player.model.PlayerTeam;
 import utt.fr.rglb.main.java.player.model.PlayersToCreate;
 import utt.fr.rglb.main.java.turns.controller.TurnController;
-import utt.fr.rglb.main.java.turns.model.GameFlag;
 
 
 /**
@@ -26,7 +26,7 @@ public class GameModel implements Serializable {
 	private TurnController turnController;
 	private CardsController cardsController;
 	private InputReader inputReader;
-	private GameFlag gameFlag;
+	private GameRule gameRule;
 	
 	/**
 	 * Constructeur de GameModel
@@ -36,7 +36,6 @@ public class GameModel implements Serializable {
 		this.turnController = new TurnController(consoleView);
 		this.cardsController = new CardsController(consoleView);
 		this.inputReader = new InputReader(consoleView);
-		this.gameFlag = GameFlag.NORMAL;
 	}
 
 	/* ========================================= INITIALIZING ========================================= */
@@ -55,6 +54,12 @@ public class GameModel implements Serializable {
 			playersAwaitingCreation = this.inputReader.getAllPlayerNames(playerNumber);
 		}
 		this.turnController.createPlayersFrom(playersAwaitingCreation);
+		this.gameRule = this.inputReader.askForGameMode(playersAwaitingCreation.size());
+		if(this.gameRule.indicatesTeamPlayScoring()) {
+			this.turnController.splitPlayersIntoTeams();
+			this.turnController.displayTeams();
+		}
+		
 	}
 
 	/**
@@ -74,7 +79,7 @@ public class GameModel implements Serializable {
 	public void resetEverything() {
 		this.cardsController.resetCards();
 		this.turnController.resetTurn();
-		this.gameFlag = GameFlag.NORMAL;
+		this.gameRule.resetFlag();
 	}
 	
 	/**
@@ -83,7 +88,6 @@ public class GameModel implements Serializable {
 	public void resetCards() {
 		this.cardsController.resetCards();
 	}
-	
 	
 	/* ========================================= GAME LOGIC ========================================= */
 	
@@ -116,30 +120,8 @@ public class GameModel implements Serializable {
 	 */
 	private void chooseCardAndPlayIt(GameModelBean gameModelbean, PlayerController currentPlayer) {
 		Card cardChosen = currentPlayer.startTurn(inputReader,gameModelbean);
-		this.gameFlag = this.cardsController.playCard(cardChosen);
-	}
-	
-	/**
-	 * Méthode permettant de calculer les scores à partir des cartes des participants
-	 * @param gameWinner Joueur venant de remporter le round
-	 * @return TRUE si le joueur a gagné la partie (s'il a plus de 500 points), FALSE sinon
-	 */
-	public boolean computeScores(PlayerControllerBean gameWinner) {
-		boolean playerWon = this.turnController.computeEndOfTurn(gameWinner);
-		this.turnController.displayTotalScore();
-		waitForScoreDisplay();
-		return playerWon;
-	}
-
-	/**
-	 * Méthode permettant de stopper le fonctionnement du programme pendant 2.5 secondes
-	 */
-	private void waitForScoreDisplay() {
-		try {
-			Thread.sleep(2500);
-		} catch (InterruptedException e) {
-			throw new ServerException("[ERROR] Something went wrong while waiting during score display",e);
-		}
+		GameFlag flag = this.cardsController.playCard(cardChosen);
+		this.gameRule.setFlag(flag);
 	}
 
 	/* ========================================= EFFECTS ========================================= */
@@ -167,27 +149,51 @@ public class GameModel implements Serializable {
 		}
 		this.turnController.resetPlayerIndex();
 	}
-
+	
 	/**
-	 * Méthode privée permettant d'appliquer les effets des cartes spéciales sur la partie
-	 * @param currentPlayer Joueur en cours (celui devant éventuellement choisir une couleur)
+	 * Méthode privée permettant d'appliquer l'effet en provenance de la carte jouée
+	 * Cette méthode prend en compte le mode de jeu, définissant des comportements particuliers au besoin 
+	 * @param currentPlayer Joueur venant de poser la carte spéciale
 	 */
 	private void triggerEffect(PlayerController currentPlayer) {
-		if(this.gameFlag.equals(GameFlag.REVERSE)) {
+		if(this.gameRule.indicatesTwoPlayersMode()) {
+			triggerEffectWithOnlyTwoPlayers(currentPlayer);
+		} else {
+			triggerEffectWithMoreThanTwoPlayers(currentPlayer);
+		}
+	}
+	
+	/**
+	 * Méthode privée permettant d'appliquer les effets des cartes spéciales sur la partie --Cas d'une partie à 2 joueurs
+	 * @param currentPlayer Joueur en cours (celui devant éventuellement choisir une couleur)
+	 */
+	private void triggerEffectWithOnlyTwoPlayers(PlayerController currentPlayer) {
+		if(this.gameRule.shouldReverseTurn()) {
+			this.triggerCycleSilently();
+		} else {
+			triggerEffect(currentPlayer);
+		}
+	}
+
+	/**
+	 * Méthode privée permettant d'appliquer les effets des cartes spéciales sur la partie --Cas d'une partie classique
+	 * @param currentPlayer Joueur en cours (celui devant éventuellement choisir une couleur)
+	 */
+	private void triggerEffectWithMoreThanTwoPlayers(PlayerController currentPlayer) {
+		if(this.gameRule.shouldReverseTurn()) {
 			triggerReverseCurrentOrder();
-		} else if(this.gameFlag.equals(GameFlag.SKIP)) {
+		} else if(this.gameRule.shouldSkipNextPlayerTurn()) {
 			triggerSkipNextPlayer();
-		} else if(this.gameFlag.equals(GameFlag.COLOR_PICK)) {
+		} else if(this.gameRule.shouldPickColor()) {
 			triggerColorPicking(currentPlayer);
-		} else if(this.gameFlag.equals(GameFlag.PLUS_TWO)) {
+		} else if(this.gameRule.shouldGivePlus2CardPenalty()) {
 			PlayerController nextPlayer = this.turnController.findNextPlayerWithoutChangingCurrentPlayer();
 			triggerPlusX(2,nextPlayer);
-		} else if(this.gameFlag.equals(GameFlag.PLUS_FOUR)) {
+		} else if(this.gameRule.shouldGivePlus4CardPenalty()) {
 			PlayerController nextPlayer = this.turnController.findNextPlayerWithoutChangingCurrentPlayer();
 			triggerPlusX(4,nextPlayer);
 			triggerColorPicking(currentPlayer);
 		} 
-		this.gameFlag = GameFlag.NORMAL;
 	}
 	
 	/* ========================================= EFFECTS - BASIS ========================================= */
@@ -197,6 +203,13 @@ public class GameModel implements Serializable {
 	 */
 	private void triggerReverseCurrentOrder() {
 		this.turnController.reverseCurrentOrder();
+	}
+	
+	/**
+	 * Méthode permettant à un même joueur de jouer plusieurs cartes d'affilé
+	 */
+	private void triggerCycleSilently() {
+		this.turnController.cycleSilently();
 	}
 	
 	/**
@@ -251,5 +264,77 @@ public class GameModel implements Serializable {
 	 */
 	public int getValidChoiceAnswer() {
 		return this.inputReader.getValidAnswerFromDualChoice();
+	}
+	
+	/* ========================================= SCORE ========================================= */
+	
+	/**
+	 * Méthode permettant de calculer les scores pour le(s) joueur(s) victorieux
+	 * @param gameWinner Joueur ayant remporté le round
+	 * @return <code>TRUE</code> si le joueur a gagné la partie, <code>FALSE</code> sinon
+	 */
+	public boolean computeScores(PlayerControllerBean gameWinner) {
+		boolean someoneOrOneTeamWon = false;
+		if(this.gameRule.indicatesTeamPlayScoring()) {
+			someoneOrOneTeamWon = this.turnController.computeTeamEndOfTurn(gameWinner);
+			this.turnController.displayTeamTotalScore();
+		} else {
+			someoneOrOneTeamWon = this.turnController.computeIndividualEndOfTurn(gameWinner);
+			this.turnController.displayIndividualTotalScore();
+		}
+		waitForScoreDisplay();
+		return someoneOrOneTeamWon;
+	}
+	
+	/**
+	 * Méthode permettant de calculer le score du joueur gagnant à partir des cartes des autres participants
+	 * @param gameWinner Joueur venant de remporter le round
+	 * @return <code>TRUE</code> si le joueur a gagné la partie (s'il a plus de 500 points), <code>FALSE</code> sinon
+	 */
+	public boolean computeIndividualScore(PlayerControllerBean gameWinner) {
+		boolean playerWon = this.turnController.computeIndividualEndOfTurn(gameWinner);
+		this.turnController.displayIndividualTotalScore();
+		waitForScoreDisplay();
+		return playerWon;
+	}
+
+	/**
+	 * Méthode permettant de calculer le score de l'équipe gagnante à partir des cartes des participants des autres équipes
+	 * @param gameWinner Joueur venant de remporter le round
+	 * @return <code>TRUE</code> si le l'équipe a gagné la partie (si elle a plus de 500 points), <code>FALSE</code> sinon
+	 */
+	public boolean computeTeamScore(PlayerControllerBean gameWinner) {
+		boolean playerWon = this.turnController.computeTeamEndOfTurn(gameWinner);
+		this.turnController.displayTeamTotalScore();
+		waitForScoreDisplay();
+		return playerWon;
+	}
+	
+	/**
+	 * Méthode permettant de stopper le fonctionnement du programme pendant 2.5 secondes
+	 */
+	private void waitForScoreDisplay() {
+		try {
+			Thread.sleep(2500);
+		} catch (InterruptedException e) {
+			throw new ServerException("[ERROR] Something went wrong while waiting during score display",e);
+		}
+	}
+	
+	/**
+	 * Méthode permettant de déterminer si le mode de jeu choisi est celui à deux joueurs
+	 * @return <code>TRUE</code> si c'est le cas, <code>FALSE</code> sinon
+	 */
+	public boolean indicatesTeamPlayScoring() {
+		return this.gameRule.indicatesTeamPlayScoring();
+	}
+
+	/**
+	 * Méthode permettant de récuperer l'équipe à laquelle appartient le joueur donné
+	 * @param winningPlayer Joueur victorieux dont on souhaite connaitre l'équipe
+	 * @return L'équipe à laquelle appartient le joueur
+	 */
+	public PlayerTeam findWinningTeam(PlayerControllerBean winningPlayer) {
+		return this.turnController.findWinningTeam(winningPlayer);
 	}
 }

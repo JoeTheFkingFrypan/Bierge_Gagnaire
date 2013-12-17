@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import utt.fr.rglb.main.java.cards.model.basics.EffectPlus4;
-import utt.fr.rglb.main.java.turns.model.GameFlag;
+import utt.fr.rglb.main.java.game.model.GameFlag;
 
 public class EffetPlus4Test {
 	private EffectPlus4 effetPlus4;

@@ -12,6 +12,8 @@ import utt.fr.rglb.main.java.cards.model.GameModelBean;
 import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.cards.model.basics.Color;
 import utt.fr.rglb.main.java.console.view.View;
+import utt.fr.rglb.main.java.game.model.GameMode;
+import utt.fr.rglb.main.java.game.model.GameRule;
 import utt.fr.rglb.main.java.player.model.PlayersToCreate;
 
 /**
@@ -76,7 +78,7 @@ public class InputReader implements Serializable {
 	 * @param playerNumber Nombre de joueurs dans la partie
 	 * @return Une collection contenant le nom de chaque joueur
 	 */
-	//TODO: squeeze spaces
+	//TODO: squeeze spaces ?
 	public PlayersToCreate getAllPlayerNames(Integer playerNumber) {
 		Preconditions.checkArgument(playerNumber > 0, "[ERROR] Impossible to get all player names : player count is invalid");
 		this.consoleView.displayGreenEmphasisUsingPlaceholders("You successfully chose [",playerNumber.toString(),"] players");
@@ -157,6 +159,9 @@ public class InputReader implements Serializable {
 	 * @return String contenant la réponse
 	 */
 	public String getAnotherValidIndexFromInputDueToIncompatibleCard(String alias, Collection<Card> cardCollection, GameModelBean gameModelbean) {
+		Preconditions.checkNotNull(alias,"[ERROR] Cannot get another valid index because provided alias is null");
+		Preconditions.checkNotNull(cardCollection,"[ERROR] Cannot get another valid index because provided card collection is null");
+		Preconditions.checkNotNull(gameModelbean,"[ERROR] Cannot get another valid index because provided gameModelBean is null");
 		this.consoleView.displayErrorMessage("[ERROR] Choosen card is not compatible","Please pick another one");
 		return getValidAnswer(alias,cardCollection,gameModelbean);
 	}
@@ -190,6 +195,9 @@ public class InputReader implements Serializable {
 	 * @return int correspondant à l'index choisi
 	 */
 	private int getNumberFromStringDisplayingCardInfo(String answer, Collection<Card> cardCollection, GameModelBean gameModelbean) {
+		Preconditions.checkNotNull(answer,"[ERROR] Cannot get number from string because provided string is null");
+		Preconditions.checkNotNull(cardCollection,"[ERROR] Cannot get number from string because provided card collection is null");
+		Preconditions.checkNotNull(gameModelbean,"[ERROR] Cannot get number from string because provided gameModelBean is null");
 		while(CharMatcher.DIGIT.countIn(answer) < 1 || answer.length() == 0) {
 			this.consoleView.displayErrorMessage("[ERROR] Only numbers are allowed --[NOTE] UNO word might also be used here", "Please enter a VALID number, any other invalid characters will be removed");
 			displayCardsInfo(cardCollection, gameModelbean);
@@ -237,6 +245,7 @@ public class InputReader implements Serializable {
 	 * @return La color associée à l'index
 	 */
 	private Color findColorUsingItsNumber(int colorNumber) {
+		Preconditions.checkNotNull(colorNumber, "[ERROR] find color based on its index : provided index is null");
 		switch(colorNumber) {
 		case 0:
 			return Color.RED;
@@ -295,7 +304,7 @@ public class InputReader implements Serializable {
 	/**
 	 * Méthode permettant de vérifier si le joueur a annoncé UNO lors de la selection de sa carte
 	 * @param answer Réponse de l'utilisateur à analyser
-	 * @return TRUE si la chaine contient les lettres "u","n","o" sans caractères parasites (les espaces sont acceptés), FALSE sinon 
+	 * @return <code>TRUE</code> si la chaine contient les lettres "u","n","o" sans caractères parasites (les espaces sont acceptés), <code>FALSE</code> sinon 
 	 */
 	public boolean findIfUnoHasBeenAnnounced(String answer) {
 		Preconditions.checkNotNull(answer,"[ERROR] Cannot check if UNO has been announced : provided answer is null");
@@ -316,6 +325,42 @@ public class InputReader implements Serializable {
 			return true;
 		} else {
 			return false;
+		}
+	}
+
+	/**
+	 * Méthode permettant de demander à l'utilisateur quelle variante de jeu utiliser (choix dépendant du nombre de joueurs précédemment donné)
+	 * @param size Nombre de joueurs
+	 * @return Objet englobant le mode de jeu choisi et l'état actuel de la partie
+	 */
+	public GameRule askForGameMode(Integer size) {
+		Preconditions.checkNotNull(size, "[ERROR] Impossible find game mode based on its index : provided index is null");
+		if(size.equals(2)) {
+			this.consoleView.displayChoice("Would you like to set game mode to TWO PLAYERS ONLY --Or play with classic rules?","0:YES ", "1:NO ");
+			int choice = this.getValidAnswerFromDualChoice();
+			if(choice == 0) {
+				return new GameRule(GameMode.TwoPlayers);
+			} else {
+				return new GameRule(GameMode.Normal);
+			}
+		} else if((size%2) == 0){
+			this.consoleView.displayChoice("What game mode would you like to choose?","0:CLASSIC ", "1:LAST-MAN STANDING ", "2:TEAM-PLAY ");
+			int choice = this.getValidAnswerFromTripleChoice();
+			if(choice == 0) {
+				return new GameRule(GameMode.Normal);
+			} else if(choice == 1) {
+				return new GameRule(GameMode.UnoChallenge);
+			} else {
+				return new GameRule(GameMode.TeamPlay);
+			}
+		} else {
+			this.consoleView.displayChoice("What game mode would you like to choose?","0:CLASSIC ", "1:LAST-MAN STANDING ");
+			int choice = this.getValidAnswerFromDualChoice();
+			if(choice == 0) {
+				return new GameRule(GameMode.Normal);
+			} else {
+				return new GameRule(GameMode.UnoChallenge);
+			}
 		}
 	}
 }

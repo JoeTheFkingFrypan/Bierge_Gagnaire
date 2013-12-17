@@ -1,6 +1,7 @@
 package utt.fr.rglb.main.java.player.AI;
 
 import java.util.Collection;
+
 import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.cards.model.basics.Color;
 

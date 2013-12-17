@@ -46,7 +46,7 @@ public class Stock extends AbstractModel {
 	/**
 	 * Méthode permettant de s'assurer que la pioche a suffisament de cartes pour satisfaire les besoins des joueurs
 	 * @param cardCountToBeDrawn Nombre de cartes devant être piochées
-	 * @return TRUE s'il y a suffisament de cartes, FALSE sinon
+	 * @return <code>TRUE</code> s'il y a suffisament de cartes, <code>FALSE</code> sinon
 	 */
 	public boolean hasNotEnoughCards(int cardCountToBeDrawn) {
 		Preconditions.checkArgument(cardCountToBeDrawn > 0,"[ERROR] Amount of cards drawn must be stricly higher than 0 (Expected : 1+)");
@@ -101,7 +101,7 @@ public class Stock extends AbstractModel {
 	/**
 	 * Méthode permettant de s'assurer la présence d'une carte donnée dans la pioche
 	 * @param card Carte dont la présence est à tester
-	 * @return TRUE si la carte est contenue, FALSE sinon
+	 * @return <code>TRUE</code> si la carte est contenue, <code>FALSE</code> sinon
 	 */
 	public Boolean contains(Card card) {
 		Preconditions.checkNotNull(card,"[ERROR] Cannot verfify if stock contains card, because provided reference is null");

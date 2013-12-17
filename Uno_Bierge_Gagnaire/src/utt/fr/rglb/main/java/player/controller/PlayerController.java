@@ -1,5 +1,6 @@
 package utt.fr.rglb.main.java.player.controller;
 
+import com.google.common.base.Preconditions;
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -10,9 +11,6 @@ import utt.fr.rglb.main.java.console.model.InputReader;
 import utt.fr.rglb.main.java.console.view.View;
 import utt.fr.rglb.main.java.main.ServerException;
 import utt.fr.rglb.main.java.player.model.PlayerModel;
-
-import com.google.common.base.Preconditions;
-
 
 /**
  * Classe dont le rôle est de gérer tout ce qui touche à un joueur
@@ -184,7 +182,7 @@ public class PlayerController implements Serializable {
 
 	/**
 	 * Méthode permettant de savoir si le joueur possède encore des cartes dans sa main
-	 * @return TRUE si le joueur a au moins une carte en main, FALSE sinon
+	 * @return <code>TRUE</code> si le joueur a au moins une carte en main, <code>FALSE</code> sinon
 	 */
 	public boolean stillHasCards() {
 		return getNumberOfCardsInHand() > 0;
@@ -210,6 +208,7 @@ public class PlayerController implements Serializable {
 	 * @param stringToDisplay Message à répété, permettant de simuler une attente
 	 */
 	protected void chillForTwoSec(String stringToDisplay) {
+		Preconditions.checkNotNull(stringToDisplay,"[ERROR] Impossible display message while waiting : provided message is null");
 		try {
 			for(int i=0; i<4; i++) {
 				Thread.sleep(500);

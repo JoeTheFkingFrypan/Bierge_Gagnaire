@@ -1,7 +1,6 @@
 package utt.fr.rglb.main.java.player.model;
 
 import com.google.common.base.Preconditions;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,7 +28,7 @@ public class PlayerModel implements Serializable {
 	 * @param alias Nom du joueur
 	 */
 	public PlayerModel(String alias) {
-		Preconditions.checkNotNull(alias);
+		Preconditions.checkNotNull(alias,"[ERROR] Impossible to create PlayerModel : provided alias is null");
 		this.cardsInHand = new ArrayList<Card>();
 		this.unoAnnoucement = false;
 		this.alias = alias;
@@ -158,7 +157,7 @@ public class PlayerModel implements Serializable {
 	
 	/**
 	 * Méthode permettant de vérifier si le joueur a annoncé UNO ou non
-	 * @return TRUE si le joueur a annoncé UNO, FALSE sinon
+	 * @return <code>TRUE</code> si le joueur a annoncé UNO, <code>FALSE</code> sinon
 	 */
 	public boolean hasAnnouncedUno() {
 		return this.unoAnnoucement;

@@ -1,9 +1,8 @@
 package utt.fr.rglb.main.java.player.controller;
 
+import com.google.common.base.Preconditions;
 import java.util.Collection;
 import java.util.List;
-
-import com.google.common.base.Preconditions;
 
 import utt.fr.rglb.main.java.cards.model.GameModelBean;
 import utt.fr.rglb.main.java.cards.model.basics.Card;
@@ -23,6 +22,7 @@ public class PlayerControllerAI extends PlayerController {
 	
 	public PlayerControllerAI(String name,View consoleView, CardPickerStrategy cardPickerStrategy) {
 		super(name,consoleView);
+		Preconditions.checkNotNull(cardPickerStrategy,"[ERROR] Impossible create AI player : provided strategy is null");
 		this.cardPickerStrategy = cardPickerStrategy;
 	}
 	
@@ -61,6 +61,7 @@ public class PlayerControllerAI extends PlayerController {
 	 * @param alias 
 	 */
 	public void decideIfAnnouncingUnoIsNecessary(String alias) {
+		Preconditions.checkNotNull(cardPickerStrategy,"[ERROR] Impossible to decided if annoucing UNO is necessary : provided player name is null");
 		if(this.player.getNumberOfCardsInHand() == 2) {
 			this.player.setUnoAnnoucement();
 		}
@@ -79,6 +80,7 @@ public class PlayerControllerAI extends PlayerController {
 	
 	@Override
 	public Color hasToChooseColor(InputReader inputReader) {
+		Preconditions.checkNotNull(cardPickerStrategy,"[ERROR] Impossible to choose a color : provided inputReader is null");
 		Collection<Card> cardCollection = this.getCardsInHand();
 		return this.cardPickerStrategy.chooseBestColor(cardCollection);
 	}

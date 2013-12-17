@@ -1,5 +1,7 @@
 package utt.fr.rglb.main.java.player.model;
 
+import com.google.common.base.Preconditions;
+
 import utt.fr.rglb.main.java.player.AI.CardPickerStrategy;
 
 /**
@@ -17,6 +19,7 @@ public class PlayerStatus {
 	 * @param alias Pseudo du joueur
 	 */
 	public PlayerStatus(String alias) {
+		Preconditions.checkNotNull(alias,"[ERROR] Impossible to create PlayerStatus : provided name is null");
 		this.alias = alias;
 		this.isHuman = true;
 		this.cardPickerStrategy = null;
@@ -28,6 +31,8 @@ public class PlayerStatus {
 	 * @param cardPickerStrategy Stratégie associée
 	 */
 	public PlayerStatus(String alias, CardPickerStrategy cardPickerStrategy) {
+		Preconditions.checkNotNull(alias,"[ERROR] Impossible to create PlayerStatus : provided name is null");
+		Preconditions.checkNotNull(alias,"[ERROR] Impossible to create PlayerStatus : provided strategy is null");
 		this.alias = alias;
 		this.isHuman = false;
 		this.cardPickerStrategy = cardPickerStrategy;
@@ -68,7 +73,8 @@ public class PlayerStatus {
 	
 	@Override
 	public boolean equals(Object other) {
-		if(!other.getClass().equals(PlayerStatus.class)) {
+		boolean isPlayerStatus = (other instanceof PlayerStatus);
+		if(!isPlayerStatus) {
 			return false;
 		} else {
 			PlayerStatus otherPlayer = (PlayerStatus)other;

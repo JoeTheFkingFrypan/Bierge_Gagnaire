@@ -1,7 +1,6 @@
 package utt.fr.rglb.main.java.cards.model.pile;
 
 import com.google.common.base.Preconditions;
-
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Stack;
@@ -86,6 +85,4 @@ public class Pile implements Serializable {
 	public String toString() {
 		return "[Talon] " + talon.size() + " cartes ont été jouées";
 	}
-	
-	
 }

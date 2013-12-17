@@ -1,7 +1,6 @@
 package utt.fr.rglb.main.java.player.AI;
 
 import com.google.common.base.Preconditions;
-
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -30,6 +29,7 @@ public abstract class CardPickerStrategyImpl implements CardPickerStrategy, Seri
 	
 	 @Override
 	 public Color chooseBestColor(Collection<Card> cardCollection) {
+		 Preconditions.checkNotNull(cardCollection,"[ERROR] Cannot chose best color : provided card collection is null");
 		 ColorPicker colorPicker = new ColorPicker(cardCollection);
 		 return colorPicker.findBestSuitableColor();
 	 }

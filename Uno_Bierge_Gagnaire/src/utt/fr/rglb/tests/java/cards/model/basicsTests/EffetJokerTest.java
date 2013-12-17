@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import utt.fr.rglb.main.java.cards.model.basics.EffetJoker;
-import utt.fr.rglb.main.java.turns.model.GameFlag;
+import utt.fr.rglb.main.java.game.model.GameFlag;
 
 public class EffetJokerTest {
 	private EffetJoker effetJoker;

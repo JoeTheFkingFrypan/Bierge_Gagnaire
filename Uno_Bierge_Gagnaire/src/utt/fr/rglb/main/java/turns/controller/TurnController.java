@@ -2,13 +2,16 @@ package utt.fr.rglb.main.java.turns.controller;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.console.view.View;
+import utt.fr.rglb.main.java.turns.model.TurnModel;
 import utt.fr.rglb.main.java.player.controller.PlayerController;
 import utt.fr.rglb.main.java.player.controller.PlayerControllerBean;
+import utt.fr.rglb.main.java.player.model.PlayerTeam;
 import utt.fr.rglb.main.java.player.model.PlayersToCreate;
-import utt.fr.rglb.main.java.turns.model.TurnModel;
 
 import com.google.common.base.Preconditions;
 
@@ -77,7 +80,7 @@ public class TurnController implements Serializable {
 		Preconditions.checkNotNull(cards,"[ERROR] Provided card collection cannot be null");
 		this.turnModel.giveCardsToNextPlayer(cards);
 	}
-
+	
 	/* ========================================= TURN ORDER ========================================= */
 
 	/**
@@ -125,22 +128,92 @@ public class TurnController implements Serializable {
 		consoleView.displayErrorMessage("Sadly, you are not allowed to play this turn","Previous player used a Skip card");
 	}
 	
+	public void cycleSilently() {
+		this.consoleView.displayGreenEmphasisUsingPlaceholders("Thanks to your previous card", "it's your turn to play", "again");
+		this.turnModel.cycleSilentlyThroughPlayers();
+	}
+	
 	/* ========================================= ROUND WIN EVENT HANDLING ========================================= */
 	
 	/**
 	 * Méthode permettant de calculer le score du joueur ayant gagné
 	 * @param gameWinner Joueur ayant remporté le round
-	 * @return TRUE si le joueur a gagné (score > 500 points), FALSE sinon
+	 * @return <code>TRUE</code> si le joueur a gagné (score > 500 points), <code>FALSE</code> sinon
 	 */
-	public boolean computeEndOfTurn(PlayerControllerBean gameWinner) {
-		Integer pointsReceived = this.turnModel.sumAllPlayerScore();
+	public boolean computeIndividualEndOfTurn(PlayerControllerBean gameWinner) {
+		Preconditions.checkNotNull(gameWinner,"[ERROR] Impossible to compute individual score : provided PlayerControllerBean cannot be null");
+		Integer pointsReceived = this.turnModel.sumAllIndividualPlayerScore();
 		boolean hasWon = gameWinner.increaseScoreBy(pointsReceived);
 		this.turnModel.resetAllHands();
 		consoleView.displayGreenEmphasisUsingPlaceholders("Player [",gameWinner.getAlias(),"] has won this round, congratulations !");
 		consoleView.displayGreenEmphasisUsingPlaceholders("He successfully scored ",pointsReceived.toString()," points");
 		return hasWon;
 	}
+	
+	/**
+	 * Méthode permettant de calculer le score de l'équipe ayant gagné
+	 * @param gameWinner Joueur ayant remporté le round
+	 * @return <code>TRUE</code> si l'équipe a gagné (score > 500 points), <code>FALSE</code> sinon
+	 */
+	public boolean computeTeamEndOfTurn(PlayerControllerBean gameWinner) {
+		Preconditions.checkNotNull(gameWinner,"[ERROR] Impossible to compute team score : provided PlayerControllerBean cannot be null");
+		PlayerTeam winningTeam = this.turnModel.findWinningTeam(gameWinner);
+		Integer pointsReceived = this.turnModel.sumAllTeamScore(winningTeam);
+		boolean hasWon = this.turnModel.increaseScoreOfTheWinningTeam(winningTeam,pointsReceived);
+		this.turnModel.resetAllHands();
+		consoleView.displayGreenEmphasisUsingPlaceholders("Team [",winningTeam.toString(),"] has won this round, congratulations !");
+		consoleView.displayGreenEmphasisUsingPlaceholders("They successfully scored ",pointsReceived.toString()," points total");
+		return hasWon;
+	}
 
+	/* ========================================= TEAM PLAY ========================================= */
+	
+	/**
+	 * Méthode permettant de séparer les jouers en différentes équipes de 2 joueurs
+	 */
+	public void splitPlayersIntoTeams() {
+		this.turnModel.splitPlayersIntoTeams();
+	}
+	
+	/**
+	 * Méthode permettant de récuperer l'équipe ayant gagné (qui contient le joueur donné)
+	 * @param winningPlayer Joueur victorieux dont on souhaite connaitre l'équipe
+	 * @return L'équipe à laquelle appartient le joueur donné
+	 */
+	public PlayerTeam findWinningTeam(PlayerControllerBean winningPlayer) {
+		Preconditions.checkNotNull(winningPlayer,"[ERROR] Impossible to find winning team : provided PlayerControllerBean cannot be null");
+		return this.turnModel.findWinningTeam(winningPlayer);
+	}
+	
+	/* ========================================= SCORE ========================================= */
+	
+	/**
+	 * Méthode permettant d'afficher les scores de tous les joueurs
+	 */
+	public void displayIndividualTotalScore() {
+		Collection<PlayerController> players = this.turnModel.getAllPlayers();
+		consoleView.displayOneLineOfJokerText("Scores are now : ");
+		for(PlayerController currentPlayer : players) {
+			Integer currentScore = currentPlayer.getScore();
+			Integer pointsNeededToWin = 500 - currentScore;
+			consoleView.displayJokerEmphasisUsingPlaceholders(" * [", currentPlayer.getAlias(), "] : ", currentScore.toString(), " => ", pointsNeededToWin.toString(), " more points need to win the game");
+		}
+	}
+	
+	/**
+	 * Méthode permettant d'afficher les scores de toutes les équipes
+	 */
+	public void displayTeamTotalScore() {
+		Map<Integer, PlayerTeam> teams = this.turnModel.getAllTeams();
+		consoleView.displayOneLineOfJokerText("Scores are now : ");
+		for(Entry<Integer, PlayerTeam> teamEntry : teams.entrySet()) {
+			PlayerTeam currentTeam = teamEntry.getValue();
+			Integer currentScore = currentTeam.getScore();
+			Integer pointsNeededToWin = 500 - currentScore;	
+			consoleView.displayJokerEmphasisUsingPlaceholders(" * TEAM " + teamEntry.getKey() + " [", currentTeam.toString(), "] : ", currentScore.toString(), " => ", pointsNeededToWin.toString(), " more points need to win the game");	
+		}
+	}
+	
 	/* ========================================= GETTERS & DISPLAY ========================================= */
 	
 	/**
@@ -152,15 +225,14 @@ public class TurnController implements Serializable {
 	}
 
 	/**
-	 * Méthode permettant d'afficher les scores de tous les joueurs
+	 * Méthode permettant d'afficher la composition de toutes les équipes
 	 */
-	public void displayTotalScore() {
-		Collection<PlayerController> players = this.turnModel.getAllPlayers();
-		consoleView.displayOneLineOfJokerText("Scores are now : ");
-		for(PlayerController currentPlayer : players) {
-			Integer currentScore = currentPlayer.getScore();
-			Integer pointsNeededToWin = 500 - currentScore;
-			consoleView.displayJokerEmphasisUsingPlaceholders(" * [", currentPlayer.getAlias(), "] : ", currentScore.toString(), " => ", pointsNeededToWin.toString(), " more points need to win the game");
+	public void displayTeams() {
+		Map<Integer, PlayerTeam> teams = this.turnModel.getAllTeams();
+		this.consoleView.AppendOneLineOfBoldText("Teams are now : ");
+		for(Entry<Integer, PlayerTeam> teamEntry : teams.entrySet()) {
+			this.consoleView.displayJokerEmphasisUsingPlaceholders(" * TEAM " + teamEntry.getKey().toString() + " [ ", teamEntry.getValue().toString(), " ]");
 		}
+		
 	}
 }

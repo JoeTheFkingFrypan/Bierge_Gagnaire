@@ -1,7 +1,9 @@
 package utt.fr.rglb.main.java.cards.model.basics;
 
-import utt.fr.rglb.main.java.turns.model.GameFlag;
 import com.google.common.base.Preconditions;
+
+import utt.fr.rglb.main.java.game.model.GameFlag;
+
 
 /**
  * Classe correspondant à une carte spéciale (carte avec un effet)
@@ -61,7 +63,7 @@ public class CardSpecial extends Card {
 	 * Méthode permettant de savoir si une carte peut être jouée par dessus la carte actuelle (dans le cas d'une carte SPECIALE)
 	 * A noter que dans le cas des cartes spéciales, la valeur n'est pas un critère de compatibilité
 	 * @param otherCard Carte que l'on souhaite eventuellement jouer
-	 * @return TRUE si la carte est "compatible" (si elle peut être jouée), FALSE sinon
+	 * @return <code>TRUE</code> si la carte est "compatible" (si elle peut être jouée), <code>FALSE</code> sinon
 	 */
 	private boolean isCompatibleWithSpecialCard(CardSpecial otherCard) {
 		Preconditions.checkNotNull(otherCard,"[ERROR] Impossible to test compatibility : provided card is null");
@@ -79,7 +81,7 @@ public class CardSpecial extends Card {
 	/**
 	 * Méthode privée permettant de gérer la comparaison entre carte spéciale et la carte passée en paramètre (dans le cas d'une carte NUMEROTEE)
 	 * @param otherCard Carte dont on souhaite tester la compatibilité
-	 * @return TRUE si la carte est compatible, FALSE sinon
+	 * @return <code>TRUE</code> si la carte est compatible, <code>FALSE</code> sinon
 	 */
 	private boolean isCompatibleWithNumberedCard(Card otherCard) {
 		Preconditions.checkNotNull(otherCard,"[ERROR] Impossible to test compatibility : provided card is null");
@@ -95,14 +97,12 @@ public class CardSpecial extends Card {
 	/**
 	 * Méthode privée permettant de savoir si l'effet de la carte actuelle est le même que l'effet passé en paramètre
 	 * @param effectFromAnotherCard Effet d'une 2ème carte, passé en paramètre
-	 * @return TRUE si les 2 effets sont identiques, FALSE sinon
+	 * @return <code>TRUE</code> si les 2 effets sont identiques, <code>FALSE</code> sinon
 	 */
 	private boolean hasSameEffectThan(String effectFromAnotherCard) {
 		Preconditions.checkNotNull(effectFromAnotherCard,"[ERROR] Impossible to compare effets : provided effect is null");
 		return this.getEffect().equals(effectFromAnotherCard);
 	}
-	
-	
 	
 	/* ========================================= BASIC COMPARAISON ========================================= */
 
@@ -111,7 +111,7 @@ public class CardSpecial extends Card {
 	 */
 	@Override
 	public boolean equals(Object other) {
-		boolean isSpecialCard = other.getClass().equals(CardSpecial.class);
+		boolean isSpecialCard = (other instanceof CardSpecial);
 		if(!isSpecialCard) {
 			return false;
 		} else {
@@ -135,7 +135,7 @@ public class CardSpecial extends Card {
 	
 	/**
 	 * Méthode permettant de vérifier si une carte est spéciale ou non
-	 * @return TRUE s'il s'agit d'une CarteSpeciale, FALSE sinon
+	 * @return <code>TRUE</code> s'il s'agit d'une CarteSpeciale, <code>FALSE</code> sinon
 	 */
 	@Override
 	public Boolean isSpecial() {

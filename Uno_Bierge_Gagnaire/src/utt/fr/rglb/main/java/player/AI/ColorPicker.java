@@ -1,5 +1,6 @@
 package utt.fr.rglb.main.java.player.AI;
 
+import com.google.common.base.Preconditions;
 import java.util.Collection;
 
 import utt.fr.rglb.main.java.cards.model.basics.Card;
@@ -20,6 +21,7 @@ public class ColorPicker {
 	 * Constructeur de ColorPicker, qui va compter toutes les cartes colorées (par couleur) contenues dans la collection fournie
 	 */
 	public ColorPicker(Collection<Card> cardCollection) {
+		Preconditions.checkNotNull(cardCollection,"[ERROR] Impossible to create a ColorPicker : provided card collection is null");
 		this.amountOfRedCards = 0;
 		this.amountOfBlueCards = 0;
 		this.amountOfGreenCards = 0;
@@ -32,6 +34,7 @@ public class ColorPicker {
 	 * @param cardCollection Collection de cartes
 	 */
 	private void countCards(Collection<Card> cardCollection) {
+		Preconditions.checkNotNull(cardCollection,"[ERROR] Impossible to count cards : provided card collection is null");
 		for(Card currentCard : cardCollection) {
 			if(currentCard.isRed()) {
 				amountOfRedCards++;

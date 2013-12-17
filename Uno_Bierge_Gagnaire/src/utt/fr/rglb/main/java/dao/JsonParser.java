@@ -5,6 +5,7 @@ import java.util.Map;
 
 import utt.fr.rglb.main.java.player.model.PlayersToCreate;
 
+import com.google.common.base.Preconditions;
 import com.google.gson.Gson;
 
 /**
@@ -20,6 +21,8 @@ public class JsonParser {
 	 * @return Objet encapsulant le nom de tous les joueurs et leur statut (humain, IA) associé, avec leur stratégie, pour peu qu'il s'agisse d'une IA
 	 */
 	public PlayersToCreate createPlayersFromConfigurationFile(String jsonText) {
+		Preconditions.checkNotNull(jsonText,"[ERROR] Impossible to create players from configuration file : provided string is null");
+		Preconditions.checkArgument(jsonText.length() > 0,"[ERROR] Impossible to create players from configuration file : provided file is empty");
 		PlayersToCreate playersToCreate = new PlayersToCreate();
 		Map<?,?> jsonRootObject = new Gson().fromJson(jsonText,Map.class);
 		ArrayList<?> players = (ArrayList<?>) jsonRootObject.get("players");
@@ -41,18 +44,24 @@ public class JsonParser {
 	 * @param playersToCreate Objet encapsulant le nom de tous les joueurs et leur statut (humain, IA) associé, avec leur stratégie, pour peu qu'il s'agisse d'une IA
 	 */
 	private void parseAnotherPlayer(ArrayList<?> players, int rank, PlayersToCreate playersToCreate) {
+		Preconditions.checkNotNull(players,"[ERROR] Impossible to read configuration file : provided array of players is null");
+		Preconditions.checkNotNull(playersToCreate,"[ERROR] Impossible to read configuration file : provided PlayersToCreate is null");
 		Map<?,?> infoFromPlayer = (Map<?,?>) players.get(rank);
-		String nickname = (String) infoFromPlayer.get("nickname");
-		if(playersToCreate.contains(nickname)) {
-			throw new ConfigFileDaoException("[ERROR] Configuration settings are invalid : each player must have a different name (currently, at least 2 of them are named : " + nickname + ")");
-		}
-		String status = (String) infoFromPlayer.get("status");
-		if(status.equals("human")) {
-			playersToCreate.addHumanPlayer(nickname);
-		} else {
-			String strategy = (String) infoFromPlayer.get("difficultyLevel [0-2]");
-			int strategyIndex = Integer.parseInt(strategy);
-			playersToCreate.addIAPlayerProvidingStrategyIndex(nickname,strategyIndex);
+		try {
+			String nickname = (String) infoFromPlayer.get("nickname");
+			if(playersToCreate.contains(nickname)) {
+				throw new ConfigFileDaoException("[ERROR] Configuration settings are invalid : each player must have a different name (currently, at least 2 of them are named : " + nickname + ")");
+			}
+			String status = (String) infoFromPlayer.get("status");
+			if(status.equals("human")) {
+				playersToCreate.addHumanPlayer(nickname);
+			} else {
+				String strategy = (String) infoFromPlayer.get("difficultyLevel [0-2]");
+				int strategyIndex = Integer.parseInt(strategy);
+				playersToCreate.addIAPlayerProvidingStrategyIndex(nickname,strategyIndex);
+			}
+		} catch (NullPointerException e) {
+			throw new ConfigFileDaoException("[ERROR] Configuration file is not filled properly : please make sure it is a valid JSON file --Expected : 1 Array composed of 2 to 7 Objects (each object composed of 2 to 3 string/value couples)");
 		}
 	}
 }

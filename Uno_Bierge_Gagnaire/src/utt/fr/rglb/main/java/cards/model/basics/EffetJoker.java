@@ -1,6 +1,6 @@
 package utt.fr.rglb.main.java.cards.model.basics;
 
-import utt.fr.rglb.main.java.turns.model.GameFlag;
+import utt.fr.rglb.main.java.game.model.GameFlag;
 
 /**
  * Effet permettant au joueur de choisir la couleur à utiliser

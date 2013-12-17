@@ -1,6 +1,6 @@
 package utt.fr.rglb.main.java.cards.model.basics;
 
-import utt.fr.rglb.main.java.turns.model.GameFlag;
+import utt.fr.rglb.main.java.game.model.GameFlag;
 
 /**
  * Effet permettant au joueur actuel de choisir une couleur et de forcer le joueur suivant à piocher 4 cartes

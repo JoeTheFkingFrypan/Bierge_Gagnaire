@@ -1,6 +1,6 @@
 package utt.fr.rglb.main.java.cards.model.basics;
 
-import utt.fr.rglb.main.java.turns.model.GameFlag;
+import utt.fr.rglb.main.java.game.model.GameFlag;
 
 /**
  * Effet permettant à un joueur de forcer le joueur suivant à passer son tour

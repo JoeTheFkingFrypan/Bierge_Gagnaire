@@ -1,5 +1,8 @@
 package utt.fr.rglb.main.java.dao;
 
+/**
+ * Classe d'exception permettant de remonter les problèmes en liaison avec l'accès aux données (DAO = Data Access Object)
+ */
 public class ConfigFileDaoException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 

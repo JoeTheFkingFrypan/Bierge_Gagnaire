@@ -109,7 +109,7 @@ public class CardsModel extends AbstractModel {
 
 	/**
 	 * Méthode permettant de savoir si une couleur globale est définie (si un joker/+4 a été précédement joué)
-	 * @return TRUE si une couleur globale est définie, FALSE sinon
+	 * @return <code>TRUE</code> si une couleur globale est définie, <code>FALSE</code> sinon
 	 */
 	public boolean globalColorIsSet() {
 		if(Color.JOKER.equals(getGlobalColor())) {

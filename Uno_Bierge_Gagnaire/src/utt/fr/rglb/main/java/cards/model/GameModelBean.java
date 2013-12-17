@@ -1,7 +1,6 @@
 package utt.fr.rglb.main.java.cards.model;
 
 import com.google.common.base.Preconditions;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -44,7 +43,7 @@ public class GameModelBean implements Serializable {
 	/**
 	 * Méthode permettant de s'assurer que la collection de cartes passée en paramètre a au moins une carte compatible avec la référence/couleur globale
 	 * @param cardsFromPlayer Collection de cartes
-	 * @return TRUE si la collection contient au moins une carte compatible, FALSE sinon
+	 * @return <code>TRUE</code> si la collection contient au moins une carte compatible, <code>FALSE</code> sinon
 	 */
 	public boolean isCompatibleWith(Collection<Card> cardsFromPlayer) {
 		Preconditions.checkNotNull(cardsFromPlayer,"[ERROR] Could not check compatibility : provided card collection is null");
@@ -59,7 +58,7 @@ public class GameModelBean implements Serializable {
 	/**
 	 * Méthode permettant de s'assurer que la carte passée en paramètre est compatible avec la référence/couleur globale
 	 * @param cardFromPlayer Carte dont on souhaite connaitre la compatibilité
-	 * @return TRUE si la carte est compatible, FALSE sinon
+	 * @return <code>TRUE</code> si la carte est compatible, <code>FALSE</code> sinon
 	 */
 	public boolean isCompatibleWith(Card cardFromPlayer) {
 		Preconditions.checkNotNull(cardFromPlayer,"[ERROR] Could not check compatibility : provided card is null");
@@ -74,7 +73,7 @@ public class GameModelBean implements Serializable {
 	/**
 	 * Méthode privée permettant de procéder à la comparaison entre la carte de référence et la carte SPECIALE passée en paramètre
 	 * @param specialCardFromPlayer Carte dont on souhaite connaitre la compatibilité
-	 * @return TRUE si la carte est compatible, FALSE sinon
+	 * @return <code>TRUE</code> si la carte est compatible, <code>FALSE</code> sinon
 	 */
 	private boolean compatibilityCheckWithSpecialCard(CardSpecial specialCardFromPlayer) {
 		Preconditions.checkNotNull(specialCardFromPlayer,"[ERROR] Could not check compatibility : provided special card is null");
@@ -88,7 +87,7 @@ public class GameModelBean implements Serializable {
 	/**
 	 * Méthode privée permettant de procéder à la comparaison entre la carte de référence et la carte passée en paramètre
 	 * @param cardFromPlayer Carte dont on souhaite connaitre la compatibilité
-	 * @return TRUE si la carte est compatible, FALSE sinon
+	 * @return <code>TRUE</code> si la carte est compatible, <code>FALSE</code> sinon
 	 */
 	private boolean compatibilityCheckWithNumberedCard(Card cardFromPlayer) {
 		Preconditions.checkNotNull(cardFromPlayer,"[ERROR] Could not check compatibility : provided card is null");
@@ -116,7 +115,7 @@ public class GameModelBean implements Serializable {
 	/**
 	 * Méthode privée permettant de vérifier si une "simple" comparaison est suffisante pour attester de sa compatibilité avec la référence
 	 * @param currentCard Carte dont on souhaite connaitre la compatibilité
-	 * @return TRUE si la carte est compatible (couleur identique, effet identique) 
+	 * @return <code>TRUE</code> si la carte est compatible (couleur identique, effet identique) 
 	 */
 	private boolean specialCardComparaisonIsEnough(CardSpecial currentCard) {
 		Preconditions.checkNotNull(currentCard,"[ERROR] Could not check compatibility : provided special card is null");
@@ -129,9 +128,10 @@ public class GameModelBean implements Serializable {
 	/**
 	 * Méthode privée permettant de vérifier si une comparaison de couleur entre la couleur globale et celle de la carte passée en paramètre est suffisante pour attester de sa compatibilité
 	 * @param currentCard Carte dont on souhaite connaitre la compatibilité
-	 * @return TRUE si la carte est compatible (couleur identique) 
+	 * @return <code>TRUE</code> si la carte est compatible (couleur identique) 
 	 */
 	private boolean globalComparaisonIsEnough(Card currentCard) {
+		Preconditions.checkNotNull(currentCard,"[ERROR] Cannot compare card to global color : provided card is null");
 		if(globalColorIsSet()) {
 			if(currentCard.getColor().equals(this.globalColor)) {
 				return true;
@@ -148,6 +148,7 @@ public class GameModelBean implements Serializable {
 	 * @return Liste d'index correspondant aux cartes jouables
 	 */
 	public List<Integer> findPlayableCardsFrom(Collection<Card> cardCollection) {
+		Preconditions.checkNotNull(cardCollection,"[ERROR] Cannot find playable card from collection : provided one is null");
 		List<Integer> playableIndexes = new ArrayList<Integer>();
 		int currentIndex = 0;
 		for(Card currentCard : cardCollection) {
@@ -161,7 +162,7 @@ public class GameModelBean implements Serializable {
 	
 	/**
 	 * Méthode permettant de savoir si une couleur globale est définie (si un joker/+4 a été précédement joué)
-	 * @return TRUE si une couleur globale est définie, FALSE sinon
+	 * @return <code>TRUE</code> si une couleur globale est définie, <code>FALSE</code> sinon
 	 */
 	public boolean globalColorIsSet() {
 		return ! this.globalColor.equals(Color.JOKER);

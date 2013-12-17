@@ -19,10 +19,10 @@ import utt.fr.rglb.main.java.cards.model.basics.EffectReverse;
 import utt.fr.rglb.main.java.cards.model.basics.EffectSkip;
 import utt.fr.rglb.main.java.cards.model.basics.EffetJoker;
 
-
 /**
  * Classe à qui a été délégué le rôle de la création des cartes (et de leur mélange)
  */
+//FIXME : create factory
 class CardGenerator implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

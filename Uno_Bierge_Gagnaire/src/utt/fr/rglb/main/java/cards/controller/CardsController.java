@@ -1,7 +1,6 @@
 package utt.fr.rglb.main.java.cards.controller;
 
 import com.google.common.base.Preconditions;
-
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -11,7 +10,7 @@ import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.cards.model.basics.CardSpecial;
 import utt.fr.rglb.main.java.cards.model.basics.Color;
 import utt.fr.rglb.main.java.console.view.View;
-import utt.fr.rglb.main.java.turns.model.GameFlag;
+import utt.fr.rglb.main.java.game.model.GameFlag;
 
 /**
  * Classe dont le rôle est de gérer tout ce qui est associé aux cartes (compatibilité, pioche, jeu, etc)
@@ -82,6 +81,7 @@ public class CardsController implements Serializable {
 	 * @return Une valeur d'énumération correspondant à l'effet qui s'est délenché (ou NORMAL, s'il n'y en a pas eu)
 	 */
 	private GameFlag triggerItsEffectIfItHasOne(Card chosenCard) {
+		Preconditions.checkNotNull(chosenCard,"[ERROR] Cannot trigger effect from card : provided card is null");
 		if(chosenCard.isSpecial()) {
 			CardSpecial explicitSpecialCard = (CardSpecial)chosenCard;
 			return explicitSpecialCard.triggerEffect();

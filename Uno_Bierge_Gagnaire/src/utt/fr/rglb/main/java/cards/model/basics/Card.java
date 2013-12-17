@@ -1,7 +1,6 @@
 package utt.fr.rglb.main.java.cards.model.basics;
 
 import java.io.Serializable;
-
 import com.google.common.base.Preconditions;
 
 /**
@@ -76,7 +75,7 @@ public class Card implements Serializable {
 	 */
 	@Override
 	public boolean equals(Object other) {
-		boolean isNumberedCard = other.getClass().equals(Card.class);
+		boolean isNumberedCard = (other instanceof Card);
 		if(!isNumberedCard) {
 			return false;
 		} else {

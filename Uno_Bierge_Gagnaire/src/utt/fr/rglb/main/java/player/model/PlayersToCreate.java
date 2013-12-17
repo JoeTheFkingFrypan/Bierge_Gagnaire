@@ -31,6 +31,7 @@ public class PlayersToCreate {
 	 * @return <code>TRUE</code> si le pseudo est présent, <code>FALSE</code> sinon
 	 */
 	public boolean contains(String alias) {
+		Preconditions.checkNotNull(alias,"[ERROR] Impossible to verify if provided name has already been given : provided name is null");
 		for(PlayerStatus ps : this.playersAwaitingCreation) {
 			if(ps.getAlias().equals(alias)) {
 				return true;
@@ -44,6 +45,7 @@ public class PlayersToCreate {
 	 * @param playerNameFromInput Nom du joueur
 	 */
 	public void addHumanPlayer(String playerNameFromInput) {
+		Preconditions.checkNotNull(playerNameFromInput,"[ERROR] Impossible to add a human player : provided name is null");
 		this.playersAwaitingCreation.add(new PlayerStatus(playerNameFromInput));
 	}
 
@@ -73,6 +75,7 @@ public class PlayersToCreate {
 	 * @return Une Collection de PlayerController correspondant à tous les joueurs devant être créés
 	 */
 	public List<PlayerController> createAllPlayersFromTheirRespectiveData(View consoleView) {
+		Preconditions.checkNotNull(consoleView,"[ERROR] Impossible to create all players : provided view is null");
 		List<PlayerController> players = new ArrayList<PlayerController>(); 
 		for(PlayerStatus curentPlayer : this.playersAwaitingCreation) {
 			players.add(createPlayerFrom(curentPlayer,consoleView));
@@ -87,6 +90,8 @@ public class PlayersToCreate {
 	 * @return Le PlayerController associé au joueur
 	 */
 	private PlayerController createPlayerFrom(PlayerStatus curentPlayer, View consoleView) {
+		Preconditions.checkNotNull(curentPlayer,"[ERROR] Impossible to create all players : provided player data is null");
+		Preconditions.checkNotNull(consoleView,"[ERROR] Impossible to create all players : provided view is null");
 		if(curentPlayer.isHuman()) {
 			return new PlayerController(curentPlayer.getAlias(), consoleView);
 		} else {
@@ -99,5 +104,13 @@ public class PlayersToCreate {
 	@Override
 	public String toString() {
 		return this.playersAwaitingCreation.toString();
+	}
+	
+	/**
+	 * Méthode permettant de récupérer le nombre de joueurs à créer
+	 * @return int correspondant au nombre de joueurs à créer
+	 */
+	public int size() {
+		return this.playersAwaitingCreation.size();
 	}
 }
