@@ -1,10 +1,11 @@
 package utt.fr.rglb.main.java.player.controller;
 
 import com.google.common.base.Preconditions;
-import java.util.Collection;
-import java.util.List;
 
-import utt.fr.rglb.main.java.cards.model.GameModelBean;
+import java.io.BufferedReader;
+import java.util.Collection;
+
+import utt.fr.rglb.main.java.cards.model.CardsModelBean;
 import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.cards.model.basics.Color;
 import utt.fr.rglb.main.java.console.model.InputReader;
@@ -20,8 +21,8 @@ public class PlayerControllerAI extends PlayerController {
 	
 	/* ========================================= CONSTRUCTOR ========================================= */
 	
-	public PlayerControllerAI(String name,View consoleView, CardPickerStrategy cardPickerStrategy) {
-		super(name,consoleView);
+	public PlayerControllerAI(String name,View consoleView, CardPickerStrategy cardPickerStrategy, BufferedReader inputStream) {
+		super(name,consoleView,inputStream);
 		Preconditions.checkNotNull(cardPickerStrategy,"[ERROR] Impossible create AI player : provided strategy is null");
 		this.cardPickerStrategy = cardPickerStrategy;
 	}
@@ -39,7 +40,7 @@ public class PlayerControllerAI extends PlayerController {
 	/* ========================================= TURN HANDLING ========================================= */
 	
 	@Override
-	public Card startTurn(InputReader inputReader, GameModelBean gameModelBean) {
+	public Card startTurn(InputReader inputReader, CardsModelBean gameModelBean) {
 		Preconditions.checkNotNull(inputReader,"[ERROR] Impossible to start turn, inputReader is null");
 		Preconditions.checkNotNull(gameModelBean,"[ERROR] Impossible to start turn, gameModelbean is null");
 		String alias = this.player.toString();
@@ -47,7 +48,7 @@ public class PlayerControllerAI extends PlayerController {
 		Integer cardsLeft = cardCollection.size();
 		this.consoleView.StartOneLineOfBoldText("[IA] ", alias, " is choosing a card ");
 		chillForTwoSec(".");
-		List<Integer> playableIndexes = gameModelBean.findPlayableCardsFrom(cardCollection);
+		Collection<Integer> playableIndexes = gameModelBean.findPlayableCardsFrom(cardCollection);
 		int bestIndex = cardPickerStrategy.chooseCardFrom(playableIndexes,cardCollection);
 		decideIfAnnouncingUnoIsNecessary(alias);
 		Card suitableCard = this.player.playCard(bestIndex);
@@ -68,7 +69,7 @@ public class PlayerControllerAI extends PlayerController {
 	}
 	
 	@Override
-	public void unableToPlayThisTurn(GameModelBean gameModelbean) {
+	public void unableToPlayThisTurn(CardsModelBean gameModelbean) {
 		Preconditions.checkNotNull(gameModelbean,"[ERROR] Impossible to start turn, gameModelbean is null");
 		this.consoleView.displayCard("The last card play was : ",gameModelbean.getLastCardPlayed());
 		gameModelbean.appendGlobalColorIfItIsSet();

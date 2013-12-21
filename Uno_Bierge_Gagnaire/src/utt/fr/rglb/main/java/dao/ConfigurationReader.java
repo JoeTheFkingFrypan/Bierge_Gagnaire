@@ -11,7 +11,7 @@ import com.google.common.io.Files;
 
 /**
  * Classe permettant de récupérer des informations stockées dans un fichier 
- * Encapsule les classes requises pour être capable de parser du JSON depuis le fichier
+ * </br>Encapsule les classes requises pour être capable de parser du JSON depuis le fichier
  */
 public class ConfigurationReader {
 	private JsonParser jsonParser;

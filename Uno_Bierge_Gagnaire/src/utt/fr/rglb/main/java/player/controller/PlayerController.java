@@ -1,10 +1,12 @@
 package utt.fr.rglb.main.java.player.controller;
 
 import com.google.common.base.Preconditions;
+
+import java.io.BufferedReader;
 import java.io.Serializable;
 import java.util.Collection;
 
-import utt.fr.rglb.main.java.cards.model.GameModelBean;
+import utt.fr.rglb.main.java.cards.model.CardsModelBean;
 import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.cards.model.basics.Color;
 import utt.fr.rglb.main.java.console.model.InputReader;
@@ -19,14 +21,16 @@ public class PlayerController implements Serializable {
 	private static final long serialVersionUID = 1L;
 	protected PlayerModel player;
 	protected View consoleView;
+	private BufferedReader inputStream;
 
 	/* ========================================= CONSTRUCTOR ========================================= */
 	
-	public PlayerController(String name, View consoleView) {
+	public PlayerController(String name, View consoleView, BufferedReader inputStream) {
 		Preconditions.checkNotNull(name,"[ERROR] name cannot be null");
 		Preconditions.checkNotNull(consoleView,"[ERROR] view cannot be null");
 		this.player = new PlayerModel(name);
 		this.consoleView = consoleView;
+		this.inputStream = inputStream;
 	}
 
 	/* ========================================= CARD PICKUP ========================================= */
@@ -84,7 +88,7 @@ public class PlayerController implements Serializable {
 	 * @param gameModelBean Objet de référence encapsulant la dernière carte jouée et éventuellement la couleur globale
 	 * @return <code>TRUE</code> si le joueur en a au moins une, <code>FALSE</code> sinon
 	 */
-	public boolean hasAtLeastOnePlayableCard(GameModelBean gameModelBean) {
+	public boolean hasAtLeastOnePlayableCard(CardsModelBean gameModelBean) {
 		Preconditions.checkNotNull(gameModelBean,"[ERROR] gameModelBean cannot be null");
 		return gameModelBean.isCompatibleWith(this.getCardsInHand());
 	}
@@ -106,18 +110,18 @@ public class PlayerController implements Serializable {
 	 * @return La carte choisie par l'utilisateur (qui est nécessairement compatible avec le talon)
 	 */
 	//TODO: Shrink method startTurn ?
-	public Card startTurn(InputReader inputReader, GameModelBean gameModelBean) {
+	public Card startTurn(InputReader inputReader, CardsModelBean gameModelBean) {
 		Preconditions.checkNotNull(inputReader,"[ERROR] Impossible to start turn, inputReader is null");
 		Preconditions.checkNotNull(gameModelBean,"[ERROR] Impossible to start turn, gameModelbean is null");
 		String alias = this.player.toString();
 		Collection<Card> cardCollection = this.getCardsInHand();
-		String answer = inputReader.getValidAnswer(alias,cardCollection,gameModelBean);
-		int index = inputReader.getNumberFromString(answer);
+		String answer = inputReader.getValidAnswer(alias,cardCollection,gameModelBean,this.inputStream);
+		int index = inputReader.getNumberFromString(answer,this.inputStream);
 		boolean unoHasBeenAnnounced = inputReader.findIfUnoHasBeenAnnounced(answer);
 		Card choosenCard = this.player.peekAtCard(index);
 		while(!gameModelBean.isCompatibleWith(choosenCard)) {
-			answer = inputReader.getAnotherValidIndexFromInputDueToIncompatibleCard(alias,cardCollection,gameModelBean);
-			index = inputReader.getNumberFromString(answer);
+			answer = inputReader.getAnotherValidAnswerFromInputDueToIncompatibleCard(alias,cardCollection,gameModelBean,this.inputStream);
+			index = inputReader.getNumberFromString(answer,this.inputStream);
 			unoHasBeenAnnounced = inputReader.findIfUnoHasBeenAnnounced(answer);
 			choosenCard = this.player.peekAtCard(index);
 		}
@@ -131,7 +135,7 @@ public class PlayerController implements Serializable {
 	 * Méthode privée permettant de gérer le cas où le joueur est dans l'incapacité de jouer son tour
 	 * @param gameModelbean Carte du talon (carte de référence)
 	 */
-	public void unableToPlayThisTurn(GameModelBean gameModelbean) {
+	public void unableToPlayThisTurn(CardsModelBean gameModelbean) {
 		Preconditions.checkNotNull(gameModelbean,"[ERROR] Impossible to start turn, gameModelbean is null");
 		Collection<Card> cardsInHand = this.player.getCardsInHand();
 		this.consoleView.displayCardCollection("You now have : ",cardsInHand);
@@ -151,7 +155,7 @@ public class PlayerController implements Serializable {
 	public Color hasToChooseColor(InputReader inputReader) {
 		Preconditions.checkNotNull(inputReader,"[ERROR] Impossible to start turn, inputReader is null");
 		this.consoleView.displayOneLineOfJokerText("You played a Joker, please choose a color");
-		return inputReader.getValidColor();
+		return inputReader.getValidColor(this.inputStream);
 	}
 
 	/* ========================================= GETTERS & UTILS ========================================= */

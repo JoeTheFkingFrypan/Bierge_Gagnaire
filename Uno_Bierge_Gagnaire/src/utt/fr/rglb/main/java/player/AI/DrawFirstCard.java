@@ -8,7 +8,7 @@ import utt.fr.rglb.main.java.cards.model.basics.Card;
 
 /**
  * Classe correspondant à l'implémentation d'une stratégie
- * La carte choisie sera la 1ère carte jouable dans la main du joueur
+ * </br>La carte choisie sera la 1ère carte jouable dans la main du joueur
  */
 public class DrawFirstCard extends CardPickerStrategyImpl {
 	private static final long serialVersionUID = 1L;

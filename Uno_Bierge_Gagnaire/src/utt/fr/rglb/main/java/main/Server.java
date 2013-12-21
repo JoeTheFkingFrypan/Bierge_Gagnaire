@@ -1,5 +1,7 @@
 package utt.fr.rglb.main.java.main;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.Serializable;
 
 import utt.fr.rglb.main.java.console.view.ConsoleView;
@@ -22,7 +24,8 @@ public class Server implements Serializable {
 	 */
 	private Server() {
 		Server.consoleView = new ConsoleView();
-		Server.gameController = new GameController(consoleView);
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+		Server.gameController = new GameController(consoleView,bufferedReader);
 	}
 
 	/**

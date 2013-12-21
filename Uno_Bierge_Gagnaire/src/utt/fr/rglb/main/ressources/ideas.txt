@@ -16,3 +16,6 @@ Gestion client server
  waitForRequest()
  fork()
  handleRequest()
+ 
+ thread d'écoute permanente sur le port ouvert
+ thread dédié pour le traitement associé à la création d'une socket client

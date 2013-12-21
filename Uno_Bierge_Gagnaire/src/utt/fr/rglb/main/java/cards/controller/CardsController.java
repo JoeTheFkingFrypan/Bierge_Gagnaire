@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 import utt.fr.rglb.main.java.cards.model.CardsModel;
-import utt.fr.rglb.main.java.cards.model.GameModelBean;
+import utt.fr.rglb.main.java.cards.model.CardsModelBean;
 import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.cards.model.basics.CardSpecial;
 import utt.fr.rglb.main.java.cards.model.basics.Color;
@@ -125,8 +125,8 @@ public class CardsController implements Serializable {
 	 * Méthode permettant de récupérer les informations nécessaires à la vérification de la compatibilité d'une carte
 	 * @return Un bean comportant la carte dernièrement jouée (carte de référence) et la couleur globale
 	 */
-	public GameModelBean getRequiredReferences() {
-		return new GameModelBean(showLastCardPlayed(), getGlobalColor(), this.consoleView);
+	public CardsModelBean getRequiredReferences() {
+		return new CardsModelBean(showLastCardPlayed(), getGlobalColor(), this.consoleView);
 	}
 	
 	/**

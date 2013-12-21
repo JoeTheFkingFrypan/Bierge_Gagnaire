@@ -9,7 +9,7 @@ import utt.fr.rglb.main.java.cards.model.basics.Card;
 
 /**
  * Classe permettant de réception les cartes jouées (avec comparaison par rapport à la dernière reçue).
- * Sert également à reconstituer la pioche lorsque cette dernière est vide.
+ * </br>Sert également à reconstituer la pioche lorsque cette dernière est vide.
  */
 public class Pile implements Serializable {
 	private static final long serialVersionUID = 1L;

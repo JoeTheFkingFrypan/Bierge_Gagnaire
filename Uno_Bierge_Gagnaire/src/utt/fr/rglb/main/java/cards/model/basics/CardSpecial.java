@@ -87,8 +87,6 @@ public class CardSpecial extends Card {
 		Preconditions.checkNotNull(otherCard,"[ERROR] Impossible to test compatibility : provided card is null");
 		if(this.hasSameColorThan(otherCard.getColor())) {
 			return true;
-		} else if(otherCard.isJoker()){
-			return true;
 		} else {
 			return false;
 		}

@@ -3,6 +3,7 @@ package utt.fr.rglb.tests.java.gameContext.modelTests;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
+import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -12,21 +13,30 @@ import org.junit.Test;
 import utt.fr.rglb.main.java.console.view.View;
 import utt.fr.rglb.main.java.turns.model.TurnModel;
 import utt.fr.rglb.main.java.player.controller.PlayerController;
+import utt.fr.rglb.main.java.player.model.PlayersToCreate;
 
+/**
+ * Classe de tests unitaires validant le comportement des méthodes de la classe TurnModel
+ * </br>Utilisation de simulacres pour la vue et le lecteur bufferisé --injection de dépendance permettant d'émuler une entrée au clavier (Mockito)
+ * @see TurnModel
+ */
 public class TurnModelTest {
 	private View mockedView;
 	private TurnModel turnModel;
 	private TurnModel turnModelWithNoPlayer;
 	private Collection<String> playerNames;
+	private BufferedReader mockedInputStream;
+	private PlayersToCreate playersToCreate;
 	
-	//TODO: [TurnModelTest] fix it
 	@Before
 	public void setup() {
 		this.mockedView = mock(View.class);
 		this.playerNames = fillPlayerCollection();
 		this.turnModel = new TurnModel();
-		//this.turnModel.createPlayersFrom(this.playerNames,this.mockedView);
+		this.playersToCreate = addAllReferencesPlayersToCreate();
+		this.turnModel.createPlayersFrom(this.playersToCreate,this.mockedView,this.mockedInputStream);
 		this.turnModelWithNoPlayer = new TurnModel();
+		this.mockedInputStream = mock(BufferedReader.class);
 	}
 	
 	private Collection<String> fillPlayerCollection() {
@@ -37,16 +47,23 @@ public class TurnModelTest {
 		return playersNames;
 	}
 	
+	private PlayersToCreate addAllReferencesPlayersToCreate() {
+		PlayersToCreate playersToCreate = new PlayersToCreate();
+		for(String name : this.playerNames) {
+			playersToCreate.addHumanPlayer(name);
+		}
+		return playersToCreate;
+	}
+	
 	/* ========================================= PLAYER CREATION ========================================= */
 	
-	//TODO: [TurnModelTest] fix it
 	@Test
 	public void testCreatePlayersFrom() {
 		assertEquals(0,this.turnModelWithNoPlayer.getNumberOfPlayers());
-		//this.turnModelWithNoPlayer.createPlayersFrom(this.playerNames,this.mockedView);
+		this.turnModelWithNoPlayer.createPlayersFrom(this.playersToCreate,this.mockedView,this.mockedInputStream);
 		assertEquals(3,this.turnModelWithNoPlayer.getNumberOfPlayers());
 	}
-
+	
 	/* ========================================= TURN ORDER ========================================= */
 	
 	@Test
@@ -73,7 +90,7 @@ public class TurnModelTest {
 	
 	@Test
 	public void testCycleThroughPlayersWithDefaultTurnOrder() {
-		this.turnModelWithNoPlayer.createPlayersWithoutScramblingFrom(this.playerNames,this.mockedView);
+		this.turnModelWithNoPlayer.createPlayersWithoutScramblingFrom(this.playerNames,this.mockedView,this.mockedInputStream);
 		
 		PlayerController currentPlayer = this.turnModelWithNoPlayer.cycleThroughPlayers();
 		assertEquals("player1",currentPlayer.getAlias());
@@ -90,7 +107,7 @@ public class TurnModelTest {
 	
 	@Test
 	public void testCycleThroughPlayersWithReversedTurnOrder() {
-		this.turnModelWithNoPlayer.createPlayersWithoutScramblingFrom(this.playerNames,this.mockedView);
+		this.turnModelWithNoPlayer.createPlayersWithoutScramblingFrom(this.playerNames,this.mockedView,this.mockedInputStream);
 		this.turnModelWithNoPlayer.reverseCurrentOrder();
 
 		PlayerController currentPlayer = this.turnModelWithNoPlayer.cycleThroughPlayers();

@@ -1,5 +1,6 @@
 package utt.fr.rglb.main.java.game.controller;
 
+import java.io.BufferedReader;
 import java.io.Serializable;
 
 import com.google.common.base.Preconditions;
@@ -24,9 +25,9 @@ public class GameController implements Serializable {
 	 * Constructeur de GameController
 	 * @param consoleView Vue permettant l'affichage d'informations
 	 */
-	public GameController(View consoleView) {
+	public GameController(View consoleView, BufferedReader inputStream) {
 		this.consoleView = consoleView;
-		this.gameModel = new GameModel(consoleView);
+		this.gameModel = new GameModel(consoleView,inputStream);
 	}
 
 	/* ========================================= INITIALIZING ========================================= */

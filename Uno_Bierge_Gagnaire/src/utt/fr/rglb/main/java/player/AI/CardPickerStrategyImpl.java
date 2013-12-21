@@ -7,6 +7,9 @@ import java.util.Collection;
 import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.cards.model.basics.Color;
 
+/**
+ * Classe abstraite correspondant à l'implémentation de l'interface CardPickerStrategy
+ */
 public abstract class CardPickerStrategyImpl implements CardPickerStrategy, Serializable {
 	private static final long serialVersionUID = 1L;
 

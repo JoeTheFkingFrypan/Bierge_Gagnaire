@@ -9,7 +9,7 @@ import utt.fr.rglb.main.java.cards.model.basics.Color;
 
 /**
  * Classe correspondant à l'implémentation d'une stratégie
- * La carte choisie sera la 1ère carte jouable dont la couleur est celle majoritaire dans la main du joueur
+ * </br>La carte choisie sera la 1ère carte jouable dont la couleur est celle majoritaire dans la main du joueur
  */
 public class DrawFromColorMajority extends CardPickerStrategyImpl {
 	private static final long serialVersionUID = 1L;

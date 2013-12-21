@@ -1,5 +1,6 @@
 package utt.fr.rglb.main.java.turns.controller;
 
+import java.io.BufferedReader;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Map;
@@ -57,19 +58,19 @@ public class TurnController implements Serializable {
 	 * Méthode permettant de créer tous les joueurs à partir de leurs noms, et de leur donner un ordre aléatoire
 	 * @param playersAwaitingCreation Collection contenant le nom de tous les joueurs
 	 */
-	public void createPlayersFrom(PlayersToCreate playersAwaitingCreation) {
+	public void createPlayersFrom(PlayersToCreate playersAwaitingCreation, BufferedReader inputStream) {
 		Preconditions.checkNotNull(playersAwaitingCreation,"[ERROR] Provided played names cannot be null");
-		this.turnModel.createPlayersFrom(playersAwaitingCreation,consoleView);
+		this.turnModel.createPlayersFrom(playersAwaitingCreation,consoleView,inputStream);
 	}
 	
 	/**
 	 * Méthode permettant de créer tous les joueurs à partir de leurs noms, sans leur donner un ordre aléatoire
 	 * @param playerNames Collection contenant le nom de tous les joueurs
 	 */
-	public void createPlayersWithoutScamblingFrom(Collection<String> playerNames) {
+	public void createPlayersWithoutScamblingFrom(Collection<String> playerNames, BufferedReader inputStream) {
 		Preconditions.checkNotNull(playerNames,"[ERROR] Provided played names cannot be null");
 		Preconditions.checkArgument(playerNames.size() >= 2,"[ERROR] There must be at least two players in the game");
-		this.turnModel.createPlayersWithoutScramblingFrom(playerNames,consoleView);
+		this.turnModel.createPlayersWithoutScramblingFrom(playerNames,consoleView,inputStream);
 	}
 
 	/**

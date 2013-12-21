@@ -19,6 +19,8 @@ utt.fr.rglb.tests.java.cards.model
 utt.fr.rglb.tests.java.cards.model.basicsTests
 utt.fr.rglb.tests.java.cards.model.pileTests
 utt.fr.rglb.tests.java.cards.model.stockTests
+utt.fr.rglb.tests.java.console.modelTests
+utt.fr.rglb.tests.java.console.viewTests
 utt.fr.rglb.tests.java.gameContext.controllerTests
 utt.fr.rglb.tests.java.gameContext.modelTests
 utt.fr.rglb.tests.java.mainTests

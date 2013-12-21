@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,7 +15,11 @@ import utt.fr.rglb.main.java.cards.model.basics.Color;
 import utt.fr.rglb.main.java.cards.model.basics.Effect;
 import utt.fr.rglb.main.java.player.model.PlayerModel;
 
-
+/**
+ * Classe de tests unitaires validant le comportement des méthodes de la classe PlayerModel
+ * </br>Utilisation de simulacres pour la vue, les effets des cartes spéciales (Mockito)
+ * @see PlayerModel
+ */
 public class PlayerModelTest {
 	private int initialScore;
 	private String p1Name;
@@ -141,7 +146,7 @@ public class PlayerModelTest {
 	
 	@Test
 	public void testToString() {
-		assertEquals("[JOUEUR] joueur1 a 0 points. Il lui reste 0 cartes en main", this.p1.toString());
-		assertEquals("[JOUEUR] joueur2 a 0 points. Il lui reste 0 cartes en main", this.p2.toString());
+		assertEquals("joueur1", this.p1.toString());
+		assertEquals("joueur2", this.p2.toString());
 	}
 }

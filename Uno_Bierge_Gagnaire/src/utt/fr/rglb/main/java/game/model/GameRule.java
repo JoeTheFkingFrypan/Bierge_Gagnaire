@@ -22,12 +22,16 @@ public class GameRule implements Serializable {
 	
 	/* ========================================= GAME MODE ========================================= */
 	
+	public GameMode getGameMode() {
+		return this.gameMode;
+	}
+	
 	/**
 	 * Méthode permettant de savoir si le mode 2 joueurs a été choisi
 	 * @return <code>TRUE</code> si c'est le cas, <code>FALSE</code> sinon
 	 */
 	public boolean indicatesTwoPlayersMode() {
-		return this.gameMode.equals(GameMode.TwoPlayers);
+		return this.gameMode.equals(GameMode.TWO_PLAYERS);
 	}
 	
 	/**
@@ -35,7 +39,7 @@ public class GameRule implements Serializable {
 	 * @return <code>TRUE</code> si c'est le cas, <code>FALSE</code> sinon
 	 */
 	public boolean indicatesTeamPlayScoring() {
-		return this.gameMode.equals(GameMode.TeamPlay);
+		return this.gameMode.equals(GameMode.TEAM_PLAY);
 	}
 
 	/* ========================================= GAME FLAG - SETTERS ========================================= */

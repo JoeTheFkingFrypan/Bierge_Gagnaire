@@ -1,10 +1,11 @@
 package utt.fr.rglb.main.java.game.model;
 
+import java.io.BufferedReader;
 import java.io.Serializable;
 import java.util.Collection;
 
 import utt.fr.rglb.main.java.cards.controller.CardsController;
-import utt.fr.rglb.main.java.cards.model.GameModelBean;
+import utt.fr.rglb.main.java.cards.model.CardsModelBean;
 import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.cards.model.basics.Color;
 import utt.fr.rglb.main.java.console.model.InputReader;
@@ -17,7 +18,6 @@ import utt.fr.rglb.main.java.player.model.PlayerTeam;
 import utt.fr.rglb.main.java.player.model.PlayersToCreate;
 import utt.fr.rglb.main.java.turns.controller.TurnController;
 
-
 /**
  * Classe dont le rôle est de gérer le jeu en faisant appel à des méthodes de haut niveau
  */
@@ -27,15 +27,17 @@ public class GameModel implements Serializable {
 	private CardsController cardsController;
 	private InputReader inputReader;
 	private GameRule gameRule;
+	private BufferedReader inputStream;
 	
 	/**
 	 * Constructeur de GameModel
 	 * @param consoleView Vue permettant d'afficher des informations
 	 */
-	public GameModel(View consoleView) {
+	public GameModel(View consoleView, BufferedReader inputStream) {
 		this.turnController = new TurnController(consoleView);
 		this.cardsController = new CardsController(consoleView);
 		this.inputReader = new InputReader(consoleView);
+		this.inputStream = inputStream;
 	}
 
 	/* ========================================= INITIALIZING ========================================= */
@@ -44,17 +46,17 @@ public class GameModel implements Serializable {
 	 * Méthode permettant d'initialiser les paramètres (nombre de joueurs, nom de chacun des joueurs)
 	 */
 	public void initializeGameSettings() {
-		boolean configurationFileUsageRequired = this.inputReader.askForConfigurationFileUsage();
+		boolean configurationFileUsageRequired = this.inputReader.askForConfigurationFileUsage(this.inputStream);
 		PlayersToCreate playersAwaitingCreation = null;
 		if(configurationFileUsageRequired) {
 			ConfigurationReader configurationReader = new ConfigurationReader();
 			playersAwaitingCreation = configurationReader.readConfigurationAt("dist/config.ini");
 		} else {
-			int playerNumber = this.inputReader.getValidPlayerNumber();
-			playersAwaitingCreation = this.inputReader.getAllPlayerNames(playerNumber);
+			int playerNumber = this.inputReader.getValidPlayerNumber(this.inputStream);
+			playersAwaitingCreation = this.inputReader.getAllPlayerNames(playerNumber,this.inputStream);
 		}
-		this.turnController.createPlayersFrom(playersAwaitingCreation);
-		this.gameRule = this.inputReader.askForGameMode(playersAwaitingCreation.size());
+		this.turnController.createPlayersFrom(playersAwaitingCreation,this.inputStream);
+		this.gameRule = this.inputReader.askForGameMode(playersAwaitingCreation.size(),this.inputStream);
 		if(this.gameRule.indicatesTeamPlayScoring()) {
 			this.turnController.splitPlayersIntoTeams();
 			this.turnController.displayTeams();
@@ -96,7 +98,7 @@ public class GameModel implements Serializable {
 	 * @return PlayerControllerBean Objet encapsulant le joueur en cours
 	 */
 	public PlayerControllerBean playOneTurn() {
-		GameModelBean references = this.cardsController.getRequiredReferences();
+		CardsModelBean references = this.cardsController.getRequiredReferences();
 		PlayerController currentPlayer = this.turnController.findNextPlayer();
 		if(currentPlayer.hasAtLeastOnePlayableCard(references)) {
 			chooseCardAndPlayIt(references, currentPlayer);
@@ -118,7 +120,7 @@ public class GameModel implements Serializable {
 	 * @param gameModelbean Carte dernièrement jouée (celle sur le talon, donc carte de référence)
 	 * @param currentPlayer Joueur actuel
 	 */
-	private void chooseCardAndPlayIt(GameModelBean gameModelbean, PlayerController currentPlayer) {
+	private void chooseCardAndPlayIt(CardsModelBean gameModelbean, PlayerController currentPlayer) {
 		Card cardChosen = currentPlayer.startTurn(inputReader,gameModelbean);
 		GameFlag flag = this.cardsController.playCard(cardChosen);
 		this.gameRule.setFlag(flag);
@@ -263,7 +265,7 @@ public class GameModel implements Serializable {
 	 * @return La réponse de l'utilisateur
 	 */
 	public int getValidChoiceAnswer() {
-		return this.inputReader.getValidAnswerFromDualChoice();
+		return this.inputReader.getValidAnswerFromDualChoice(this.inputStream);
 	}
 	
 	/* ========================================= SCORE ========================================= */

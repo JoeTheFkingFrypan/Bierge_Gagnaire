@@ -8,6 +8,10 @@ import org.junit.Test;
 import utt.fr.rglb.main.java.cards.model.basics.EffectPlus4;
 import utt.fr.rglb.main.java.game.model.GameFlag;
 
+/**
+ * Classe de tests unitaires validant le comportement des méthodes de la classe EffectPlus4
+ * @see EffectPlus4
+ */
 public class EffetPlus4Test {
 	private EffectPlus4 effetPlus4;
 	private String expectedDescription;

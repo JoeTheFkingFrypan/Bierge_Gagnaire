@@ -8,7 +8,10 @@ import org.junit.Test;
 import utt.fr.rglb.main.java.cards.model.basics.EffectPlus2;
 import utt.fr.rglb.main.java.game.model.GameFlag;
 
-
+/**
+ * Classe de tests unitaires validant le comportement des méthodes de la classe EffectPlus2
+ * @see EffectPlus2
+ */
 public class EffetPiocherCarteTest {
 	private EffectPlus2 effetPiocher2Cartes;
 	private EffectPlus2 effetPiocher7Cartes;

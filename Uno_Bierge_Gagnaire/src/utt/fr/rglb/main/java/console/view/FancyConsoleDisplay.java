@@ -3,12 +3,21 @@ package utt.fr.rglb.main.java.console.view;
 import java.io.Serializable;
 
 import com.google.common.base.Preconditions;
+
 import org.fusesource.jansi.AnsiConsole;
 
 import utt.fr.rglb.main.java.console.model.ConsoleCodesAnsi;
 
+/**
+ * Classe permettant d'afficher du texte en couleur dans la console 
+ * </br>(ou avec emphase --gras, couleurs inversées, etc)
+ */
 public class FancyConsoleDisplay implements Serializable {
 	private static final long serialVersionUID = 1L;
+
+	public FancyConsoleDisplay() {
+		System.setProperty("jansi.passthrough", "true");
+	}
 
 	/* ========================================= WHITE TEXT ========================================= */
 
@@ -21,7 +30,7 @@ public class FancyConsoleDisplay implements Serializable {
 		text = turnBold(text);
 		AnsiConsole.out.println(text);
 	}
-	
+
 	/**
 	 * Méthode permettant d'afficher du texte dans la console en gras (sans retour à la ligne)
 	 * @param text Texte à afficher
@@ -29,11 +38,11 @@ public class FancyConsoleDisplay implements Serializable {
 	public void appendBoldText(String text) {
 		Preconditions.checkNotNull(text,"[ERROR] Impossible to display text : provided one is null");
 		text = turnBold(text);
-		 AnsiConsole.out.print(text);
+		AnsiConsole.out.print(text);
 	}
 
 	/* ========================================= RED TEXT ========================================= */
-	
+
 	/**
 	 * Méthode permettant d'afficher un message d'erreur dans la console -en gras et en rouge (avec retour à la ligne)
 	 * @param text Texte à afficher
@@ -44,7 +53,7 @@ public class FancyConsoleDisplay implements Serializable {
 	}
 
 	/* ========================================= GREEN TEXT ========================================= */
-	
+
 	/**
 	 * Méthode permettant d'afficher un message de succès dans la console -en gras et en vert (avec retour à la ligne)
 	 * @param text Texte à afficher
@@ -53,7 +62,9 @@ public class FancyConsoleDisplay implements Serializable {
 		Preconditions.checkNotNull(text,"[ERROR] Impossible to display text : provided one is null");
 		generateGreenEmphasis(text);
 	}
-	
+
+	/* ========================================= HEADER & EMPHASIS ========================================= */
+
 	/**
 	 * Méthode permettant d'afficher un message de séparation dans la console -en blanc sur fond bleu (avec retour à la ligne)
 	 * @param text Texte à afficher
@@ -63,8 +74,6 @@ public class FancyConsoleDisplay implements Serializable {
 		generateWhiteOnBlueEmphasis(text);
 	}
 
-	/* ========================================= HEADER & EMPHASIS ========================================= */
-	
 	/**
 	 * Méthode permettant d'afficher un message d'erreur dans la console -en gras et en rouge (avec retour à la ligne)
 	 * @param text Texte à afficher
@@ -86,7 +95,7 @@ public class FancyConsoleDisplay implements Serializable {
 		text = turnBold(text);
 		AnsiConsole.out.println(text);
 	}
-	
+
 	/**
 	 * Méthode permettant d'afficher un message de séparation dans la console -en blanc sur fond bleu (avec retour à la ligne)
 	 * @param text Texte à afficher
@@ -108,7 +117,7 @@ public class FancyConsoleDisplay implements Serializable {
 		text = turnMagenta(text);
 		AnsiConsole.out.println(text);
 	}
-	
+
 	/* ========================================= APPEND TEXT ========================================= */
 
 	/**
@@ -118,7 +127,7 @@ public class FancyConsoleDisplay implements Serializable {
 	public void appendBlueText(String text) {
 		Preconditions.checkNotNull(text,"[ERROR] Impossible to display text : provided one is null");
 		text = turnBlue(text);
-		 AnsiConsole.out.print(text);
+		AnsiConsole.out.print(text);
 	}
 
 	/**
@@ -128,7 +137,7 @@ public class FancyConsoleDisplay implements Serializable {
 	public void appendRedText(String text) {
 		Preconditions.checkNotNull(text,"[ERROR] Impossible to display text : provided one is null");
 		text = turnRed(text);
-		 AnsiConsole.out.print(text);
+		AnsiConsole.out.print(text);
 	}
 
 	/**
@@ -138,7 +147,7 @@ public class FancyConsoleDisplay implements Serializable {
 	public void appendGreenText(String text) {
 		Preconditions.checkNotNull(text,"[ERROR] Impossible to display text : provided one is null");
 		text = turnGreen(text);
-		 AnsiConsole.out.print(text);
+		AnsiConsole.out.print(text);
 	}
 
 	/**
@@ -148,7 +157,7 @@ public class FancyConsoleDisplay implements Serializable {
 	public void appendYellowText(String text) {
 		Preconditions.checkNotNull(text,"[ERROR] Impossible to display text : provided one is null");
 		text = turnYellow(text);
-		 AnsiConsole.out.print(text);
+		AnsiConsole.out.print(text);
 	}
 
 	/**
@@ -158,11 +167,11 @@ public class FancyConsoleDisplay implements Serializable {
 	public void appendJokerText(String text) {
 		Preconditions.checkNotNull(text,"[ERROR] Impossible to display text : provided one is null");
 		text = turnMagenta(text);
-		 AnsiConsole.out.print(text);
+		AnsiConsole.out.print(text);
 	}
 
 	/* ========================================= UTILS ========================================= */
-	
+
 	/**
 	 * Méthode privée rajoutant les codes ANSI necessaires pour rendre la chaine de caractères en rouge
 	 * @param textToTurnRed Texte à transformer
@@ -239,7 +248,6 @@ public class FancyConsoleDisplay implements Serializable {
 	 * Méthode permettant de vider la console
 	 */
 	public void clearDisplay() {
-		AnsiConsole.systemInstall();
 		AnsiConsole.out.println(ConsoleCodesAnsi.ANSI_CLS);
 	}
 

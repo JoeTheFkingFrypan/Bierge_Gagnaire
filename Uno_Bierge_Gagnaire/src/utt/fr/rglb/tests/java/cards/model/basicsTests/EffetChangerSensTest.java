@@ -1,13 +1,16 @@
 package utt.fr.rglb.tests.java.cards.model.basicsTests;
 
 import static org.junit.Assert.assertEquals;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import utt.fr.rglb.main.java.cards.model.basics.EffectReverse;
 import utt.fr.rglb.main.java.game.model.GameFlag;
 
+/**
+ * Classe de tests unitaires validant le comportement des méthodes de la classe EffectReverse
+ * @see EffectReverse
+ */
 public class EffetChangerSensTest {
 	private EffectReverse effetChangerSens;
 	private String expectedDescription;

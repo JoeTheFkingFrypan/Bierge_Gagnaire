@@ -1,6 +1,8 @@
 package utt.fr.rglb.main.java.turns.model;
 
 import com.google.common.base.Preconditions;
+
+import java.io.BufferedReader;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -36,7 +38,7 @@ public class TurnModel implements Serializable {
 	 * Initialise également le sens de jeu par défaut (sens des aiguilles d'une montre)
 	 */
 	public TurnModel() {
-		this.turnOrder = TurnOrder.Clockwise;
+		this.turnOrder = TurnOrder.CLOCKWISE;
 		this.players = new ArrayList<PlayerController>();
 		this.currentPlayerIndex = -1;
 		this.teams = null;
@@ -68,7 +70,7 @@ public class TurnModel implements Serializable {
 	 * Méthode permettant de remettre le sens de jeu à sa valeur par défaut et de supprimer tous les joueurs
 	 */
 	public void resetTurn() {
-		this.turnOrder = TurnOrder.Clockwise;
+		this.turnOrder = TurnOrder.CLOCKWISE;
 		this.players.clear();
 		this.teams.clear();
 		resetPlayerIndex();
@@ -81,10 +83,10 @@ public class TurnModel implements Serializable {
 	 * @param playersAwaitingCreation Collection contenant tous les noms des différents joueurs
 	 * @param consoleView Vue qui sera utilisée dans le controlleur de joueurs
 	 */
-	public void createPlayersFrom(PlayersToCreate playersAwaitingCreation, View consoleView) {
+	public void createPlayersFrom(PlayersToCreate playersAwaitingCreation, View consoleView, BufferedReader inputStream) {
 		Preconditions.checkNotNull(playersAwaitingCreation,"[ERROR] Couldn't create players from their names : provided name collection is null");
 		Preconditions.checkNotNull(consoleView,"[ERROR] Couldn't create players from their names : provided view is null");
-		this.players = playersAwaitingCreation.createAllPlayersFromTheirRespectiveData(consoleView);
+		this.players = playersAwaitingCreation.createAllPlayersFromTheirRespectiveData(consoleView,inputStream);
 		scramblePlayers();
 	}
 
@@ -93,11 +95,11 @@ public class TurnModel implements Serializable {
 	 * @param playerNames Collection contenant tous les noms des différents joueurs
 	 * @param consoleView Vue qui sera utilisée dans le controlleur de joueurs
 	 */
-	public void createPlayersWithoutScramblingFrom(Collection<String> playerNames, View consoleView) {
+	public void createPlayersWithoutScramblingFrom(Collection<String> playerNames, View consoleView, BufferedReader inputStream) {
 		Preconditions.checkNotNull(playerNames,"[ERROR] Couldn't create players from their names : provided name collection is null");
 		Preconditions.checkNotNull(consoleView,"[ERROR] Couldn't create players from their names : provided view is null");
 		for(String name: playerNames) {
-			this.players.add(new PlayerController(name,consoleView));
+			this.players.add(new PlayerController(name,consoleView,inputStream));
 		}
 	}
 
@@ -115,9 +117,9 @@ public class TurnModel implements Serializable {
 	 */
 	public void reverseCurrentOrder() {
 		if(indicatesDefaultTurnOrder()) {
-			this.turnOrder = TurnOrder.CounterClockwise;
+			this.turnOrder = TurnOrder.COUNTER_CLOCKWISE;
 		} else {
-			this.turnOrder = TurnOrder.Clockwise;
+			this.turnOrder = TurnOrder.CLOCKWISE;
 		}
 	}
 
@@ -126,7 +128,7 @@ public class TurnModel implements Serializable {
 	 * @return <code>TRUE</code> si le sens est celui par défaut (sens des aiguilles d'une montre), <code>FALSE</code> sinon
 	 */
 	public boolean indicatesDefaultTurnOrder() {
-		return this.turnOrder.equals(TurnOrder.Clockwise);
+		return this.turnOrder.equals(TurnOrder.CLOCKWISE);
 	}
 
 	/* ========================================= CARD DEAL ========================================= */
@@ -302,7 +304,6 @@ public class TurnModel implements Serializable {
 			PlayerTeam currentTeam = this.createOneTeamWithFourPlayersTotal(iterator);
 			this.teams.put(i, currentTeam);
 		}
-		System.out.println(this.teams);
 	}
 	
 	/**

@@ -1,6 +1,8 @@
 package utt.fr.rglb.main.java.player.model;
 
 import com.google.common.base.Preconditions;
+
+import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,11 +76,11 @@ public class PlayersToCreate {
 	 * @param consoleView Vue permettant d'afficher des informatios
 	 * @return Une Collection de PlayerController correspondant à tous les joueurs devant être créés
 	 */
-	public List<PlayerController> createAllPlayersFromTheirRespectiveData(View consoleView) {
+	public List<PlayerController> createAllPlayersFromTheirRespectiveData(View consoleView, BufferedReader inputStream) {
 		Preconditions.checkNotNull(consoleView,"[ERROR] Impossible to create all players : provided view is null");
 		List<PlayerController> players = new ArrayList<PlayerController>(); 
 		for(PlayerStatus curentPlayer : this.playersAwaitingCreation) {
-			players.add(createPlayerFrom(curentPlayer,consoleView));
+			players.add(createPlayerFrom(curentPlayer,consoleView,inputStream));
 		}
 		return players;
 	}
@@ -89,13 +91,13 @@ public class PlayersToCreate {
 	 * @param consoleView Vue permettant d'afficher des informations
 	 * @return Le PlayerController associé au joueur
 	 */
-	private PlayerController createPlayerFrom(PlayerStatus curentPlayer, View consoleView) {
+	private PlayerController createPlayerFrom(PlayerStatus curentPlayer, View consoleView, BufferedReader inputStream) {
 		Preconditions.checkNotNull(curentPlayer,"[ERROR] Impossible to create all players : provided player data is null");
 		Preconditions.checkNotNull(consoleView,"[ERROR] Impossible to create all players : provided view is null");
 		if(curentPlayer.isHuman()) {
-			return new PlayerController(curentPlayer.getAlias(), consoleView);
+			return new PlayerController(curentPlayer.getAlias(), consoleView, inputStream);
 		} else {
-			return new PlayerControllerAI(curentPlayer.getAlias(), consoleView, curentPlayer.getStrategy());
+			return new PlayerControllerAI(curentPlayer.getAlias(), consoleView, curentPlayer.getStrategy(),inputStream);
 		}
 	}
 	

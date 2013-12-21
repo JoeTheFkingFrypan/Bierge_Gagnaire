@@ -8,7 +8,10 @@ import org.junit.Test;
 import utt.fr.rglb.main.java.cards.model.basics.EffectSkip;
 import utt.fr.rglb.main.java.game.model.GameFlag;
 
-
+/**
+ * Classe de tests unitaires validant le comportement des méthodes de la classe EffectSkip
+ * @see EffectSkip
+ */
 public class EffetPasserTourTest {
 	private EffectSkip effetPasserTour;
 	private String expectedDescription;

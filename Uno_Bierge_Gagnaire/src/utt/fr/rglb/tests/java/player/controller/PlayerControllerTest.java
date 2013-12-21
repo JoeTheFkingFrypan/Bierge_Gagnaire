@@ -3,6 +3,7 @@ package utt.fr.rglb.tests.java.player.controller;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
+import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -14,7 +15,11 @@ import utt.fr.rglb.main.java.cards.model.basics.Color;
 import utt.fr.rglb.main.java.console.view.View;
 import utt.fr.rglb.main.java.player.controller.PlayerController;
 
-
+/**
+ * Classe de tests unitaires validant le comportement des méthodes de la classe PlayerController
+ * </br>Utilisation de simulacres pour la vue et le lecteur bufferisé --injection de dépendance permettant d'émuler une entrée au clavier (Mockito)
+ * @see PlayerController
+ */
 public class PlayerControllerTest {
 	private String referenceName;
 	private PlayerController playerController;
@@ -23,16 +28,18 @@ public class PlayerControllerTest {
 	private Card secondCard;
 	private Card thirdCard;
 	private View mockedView;
+	private BufferedReader inputStream;
 	
 	@Before
 	public void setup() {
 		this.mockedView = mock(View.class);
+		this.inputStream = mock(BufferedReader.class);
 		this.referenceName = "player1";
-		this.playerController = new PlayerController(this.referenceName,this.mockedView);
+		this.playerController = new PlayerController(this.referenceName,this.mockedView,this.inputStream);
 		this.cardsToPickUp = new ArrayList<Card>();
-		this.firstCard = new Card(1,Color.BLUE);
-		this.secondCard = new Card(2,Color.GREEN);
-		this.thirdCard = new Card(1,Color.RED);
+		this.firstCard = new Card(1,Color.RED);
+		this.secondCard = new Card(1,Color.BLUE);
+		this.thirdCard = new Card(2,Color.GREEN);
 		this.cardsToPickUp.add(firstCard);
 		this.cardsToPickUp.add(secondCard);
 		this.cardsToPickUp.add(thirdCard);
@@ -42,12 +49,12 @@ public class PlayerControllerTest {
 	
 	@Test(expected=NullPointerException.class)
 	public void testFailToCreatePlayerControllerDueToNullName() {
-		this.playerController = new PlayerController(null, this.mockedView);
+		this.playerController = new PlayerController(null, this.mockedView,this.inputStream);
 	}
 	
 	@Test(expected=NullPointerException.class)
 	public void testFailToCreatePlayerControllerDueToNullView() {
-		this.playerController = new PlayerController(this.referenceName, null);
+		this.playerController = new PlayerController(this.referenceName, null,this.inputStream);
 	}
 	
 	/* ========================================= CARD PICKUP ========================================= */
@@ -150,6 +157,6 @@ public class PlayerControllerTest {
 	
 	@Test
 	public void testToString() {
-		assertEquals("[JOUEUR] player1 a 0 points. Il lui reste 0 cartes en main",this.playerController.toString());
+		assertEquals("player1",this.playerController.toString());
 	}
 }
