@@ -13,6 +13,7 @@ SECTION 02 - Notes
 -------------------------
 
 Eclipse & Codes ANSI :
+
 	* La version "console" de notre jeu UNO utilise des codes ANSI pour afficher du texte en couleur dans la console
 	* Eclipse en prend pas en charge ce code, affichant le texte en noir quoi qu'il arrive, raison pour laquelle le lancement du programme depuis Eclipse est déconseillé
 	* Pour avoir la gestion des codes ANSI dans la console d'éclipse, se référer à la SECTION 4

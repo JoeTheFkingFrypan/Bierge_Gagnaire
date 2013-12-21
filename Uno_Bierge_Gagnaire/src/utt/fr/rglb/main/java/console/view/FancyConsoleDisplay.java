@@ -15,10 +15,6 @@ import utt.fr.rglb.main.java.console.model.ConsoleCodesAnsi;
 public class FancyConsoleDisplay implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	public FancyConsoleDisplay() {
-		System.setProperty("jansi.passthrough", "true");
-	}
-
 	/* ========================================= WHITE TEXT ========================================= */
 
 	/**
