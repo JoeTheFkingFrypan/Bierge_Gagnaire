@@ -24,7 +24,7 @@ public class PlayerController implements Serializable {
 	private BufferedReader inputStream;
 
 	/* ========================================= CONSTRUCTOR ========================================= */
-	
+
 	public PlayerController(String name, View consoleView, BufferedReader inputStream) {
 		Preconditions.checkNotNull(name,"[ERROR] name cannot be null");
 		Preconditions.checkNotNull(consoleView,"[ERROR] view cannot be null");
@@ -34,7 +34,7 @@ public class PlayerController implements Serializable {
 	}
 
 	/* ========================================= CARD PICKUP ========================================= */
-	
+
 	/**
 	 * Méthode permettant d'ajouter une collection de cartes à la main du joueur
 	 * @param cards Collection de cartes devant être ajoutées
@@ -69,9 +69,36 @@ public class PlayerController implements Serializable {
 		this.player.pickUpCards(cards);
 		this.player.resetUnoAnnoucement();
 	}
+
+	/**
+	 * Méthiode permettant de forcer un joueur à piocher (avec affichage d'un message) --Cas spécifique du jeu d'un +4 sans bluff
+	 * @param cards Collection de cartes à ajouter à sa main
+	 */
+	public void isForcedToPickUpCardsLegitCase(Collection<Card> cards) {
+		Preconditions.checkNotNull(cards,"[ERROR] Card collection picked up cannot be null");
+		Preconditions.checkArgument(cards.size()>0, "[ERROR] Card collection picked cannot be empty");
+		Integer numberOfCards = cards.size();
+		this.consoleView.displayErrorMessageUsingPlaceholders("Sadly for you, previous player ", "wasn't ", " bluffing");
+		this.consoleView.displayErrorMessageUsingPlaceholders("Player [",getAlias(),"] receives ",numberOfCards.toString()," cards for accusing previous player of bluffing");
+		this.player.pickUpCards(cards);
+		this.player.resetUnoAnnoucement();
+	}
+
+	/**
+	 * Méthiode permettant de forcer un joueur à piocher (avec affichage d'un message) --Cas spécifique du jeu d'un +4 avec bluff
+	 * @param cards Collection de cartes à ajouter à sa main
+	 */
+	public void isForcedToPickUpCardsBluffCase(Collection<Card> cards) {
+		Preconditions.checkNotNull(cards,"[ERROR] Card collection picked up cannot be null");
+		Preconditions.checkArgument(cards.size()>0, "[ERROR] Card collection picked cannot be empty");
+		Integer numberOfCards = cards.size();
+		this.consoleView.displayGreenEmphasisUsingPlaceholders("Player [",getAlias(),"] got caught bluffing : first of all he receives ",numberOfCards.toString()," cards");
+		this.player.pickUpCards(cards);
+		this.player.resetUnoAnnoucement();
+	}
 	
 	/* ========================================= CARD PLAY ========================================= */
-	
+
 	/**
 	 * Méthode permettant de jouer une carte
 	 * @param index Index de la carte
@@ -82,7 +109,7 @@ public class PlayerController implements Serializable {
 		Preconditions.checkArgument(index >= 0 && index < this.player.getNumberOfCardsInHand(),"[ERROR] Incorrect index : must be > 0 (tried = " + index + ", but max is = " + this.player.getNumberOfCardsInHand());
 		return this.player.playCard(index);
 	}
-	
+
 	/**
 	 * Méthode permettant de savoir si le joueur a en sa possession au moins une carte compatible avec celle de référence
 	 * @param gameModelBean Objet de référence encapsulant la dernière carte jouée et éventuellement la couleur globale
@@ -92,7 +119,7 @@ public class PlayerController implements Serializable {
 		Preconditions.checkNotNull(gameModelBean,"[ERROR] gameModelBean cannot be null");
 		return gameModelBean.isCompatibleWith(this.getCardsInHand());
 	}
-	
+
 	/**
 	 * Méthode privée permettant de récuperer les cartes en main pour pouvoir les afficher
 	 * @return Collection de cartes en main
@@ -100,16 +127,16 @@ public class PlayerController implements Serializable {
 	protected Collection<Card> getCardsInHand() {
 		return this.player.getCardsInHand();
 	}
-	
+
 	/* ========================================= TURN HANDLING ========================================= */
-	
+
 	/**
 	 * Méthode permettant de gérer le tour d'un joueur
 	 * @param inputReader Objet permettant de recevoir l'index entré par l'utilisateur
- 	 * @param gameModelBean Carte du talon (carte de référence)
+	 * @param gameModelBean Carte du talon (carte de référence)
 	 * @return La carte choisie par l'utilisateur (qui est nécessairement compatible avec le talon)
 	 */
-	//TODO: Shrink method startTurn ?
+	//FIXME: Shrink method startTurn
 	public Card startTurn(InputReader inputReader, CardsModelBean gameModelBean) {
 		Preconditions.checkNotNull(inputReader,"[ERROR] Impossible to start turn, inputReader is null");
 		Preconditions.checkNotNull(gameModelBean,"[ERROR] Impossible to start turn, gameModelbean is null");
@@ -119,16 +146,45 @@ public class PlayerController implements Serializable {
 		int index = inputReader.getNumberFromString(answer,this.inputStream);
 		boolean unoHasBeenAnnounced = inputReader.findIfUnoHasBeenAnnounced(answer);
 		Card choosenCard = this.player.peekAtCard(index);
-		while(!gameModelBean.isCompatibleWith(choosenCard)) {
+		boolean wantsToPlayAnotherCard = false;
+		if(choosenCard.isPlusFour()) {
+			wantsToPlayAnotherCard = findIfBluffIsNeeded(inputReader,gameModelBean, choosenCard, wantsToPlayAnotherCard);
+		}
+		while(!gameModelBean.isCompatibleWith(choosenCard) || wantsToPlayAnotherCard) {
 			answer = inputReader.getAnotherValidAnswerFromInputDueToIncompatibleCard(alias,cardCollection,gameModelBean,this.inputStream);
 			index = inputReader.getNumberFromString(answer,this.inputStream);
 			unoHasBeenAnnounced = inputReader.findIfUnoHasBeenAnnounced(answer);
 			choosenCard = this.player.peekAtCard(index);
+			if(choosenCard.isPlusFour()) {
+				wantsToPlayAnotherCard = findIfBluffIsNeeded(inputReader,gameModelBean, choosenCard, wantsToPlayAnotherCard);
+			} else {
+				wantsToPlayAnotherCard = false;
+			}
 		}
 		if(unoHasBeenAnnounced) {
 			this.player.setUnoAnnoucement();
 		}
 		return this.player.playCard(index);
+	}
+
+	/**
+	 * Méthode privée permettant de déterminer si le joueur souhaite réelement jouer un +4 carte dans le cas où il a d'autres cartes jouables
+	 * Cette demande ne sera faite que si le bluff est necessaire pour jouer cette carte
+	 * @param inputReader Objet permettant de recevoir l'index entré par l'utilisateur
+	 * @param gameModelBean Carte du talon (carte de référence)
+	 * @param choosenCard Carte choisie
+	 * @param wantsToPlayAnotherCard
+	 * @return <code>TRUE</code> si le joueur souhaite selectionner une nouvelle carte, <code>FALSE</code> sinon
+	 */
+	private boolean findIfBluffIsNeeded(InputReader inputReader, CardsModelBean gameModelBean, Card choosenCard, boolean wantsToPlayAnotherCard) {
+		boolean hasPlayableCardsAsideFromPlusFour = gameModelBean.findIfPlayerHasPlayableCardsAsideFromPlusFour(this.player.getCardsInHand());
+		if(hasPlayableCardsAsideFromPlusFour) {
+			wantsToPlayAnotherCard = inputReader.askIfHeWantsToPlayAnotherCard(this.inputStream);
+			if(!wantsToPlayAnotherCard) {
+				choosenCard.setBluffOn();
+			}
+		}
+		return wantsToPlayAnotherCard;
 	}
 
 	/**
@@ -144,22 +200,38 @@ public class PlayerController implements Serializable {
 		this.consoleView.displayTwoLinesOfJokerText("Sadly, even after picking a new card, you didn't have any playable","Your turn will now automatically end");
 		chillForTwoSec("");
 	}
-	
+
 	/* ========================================= EFFECTS RELATED ========================================= */
-	
+
 	/**
 	 * Méthode permettant au joueur de choisir la couleur après avoir joué un joker (ou +4)
+	 * @param isRelatedToPlus4 <code>TRUE</code> pour afficher un message spécial indiquant que le joueur en cours a de nouveau la main (dans le cas du jeu d'un +4), <code>FALSE</code> sinon
 	 * @param inputReader Objet permettant de lire (et valider) les données rentrées au clavier
 	 * @return La couleur choisie par l'utilsateur
 	 */
-	public Color hasToChooseColor(InputReader inputReader) {
+	public Color hasToChooseColor(boolean isRelatedToPlus4, InputReader inputReader) {
 		Preconditions.checkNotNull(inputReader,"[ERROR] Impossible to start turn, inputReader is null");
+		if(isRelatedToPlus4) {
+			this.consoleView.displaySeparationText("---- Back to you, " + this.getAlias() + " ----");
+		}
 		this.consoleView.displayOneLineOfJokerText("You played a Joker, please choose a color");
 		return inputReader.getValidColor(this.inputStream);
 	}
 
-	/* ========================================= GETTERS & UTILS ========================================= */
+	/**
+	 * Méthode permettant de savoir si le joueur tient à accuser le précédent de bluffer sur un +4
+	 * @param inputReader Objet permettant de lire (et valider) les données rentrées au clavier
+	 * @return <code>TRUE</code> si l'utilisateur souhaite accuser le joueur précédent, <code>FALSE</code> sinon
+	 */
+	public boolean askIfHeWantsToCheckIfItsLegit(InputReader inputReader) {
+		this.consoleView.displaySeparationText("---- Your call, " + this.getAlias() + " ----");
+		Preconditions.checkNotNull(inputReader,"[ERROR] Impossible to start turn, inputReader is null");
+		this.consoleView.displayOneLineOfJokerText("Previous player played a +4");
+		return inputReader.askIfHeWantsToCheckIfItsLegit(this.inputStream);
+	}
 	
+	/* ========================================= GETTERS & UTILS ========================================= */
+
 	/**
 	 * Méthode permettant de récuperer le pseudo du joueur
 	 * @return String correspondant à son pseudo
@@ -191,7 +263,7 @@ public class PlayerController implements Serializable {
 	public boolean stillHasCards() {
 		return getNumberOfCardsInHand() > 0;
 	}
-	
+
 	/**
 	 * Méthode defissant comment les objets de cette classe s'affiche
 	 */
@@ -206,7 +278,7 @@ public class PlayerController implements Serializable {
 	public void resetHand() {
 		this.player.resetHand();	
 	}
-	
+
 	/**
 	 * Méthode permettant de ralentir l'execution des décisions de l'IA en imposant un délai de 2 secondes (avec affichage de caractères répétés sur une même ligne typiquement "..." ou rien)
 	 * @param stringToDisplay Message à répété, permettant de simuler une attente
@@ -222,9 +294,9 @@ public class PlayerController implements Serializable {
 			throw new ServerException("[ERROR] Something went wrong while [IA] " + this.getAlias() + " was peacefully chilling",e);
 		}
 	}
-	
+
 	/* ========================================= POINTS ========================================= */
-	
+
 	/**
 	 * Méthode permettant de récupérer le nombre de points des cartes en main
 	 * @return La somme des points de toutes les cartes en main
@@ -248,9 +320,9 @@ public class PlayerController implements Serializable {
 		this.player.increaseScoreBy(playerScore);
 		return this.player.getScore() > 500;
 	}
-	
+
 	/* ========================================= UNO ANNOUNCEMENT ========================================= */
-	
+
 	/**
 	 * Méthode permettant de vérifier si le joueur a précédement annoncé UNO
 	 * @return <code>TRUE</code> si c'est le cas, <code>FALSE</code> sinon

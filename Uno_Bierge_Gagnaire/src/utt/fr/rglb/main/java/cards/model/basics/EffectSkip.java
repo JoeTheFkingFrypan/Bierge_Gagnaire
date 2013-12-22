@@ -14,6 +14,11 @@ public class EffectSkip extends EffectImpl {
 	}
 
 	@Override
+	public GameFlag triggerSecondaryEffect() {
+		return triggerEffect();
+	}
+	
+	@Override
 	public String toString() {
 		return "Le joueur suivant devra passer son tour";
 	}

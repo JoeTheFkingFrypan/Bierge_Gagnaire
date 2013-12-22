@@ -12,9 +12,9 @@ import com.google.gson.Gson;
  * Classe permettant de parser des informations depuis un texte formatté en JSON
  */
 public class JsonParser {
-	
+
 	/* ========================================= HIGH LEVEL ========================================= */
-	
+
 	/**
 	 * Méthode permettant de récupérer tous les joueurs à créer en parsant le fichier de configuration
 	 * @param jsonText Texte au format JSON
@@ -23,20 +23,24 @@ public class JsonParser {
 	public PlayersToCreate createPlayersFromConfigurationFile(String jsonText) {
 		Preconditions.checkNotNull(jsonText,"[ERROR] Impossible to create players from configuration file : provided string is null");
 		Preconditions.checkArgument(jsonText.length() > 0,"[ERROR] Impossible to create players from configuration file : provided file is empty");
-		PlayersToCreate playersToCreate = new PlayersToCreate();
-		Map<?,?> jsonRootObject = new Gson().fromJson(jsonText,Map.class);
-		ArrayList<?> players = (ArrayList<?>) jsonRootObject.get("players");
-		if(players.size() < 2 ||  players.size() > 7) {
-			throw new ConfigFileDaoException("[ERROR] Configuration settings are invalid : there must be between 2 and 7 players --You currently have " + players.size() + " players..");
+		try {
+			PlayersToCreate playersToCreate = new PlayersToCreate();
+			Map<?,?> jsonRootObject = new Gson().fromJson(jsonText,Map.class);
+			ArrayList<?> players = (ArrayList<?>) jsonRootObject.get("players");
+			if(players.size() < 2 ||  players.size() > 7) {
+				throw new ConfigFileDaoException("[ERROR] Configuration file is invalid : there must be between 2 and 7 players --You currently have " + players.size() + " players..");
+			}
+			for(int i=0; i<players.size(); i++) {
+				parseAnotherPlayer(players,i,playersToCreate);
+			}
+			return playersToCreate;
+		} catch (Exception e) {
+			throw new ConfigFileDaoException("[ERROR] Configuration file is invalid : please refer to the readMe to see how to fill it properly",e);
 		}
-		for(int i=0; i<players.size(); i++) {
-			parseAnotherPlayer(players,i,playersToCreate);
-		}
-		return playersToCreate;
 	}
 
 	/* ========================================= LOW LEVEL ========================================= */
-	
+
 	/**
 	 * Méthode permettant de récupérer toutes les informations d'un unique joueur depuis le fichier JSON, et de l'ajouter dans la collection de joueurs à créer
 	 * @param players Collection provenant du parsing du fichier
@@ -60,8 +64,8 @@ public class JsonParser {
 				int strategyIndex = Integer.parseInt(strategy);
 				playersToCreate.addIAPlayerProvidingStrategyIndex(nickname,strategyIndex);
 			}
-		} catch (NullPointerException e) {
-			throw new ConfigFileDaoException("[ERROR] Configuration file is not filled properly : please make sure it is a valid JSON file --Expected : 1 Array composed of 2 to 7 Objects (each object composed of 2 to 3 string/value couples)");
+		} catch (Exception e) {
+			throw new ConfigFileDaoException("[ERROR] Configuration file is invalid : please refer to the readMe to see how to fill it properly",e);
 		}
 	}
 }

@@ -118,6 +118,17 @@ public class GameRule implements Serializable {
 	}
 	
 	/**
+	 * Méthode permettant de déterminer si le joueur en cours doit choisir une couleur et donner une pénalité de 4 cartes au joueur suivant
+	 * L'état de jeu sera remis à son état par défaut (NORMAL) si jamais la méthode renvoie <code>TRUE</code>
+	 * @return <code>TRUE</code> si c'est le cas, <code>FALSE</code> sinon
+	 */
+	public boolean shouldGivePlus4CardPenaltyWhileBluffing() {
+		GameFlag currentFlag = this.gameFlag;
+		boolean bothAreTheSame = currentFlag.equals(GameFlag.PLUS_FOUR_BLUFFING);
+		return resetGameFlagIfNeeded(bothAreTheSame,currentFlag);
+	}
+	
+	/**
 	 * Méthode privée permettant de ré-initialiser l'état de jeu uniquement dans le cas où l'effet testé est bien celui attendu
 	 * Ceci permet d'éviter un appel de méthode supplémentaire après avoir appliquer ledit effet
 	 * Il est ré-initialiser en amont plutôt qu'à postériori

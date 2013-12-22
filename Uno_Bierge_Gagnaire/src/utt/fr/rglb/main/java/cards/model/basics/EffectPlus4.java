@@ -12,6 +12,11 @@ public class EffectPlus4 extends EffectImpl {
 	public GameFlag triggerEffect() {
 		return GameFlag.PLUS_FOUR;
 	}
+	
+	@Override
+	public GameFlag triggerSecondaryEffect() {
+		return GameFlag.PLUS_FOUR_BLUFFING;
+	}
 
 	@Override
 	public String toString() {

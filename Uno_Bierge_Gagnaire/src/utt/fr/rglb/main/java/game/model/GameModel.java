@@ -10,6 +10,7 @@ import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.cards.model.basics.Color;
 import utt.fr.rglb.main.java.console.model.InputReader;
 import utt.fr.rglb.main.java.console.view.View;
+import utt.fr.rglb.main.java.dao.ConfigFileDaoException;
 import utt.fr.rglb.main.java.dao.ConfigurationReader;
 import utt.fr.rglb.main.java.main.ServerException;
 import utt.fr.rglb.main.java.player.controller.PlayerController;
@@ -49,8 +50,13 @@ public class GameModel implements Serializable {
 		boolean configurationFileUsageRequired = this.inputReader.askForConfigurationFileUsage(this.inputStream);
 		PlayersToCreate playersAwaitingCreation = null;
 		if(configurationFileUsageRequired) {
-			ConfigurationReader configurationReader = new ConfigurationReader();
-			playersAwaitingCreation = configurationReader.readConfigurationAt("dist/config.ini");
+			try {
+				ConfigurationReader configurationReader = new ConfigurationReader();
+				playersAwaitingCreation = configurationReader.readConfigurationAt("dist/config.ini");
+			} catch (ConfigFileDaoException e) {
+				int playerNumber = this.inputReader.getValidPlayerNumberDueToInvalidConfigFile(this.inputStream,e.getMessage());
+				playersAwaitingCreation = this.inputReader.getAllPlayerNames(playerNumber,this.inputStream);
+			}
 		} else {
 			int playerNumber = this.inputReader.getValidPlayerNumber(this.inputStream);
 			playersAwaitingCreation = this.inputReader.getAllPlayerNames(playerNumber,this.inputStream);
@@ -187,18 +193,33 @@ public class GameModel implements Serializable {
 		} else if(this.gameRule.shouldSkipNextPlayerTurn()) {
 			triggerSkipNextPlayer();
 		} else if(this.gameRule.shouldPickColor()) {
-			triggerColorPicking(currentPlayer);
+			triggerColorPicking(currentPlayer,false);
 		} else if(this.gameRule.shouldGivePlus2CardPenalty()) {
 			PlayerController nextPlayer = this.turnController.findNextPlayerWithoutChangingCurrentPlayer();
 			triggerPlusX(2,nextPlayer);
 		} else if(this.gameRule.shouldGivePlus4CardPenalty()) {
 			PlayerController nextPlayer = this.turnController.findNextPlayerWithoutChangingCurrentPlayer();
+			boolean wantsToCheck = triggerBluffing(nextPlayer);
+			if(wantsToCheck) {
+				triggerPlusX(2,nextPlayer,true);
+			}
 			triggerPlusX(4,nextPlayer);
-			triggerColorPicking(currentPlayer);
-		} 
+			triggerColorPicking(currentPlayer,true);
+		}  else if(this.gameRule.shouldGivePlus4CardPenaltyWhileBluffing()) {
+			PlayerController nextPlayer = this.turnController.findNextPlayerWithoutChangingCurrentPlayer();
+			boolean wantsToCheck = triggerBluffing(nextPlayer);
+			if(wantsToCheck) {
+				triggerPlusX(2,currentPlayer,false);
+				triggerPlusX(4,currentPlayer);
+			} else {
+				triggerPlusX(4,nextPlayer);
+			}
+			triggerColorPicking(currentPlayer,true);
+		}
 	}
 	
 	/* ========================================= EFFECTS - BASIS ========================================= */
+	
 	
 	/**
 	 * Méthode privée permettant de changer l'ordre du jeu
@@ -224,9 +245,10 @@ public class GameModel implements Serializable {
 	/**
 	 * Méthode privée permettant au joueur en paramètre de choisir une couleur
 	 * @param currentPlayer Joueur devant désigner une couleur
+	 * @param isRelatedToPlus4 <code>TRUE</code> si selection d'une couleur est due au jeu d'un plus 4, <code>FALSE</code> sinon
 	 */
-	private void triggerColorPicking(PlayerController currentPlayer) {
-		Color chosenColor = currentPlayer.hasToChooseColor(this.inputReader);
+	private void triggerColorPicking(PlayerController currentPlayer, boolean isRelatedToPlus4) {
+		Color chosenColor = currentPlayer.hasToChooseColor(isRelatedToPlus4,this.inputReader);
 		this.cardsController.setGlobalColor(chosenColor);
 	}
 	
@@ -239,7 +261,26 @@ public class GameModel implements Serializable {
 		Collection<Card> cards = this.cardsController.drawCards(cardsToDraw);
 		targetedPlayer.isForcedToPickUpCards(cards);
 	}
+	
+	/**
+	 * Méthode privée permettant de forcer un joueur à piocher un nombre donné de cartes avec gestion du bluff par couleurs appropriées
+	 * @param cardsToDraw int représentant le nombre de cartes à piocher
+	 * @param targetedPlayer Joueur devant piocher lesdites cartes
+	 * @param wasLegit <code>TRUE</code> si le jeu de la carte était légitime, <code>FALSE</code> sinon
+	 */
+	private void triggerPlusX(int cardsToDraw, PlayerController targetedPlayer, boolean wasLegit) {
+		Collection<Card> cards = this.cardsController.drawCards(cardsToDraw);
+		if(wasLegit) {
+			targetedPlayer.isForcedToPickUpCardsLegitCase(cards);
+		} else {
+			targetedPlayer.isForcedToPickUpCardsBluffCase(cards);
+		}
+	}
 
+	private boolean triggerBluffing(PlayerController nextPlayer) {
+		return nextPlayer.askIfHeWantsToCheckIfItsLegit(this.inputReader);
+	}
+	
 	/**
 	 * Méthode permettant de donner une pénalité au joueur donné
 	 * @param currentPlayer Joueur devant être pénalisé

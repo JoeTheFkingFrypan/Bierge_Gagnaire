@@ -52,6 +52,13 @@ public class PlayerControllerAI extends PlayerController {
 		int bestIndex = cardPickerStrategy.chooseCardFrom(playableIndexes,cardCollection);
 		decideIfAnnouncingUnoIsNecessary(alias);
 		Card suitableCard = this.player.playCard(bestIndex);
+		if(suitableCard.isPlusFour()) {
+			boolean hasPlayableCardsAsideFromPlusFour = gameModelBean.findIfPlayerHasPlayableCardsAsideFromPlusFour(cardCollection);
+			if(hasPlayableCardsAsideFromPlusFour) {
+				suitableCard.setBluffOn();
+			}
+		}
+		
 		this.consoleView.displayCard("He played : ", suitableCard);
 		this.consoleView.displayJokerEmphasisUsingPlaceholders("He has ", cardsLeft.toString(), " cards remaining");
 		return suitableCard;
@@ -80,9 +87,17 @@ public class PlayerControllerAI extends PlayerController {
 	/* ========================================= EFFECTS RELATED ========================================= */
 	
 	@Override
-	public Color hasToChooseColor(InputReader inputReader) {
+	public Color hasToChooseColor(boolean isRelatedToPlus4,InputReader inputReader) {
 		Preconditions.checkNotNull(cardPickerStrategy,"[ERROR] Impossible to choose a color : provided inputReader is null");
 		Collection<Card> cardCollection = this.getCardsInHand();
 		return this.cardPickerStrategy.chooseBestColor(cardCollection);
+	}
+	
+	@Override
+	public boolean askIfHeWantsToCheckIfItsLegit(InputReader inputReader) {
+		Preconditions.checkNotNull(inputReader,"[ERROR] Impossible to start turn, inputReader is null");
+		this.consoleView.displayOneLineOfJokerText("Previous player played a +4");
+		Collection<Card> cardCollection = this.getCardsInHand();
+		return this.cardPickerStrategy.chooseIfAccusingPreviousPlayerOfBluffingIsWorthIt(cardCollection);
 	}
 }

@@ -194,7 +194,19 @@ public abstract class View implements Serializable {
 			this.consoleDisplay.appendYellowText(index + ":[" + value + "] ");
 		}
 	}
+	
+	/* ========================================= YELLOW TEXT ========================================= */
 
+	public void displayOneLineOfYellowText(String part01, String placeholder01, String part02, String placeholder02, String part03) {
+		this.consoleDisplay.displayBlankLine();
+		this.consoleDisplay.appendYellowText(part01); 
+		this.consoleDisplay.appendBoldText(placeholder01);
+		this.consoleDisplay.appendYellowText(part02);
+		this.consoleDisplay.appendBoldText(placeholder02);
+		this.consoleDisplay.appendYellowText(part03);
+		this.consoleDisplay.displayBlankLine();
+	}
+	
 	/* ========================================= GREEN TEXT ========================================= */
 
 	/**
@@ -221,6 +233,16 @@ public abstract class View implements Serializable {
 		this.consoleDisplay.displayBlankLine();
 	}
 
+	public void displayGreenEmphasisUsingPlaceholders(String part01, String placeholder01, String part02, String placeholder02, String part03) {
+		this.consoleDisplay.displayBlankLine();
+		this.consoleDisplay.appendGreenText(part01);
+		this.consoleDisplay.appendBoldText(placeholder01);
+		this.consoleDisplay.appendGreenText(part02);
+		this.consoleDisplay.appendBoldText(placeholder02);
+		this.consoleDisplay.appendGreenText(part03);
+		this.consoleDisplay.displayBlankLine();
+	}
+	
 	/* ========================================= JOKER TEXT ========================================= */
 	
 	/**

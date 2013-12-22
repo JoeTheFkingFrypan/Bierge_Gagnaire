@@ -14,6 +14,11 @@ public class EffectReverse extends EffectImpl {
 	}
 
 	@Override
+	public GameFlag triggerSecondaryEffect() {
+		return triggerEffect();
+	}
+
+	@Override
 	public String toString() {
 		return "Le sens de jeu est inversé";
 	}

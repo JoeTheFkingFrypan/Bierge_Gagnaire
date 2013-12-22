@@ -23,6 +23,11 @@ public class EffectPlus2 extends EffectImpl {
 	}
 
 	@Override
+	public GameFlag triggerSecondaryEffect() {
+		return triggerEffect();
+	}
+	
+	@Override
 	public String toString() {
 		return "Le joueur suivant devra piocher " + this.cardsThatMustBeDrawn + " cartes";
 	}

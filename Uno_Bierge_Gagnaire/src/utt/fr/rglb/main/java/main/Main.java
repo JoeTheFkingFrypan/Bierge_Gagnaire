@@ -6,13 +6,19 @@ package utt.fr.rglb.main.java.main;
 public class Main {
 	public static void main(String[] args) {
 		try {
-			System.setProperty("jansi.passthrough", "true"); // jansi Workaround : jansi detects when the standard output is redirected and does not output the escape sequences anymore.
+			System.setProperty("jansi.passthrough", "true");
 			Server server = Server.getInstance();
 			server.startPlaying();
 		} catch(Exception e) {
-			System.out.println("[ERROR] An unexpected error happened, here is what went wrong : " + e.getClass() + " => " + e.getMessage());
+			System.out.println("");
+			System.out.println("[ERROR] An unexpected error happened");
+			System.out.println("Class involved : " + e.getClass());
+			System.out.println("");
+			System.out.println("Message :" + e.getMessage());
+			System.out.println("");
 			System.out.println("========= STACK TRACE ==============");
 			e.printStackTrace();
+			System.out.println("");
 		}
 	}
 }

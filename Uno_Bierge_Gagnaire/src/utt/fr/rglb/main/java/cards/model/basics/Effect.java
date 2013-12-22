@@ -13,6 +13,12 @@ public interface Effect {
 	public GameFlag triggerEffect();
 	
 	/**
+	 * Méthode permettant de déclencher un effet et de récuperer l'état associé
+	 * @return Enumeration d'etat résultat du déclenchement de l'effet
+	 */
+	public GameFlag triggerSecondaryEffect();
+	
+	/**
 	 * Méthode permettant d'afficher un effet dans l'interface
 	 * @return String à afficher
 	 */

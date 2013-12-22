@@ -161,6 +161,24 @@ public class CardsModelBean implements Serializable {
 	}
 	
 	/**
+	 * Méhode permettant de déterminer si l'utilisateur peut jouer d'autres cartes qu'un +4
+	 * @param cardCollection Cartes actuellement en main
+	 * @return <code>TRUE</code> si le joueur a d'autres cartes jouables qui ne sont pas des +4, <code>FALSE</code> sinon
+	 */
+	public boolean findIfPlayerHasPlayableCardsAsideFromPlusFour(Collection<Card> cardCollection) {
+		Preconditions.checkNotNull(cardCollection,"[ERROR] Cannot find playable card from collection : provided one is null");
+		int numberOfPlayableCardsThatAreNotPlusFour = 0;
+		for(Card currentCard : cardCollection) {
+			if(isCompatibleWith(currentCard)) {
+				if(!currentCard.isPlusFour()) {
+					numberOfPlayableCardsThatAreNotPlusFour++;
+				}
+			}
+		}
+		return numberOfPlayableCardsThatAreNotPlusFour >= 1;
+	}
+	
+	/**
 	 * Méthode permettant de savoir si une couleur globale est définie (si un joker/+4 a été précédement joué)
 	 * @return <code>TRUE</code> si une couleur globale est définie, <code>FALSE</code> sinon
 	 */

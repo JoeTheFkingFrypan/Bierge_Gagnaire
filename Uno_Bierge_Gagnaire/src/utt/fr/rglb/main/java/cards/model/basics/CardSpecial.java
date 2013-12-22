@@ -11,6 +11,7 @@ import utt.fr.rglb.main.java.game.model.GameFlag;
 public class CardSpecial extends Card {	
 	private static final long serialVersionUID = 1L;
 	private final Effect effect;
+	private boolean bluffing;
 
 	/* ========================================= CONSTRUCTOR ========================================= */
 	
@@ -24,6 +25,7 @@ public class CardSpecial extends Card {
 		super(value, color);
 		Preconditions.checkNotNull(effect,"[ERROR] Effect cannot be null");
 		this.effect = effect;
+		this.bluffing = false;
 	}
 
 	/* ========================================= EFFECT ========================================= */
@@ -33,6 +35,10 @@ public class CardSpecial extends Card {
 	 * @return GameFlag correspondant à l'état induit par le déclenchement de l'effet
 	 */
 	public GameFlag triggerEffect() {
+		if(this.bluffing) {
+			this.bluffing = false;
+			return this.effect.triggerSecondaryEffect();
+		}
 		return this.effect.triggerEffect();
 	}
 	
@@ -44,6 +50,23 @@ public class CardSpecial extends Card {
 	@Override
 	public Color getColor() {
 		return this.color;
+	}
+	
+	/**
+	 * Méthode permettant de récupérer la desciption de l'effet associé à la carte spéciale
+	 * @return String correspondant à la description de l'effet
+	 */
+	private String getEffectDescription() {
+		return this.effect.getDescription();
+	}
+	
+	/**
+	 * Méthode permettant de définir si l'effet secondaire devra être délenché
+	 */
+	@Override
+	public void setBluffOn() {
+		Preconditions.checkState(this.getEffectDescription().equals("+4"),"[ERROR] Impossible to set bluff on cards other than +4");
+		this.bluffing = true;
 	}
 	
 /* ========================================= ADVANCED COMPARAISON ========================================= */
@@ -140,6 +163,18 @@ public class CardSpecial extends Card {
 		return true;
 	}
 
+	/**
+	 * Méthode permettant de savoir si la carte est un +4
+	 * @return Renvoit <code>TRUE</code> si la carte est un +4 (joker), <code>FALSE</code> sinon
+	 */
+	@Override
+	public boolean isPlusFour() {
+		if(this.getEffectDescription().equals("+4")) {
+			return true;
+		}
+		return false;
+	}
+	
 	/* ========================================= DISPLAY ========================================= */
 
 	/**

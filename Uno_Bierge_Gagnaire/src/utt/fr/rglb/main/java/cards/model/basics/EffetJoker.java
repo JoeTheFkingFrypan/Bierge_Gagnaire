@@ -14,6 +14,11 @@ public class EffetJoker extends EffectImpl {
 	}
 	
 	@Override
+	public GameFlag triggerSecondaryEffect() {
+		return triggerEffect();
+	}
+	
+	@Override
 	public String toString() {
 		return "Le joueur actuel doit choisir une couleur";
 	}

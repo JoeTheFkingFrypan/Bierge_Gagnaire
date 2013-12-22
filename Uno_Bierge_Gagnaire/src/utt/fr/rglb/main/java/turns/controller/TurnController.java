@@ -60,7 +60,7 @@ public class TurnController implements Serializable {
 	 */
 	public void createPlayersFrom(PlayersToCreate playersAwaitingCreation, BufferedReader inputStream) {
 		Preconditions.checkNotNull(playersAwaitingCreation,"[ERROR] Provided played names cannot be null");
-		this.turnModel.createPlayersFrom(playersAwaitingCreation,consoleView,inputStream);
+		this.turnModel.createPlayersFrom(playersAwaitingCreation,this.consoleView,inputStream);
 	}
 	
 	/**
@@ -70,7 +70,7 @@ public class TurnController implements Serializable {
 	public void createPlayersWithoutScamblingFrom(Collection<String> playerNames, BufferedReader inputStream) {
 		Preconditions.checkNotNull(playerNames,"[ERROR] Provided played names cannot be null");
 		Preconditions.checkArgument(playerNames.size() >= 2,"[ERROR] There must be at least two players in the game");
-		this.turnModel.createPlayersWithoutScramblingFrom(playerNames,consoleView,inputStream);
+		this.turnModel.createPlayersWithoutScramblingFrom(playerNames,this.consoleView,inputStream);
 	}
 
 	/**
@@ -106,7 +106,7 @@ public class TurnController implements Serializable {
 	 */
 	public PlayerController findNextPlayer() {
 		PlayerController currentPlayer = this.turnModel.cycleThroughPlayers();
-		consoleView.displaySeparationText("========== Your turn, " + currentPlayer.getAlias() + " ==========");
+		this.consoleView.displaySeparationText("========== Your turn, " + currentPlayer.getAlias() + " ==========");
 		return currentPlayer;
 	}
 
@@ -125,8 +125,8 @@ public class TurnController implements Serializable {
 	 */
 	public void skipNextPlayer() {
 		PlayerController currentPlayer = this.turnModel.cycleThroughPlayers();
-		consoleView.displaySeparationText("========== Your turn, " + currentPlayer.getAlias() + " ==========");
-		consoleView.displayErrorMessage("Sadly, you are not allowed to play this turn","Previous player used a Skip card");
+		this.consoleView.displaySeparationText("========== Your turn, " + currentPlayer.getAlias() + " ==========");
+		this.consoleView.displayErrorMessage("Sadly, you are not allowed to play this turn","Previous player used a Skip card");
 	}
 	
 	public void cycleSilently() {
@@ -146,8 +146,8 @@ public class TurnController implements Serializable {
 		Integer pointsReceived = this.turnModel.sumAllIndividualPlayerScore();
 		boolean hasWon = gameWinner.increaseScoreBy(pointsReceived);
 		this.turnModel.resetAllHands();
-		consoleView.displayGreenEmphasisUsingPlaceholders("Player [",gameWinner.getAlias(),"] has won this round, congratulations !");
-		consoleView.displayGreenEmphasisUsingPlaceholders("He successfully scored ",pointsReceived.toString()," points");
+		this.consoleView.displayGreenEmphasisUsingPlaceholders("Player [",gameWinner.getAlias(),"] has won this round, congratulations !");
+		this.consoleView.displayGreenEmphasisUsingPlaceholders("He successfully scored ",pointsReceived.toString()," points");
 		return hasWon;
 	}
 	
@@ -162,8 +162,8 @@ public class TurnController implements Serializable {
 		Integer pointsReceived = this.turnModel.sumAllTeamScore(winningTeam);
 		boolean hasWon = this.turnModel.increaseScoreOfTheWinningTeam(winningTeam,pointsReceived);
 		this.turnModel.resetAllHands();
-		consoleView.displayGreenEmphasisUsingPlaceholders("Team [",winningTeam.toString(),"] has won this round, congratulations !");
-		consoleView.displayGreenEmphasisUsingPlaceholders("They successfully scored ",pointsReceived.toString()," points total");
+		this.consoleView.displayGreenEmphasisUsingPlaceholders("Team [",winningTeam.toString(),"] has won this round, congratulations !");
+		this.consoleView.displayGreenEmphasisUsingPlaceholders("They successfully scored ",pointsReceived.toString()," points total");
 		return hasWon;
 	}
 
@@ -193,11 +193,11 @@ public class TurnController implements Serializable {
 	 */
 	public void displayIndividualTotalScore() {
 		Collection<PlayerController> players = this.turnModel.getAllPlayers();
-		consoleView.displayOneLineOfJokerText("Scores are now : ");
+		this.consoleView.displayOneLineOfJokerText("Scores are now : ");
 		for(PlayerController currentPlayer : players) {
 			Integer currentScore = currentPlayer.getScore();
 			Integer pointsNeededToWin = 500 - currentScore;
-			consoleView.displayJokerEmphasisUsingPlaceholders(" * [", currentPlayer.getAlias(), "] : ", currentScore.toString(), " => ", pointsNeededToWin.toString(), " more points need to win the game");
+			this.consoleView.displayJokerEmphasisUsingPlaceholders(" * [", currentPlayer.getAlias(), "] : ", currentScore.toString(), " => ", pointsNeededToWin.toString(), " more points need to win the game");
 		}
 	}
 	
@@ -206,12 +206,12 @@ public class TurnController implements Serializable {
 	 */
 	public void displayTeamTotalScore() {
 		Map<Integer, PlayerTeam> teams = this.turnModel.getAllTeams();
-		consoleView.displayOneLineOfJokerText("Scores are now : ");
+		this.consoleView.displayOneLineOfJokerText("Scores are now : ");
 		for(Entry<Integer, PlayerTeam> teamEntry : teams.entrySet()) {
 			PlayerTeam currentTeam = teamEntry.getValue();
 			Integer currentScore = currentTeam.getScore();
 			Integer pointsNeededToWin = 500 - currentScore;	
-			consoleView.displayJokerEmphasisUsingPlaceholders(" * TEAM " + teamEntry.getKey() + " [", currentTeam.toString(), "] : ", currentScore.toString(), " => ", pointsNeededToWin.toString(), " more points need to win the game");	
+			this.consoleView.displayJokerEmphasisUsingPlaceholders(" * TEAM " + teamEntry.getKey() + " [", currentTeam.toString(), "] : ", currentScore.toString(), " => ", pointsNeededToWin.toString(), " more points need to win the game");	
 		}
 	}
 	

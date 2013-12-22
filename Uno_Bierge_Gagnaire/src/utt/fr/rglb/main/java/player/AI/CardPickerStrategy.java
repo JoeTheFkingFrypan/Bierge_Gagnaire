@@ -24,4 +24,11 @@ public interface CardPickerStrategy {
 	 * @return int correspondant à l'index de la couleur choisie
 	 */
 	public Color chooseBestColor(Collection<Card> cardCollection);
+
+	/**
+	 * Méthode permettant à l'IA de déterminer si accuser le joueur précédent de bluffer est une bonne idée ou pas
+	 * @param cardCollection Cartes en main
+	 * @return <code>TRUE</code> si l'IA décide d'accuser le joueur précédent, <code>FALSE</code> sinon
+	 */
+	public boolean chooseIfAccusingPreviousPlayerOfBluffingIsWorthIt(Collection<Card> cardCollection);
 }

@@ -37,9 +37,21 @@ public class InputReader implements Serializable {
 	}
 
 	/* ========================================= PLAYER NUMBER ========================================= */
-
+	
+	/**
+	 * Méthode permettant de récuperer un nombre de joueur valide dans le cas où la lecture du fichier de configuration a échoué
+	 * @param inputStream Flux d'entrée
+	 * @param errorMessage Message d'erreur en provenance de la lecture du fichier de config
+	 * @return Un int correspondant au nombre de joueurs (entre 2 et 7)
+	 */
+	public int getValidPlayerNumberDueToInvalidConfigFile(BufferedReader inputStream, String errorMessage) {
+		this.consoleView.displayOneLineOfRedText(errorMessage);
+		return this.getValidPlayerNumber(inputStream);
+	}
+	
 	/**
 	 * Méthode permettant de récuperer un nombre de joueur valide
+	 * @param inputStream Flux d'entrée
 	 * @return Un int correspondant au nombre de joueurs (entre 2 et 7)
 	 */
 	public int getValidPlayerNumber(BufferedReader inputStream) {
@@ -53,13 +65,14 @@ public class InputReader implements Serializable {
 		}
 		return playerNumber;
 	}
-
+	
 	/**
 	 * Méthode privée permettant de recuperer un nombre à partir d'une chaine de caractères entrée au clavier
 	 * Cette méthode ne garde que les nombres et retire tous les autres caractères non désirés.
 	 * Par exemple si l'utilisateur entre "sjqd2lkfjq qsdjqjd 3", la méthode renverra "23"
 	 * Tant que l'utilisateur n'entre pas au moins un chiffre, la méthode boucle, lui intimant de recommencer
 	 * @param answer String contenant la chaine entrée au clavier
+	 * @param inputStream Flux d'entrée
 	 * @return Le nombre entré par l'utilisateur
 	 */
 	public int getNumberFromString(String answer, BufferedReader inputStream) {
@@ -72,7 +85,12 @@ public class InputReader implements Serializable {
 		return Integer.parseInt(digitsFromAnswer);
 	}
 
-	//FIXME:
+	/**
+	 * Méthode privée permettant de déterminer si la réponse donnée ne répond pas aux critères attendus
+	 * </br>Par exemple une réponse non valide ne contiendra pas de numéro, ou sera vide, ou sera un nombre inférieur strictement à 0
+	 * @param answer String correspondant à la réponse à analyser
+	 * @return <code>TRUE</code> si la réponse est invalide, <code>FALSE</code> sinon
+	 */
 	private boolean hasAnInvalidNumberFormat(String answer) {
 		String digitsFromAnswer = CharMatcher.inRange('0', '9').or(CharMatcher.is('-')).retainFrom(answer);
 		if(CharMatcher.DIGIT.countIn(digitsFromAnswer) < 0 || digitsFromAnswer.length() == 0) {
@@ -91,6 +109,7 @@ public class InputReader implements Serializable {
 	/**
 	 * Méthode permettant de récuperer le nom de tous les joueurs (avec pseudos tous différents)
 	 * @param playerNumber Nombre de joueurs dans la partie
+	 * @param inputStream Flux d'entrée
 	 * @return Une collection contenant le nom de chaque joueur
 	 */
 	//TODO: squeeze spaces ?
@@ -112,6 +131,7 @@ public class InputReader implements Serializable {
 	 * Méthode privée permettant de récupérer un pseudo à partir du clavier en s'assurant qu'il n'existe pas déjà
 	 * @param playersAwaitingCreation Objet encapsulant les informations de tous les joueurs devant être créés
 	 * @param isTheLastOneToCreate Booléen indiquant s'il s'agit du dernier joueur à créer (permettant ainsi de ne pas afficher d'entrer un nouveau nom, si tous les noms ont été choisis) 
+	 * @param inputStream Flux d'entrée
 	 */
 	private void addValidNameFromInput(PlayersToCreate playersAwaitingCreation, boolean isTheLastOneToCreate,BufferedReader inputStream) {
 		Preconditions.checkNotNull(playersAwaitingCreation, "[ERROR] Impossible to add another name : provided collection is null");
@@ -138,6 +158,7 @@ public class InputReader implements Serializable {
 
 	/**
 	 * Méthode privée de récupérer un pseudo valide (non vide) à partir du clavier
+	 * @param inputStream Flux d'entrée
 	 * @return String correspondant au pseudo choisi
 	 */
 	private String getValidAlias(BufferedReader inputStream) {
@@ -157,6 +178,7 @@ public class InputReader implements Serializable {
 	 * @param alias Pseudo du joueur
 	 * @param cardCollection Cartes du joueur
 	 * @param gameModelbean Références de jeu (dernière carte du talon et couleur globale)
+	 * @param inputStream Flux d'entrée
 	 * @return String contenant la réponse
 	 */
 	public String getValidAnswer(String alias, Collection<Card> cardCollection, CardsModelBean gameModelbean,BufferedReader inputStream) {
@@ -172,6 +194,7 @@ public class InputReader implements Serializable {
 	 * @param alias Pseudo du joueur
 	 * @param cardCollection Cartes du joueur
 	 * @param gameModelbean Références de jeu (dernière carte du talon et couleur globale)
+	 * @param inputStream Flux d'entrée
 	 * @return String contenant la réponse
 	 */
 	public String getAnotherValidAnswerFromInputDueToIncompatibleCard(String alias, Collection<Card> cardCollection, CardsModelBean gameModelbean, BufferedReader inputStream) {
@@ -186,6 +209,7 @@ public class InputReader implements Serializable {
 	 * Méthode privée permettant de récuperer une réponse valide en affichant les détails dans la vue
 	 * @param cardCollection Cartes du joueur
 	 * @param gameModelbean Références de jeu (dernière carte du talon et couleur globale)
+	 * @param inputStream Flux d'entrée
 	 * @return String contenant la réponse
 	 */
 	private String getValidAnswerDisplayingInfo(Collection<Card> cardCollection, CardsModelBean gameModelbean, BufferedReader inputStream) {
@@ -208,6 +232,7 @@ public class InputReader implements Serializable {
 	 * @param answer String contenant la chaine de caractères à analyser
 	 * @param cardCollection Collection de carte du joueur
 	 * @param gameModelbean Références de jeu (dernière carte du talon et couleur globale)
+	 * @param inputStream Flux d'entrée
 	 * @return int correspondant à l'index choisi
 	 */
 	private int getNumberFromStringDisplayingCardInfo(String answer, Collection<Card> cardCollection, CardsModelBean gameModelbean,BufferedReader inputStream) {
@@ -241,6 +266,7 @@ public class InputReader implements Serializable {
 
 	/**
 	 * Méthode permettant de récupérer une couleur valide
+	 * @param inputStream Flux d'entrée
 	 * @return La couleur choisie par l'utilisateur
 	 */
 	public Color getValidColor(BufferedReader inputStream) {
@@ -258,6 +284,7 @@ public class InputReader implements Serializable {
 	/**
 	 * Méthode privée permettant de récupérer la couleur associée au choix de l'utilisateur
 	 * @param colorNumber int correspondant à l'index choisi
+	 * @param inputStream Flux d'entrée
 	 * @return La color associée à l'index
 	 */
 	private Color findColorUsingItsNumber(int colorNumber,BufferedReader inputStream) {
@@ -282,18 +309,20 @@ public class InputReader implements Serializable {
 	/**
 	 * Méthode privée permettant de lire une chaine de caractère à partir du clavier
 	 * Injection de dépendance de sorte à pouvoir effectuer des tests unitaires très simplement
+	 * @param inputStream Flux d'entrée
 	 * @return String correspondant à ce qui a été tapé au clavier
 	 */
 	private String readAnotherLine(BufferedReader inputStream) {
 		try {
 			return inputStream.readLine();
 		} catch (IOException e) {
-			throw new ConsoleException("[ERROR] Something went wrong while reading line from console input");
+			throw new ConsoleException("[ERROR] Something went wrong while reading line from console input",e);
 		}
 	}
 
 	/**
 	 * Méthode permettant d'obtenir un index valide (soit 0 soit 1) pour le choix donné (choix proposant 2 réponses)
+	 * @param inputStream Flux d'entrée
 	 * @return int correspondant à l'index choisi
 	 */
 	public int getValidAnswerFromDualChoice(BufferedReader inputStream) {
@@ -309,6 +338,7 @@ public class InputReader implements Serializable {
 
 	/**
 	 * Méthode permettant d'obtenir un index valide (soit 0, 1 ou 2) pour le choix donné (choix proposant 3 réponses)
+	 * @param inputStream Flux d'entrée
 	 * @return int correspondant à l'index choisi
 	 */
 	public int getValidAnswerFromTripleChoice(BufferedReader inputStream) {
@@ -337,6 +367,7 @@ public class InputReader implements Serializable {
 
 	/**
 	 * Méthode permettant de demander à l'utilisateur s'il souhaite charger le fichier de configuration (et récupérer sa réponse)
+	 * @param inputStream Flux d'entrée
 	 * @return int correspondant à l'index de sa réponse <code>0</code> pour <code>OUI</code>, <code>1</code> pour <code>NON</code> 
 	 */
 	public boolean askForConfigurationFileUsage(BufferedReader inputStream) {
@@ -352,6 +383,7 @@ public class InputReader implements Serializable {
 	/**
 	 * Méthode permettant de demander à l'utilisateur quelle variante de jeu utiliser (choix dépendant du nombre de joueurs précédemment donné)
 	 * @param size Nombre de joueurs
+	 * @param inputStream Flux d'entrée
 	 * @return Objet englobant le mode de jeu choisi et l'état actuel de la partie
 	 */
 	public GameRule askForGameMode(Integer size,BufferedReader inputStream) {
@@ -371,6 +403,7 @@ public class InputReader implements Serializable {
 			if(choice == 0) {
 				return new GameRule(GameMode.NORMAL);
 			} else if(choice == 1) {
+				this.consoleView.displayOneLineOfYellowText("[FEATURE ", "NOT YET IMPLEMENTED ", "-> SWITCHING TO ", "CLASSIC ", "GAME MODE]");
 				return new GameRule(GameMode.UNO_CHALLENGE);
 			} else {
 				return new GameRule(GameMode.TEAM_PLAY);
@@ -381,8 +414,40 @@ public class InputReader implements Serializable {
 			if(choice == 0) {
 				return new GameRule(GameMode.NORMAL);
 			} else {
+				this.consoleView.displayOneLineOfYellowText("[FEATURE ", "NOT YET IMPLEMENTED ", "-> SWITCHING TO ", "CLASSIC ", "GAME MODE]");
 				return new GameRule(GameMode.UNO_CHALLENGE);
 			}
+		}
+	}
+
+	/**
+	 * Méthode permettant de savoir si le joueur tient réelement à bluffer ou non
+	 * @param inputStream Flux d'entrée
+	 * @return <code>TRUE</code> si l'utilisateur souhaite jouer une nouvelle carte (s'il ne tente pas le bluff), <code>FALSE</code> sinon
+	 */
+	public boolean askIfHeWantsToPlayAnotherCard(BufferedReader inputStream) {
+		this.consoleView.displayOneLineOfJokerText("You have other playable cards, are you sure that you want to play that one?");
+		this.consoleView.displayChoice("--Note that you might receive penalty for bluffing", "0:Yes, I'm sure ", "1: No, nevermind ");
+		int choice = this.getValidAnswerFromDualChoice(inputStream);
+		if(choice == 0) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	/**
+	 * Méthode permettant de savoir si le joueur tient à accuser le précédent de bluffer sur un +4
+	 * @param inputStream Flux d'entrée
+	 * @return <code>TRUE</code> si l'utilisateur souhaite accuser le joueur précédent, <code>FALSE</code> sinon
+	 */
+	public boolean askIfHeWantsToCheckIfItsLegit(BufferedReader inputStream) {
+		this.consoleView.displayChoice("Would you like to accuse him of bluffing?", "0:Yes ", "1: Nope ");
+		int choice = this.getValidAnswerFromDualChoice(inputStream);
+		if(choice == 0) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 }
