@@ -44,16 +44,16 @@ Version d'Eclipse :
 	* Pour connaitre la version d'Eclipse, il suffit de cliquer sur "Help" -> "About Eclipse".
 	* Pour installer un plugin dans Eclipse, il suffit de cliquer sur "Help" -> "Eclipse Marketplace" et taper dans find le nom associé.
 
-Pour la version "Eclipse Java EE IDE for Web Developers" :
+Pour la version "__Eclipse Java EE IDE for Web Developers__" :
 
 	* Aucun plugin à installer
 
-Pour la version "Eclipse Standard/SDK" (et toutes les autres) :
+Pour la version "__Eclipse Standard/SDK__" (et toutes les autres) :
 
 	* plugin "Maven Integration for Eclipse (Juno and newer)" : http://goo.gl/vhmB4A
 	* plugin "Maven Integration for Eclipse WTP (Juno)" : http://goo.gl/pf2Oos
 
-Importation du projet sous Eclipse avec Maven :
+Importation du projet sous Eclipse __avec Maven__ :
 
 	* Il suffit ensuite pour IMPORTER LE PROJET dans Eclipse de faire "File" -> "Import" -> "Existing Maven Project"
 
@@ -87,7 +87,7 @@ pom.xml :
 	* Version : 2.0.0
 	* Packaging : jar
 
-Couverture actuelle du code (tests unitaires) : 61.3 %
+**Couverture actuelle du code** (tests unitaires) : 61.3 %
 
 =====================================
 SECTION 05 - Outils et bibliothèques utilisées
@@ -109,13 +109,13 @@ Utilisation de bibliothèques (voir pom.xml) :
 SECTION 06 - Fichier de configuration
 -------------------------------------------------------
 
-Pour quel emploi :
+Pourquoi un __fichier de configuration__ :
 
 	* Il est possible de créer un fichier de configuration afin de permettre de lancer une partie sans avoir à taper le nom et le type de tous les joueurs
 	* Pour cela il suffit de créer un fichier nommé "config.ini" respectant formatté en JSON selon les règles décrites ci-après
 	* Il sera demandé, lors du lancement de l'application si vous souhaitez charger le fichier de configuration afin de créer tous les joueurs
 	
-L'arborescence JSON au sein du fichier de configuration doit respecter les règles suivantes :
+L'arborescence __JSON__ au sein du fichier de configuration doit respecter les __règles__ suivantes :
 
 	{
 		"players": [ 
@@ -125,18 +125,20 @@ L'arborescence JSON au sein du fichier de configuration doit respecter les règl
 		]
 	}
 	
-Les données d'un joueur HUMAIN se présente sous la forme suivante (avec %% correspondant à une chaine de texte quelconque) :
+Les données d'un joueur __HUMAIN__ se présente sous la forme suivante (avec %% correspondant à une chaine de texte quelconque) :
 	
 	"nickname": "%%", 
 	"status": "%%" 
 	
-Les données d'un joueur IA se présente sous la forme suivante (avec %% correspondant à une chaine de texte quelconque), notez que le champs difficultyLevel DOIT contenir un nombre compris entre 0 et 2 :
+Les données d'un joueur __IA__ se présente sous la forme suivante (avec %% correspondant à une chaine de texte quelconque)
+
+Veuillez noter que le champs difficultyLevel  __DOIT__ contenir un nombre compris  __entre 0 et 2__ :
 	
 	"nickname": "AI 02", 
 	"status": "AI", 
 	"difficultyLevel [0-2]": "1" 
 
-Ainsi, un fichier de configuration valide contiendra de 2 à 7 joueurs et se présentera de la façon suivante (par exemple) :
+Ainsi, un fichier de configuration valide contiendra de __2 à 7 joueurs__ et se présentera de la façon suivante (par exemple) :
 
 	{ 
 		"players": [ 
@@ -157,4 +159,4 @@ Ainsi, un fichier de configuration valide contiendra de 2 à 7 joueurs et se pr�
 		] 
 	}
 
-S'il y a moins de 2 joueurs, ou plus de 7, le fichier de configuration sera rejetté au moment de son chargement
+S'il y a moins de 2 joueurs, ou plus de 7, le fichier de configuration __sera rejetté__ au moment de son chargement

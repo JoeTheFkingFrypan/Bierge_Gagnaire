@@ -109,7 +109,7 @@ Utilisation de bibliothèques (voir pom.xml) :
 SECTION 06 - Fichier de configuration
 -------------------------------------------------------
 
-Pour quel emploi :
+Pourquoi un fichier de configuration :
 
 	* Il est possible de créer un fichier de configuration afin de permettre de lancer une partie sans avoir à taper le nom et le type de tous les joueurs
 	* Pour cela il suffit de créer un fichier nommé "config.ini" respectant formatté en JSON selon les règles décrites ci-après
@@ -130,7 +130,9 @@ Les données d'un joueur HUMAIN se présente sous la forme suivante (avec %% corre
 	"nickname": "%%", 
 	"status": "%%" 
 	
-Les données d'un joueur IA se présente sous la forme suivante (avec %% correspondant à une chaine de texte quelconque), notez que le champs difficultyLevel DOIT contenir un nombre compris entre 0 et 2 :
+Les données d'un joueur IA se présente sous la forme suivante (avec %% correspondant à une chaine de texte quelconque)
+
+Veuillez noter que le champs difficultyLevel  DOIT contenir un nombre compris  entre 0 et 2 :
 	
 	"nickname": "AI 02", 
 	"status": "AI", 
