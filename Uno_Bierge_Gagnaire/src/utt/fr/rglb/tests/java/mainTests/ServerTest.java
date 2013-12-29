@@ -1,4 +1,4 @@
-package utt.fr.rglb.tests.java.mainTests;
+﻿package utt.fr.rglb.tests.java.mainTests;
 
 import static org.junit.Assert.assertEquals;
 
@@ -8,7 +8,7 @@ import org.junit.Test;
 import utt.fr.rglb.main.java.main.Server;
 
 /**
- * Classe de tests unitaires validant le comportement des m�thodes de la classe Server
+ * Classe de tests unitaires validant le comportement des méthodes de la classe Server
  * @see Server
  */
 public class ServerTest {

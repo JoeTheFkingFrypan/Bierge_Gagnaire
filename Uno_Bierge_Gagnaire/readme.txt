@@ -1,145 +1,105 @@
+ï»¿===============
 LO02 UNO Project
-Version du projet : 2.0.0
+===============
+
+	Version du projet : 3.0.0
+	Couverture actuelle du code : 61.3 %
+
+
+	GroupId : Uno_Bierge_Gagnaire
+	ArtifactId : Uno_Bierge_Gagnaire
+	Version : 3.0.0
+	Packaging : jar
 
 =====================================
 SECTION 01 - Auteurs
 ---------------------------- 
 
-	* Laurent BIERGE
-	* Romain GAGNAIRE
-
-=====================================
-SECTION 02 - Notes
--------------------------
-
-Eclipse & Codes ANSI :
-
-	* La version "console" de notre jeu UNO utilise des codes ANSI pour afficher du texte en couleur dans la console
-	* Eclipse en prend pas en charge ce code, affichant le texte en noir quoi qu'il arrive, raison pour laquelle le lancement du programme depuis Eclipse est déconseillé
-	* Pour avoir la gestion des codes ANSI dans la console d'éclipse, se référer à la SECTION 4
-
-Méthode la plus simple :
-
-	* Il est donc préférable de lancer le JAR présent dans le dossier DIST. Un executable (.exe) est fourni permettant de lancer automatique le programme sous Windows.
-	* [1] Pour Mac & Linux, il est fort possible que vous ayez à créer un dossier DIST (dans le dossier DIST --sous-entendu dist/dist) et de copier le fichier de configuration config.ini dans ce dernier (--sous-entendu /dist/dist/config.ini) si jamais vous souhaitez utiliser la fonction de lancement rapide de partie (utilisant une lecture du fichier de configuration)
-
-[1] Ceci pour une raison très simple : 
-
-	* Le programme utilise le fichier de configuration situé dans le dossier DIST.
-	* Lors de l'export de l'executable JAR, le dossier contenant l'executable étant le dossier DIST, il est nécessaire de recréer ce même schéma pour pouvoir charger le fichier de configuration
-	* De cette manière il est possible d'executer le programme au sein d'Eclipse ET depuis le JAR executable
-
-=====================================
-SECTION 03 - Maven
---------------------------
-
-Maven & Eclipse :
-
-	* Ce projet utilise Maven pour gérer automatiquement les dépendances. Cependant, il n'est installé nativement QUE dans la version "Eclipse Java EE IDE for Web Developers" 
-	* Pour être lancé depuis Eclipse, le projet peut necessiter l'installation de plugins au sein d'Eclipse en fonction de la version d'Eclipse installée.
-	* A noter que l'utilisation de Maven impose le fait que que les classes compilées se trouveront dans le dossier target/classes/*
-	
-Version d'Eclipse :
-
-	* Pour connaitre la version d'Eclipse, il suffit de cliquer sur "Help" -> "About Eclipse".
-	* Pour installer un plugin dans Eclipse, il suffit de cliquer sur "Help" -> "Eclipse Marketplace" et taper dans find le nom associé.
-
-Pour la version "Eclipse Java EE IDE for Web Developers" :
-
-	* Aucun plugin à installer
-
-Pour la version "Eclipse Standard/SDK" (et toutes les autres) :
-
-	* plugin "Maven Integration for Eclipse (Juno and newer)" : http://goo.gl/vhmB4A
-	* plugin "Maven Integration for Eclipse WTP (Juno)" : http://goo.gl/pf2Oos
-
-Importation du projet sous Eclipse avec Maven :
-
-	* Il suffit ensuite pour IMPORTER LE PROJET dans Eclipse de faire "File" -> "Import" -> "Existing Maven Project"
-
-=====================================
-SECTION 04 - Plugins Recommandés
-----------------------------------------------
-
-Pour quelles raisons :
-
-	* Si vous souhaitez tester la couverture du code par les tests unitaires : EclEmma
-	* Si vous souhaitez avoir un affichage du texte en couleur dans la console d'Eclipse : ANSI Escape in Console
-
-EclEmma :
-
-	* "EclEmma" (http://goo.gl/kUMw96) est recommandé mais pas requis.
-	* Méthode d'installation : "Help" -> "Eclipse Marketplace" et taper dans find le nom associé.
-
-ANSI Escape in Console :
-
-	* "ANSI Escape in Console" (http://goo.gl/YfzVB4) est dispensable si le programme est lancé directement depuis le jar --méthode recommandée
-	* Méthode d'installation : "Help" -> "Install new software" -> Entrer http://www.mihai-nita.net/eclipse dans le champs "Work With" -> Cocher "ANSI console" -> Next/Finish
-
-=====================================
-SECTION 05 - Statut de l'application
---------------------------------------------
-
-pom.xml :
-
-	* GroupId : Uno_Bierge_Gagnaire
-	* ArtifactId : Uno_Bierge_Gagnaire
-	* Version : 2.0.0
-	* Packaging : jar
-
-Couverture actuelle du code (tests unitaires) : 61.3 %
-
-=====================================
-SECTION 05 - Outils et bibliothèques utilisées
--------------------------------------------------------
-
-Outils utilisés :
-
-	* Maven
-
-Utilisation de bibliothèques (voir pom.xml) :
-
-	* JUnit : tests unitaires
-	* Mockito & PowerMock : fonctionnalités avancées pour les tests unitaires (amélioration des possibilités de tests unitaires permettant de simuler le comportement d'objets)
-	* Guava : multiples outils (gestion des préconditions, regex simplifées, matchers, entre autres)
-	* Gson : lecture et récupération d'informations à partir de fichiers formattés en JSON (pour fichier de configuration)
-	* Jansi : affichage en couleur dans la console
+	Laurent BIERGE
+	Romain GAGNAIRE
 	
 =====================================
-SECTION 06 - Fichier de configuration
--------------------------------------------------------
+SECTION 02 - Sommaire
+---------------------------- 
 
-Pourquoi un fichier de configuration :
+	1. Auteurs
+	2. Sommaire
+	3. Notes importantes
+	4. Outils et bibliothÃ¨ques utilisÃ©s
+	5. Fichier de configuration
+	6. Plugins recommandÃ©s
+	7. IntÃ©gration de Maven sur Eclipse
+	8. IntÃ©gration de JavaFX sur Eclipse
 
-	* Il est possible de créer un fichier de configuration afin de permettre de lancer une partie sans avoir à taper le nom et le type de tous les joueurs
-	* Pour cela il suffit de créer un fichier nommé "config.ini" respectant formatté en JSON selon les règles décrites ci-après
-	* Il sera demandé, lors du lancement de l'application si vous souhaitez charger le fichier de configuration afin de créer tous les joueurs
+=====================================
+SECTION 03 - Notes importantes
+---------------------------- 
+
+	PrÃ©requis :
+	Afin de pouvoir fonctionner correctement Eclipse a besoin d'un certain nombre de plugins et d'outils (dont certains sont installÃ©s par dÃ©faut) :
+		Maven (se rÃ©fÃ©rer Ã  la SECTION 7 - IntÃ©gration de Maven sur Eclipse)
+		e(fx)clipse (se rÃ©fÃ©rer Ã  la SECTION 8 - IntÃ©gration de JavaFX sur Eclipse)
+
+	Eclipse & Codes ANSI :
+		La version "console" de notre jeu UNO utilise des codes ANSI pour afficher du texte en couleur dans la console
+		Eclipse en prend pas en charge ce code, affichant le texte en noir quoi qu'il arrive, raison pour laquelle le lancement du programme depuis Eclipse est dÃ©conseillÃ©
+		Pour avoir la gestion des codes ANSI dans la console d'Ã©clipse, se rÃ©fÃ©rer Ã  la SECTION 06 - Plugins RecommandÃ©s
+
+	MÃ©thode la plus simple :
+		Il est donc prÃ©fÃ©rable de lancer le JAR prÃ©sent dans le dossier DIST. Un executable (UNO_Automated_Windows_Launcher.exe) est fourni permettant de lancer automatique le programme sous Windows. Il crÃ©era automatiquement les dossiers/fichiers de configuration qui pourraient vous Ãªtre utiles.
+		Pour Mac & Linux, vous devrez crÃ©er un dossier DIST (ie: dist/dist) et copier le fichier de configuration config.ini dans ce dernier (ie: /dist/dist/config.ini) si jamais vous souhaitez utiliser la fonction de lancement rapide de partie (utilisant une lecture du fichier de configuration)
+
+	Ceci pour une raison trÃ¨s simple : 
+		Eclipse utilise le fichier de configuration situÃ© dans le dossier dist (on se trouve ainsi avec dist/config.ini)
+		Le JAR executable se trouvant lui-mÃªme dans le dossier dist, il est nÃ©cessaire de recrÃ©er la mÃªme arborescence depuis cette nouvelle racine pour pouvoir charger le fichier de configuration. (Raison pour laquelle on se retrouve avec dist/dist/config.ini)
+		De cette maniÃ¨re il est possible d'executer le programme au sein d'Eclipse ET depuis le JAR executable
+
+=====================================
+SECTION 04 - Outils et bibliothÃ¨ques utilisÃ©es
+---------------------------- 
+
+Outils utilisÃ©s :
+	Maven
+	Log4j
+
+Utilisation de bibliothÃ¨ques (voir pom.xml) :
+	JUnit : tests unitaires
+	Mockito & PowerMock : fonctionnalitÃ©s avancÃ©es pour les tests unitaires (amÃ©lioration des possibilitÃ©s de tests unitaires permettant de simuler le comportement d'objets)
+	Guava : multiples outils (gestion des prÃ©conditions, regex simplifÃ©es, matchers, entre autres)
+	Gson : lecture et rÃ©cupÃ©ration d'informations Ã  partir de fichiers formattÃ©s en JSON (pour fichier de configuration)
+	Jansi : affichage en couleur dans la console
+	Log4j : journalisation des diffÃ©rents Ã©venements
+	JavaFX : affichage graphique de la partie
+
+=====================================
+SECTION 05 - Fichier de configuration
+---------------------------- 
+
+Pour quelle raison :
+	Il est possible de crÃ©er un fichier de configuration afin de permettre de lancer une partie sans avoir Ã  taper le nom et le type de tous les joueurs
+	Pour cela il suffit de crÃ©er un fichier nommÃ© config.ini respectant formattÃ© en JSON selon les rÃ¨gles dÃ©crites ci-aprÃ¨s
+	Il sera demandÃ©, lors du lancement de l'application si vous souhaitez charger le fichier de configuration afin de crÃ©er tous les joueurs
 	
-L'arborescence JSON au sein du fichier de configuration doit respecter les règles suivantes :
-
+L'arborescence JSON au sein du fichier de configuration doit respecter les rÃ¨gles suivantes :
 	{
 		"players": [ 
 			{
-				//Données d'un joueur
+				//DonnÃ©es d'un joueur
 			}
 		]
 	}
 	
-Les données d'un joueur HUMAIN se présente sous la forme suivante (avec %% correspondant à une chaine de texte quelconque) :
-	
+Les donnÃ©es d'un joueur HUMAIN se prÃ©sente sous la forme suivante (avec %% correspondant Ã  une chaine de texte quelconque) :
 	"nickname": "%%", 
 	"status": "%%" 
 	
-Les données d'un joueur IA se présente sous la forme suivante (avec %% correspondant à une chaine de texte quelconque)
-
+Les donnÃ©es d'un joueur IA se prÃ©sente sous la forme suivante (avec %% correspondant Ã  une chaine de texte quelconque)
 Veuillez noter que le champs difficultyLevel  DOIT contenir un nombre compris  entre 0 et 2 :
-	
 	"nickname": "AI 02", 
 	"status": "AI", 
 	"difficultyLevel [0-2]": "1" 
 
-Ainsi, un fichier de configuration valide contiendra de 2 à 7 joueurs et se présentera de la façon suivante (par exemple) :
-
+Ainsi, un fichier de configuration valide contiendra de 2 Ã  7 joueurs et se prÃ©sentera de la faÃ§on suivante (par exemple) :
 	{ 
 		"players": [ 
 			{ 
@@ -159,4 +119,62 @@ Ainsi, un fichier de configuration valide contiendra de 2 à 7 joueurs et se prés
 		] 
 	}
 
-S'il y a moins de 2 joueurs, ou plus de 7, le fichier de configuration sera rejetté au moment de son chargement
+S'il y a moins de 2 joueurs, ou plus de 7, le fichier de configuration sera rejettÃ© au moment de son chargement
+
+=====================================
+SECTION 06 - Plugins RecommandÃ©s
+---------------------------- 
+
+Pour quelles raisons :
+	Si vous souhaitez tester la couverture du code par les tests unitaires : EclEmma
+	Si vous souhaitez avoir un affichage du texte en couleur dans la console d'Eclipse : ANSI Escape in Console
+
+EclEmma :
+	EclEmma (http://goo.gl/kUMw96) est recommandÃ© mais pas requis.
+	MÃ©thode d'installation : Help -> Eclipse Marketplace et taper dans find le nom associÃ©.
+
+ANSI Escape in Console :
+	ANSI Escape in Console  (http://goo.gl/Yth0XK))n'est pas nÃ©cessaire si le programme est exÃ©cutÃ© depuis le JAR --MÃ©thode recommandÃ©e
+	Si vous souhaitez de mÃªme utiliser Eclipse pour lancer le UNO la dÃ©marche est comme suit : Help -> Install new software -> Entrer http://www.mihai-nita.net/eclipse dans le champs Work With -> Cocher ANSI console -> Cliquer surNext/Finish
+
+=====================================
+SECTION 07 - IntÃ©gration de Maven sur Eclipse
+---------------------------- 
+
+Pour quelle raison :
+	Ce projet utilise Maven pour gÃ©rer automatiquement les dÃ©pendances. 
+	Cependant, il n'est installÃ© nativement QUE dans la version Eclipse Java EE IDE for Web Developers
+	Pour Ãªtre lancÃ© depuis Eclipse, le projet peut nÃ©cessiter l'installation de plugins au sein d'Eclipse en fonction de la version d'Eclipse installÃ©e.
+	A noter que l'utilisation de Maven impose le fait que que les classes compilÃ©es se trouveront dans le dossier target/classes/*
+	
+Version d'Eclipse :
+	Pour connaitre la version d'Eclipse, il suffit de cliquer sur Help -> About Eclipse.
+	Pour installer un plugin dans Eclipse, il suffit de cliquer sur Help -> Eclipse Marketplace et taper dans find le nom associÃ©.
+
+Pour la version Eclipse Java EE IDE for Web Developers :
+	Aucun plugin Ã  installer
+
+Pour la version Eclipse Standard/SDK (et toutes les autres) :
+	Installer le plugin Maven Integration for Eclipse (Juno and newer) : ((http://goo.gl/vhmB4A)
+	Installer le plugin Maven Integration for Eclipse WTP (Juno) : (http://goo.gl/pf2Oos)
+
+Importation du projet sous Eclipse avec Maven :
+	Il suffit de faire File -> Import -> Existing Maven Project
+
+Fonctionnement de Maven (pour tÃ©lÃ©charger toutes les dÃ©pendances)
+	1. Clique-droit sur la racine du projet -> Maven -> Clean
+	2. Clique-droit sur la racine du projet -> Maven -> Install
+	3. Clique-droit sur la racine du projet -> Maven -> Update Project	
+	
+=====================================
+SECTION 08 - IntÃ©gration de JavaFX sur Eclipse
+---------------------------- 
+
+Pour quelle raison :
+	Ce projet utilise JavaFX pour l'affichage dans une interface graphique
+	JavaFX est un ensemble d'outils crÃ©Ã©s par Oracle permettant de concevoir et de crÃ©er des applications riches en java.
+	Il n'existe Ã  l'heure actuelle aucune intÃ©gration simple de ce framework dans Maven, raison motivant la nÃ©cessitÃ© du plugin e(fx)clipse, permettant l'intÃ©gration dans Eclipse
+
+Installation de e(fx)clipse
+	Installer le plugin e(fx)clipse : (http://goo.gl/oAqh6Q)
+	MÃ©thode d'installation : Help -> Eclipse Marketplace et taper dans find le nom associÃ©.

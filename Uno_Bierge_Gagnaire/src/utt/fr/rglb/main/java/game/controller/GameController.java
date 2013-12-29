@@ -1,4 +1,4 @@
-package utt.fr.rglb.main.java.game.controller;
+ï»¿package utt.fr.rglb.main.java.game.controller;
 
 import java.io.BufferedReader;
 import java.io.Serializable;
@@ -12,7 +12,7 @@ import utt.fr.rglb.main.java.player.controller.PlayerControllerBean;
 import utt.fr.rglb.main.java.player.model.PlayerTeam;
 
 /**
- * Classe permettant de gérer l'ensemble de la partie
+ * Classe permettant de gÃ©rer l'ensemble de la partie
  */
 public class GameController implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -33,7 +33,7 @@ public class GameController implements Serializable {
 	/* ========================================= INITIALIZING ========================================= */
 
 	/**
-	 * Méthode permettant d'initialiser les paramètres (nombre de joueurs, nom de chacun des joueurs)
+	 * MÃ©thode permettant d'initialiser les paramÃ¨tres (nombre de joueurs, nom de chacun des joueurs)
 	 */
 	private void initializeGameSettings() {
 		this.consoleView.displayTitle("SETTINGS");
@@ -41,7 +41,7 @@ public class GameController implements Serializable {
 	}
 
 	/**
-	 * Méthode permettant de tout ré-initialiser lors du demarrage d'une nouvelle partie
+	 * MÃ©thode permettant de tout rÃ©-initialiser lors du demarrage d'une nouvelle partie
 	 */
 	private void resetEverything() {
 		this.gameModel.resetEverything();
@@ -50,8 +50,8 @@ public class GameController implements Serializable {
 	/* ========================================= GAME LOGIC ========================================= */
 
 	/**
-	 * Méthode permettant de lancer une nouvelle partie de UNO
-	 * A chaque demarrage sera demandé un certain nombre d'informations (nombre de joueurs, leurs noms)
+	 * MÃ©thode permettant de lancer une nouvelle partie de UNO
+	 * A chaque demarrage sera demandÃ© un certain nombre d'informations (nombre de joueurs, leurs noms)
 	 */
 	public void startAnotherGame() {
 		initializeGameSettings();
@@ -60,8 +60,8 @@ public class GameController implements Serializable {
 	}
 
 	/**
-	 * Méthode privée permettant de lancer un nombre infini de "round" jusqu'à ce qu'un joueur ait plus de 500 points
-	 * @return PlayerControllerBean Objet englobant un joueur, permettant d'avoir accès à des méthodes de haut niveau facilement
+	 * MÃ©thode privÃ©e permettant de lancer un nombre infini de "round" jusqu'Ã  ce qu'un joueur ait plus de 500 points
+	 * @return PlayerControllerBean Objet englobant un joueur, permettant d'avoir accÃ¨s Ã  des mÃ©thodes de haut niveau facilement
 	 */
 	private PlayerControllerBean cycleUntilSomeoneWins() {
 		PlayerControllerBean gameWinner = new PlayerControllerBean();
@@ -73,8 +73,8 @@ public class GameController implements Serializable {
 	}
 
 	/**
-	 * Méthode privée permettant de lancer un nouveau round, faisant jouer tous les participants à tour de rôle jusqu'à ce que l'un d'eux n'ait plus de cartes
-	 * @return PlayerControllerBean Objet englobant un joueur, permettant d'avoir accès à des méthodes de haut niveau facilement
+	 * MÃ©thode privÃ©e permettant de lancer un nouveau round, faisant jouer tous les participants Ã  tour de rÃ´le jusqu'Ã  ce que l'un d'eux n'ait plus de cartes
+	 * @return PlayerControllerBean Objet englobant un joueur, permettant d'avoir accÃ¨s Ã  des mÃ©thodes de haut niveau facilement
 	 */
 	private PlayerControllerBean playOneRound() {
 		startNewRound();
@@ -91,7 +91,7 @@ public class GameController implements Serializable {
 	}
 
 	/**
-	 * Méthode privée permettant de réinitialiser les cartes des joueurs/pioche/talon et de tirer la 1ère carte du jeu au début de chaque round
+	 * MÃ©thode privÃ©e permettant de rÃ©initialiser les cartes des joueurs/pioche/talon et de tirer la 1Ã¨re carte du jeu au dÃ©but de chaque round
 	 */
 	private void startNewRound() {
 		this.consoleView.displayTitle("NEW ROUND STARTING");
@@ -102,8 +102,8 @@ public class GameController implements Serializable {
 	/* ========================================= UNO HANDLING ========================================= */
 	
 	/**
-	 * Méthode privée permettant de gérer l'oubli de l'annonce UNO par un joueur ayant joué sa dernière carte
-	 * @param roundWinner PlayerControllerBean Objet englobant le joueur en cours, permettant d'avoir accès à des méthodes de haut niveau facilement
+	 * MÃ©thode privÃ©e permettant de gÃ©rer l'oubli de l'annonce UNO par un joueur ayant jouÃ© sa derniÃ¨re carte
+	 * @param roundWinner PlayerControllerBean Objet englobant le joueur en cours, permettant d'avoir accÃ¨s Ã  des mÃ©thodes de haut niveau facilement
 	 */
 	private void handleMissingUnoAnnoucement(PlayerControllerBean roundWinner) {
 		Preconditions.checkNotNull(roundWinner,"[ERROR] Impossible to handle UNO annoucement : provided player is null");
@@ -114,8 +114,8 @@ public class GameController implements Serializable {
 	}
 
 	/**
-	 * Méthode privée permettant de gérer l'annonce (abusive ou non) de UNO
-	 * @param roundWinner PlayerControllerBean Objet englobant le joueur en cours, permettant d'avoir accès à des méthodes de haut niveau facilement
+	 * MÃ©thode privÃ©e permettant de gÃ©rer l'annonce (abusive ou non) de UNO
+	 * @param roundWinner PlayerControllerBean Objet englobant le joueur en cours, permettant d'avoir accÃ¨s Ã  des mÃ©thodes de haut niveau facilement
 	 */
 	private void handleUnoAnnoucement(PlayerControllerBean roundWinner) {
 		Preconditions.checkNotNull(roundWinner,"[ERROR] Impossible to handle UNO annoucement : provided player is null");
@@ -129,8 +129,8 @@ public class GameController implements Serializable {
 	/* ========================================= WIN EVENT ========================================= */
 
 	/**
-	 * Méthode privée permettant de gérer l'évènement de victoire d'un des joueurs
-	 * @param winningPlayer PlayerControllerBean Objet englobant le joueur victorieux, permettant d'avoir accès à des méthodes de haut niveau facilement
+	 * MÃ©thode privÃ©e permettant de gÃ©rer l'Ã©vÃ¨nement de victoire d'un des joueurs
+	 * @param winningPlayer PlayerControllerBean Objet englobant le joueur victorieux, permettant d'avoir accÃ¨s Ã  des mÃ©thodes de haut niveau facilement
 	 */
 	private void handleWinEvent(PlayerControllerBean winningPlayer) {
 		Preconditions.checkNotNull(winningPlayer,"[ERROR] Impossible to handle winning player : provided player is null");

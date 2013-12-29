@@ -1,4 +1,4 @@
-/**
- * Package contenant le point d'entr�e du programme
+﻿/**
+ * Package contenant le point d'entrée du programme
  */
 package utt.fr.rglb.main.java.main;

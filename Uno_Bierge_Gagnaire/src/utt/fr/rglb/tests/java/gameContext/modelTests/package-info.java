@@ -1,4 +1,4 @@
-/**
- * Package associé aux tests unitaires basés sur le package source contenant les modèles de contexte de jeu
+ï»¿/**
+ * Package associÃ© aux tests unitaires basÃ©s sur le package source contenant les modÃ¨les de contexte de jeu
  */
 package utt.fr.rglb.tests.java.gameContext.modelTests;

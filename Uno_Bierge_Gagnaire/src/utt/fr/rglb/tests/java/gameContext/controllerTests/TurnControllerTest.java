@@ -1,4 +1,4 @@
-package utt.fr.rglb.tests.java.gameContext.controllerTests;
+ï»¿package utt.fr.rglb.tests.java.gameContext.controllerTests;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -19,8 +19,8 @@ import java.util.Arrays;
 import java.util.Collection;
 
 /**
- * Classe de tests unitaires validant le comportement des méthodes de la classe TurnController
- * </br>Utilisation de simulacres pour la vue et le lecteur bufferisé --injection de dépendance permettant d'émuler une entrée au clavier (Mockito)
+ * Classe de tests unitaires validant le comportement des mÃ©thodes de la classe TurnController
+ * </br>Utilisation de simulacres pour la vue et le lecteur bufferisÃ© --injection de dÃ©pendance permettant d'Ã©muler une entrÃ©e au clavier (Mockito)
  * @see TurnController
  */
 public class TurnControllerTest {

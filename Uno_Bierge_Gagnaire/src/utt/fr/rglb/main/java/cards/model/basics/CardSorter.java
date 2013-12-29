@@ -1,4 +1,4 @@
-package utt.fr.rglb.main.java.cards.model.basics;
+ï»¿package utt.fr.rglb.main.java.cards.model.basics;
 
 import java.io.Serializable;
 import java.util.Comparator;
@@ -12,8 +12,8 @@ public class CardSorter implements Comparator<Card>, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Méthode permettant de comparer 2 cartes afin de pouvoir les trier au sein d'une collection
-	 * Tri par couleur puis par valeur/numéro
+	 * MÃ©thode permettant de comparer 2 cartes afin de pouvoir les trier au sein d'une collection
+	 * Tri par couleur puis par valeur/numÃ©ro
 	 */
 	public int compare(Card firstCard, Card secondCard){
 		Preconditions.checkNotNull(firstCard,"[ERROR] Cannot compare cards : the first one provided is null");

@@ -1,4 +1,4 @@
-package utt.fr.rglb.main.java.player.AI;
+ï»¿package utt.fr.rglb.main.java.player.AI;
 
 import com.google.common.base.Preconditions;
 
@@ -9,13 +9,13 @@ import java.util.Random;
 import utt.fr.rglb.main.java.cards.model.basics.Card;
 
 /**
- * Classe correspondant à l'implémentation d'une stratégie
+ * Classe correspondant Ã  l'implÃ©mentation d'une stratÃ©gie
  */
 public class DrawMostValuableCard extends CardPickerStrategyImpl {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Méthode permettant d'obtenir l'index de la carte la plus appropriée, basé sur le type de stratégie
+	 * MÃ©thode permettant d'obtenir l'index de la carte la plus appropriÃ©e, basÃ© sur le type de stratÃ©gie
 	 * </br>La carte choisie sera la carte jouable ayant la plus haute valeur en points
 	 */
 	@Override
@@ -35,10 +35,10 @@ public class DrawMostValuableCard extends CardPickerStrategyImpl {
 	}
 	
 	/**
-	 * Méthode permettant à l'IA de déterminer si accuser le joueur précédent de bluffer est une bonne idée ou pas
-	 * </br>La décision d'accuser le joueur précédent est faite de la manière suivante
-	 * </br> - Si l'IA a moins de 6 cartes, il essayera toujours de vérifier
-	 * </br> - Si l'IA a plus de 6 cartes ou plus, la décision est aléatoire
+	 * MÃ©thode permettant Ã  l'IA de dÃ©terminer si accuser le joueur prÃ©cÃ©dent de bluffer est une bonne idÃ©e ou pas
+	 * </br>La dÃ©cision d'accuser le joueur prÃ©cÃ©dent est faite de la maniÃ¨re suivante
+	 * </br> - Si l'IA a moins de 6 cartes, il essayera toujours de vÃ©rifier
+	 * </br> - Si l'IA a plus de 6 cartes ou plus, la dÃ©cision est alÃ©atoire
 	 */
 	@Override
 	public boolean chooseIfAccusingPreviousPlayerOfBluffingIsWorthIt(Collection<Card> cardCollection) {

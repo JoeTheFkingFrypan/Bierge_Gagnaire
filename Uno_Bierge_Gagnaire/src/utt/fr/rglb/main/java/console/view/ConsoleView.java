@@ -1,4 +1,4 @@
-package utt.fr.rglb.main.java.console.view;
+ï»¿package utt.fr.rglb.main.java.console.view;
 
 /**
  * Classe d'affichage permettant d'avoir une interface console
@@ -22,7 +22,7 @@ public class ConsoleView extends View {
 	/* ========================================= HEADER & TITLE DISPLAYS ========================================= */
 	
 	/**
-	 * Méthode privée permettant d'afficher le titre du programme
+	 * MÃ©thode privÃ©e permettant d'afficher le titre du programme
 	 */
 	private void displayHeader() {
 		this.consoleDisplay.generateRedEmphasis("  UUUUUUUU     UUUUUUUU  NNNNNNNN        NNNNNNNN       OOOOOOOOO     ");
@@ -45,7 +45,7 @@ public class ConsoleView extends View {
 	}
 	
 	/**
-	 * Méthode privée permettant d'afficher les auteurs du programme
+	 * MÃ©thode privÃ©e permettant d'afficher les auteurs du programme
 	 */
 	private void displayAuthors() {
 		this.consoleDisplay.generateGreenEmphasis("  ___  _ ____ ____ ____ ____      /    ____ ____ ____ _  _ ____ _ ____ ____");

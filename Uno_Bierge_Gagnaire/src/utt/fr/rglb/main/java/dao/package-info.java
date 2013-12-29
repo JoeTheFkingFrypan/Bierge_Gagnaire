@@ -1,4 +1,4 @@
-/**
- * Package associé à la lecture du fichier de configuration --Et servira sûrement au système de sauvegarde (pour peu qu'il soit implémenté)
+ï»¿/**
+ * Package associÃ© Ã  la lecture du fichier de configuration --Et servira sÃ»rement au systÃ¨me de sauvegarde (pour peu qu'il soit implÃ©mentÃ©)
  */
 package utt.fr.rglb.main.java.dao;

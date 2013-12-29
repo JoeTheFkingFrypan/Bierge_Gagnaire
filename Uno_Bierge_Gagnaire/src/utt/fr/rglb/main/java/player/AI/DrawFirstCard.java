@@ -1,4 +1,4 @@
-package utt.fr.rglb.main.java.player.AI;
+ï»¿package utt.fr.rglb.main.java.player.AI;
 
 import com.google.common.base.Preconditions;
 
@@ -9,16 +9,16 @@ import java.util.Random;
 import utt.fr.rglb.main.java.cards.model.basics.Card;
 
 /**
- * Classe correspondant à l'implémentation d'une stratégie
+ * Classe correspondant Ã  l'implÃ©mentation d'une stratÃ©gie
  * 
- * </br>La décision d'accuser le joueur précédent est faite aléatoirement
+ * </br>La dÃ©cision d'accuser le joueur prÃ©cÃ©dent est faite alÃ©atoirement
  */
 public class DrawFirstCard extends CardPickerStrategyImpl {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Méthode permettant d'obtenir l'index de la carte la plus appropriée, basé sur le type de stratégie
-	 * </br>La carte choisie sera la 1ère carte jouable dans la main du joueur
+	 * MÃ©thode permettant d'obtenir l'index de la carte la plus appropriÃ©e, basÃ© sur le type de stratÃ©gie
+	 * </br>La carte choisie sera la 1Ã¨re carte jouable dans la main du joueur
 	 */
 	@Override
 	public int findBestCardToPlay(Collection<Integer> playableIndexes, Collection<Card> cardCollection) {
@@ -28,8 +28,8 @@ public class DrawFirstCard extends CardPickerStrategyImpl {
 	}
 
 	/**
-	 * Méthode permettant à l'IA de déterminer si accuser le joueur précédent de bluffer est une bonne idée ou pas
-	 * </br>La décision d'accuser le joueur précédent est faite aléatoirement
+	 * MÃ©thode permettant Ã  l'IA de dÃ©terminer si accuser le joueur prÃ©cÃ©dent de bluffer est une bonne idÃ©e ou pas
+	 * </br>La dÃ©cision d'accuser le joueur prÃ©cÃ©dent est faite alÃ©atoirement
 	 */
 	@Override
 	public boolean chooseIfAccusingPreviousPlayerOfBluffingIsWorthIt(Collection<Card> cardCollection) {

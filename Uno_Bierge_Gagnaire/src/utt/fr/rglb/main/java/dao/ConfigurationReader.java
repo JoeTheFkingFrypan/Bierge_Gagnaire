@@ -1,4 +1,4 @@
-package utt.fr.rglb.main.java.dao;
+ï»¿package utt.fr.rglb.main.java.dao;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,8 +10,8 @@ import com.google.common.base.Preconditions;
 import com.google.common.io.Files;
 
 /**
- * Classe permettant de récupérer des informations stockées dans un fichier 
- * </br>Encapsule les classes requises pour être capable de parser du JSON depuis le fichier
+ * Classe permettant de rÃ©cupÃ©rer des informations stockÃ©es dans un fichier 
+ * </br>Encapsule les classes requises pour Ãªtre capable de parser du JSON depuis le fichier
  */
 public class ConfigurationReader {
 	private JsonParser jsonParser;
@@ -25,9 +25,9 @@ public class ConfigurationReader {
 	/* ========================================= FILE READING ========================================= */
 	
 	/**
-	 * Méthode permettant de créer tous les joueurs (humains et/ou IA) depuis le fichier de configuration
+	 * MÃ©thode permettant de crÃ©er tous les joueurs (humains et/ou IA) depuis le fichier de configuration
 	 * @param urlToFile String contenant le chemin du fichier
-	 * @return PlayersToCreate Objet encapsulant les informations de tous les joueurs devant être créés
+	 * @return PlayersToCreate Objet encapsulant les informations de tous les joueurs devant Ãªtre crÃ©Ã©s
 	 */
 	public PlayersToCreate readConfigurationAt(String urlToFile) {
 		Preconditions.checkNotNull(urlToFile,"[ERROR] Impossible to read configuration file : provided URL is null");

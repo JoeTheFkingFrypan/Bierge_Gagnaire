@@ -1,4 +1,4 @@
-/**
- * Package associé aux tests basés sur le controlleur permettant de gérer l'ensemble des cartes composant le jeu
+ï»¿/**
+ * Package associÃ© aux tests basÃ©s sur le controlleur permettant de gÃ©rer l'ensemble des cartes composant le jeu
  */
 package utt.fr.rglb.tests.java.cards.controller;

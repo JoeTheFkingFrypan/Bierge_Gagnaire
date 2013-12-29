@@ -1,4 +1,4 @@
-/**
- * Package associé au controlleur permettant de gérer l'ensemble des cartes composant le jeu
+ï»¿/**
+ * Package associÃ© au controlleur permettant de gÃ©rer l'ensemble des cartes composant le jeu
  */
 package utt.fr.rglb.main.java.cards.controller;

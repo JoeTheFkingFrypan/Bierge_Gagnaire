@@ -1,4 +1,4 @@
-package utt.fr.rglb.main.java.player.model;
+ï»¿package utt.fr.rglb.main.java.player.model;
 
 import com.google.common.base.Preconditions;
 
@@ -14,7 +14,7 @@ import utt.fr.rglb.main.java.player.controller.PlayerControllerAI;
 import utt.fr.rglb.main.java.player.controller.PlayerController;
 
 /**
- * Classe englobant tous les joeuurs devant être créés et les informations qui leur sont associés
+ * Classe englobant tous les joeuurs devant Ãªtre crÃ©Ã©s et les informations qui leur sont associÃ©s
  */
 public class PlayersToCreate {
 	private List<PlayerStatus> playersAwaitingCreation;
@@ -28,9 +28,9 @@ public class PlayersToCreate {
 	/* ========================================= COLLECTION HANDLING ========================================= */
 	
 	/**
-	 * Méthode permettant de vérifier si le pseudo founi est déjà présent dans les joueurs à créer
-	 * @param alias Pseudo dont on souhaite tester la présence
-	 * @return <code>TRUE</code> si le pseudo est présent, <code>FALSE</code> sinon
+	 * MÃ©thode permettant de vÃ©rifier si le pseudo founi est dÃ©jÃ  prÃ©sent dans les joueurs Ã  crÃ©er
+	 * @param alias Pseudo dont on souhaite tester la prÃ©sence
+	 * @return <code>TRUE</code> si le pseudo est prÃ©sent, <code>FALSE</code> sinon
 	 */
 	public boolean contains(String alias) {
 		Preconditions.checkNotNull(alias,"[ERROR] Impossible to verify if provided name has already been given : provided name is null");
@@ -43,7 +43,7 @@ public class PlayersToCreate {
 	}
 
 	/**
-	 * Méthode permettant d'ajouter un joueur humain dans la collection de ceux à créer
+	 * MÃ©thode permettant d'ajouter un joueur humain dans la collection de ceux Ã  crÃ©er
 	 * @param playerNameFromInput Nom du joueur
 	 */
 	public void addHumanPlayer(String playerNameFromInput) {
@@ -52,9 +52,9 @@ public class PlayersToCreate {
 	}
 
 	/**
-	 * Méthode permettant d'ajouter un joueur IA dans la collection de ceux à créer
+	 * MÃ©thode permettant d'ajouter un joueur IA dans la collection de ceux Ã  crÃ©er
 	 * @param playerNameFromInput Nom du joueur
-	 * @param strategyIndex Index correspondant à la stratégie choisie
+	 * @param strategyIndex Index correspondant Ã  la stratÃ©gie choisie
 	 */
 	public void addIAPlayerProvidingStrategyIndex(String playerNameFromInput, int strategyIndex) {
 		Preconditions.checkNotNull(playerNameFromInput,"[ERROR] Impossible to create AI player : provided nickname is null");
@@ -72,9 +72,9 @@ public class PlayersToCreate {
 	/* ========================================= PLAYER CREATION ========================================= */
 	
 	/**
-	 * Méthode permettant de créer tous les joueurs à partir de leurs informations associés 
+	 * MÃ©thode permettant de crÃ©er tous les joueurs Ã  partir de leurs informations associÃ©s 
 	 * @param consoleView Vue permettant d'afficher des informatios
-	 * @return Une Collection de PlayerController correspondant à tous les joueurs devant être créés
+	 * @return Une Collection de PlayerController correspondant Ã  tous les joueurs devant Ãªtre crÃ©Ã©s
 	 */
 	public List<PlayerController> createAllPlayersFromTheirRespectiveData(View consoleView, BufferedReader inputStream) {
 		Preconditions.checkNotNull(consoleView,"[ERROR] Impossible to create all players : provided view is null");
@@ -86,10 +86,10 @@ public class PlayersToCreate {
 	}
 
 	/**
-	 * Méthode privée permettant de créer un joueur à partir des informations qui lui sont associés
+	 * MÃ©thode privÃ©e permettant de crÃ©er un joueur Ã  partir des informations qui lui sont associÃ©s
 	 * @param curentPlayer Joueur actuel
 	 * @param consoleView Vue permettant d'afficher des informations
-	 * @return Le PlayerController associé au joueur
+	 * @return Le PlayerController associÃ© au joueur
 	 */
 	private PlayerController createPlayerFrom(PlayerStatus curentPlayer, View consoleView, BufferedReader inputStream) {
 		Preconditions.checkNotNull(curentPlayer,"[ERROR] Impossible to create all players : provided player data is null");
@@ -109,8 +109,8 @@ public class PlayersToCreate {
 	}
 	
 	/**
-	 * Méthode permettant de récupérer le nombre de joueurs à créer
-	 * @return int correspondant au nombre de joueurs à créer
+	 * MÃ©thode permettant de rÃ©cupÃ©rer le nombre de joueurs Ã  crÃ©er
+	 * @return int correspondant au nombre de joueurs Ã  crÃ©er
 	 */
 	public int size() {
 		return this.playersAwaitingCreation.size();

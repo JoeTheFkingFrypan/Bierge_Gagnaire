@@ -1,4 +1,4 @@
-package utt.fr.rglb.main.java.player.model;
+ï»¿package utt.fr.rglb.main.java.player.model;
 
 import com.google.common.base.Preconditions;
 import java.io.Serializable;
@@ -11,7 +11,7 @@ import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.cards.model.basics.CardSorter;
 
 /**
- * Classe correspondant aux données d'un joueur
+ * Classe correspondant aux donnÃ©es d'un joueur
  */
 public class PlayerModel implements Serializable {
 	private static final long serialVersionUID = 8794541192476414284L;
@@ -24,7 +24,7 @@ public class PlayerModel implements Serializable {
 	
 	/**
 	 * Constructeur de PlayerModel
-	 * Initialise également le score à 0
+	 * Initialise Ã©galement le score Ã  0
 	 * @param alias Nom du joueur
 	 */
 	public PlayerModel(String alias) {
@@ -38,8 +38,8 @@ public class PlayerModel implements Serializable {
 	/* ========================================= CARD PICKUP ========================================= */
 
 	/**
-	 * Méthode permettant de récupérer une collection de cartes et de toutes les ajouter dans la main du joueur
-	 * @param cards Collection de cartes à ajouter dans la main
+	 * MÃ©thode permettant de rÃ©cupÃ©rer une collection de cartes et de toutes les ajouter dans la main du joueur
+	 * @param cards Collection de cartes Ã  ajouter dans la main
 	 */
 	public void pickUpCards(Collection<Card> cards) {
 		Preconditions.checkNotNull(cards,"[ERROR] Cannot pickup cards : provided collection is null");
@@ -49,8 +49,8 @@ public class PlayerModel implements Serializable {
 	}
 	
 	/**
-	 * Méthode permettant de récupérer une unique carte et de l'ajouter dans la main du joueur
-	 * @param card Carte à ajouter dans la main
+	 * MÃ©thode permettant de rÃ©cupÃ©rer une unique carte et de l'ajouter dans la main du joueur
+	 * @param card Carte Ã  ajouter dans la main
 	 */
 	public void pickUpOneCard(Card card) {
 		Preconditions.checkNotNull(card,"[ERROR] Cannot pickup card : provided card is null");
@@ -61,7 +61,7 @@ public class PlayerModel implements Serializable {
 	/* ========================================= CARD PLAY ========================================= */
 
 	/**
-	 * Méthode permettant de récupérer la carte choisie par l'utilisateur, sans la retirer de sa main
+	 * MÃ©thode permettant de rÃ©cupÃ©rer la carte choisie par l'utilisateur, sans la retirer de sa main
 	 * @param index Index de la carte choisie
 	 * @return Carte choisie par l'utilsateur
 	 */
@@ -74,7 +74,7 @@ public class PlayerModel implements Serializable {
 	}
 	
 	/**
-	 * Méthode permettant de récupérer la carte choisie par l'utilisateur et de la retirer de sa main
+	 * MÃ©thode permettant de rÃ©cupÃ©rer la carte choisie par l'utilisateur et de la retirer de sa main
 	 * @param index Index de la carte choisie
 	 * @return Carte choisie par l'utilsateur
 	 */
@@ -88,7 +88,7 @@ public class PlayerModel implements Serializable {
 	}
 	
 	/**
-	 * Méthode permettant de récuperer les cartes dans la main du joueur
+	 * MÃ©thode permettant de rÃ©cuperer les cartes dans la main du joueur
 	 * @return Collection comprenant les cartes en main
 	 */
 	public Collection<Card> getCardsInHand() {
@@ -99,7 +99,7 @@ public class PlayerModel implements Serializable {
 	/* ========================================= GETTERS & UTILS ========================================= */
 
 	/**
-	 * Méthode permettant de récuperer le nombre de cartes actuel du joueur
+	 * MÃ©thode permettant de rÃ©cuperer le nombre de cartes actuel du joueur
 	 * @return int correspondant au nombre de cartes en main
 	 */ 
 	public int getNumberOfCardsInHand() {
@@ -107,7 +107,7 @@ public class PlayerModel implements Serializable {
 	}
 
 	/**
-	 * Méthode permettant de récuperer le score du joueur
+	 * MÃ©thode permettant de rÃ©cuperer le score du joueur
 	 * @return int correspondant au score du joueur
 	 */
 	public int getScore() {
@@ -115,7 +115,7 @@ public class PlayerModel implements Serializable {
 	}
 
 	/**
-	 * Méthode définissant la façon dont s'affiche les instances de cette classe
+	 * MÃ©thode dÃ©finissant la faÃ§on dont s'affiche les instances de cette classe
 	 */
 	@Override
 	public String toString() {
@@ -123,15 +123,15 @@ public class PlayerModel implements Serializable {
 	}
 
 	/**
-	 * Méthode permettant de ré-initialiser la main du joueur
+	 * MÃ©thode permettant de rÃ©-initialiser la main du joueur
 	 */
 	public void resetHand() {
 		this.cardsInHand.clear();		
 	}
 
 	/**
-	 * Méthode permettant d'incrémenter le score du joueur
-	 * @param playerScore Nombre à ajouter au score actuel
+	 * MÃ©thode permettant d'incrÃ©menter le score du joueur
+	 * @param playerScore Nombre Ã  ajouter au score actuel
 	 */
 	public void increaseScoreBy(Integer playerScore) {
 		Preconditions.checkNotNull(playerScore,"[ERROR] Impossible to set score, provided number is null");
@@ -142,22 +142,22 @@ public class PlayerModel implements Serializable {
 	/* ========================================= UNO ANNOUCEMENT ========================================= */
 	
 	/**
-	 * Méthode permettant d'indique que le joueur a annoncé UNO
+	 * MÃ©thode permettant d'indique que le joueur a annoncÃ© UNO
 	 */
 	public void setUnoAnnoucement() {
 		this.unoAnnoucement = true;
 	}
 	
 	/**
-	 * Méthode permettant de ré-initaliser l'annonce de UNO
+	 * MÃ©thode permettant de rÃ©-initaliser l'annonce de UNO
 	 */
 	public void resetUnoAnnoucement() {
 		this.unoAnnoucement = false;
 	}
 	
 	/**
-	 * Méthode permettant de vérifier si le joueur a annoncé UNO ou non
-	 * @return <code>TRUE</code> si le joueur a annoncé UNO, <code>FALSE</code> sinon
+	 * MÃ©thode permettant de vÃ©rifier si le joueur a annoncÃ© UNO ou non
+	 * @return <code>TRUE</code> si le joueur a annoncÃ© UNO, <code>FALSE</code> sinon
 	 */
 	public boolean hasAnnouncedUno() {
 		return this.unoAnnoucement;

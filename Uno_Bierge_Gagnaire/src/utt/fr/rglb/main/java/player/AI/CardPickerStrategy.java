@@ -1,4 +1,4 @@
-package utt.fr.rglb.main.java.player.AI;
+ï»¿package utt.fr.rglb.main.java.player.AI;
 
 import java.util.Collection;
 
@@ -6,29 +6,29 @@ import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.cards.model.basics.Color;
 
 /**
- * Interface définissant les comportements communs à toutes les stratégies
+ * Interface dÃ©finissant les comportements communs Ã  toutes les stratÃ©gies
  */
 public interface CardPickerStrategy {
 	
 	/**
-	 * Méthode permettant à l'IA de déterminer quelle est la meilleure carte à jouer, parmis celles jouables
+	 * MÃ©thode permettant Ã  l'IA de dÃ©terminer quelle est la meilleure carte Ã  jouer, parmis celles jouables
 	 * @param playableIndexes Index des cartes jouables
 	 * @param cardCollection Cartes en main
-	 * @return int correspondant à l'index de la carte choisie
+	 * @return int correspondant Ã  l'index de la carte choisie
 	 */
 	public int chooseCardFrom(Collection<Integer> playableIndexes, Collection<Card> cardCollection);
 	
 	/**
-	 * Méthode permettant à l'IA de déterminer quelle est la meilleure couleur à choisir lors du jeu d'un JOKER
+	 * MÃ©thode permettant Ã  l'IA de dÃ©terminer quelle est la meilleure couleur Ã  choisir lors du jeu d'un JOKER
 	 * @param cardCollection Cartes en main
-	 * @return int correspondant à l'index de la couleur choisie
+	 * @return int correspondant Ã  l'index de la couleur choisie
 	 */
 	public Color chooseBestColor(Collection<Card> cardCollection);
 
 	/**
-	 * Méthode permettant à l'IA de déterminer si accuser le joueur précédent de bluffer est une bonne idée ou pas
+	 * MÃ©thode permettant Ã  l'IA de dÃ©terminer si accuser le joueur prÃ©cÃ©dent de bluffer est une bonne idÃ©e ou pas
 	 * @param cardCollection Cartes en main
-	 * @return <code>TRUE</code> si l'IA décide d'accuser le joueur précédent, <code>FALSE</code> sinon
+	 * @return <code>TRUE</code> si l'IA dÃ©cide d'accuser le joueur prÃ©cÃ©dent, <code>FALSE</code> sinon
 	 */
 	public boolean chooseIfAccusingPreviousPlayerOfBluffingIsWorthIt(Collection<Card> cardCollection);
 }

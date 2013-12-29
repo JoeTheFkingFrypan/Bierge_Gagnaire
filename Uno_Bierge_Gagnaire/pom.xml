@@ -4,64 +4,138 @@
 
 	<groupId>Uno_Bierge_Gagnaire</groupId>
 	<artifactId>Uno_Bierge_Gagnaire</artifactId>
-	<version>2.0.0</version>
+	<version>3.0.0</version>
 	<packaging>jar</packaging>
+	
+	<organization>
+		<name>SirJoes</name>
+	</organization>
+
 
 	<name>LO02-UnoProject-Bierge-Gagnaire</name>
 	<description>Java project - Autumn 2013</description>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<findbugs.version>1.3.9</findbugs.version>
+		<guava.version>15.0</guava.version>
+		<gson.version>2.2.4</gson.version>
+		<junit.version>4.11</junit.version>
+		<mockito.version>1.9.5</mockito.version>
+		<powermock.version>1.5.2</powermock.version>
+		<power.jUnit4.version>1.5.2</power.jUnit4.version>
+		<jansi.version>1.11</jansi.version>
+		<slf4j.version>1.6.1</slf4j.version>
+		<javafx.tools.ant.jar>${java.home}/lib/ant-javafx.jar</javafx.tools.ant.jar>
+	</properties>
+
 
 	<dependencies>
 		<dependency>
 			<!-- Requis pour Google Guava : http://findbugs.sourceforge.net/ -->
 			<groupId>com.google.code.findbugs</groupId>
 			<artifactId>jsr305</artifactId>
-			<version>1.3.9</version>
+			<version>${findbugs.version}</version>
 		</dependency>
 		<dependency>
 			<!-- http://code.google.com/p/guava-libraries/ -->
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>15.0</version>
+			<version>${guava.version}</version>
 		</dependency>
 		<dependency>
 			<!-- http://code.google.com/p/google-gson/ -->
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
-			<version>2.2.4</version>
+			<version>${gson.version}</version>
 		</dependency>
 		<dependency>
 			<!-- http://junit.org/ -->
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
+			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<!-- http://code.google.com/p/mockito/ -->
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
-			<version>1.9.5</version>
+			<version>${mockito.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<!-- http://code.google.com/p/powermock/ -->
 			<groupId>org.powermock</groupId>
 			<artifactId>powermock-api-mockito</artifactId>
-			<version>1.5.2</version>
+			<version>${powermock.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<!-- Module pour JUnit -->
-   			<groupId>org.powermock</groupId>
-    		<artifactId>powermock-module-junit4</artifactId>
-    		<version>1.5.2</version>
+			<groupId>org.powermock</groupId>
+			<artifactId>powermock-module-junit4</artifactId>
+			<version>${power.jUnit4.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<!-- Fancy console Display -->
 			<groupId>org.fusesource.jansi</groupId>
 			<artifactId>jansi</artifactId>
-			<version>1.11</version>
+			<version>${jansi.version}</version>
+		</dependency>
+		<dependency>
+			<!-- MigLayout -->
+			<groupId>com.miglayout</groupId>
+			<artifactId>miglayout-javafx</artifactId>
+			<version>4.2</version>
+		</dependency>
+		<dependency>
+			<!-- Apache Commons -->
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.6</version>
+		</dependency>
+		<dependency>
+			<!-- Logging -->
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.16</version>
 		</dependency>
 	</dependencies>
+
+
+	<build>
+		<finalName>Uno_Bierge_Gagnaire</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<mainClass>${project.mainClass}</mainClass>
+					<source>1.7</source>
+					<target>1.7</target>
+					<!-- only required if signing the jar file -->
+					<keyStoreAlias>example-user</keyStoreAlias>
+					<keyStorePassword>example-password</keyStorePassword>
+					<allPermissions>true</allPermissions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

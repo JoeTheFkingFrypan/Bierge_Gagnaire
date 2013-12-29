@@ -1,4 +1,4 @@
-/**
- * Package associé aux données provenant de la pioche
+ï»¿/**
+ * Package associÃ© aux donnÃ©es provenant de la pioche
  */
 package utt.fr.rglb.main.java.cards.model.stock;

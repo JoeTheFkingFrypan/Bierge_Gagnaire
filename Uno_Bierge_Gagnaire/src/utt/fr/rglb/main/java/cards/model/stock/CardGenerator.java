@@ -1,4 +1,4 @@
-package utt.fr.rglb.main.java.cards.model.stock;
+ï»¿package utt.fr.rglb.main.java.cards.model.stock;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -20,7 +20,7 @@ import utt.fr.rglb.main.java.cards.model.basics.EffectSkip;
 import utt.fr.rglb.main.java.cards.model.basics.EffetJoker;
 
 /**
- * Classe (à visibilité réduite) à qui a été délégué le rôle de la création des cartes (et de leur mélange)
+ * Classe (Ã  visibilitÃ© rÃ©duite) Ã  qui a Ã©tÃ© dÃ©lÃ©guÃ© le rÃ´le de la crÃ©ation des cartes (et de leur mÃ©lange)
  */
 //FIXME : create factory
 class CardGenerator implements Serializable {
@@ -29,7 +29,7 @@ class CardGenerator implements Serializable {
 	/* ========================================= COLLECTIONS CREATION ========================================= */
 
 	/**
-	 * Méthode permettant d'initialiser la pioche en générant les 108 cartes de départ dans un ordre aléatoire
+	 * MÃ©thode permettant d'initialiser la pioche en gÃ©nÃ©rant les 108 cartes de dÃ©part dans un ordre alÃ©atoire
 	 * @return Une Queue contenant les 108 cartes
 	 */
 	public Queue<Card> generateCards() {
@@ -42,8 +42,8 @@ class CardGenerator implements Serializable {
 	}
 	
 	/**
-	 * Méthode privée permettant de générer les 108 cartes dans un ordre aléatoire
-	 * @return Une List de carte mélangées
+	 * MÃ©thode privÃ©e permettant de gÃ©nÃ©rer les 108 cartes dans un ordre alÃ©atoire
+	 * @return Une List de carte mÃ©langÃ©es
 	 */
 	private List<Card> generateShuffledCards() {
 		List<Card> cards = new ArrayList<Card>();
@@ -54,8 +54,8 @@ class CardGenerator implements Serializable {
 	}
 	
 	/**
-	 * Méthode privée permettant de mélanger une liste de cartes
-	 * @param cards Liste de cartes à mélanger
+	 * MÃ©thode privÃ©e permettant de mÃ©langer une liste de cartes
+	 * @param cards Liste de cartes Ã  mÃ©langer
 	 */
 	private void shuffleCards(List<Card> cards) {
 		long seed = System.nanoTime();
@@ -65,9 +65,9 @@ class CardGenerator implements Serializable {
 	/* ========================================= REFILL ========================================= */
 	
 	/**
-	 * Méthode permettant de renvoyer une collection de cartes mélangées à partir d'une collection fournie
-	 * @param givenCards Collection de cartes à mélanger
-	 * @return Une Queue contenant les cartes mélangées 
+	 * MÃ©thode permettant de renvoyer une collection de cartes mÃ©langÃ©es Ã  partir d'une collection fournie
+	 * @param givenCards Collection de cartes Ã  mÃ©langer
+	 * @return Une Queue contenant les cartes mÃ©langÃ©es 
 	 */
 	public Queue<Card> refillCardsFrom(Collection<Card> givenCards) {
 		List<Card> cardsToShuffle = new ArrayList<Card>(givenCards);
@@ -82,8 +82,8 @@ class CardGenerator implements Serializable {
 	/* ========================================= NUMBERED CARD CREATION ========================================= */
 	
 	/**
-	 * Méthode permettant de créer toutes les cartes "non-spéciales", donc toutes les cartes numérotées
-	 * @return Liste comprenant toutes les cartes sus-citées (1 carte Zéro et 2 cartes par numéro de 1 à 9 pour chaque couleur)
+	 * MÃ©thode permettant de crÃ©er toutes les cartes "non-spÃ©ciales", donc toutes les cartes numÃ©rotÃ©es
+	 * @return Liste comprenant toutes les cartes sus-citÃ©es (1 carte ZÃ©ro et 2 cartes par numÃ©ro de 1 Ã  9 pour chaque couleur)
 	 */
 	private List<Card> createAllNonSpecialCards() {
 		List<Card> nonSpecialCards = new ArrayList<Card>();
@@ -95,9 +95,9 @@ class CardGenerator implements Serializable {
 	}
 	
 	/**
-	 * Méthode privée permettant de créer toutes les cartes numérotée d'une couleur donnée
+	 * MÃ©thode privÃ©e permettant de crÃ©er toutes les cartes numÃ©rotÃ©e d'une couleur donnÃ©e
 	 * @param color Couleur commune des cartes
-	 * @return Un ensemble de 19 cartes (1 carte Zéro et 2 cartes par numéro de 1 à 9) de même couleur
+	 * @return Un ensemble de 19 cartes (1 carte ZÃ©ro et 2 cartes par numÃ©ro de 1 Ã  9) de mÃªme couleur
 	 */
 	private List<Card> createAllCardsWithSpecificColor(Color color) {
 		List<Card> cardsWithSpecificColor = new ArrayList<Card>();
@@ -107,9 +107,9 @@ class CardGenerator implements Serializable {
 	}
 	
 	/**
-	 * Méthode privée permettant de créer toutes les paires de cartes numérotées
+	 * MÃ©thode privÃ©e permettant de crÃ©er toutes les paires de cartes numÃ©rotÃ©es
 	 * @param color Couleur commune des cartes
-	 * @param currentCards Collection de cartes à remplir
+	 * @param currentCards Collection de cartes Ã  remplir
 	 */
 	private void addAllOtherColoredNumberedCards(Color color, List<Card> currentCards) {
 		for(int number=1; number<=9; number++) {
@@ -118,10 +118,10 @@ class CardGenerator implements Serializable {
 	}
 	
 	/**
-	 * Méthode privée permettant d'ajouter un nombre défini de cartes identiques (même numéro, même couleur) à la collection
-	 * @param amount Nombre de cartes à ajouter à la collection
-	 * @param currentCards Collection de cartes à remplir
-	 * @param number Numéro de la carte
+	 * MÃ©thode privÃ©e permettant d'ajouter un nombre dÃ©fini de cartes identiques (mÃªme numÃ©ro, mÃªme couleur) Ã  la collection
+	 * @param amount Nombre de cartes Ã  ajouter Ã  la collection
+	 * @param currentCards Collection de cartes Ã  remplir
+	 * @param number NumÃ©ro de la carte
 	 * @param color Couleur de la carte
 	 */
 	private void addAmountOfCardsOf(int amount, List<Card> currentCards, int number, Color color) {
@@ -133,8 +133,8 @@ class CardGenerator implements Serializable {
 	/* ========================================= SPECIAL CARD CREATION ========================================= */
 	
 	/**
-	 * Méthode privée permettant de créer toutes les cartes spéciales (colorées, ou joker)
-	 * @return Une collection de cartes contenant uniquement les cartes spéciales
+	 * MÃ©thode privÃ©e permettant de crÃ©er toutes les cartes spÃ©ciales (colorÃ©es, ou joker)
+	 * @return Une collection de cartes contenant uniquement les cartes spÃ©ciales
 	 */
 	private List<Card> createAllSpecialCards() {
 		List<Card> specialCards = new ArrayList<Card>();
@@ -144,8 +144,8 @@ class CardGenerator implements Serializable {
 	}
 
 	/**
-	 * Méthode privée permettant de créer toutes les cartes spéciales colorées (6 par couleur)
-	 * @return Une collection de cartes contenant uniquement les cartes spéciales colorées
+	 * MÃ©thode privÃ©e permettant de crÃ©er toutes les cartes spÃ©ciales colorÃ©es (6 par couleur)
+	 * @return Une collection de cartes contenant uniquement les cartes spÃ©ciales colorÃ©es
 	 */
 	private List<Card> createAllColoredSpecialCards() {
 		List<Card> coloredSpecialCards = new ArrayList<Card>();
@@ -157,9 +157,9 @@ class CardGenerator implements Serializable {
 	}
 
 	/**
-	 * Méthode privée permettant de créer toutes les cartes spéciales colorées d'une couleur définie
-	 * @param color Couleur commune à toutes les cartes spéciales
-	 * @return Une Collection de cartes contenant uniquement les cartes spéciales numérotées d'une couleur donnée
+	 * MÃ©thode privÃ©e permettant de crÃ©er toutes les cartes spÃ©ciales colorÃ©es d'une couleur dÃ©finie
+	 * @param color Couleur commune Ã  toutes les cartes spÃ©ciales
+	 * @return Une Collection de cartes contenant uniquement les cartes spÃ©ciales numÃ©rotÃ©es d'une couleur donnÃ©e
 	 */
 	private List<Card> createAllSpecialCardsWtihSpecificColor(Color color) {
 		List<Card> coloredSpecialCards = new ArrayList<Card>();
@@ -170,7 +170,7 @@ class CardGenerator implements Serializable {
 	}
 	
 	/**
-	 * Méthode privée permettant de créer les cartes spéciales non colorées (Joker)
+	 * MÃ©thode privÃ©e permettant de crÃ©er les cartes spÃ©ciales non colorÃ©es (Joker)
 	 * @return Une collection de cartes comprenant uniquement les cartes joker
 	 */
 	private List<Card> createAllColorlessSpecialCards() {
@@ -181,10 +181,10 @@ class CardGenerator implements Serializable {
 	}
 	
 	/**
-	 * Méthode privée permettant d'ajouter un nombre défini de cartes spéciales identiques (même numéro, même couleur, même effet) à la collection
-	 * @param amount Nombre de cartes à ajouter à la collection
-	 * @param currentCards Collection de cartes à remplir
-	 * @param pointsValue Numéro de la carte
+	 * MÃ©thode privÃ©e permettant d'ajouter un nombre dÃ©fini de cartes spÃ©ciales identiques (mÃªme numÃ©ro, mÃªme couleur, mÃªme effet) Ã  la collection
+	 * @param amount Nombre de cartes Ã  ajouter Ã  la collection
+	 * @param currentCards Collection de cartes Ã  remplir
+	 * @param pointsValue NumÃ©ro de la carte
 	 * @param color Couleur de la carte
 	 * @param effect Effet de la carte
 	 */

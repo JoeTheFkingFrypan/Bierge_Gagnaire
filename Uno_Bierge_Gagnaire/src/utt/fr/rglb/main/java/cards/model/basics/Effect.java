@@ -1,32 +1,32 @@
-package utt.fr.rglb.main.java.cards.model.basics;
+ï»¿package utt.fr.rglb.main.java.cards.model.basics;
 
 import utt.fr.rglb.main.java.game.model.GameFlag;
 
 /**
- * Interface spécifiant les comportements communs de tous les effets
+ * Interface spÃ©cifiant les comportements communs de tous les effets
  */
 public interface Effect {
 	/**
-	 * Méthode permettant de déclencher un effet et de récuperer l'état associé
-	 * @return Enumeration d'etat résultat du déclenchement de l'effet
+	 * MÃ©thode permettant de dÃ©clencher un effet et de rÃ©cuperer l'Ã©tat associÃ©
+	 * @return Enumeration d'etat rÃ©sultat du dÃ©clenchement de l'effet
 	 */
 	public GameFlag triggerEffect();
 	
 	/**
-	 * Méthode permettant de déclencher un effet et de récuperer l'état associé
-	 * @return Enumeration d'etat résultat du déclenchement de l'effet
+	 * MÃ©thode permettant de dÃ©clencher un effet et de rÃ©cuperer l'Ã©tat associÃ©
+	 * @return Enumeration d'etat rÃ©sultat du dÃ©clenchement de l'effet
 	 */
 	public GameFlag triggerSecondaryEffect();
 	
 	/**
-	 * Méthode permettant d'afficher un effet dans l'interface
-	 * @return String à afficher
+	 * MÃ©thode permettant d'afficher un effet dans l'interface
+	 * @return String Ã  afficher
 	 */
 	public String toString();
 	
 	/**
-	 * Méthode permettant d'afficher la description d'un effet
-	 * @return String correspondant à la description de l'effet
+	 * MÃ©thode permettant d'afficher la description d'un effet
+	 * @return String correspondant Ã  la description de l'effet
 	 */
 	public String getDescription();
 }

@@ -1,4 +1,4 @@
-package utt.fr.rglb.tests.java.player.modelTests;
+ï»¿package utt.fr.rglb.tests.java.player.modelTests;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -16,8 +16,8 @@ import utt.fr.rglb.main.java.cards.model.basics.Effect;
 import utt.fr.rglb.main.java.player.model.PlayerModel;
 
 /**
- * Classe de tests unitaires validant le comportement des méthodes de la classe PlayerModel
- * </br>Utilisation de simulacres pour la vue, les effets des cartes spéciales (Mockito)
+ * Classe de tests unitaires validant le comportement des mÃ©thodes de la classe PlayerModel
+ * </br>Utilisation de simulacres pour la vue, les effets des cartes spÃ©ciales (Mockito)
  * @see PlayerModel
  */
 public class PlayerModelTest {
@@ -37,11 +37,11 @@ public class PlayerModelTest {
 	
 	@Before
 	public void setup() {
-		//Création des attributs liés aux joueurs
+		//CrÃ©ation des attributs liÃ©s aux joueurs
 		initializePlayers();
-		//Création des attributs qui serviront dans les collections de cartes
+		//CrÃ©ation des attributs qui serviront dans les collections de cartes
 		initializeCards();
-		//Création des collection de cartes
+		//CrÃ©ation des collection de cartes
 		initializeCardCollections();
 	}
 	
@@ -107,7 +107,7 @@ public class PlayerModelTest {
 		//Ajout d'une carte dans la main du joueur
 		this.p1.pickUpCards(this.collectionOfJustOneCard);
 		assertEquals(1,this.p1.getNumberOfCardsInHand());
-		//Défausse de cette carte
+		//DÃ©fausse de cette carte
 		Card playedCard = this.p1.playCard(0);
 		assertEquals(this.c1,playedCard);
 		assertEquals(0,this.p1.getNumberOfCardsInHand());

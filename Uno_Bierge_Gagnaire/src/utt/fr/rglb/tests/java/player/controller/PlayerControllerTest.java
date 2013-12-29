@@ -1,4 +1,4 @@
-package utt.fr.rglb.tests.java.player.controller;
+ï»¿package utt.fr.rglb.tests.java.player.controller;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -16,8 +16,8 @@ import utt.fr.rglb.main.java.console.view.View;
 import utt.fr.rglb.main.java.player.controller.PlayerController;
 
 /**
- * Classe de tests unitaires validant le comportement des méthodes de la classe PlayerController
- * </br>Utilisation de simulacres pour la vue et le lecteur bufferisé --injection de dépendance permettant d'émuler une entrée au clavier (Mockito)
+ * Classe de tests unitaires validant le comportement des mÃ©thodes de la classe PlayerController
+ * </br>Utilisation de simulacres pour la vue et le lecteur bufferisÃ© --injection de dÃ©pendance permettant d'Ã©muler une entrÃ©e au clavier (Mockito)
  * @see PlayerController
  */
 public class PlayerControllerTest {

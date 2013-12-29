@@ -1,4 +1,4 @@
-package utt.fr.rglb.tests.java.cards.model;
+ï»¿package utt.fr.rglb.tests.java.cards.model;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -18,8 +18,8 @@ import utt.fr.rglb.main.java.cards.model.basics.Effect;
 import utt.fr.rglb.main.java.console.view.View;
 
 /**
- * Classe de tests unitaires validant le comportement des méthodes de la classe CardsModelBean
- * </br>Utilisation de simulacres pour la vue et l'effet des cartes spéciales (Mockito)
+ * Classe de tests unitaires validant le comportement des mÃ©thodes de la classe CardsModelBean
+ * </br>Utilisation de simulacres pour la vue et l'effet des cartes spÃ©ciales (Mockito)
  * @see CardsModelBean
  */
 public class CardsModelBeanTest {

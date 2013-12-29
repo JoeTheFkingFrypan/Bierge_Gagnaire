@@ -1,4 +1,4 @@
-package utt.fr.rglb.main.java.dao;
+ï»¿package utt.fr.rglb.main.java.dao;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -9,16 +9,16 @@ import com.google.common.base.Preconditions;
 import com.google.gson.Gson;
 
 /**
- * Classe permettant de parser des informations depuis un texte formatté en JSON
+ * Classe permettant de parser des informations depuis un texte formattÃ© en JSON
  */
 public class JsonParser {
 
 	/* ========================================= HIGH LEVEL ========================================= */
 
 	/**
-	 * Méthode permettant de récupérer tous les joueurs à créer en parsant le fichier de configuration
+	 * MÃ©thode permettant de rÃ©cupÃ©rer tous les joueurs Ã  crÃ©er en parsant le fichier de configuration
 	 * @param jsonText Texte au format JSON
-	 * @return Objet encapsulant le nom de tous les joueurs et leur statut (humain, IA) associé, avec leur stratégie, pour peu qu'il s'agisse d'une IA
+	 * @return Objet encapsulant le nom de tous les joueurs et leur statut (humain, IA) associÃ©, avec leur stratÃ©gie, pour peu qu'il s'agisse d'une IA
 	 */
 	public PlayersToCreate createPlayersFromConfigurationFile(String jsonText) {
 		Preconditions.checkNotNull(jsonText,"[ERROR] Impossible to create players from configuration file : provided string is null");
@@ -42,10 +42,10 @@ public class JsonParser {
 	/* ========================================= LOW LEVEL ========================================= */
 
 	/**
-	 * Méthode permettant de récupérer toutes les informations d'un unique joueur depuis le fichier JSON, et de l'ajouter dans la collection de joueurs à créer
+	 * MÃ©thode permettant de rÃ©cupÃ©rer toutes les informations d'un unique joueur depuis le fichier JSON, et de l'ajouter dans la collection de joueurs Ã  crÃ©er
 	 * @param players Collection provenant du parsing du fichier
 	 * @param rank Indice du joueur en cours dans la collection
-	 * @param playersToCreate Objet encapsulant le nom de tous les joueurs et leur statut (humain, IA) associé, avec leur stratégie, pour peu qu'il s'agisse d'une IA
+	 * @param playersToCreate Objet encapsulant le nom de tous les joueurs et leur statut (humain, IA) associÃ©, avec leur stratÃ©gie, pour peu qu'il s'agisse d'une IA
 	 */
 	private void parseAnotherPlayer(ArrayList<?> players, int rank, PlayersToCreate playersToCreate) {
 		Preconditions.checkNotNull(players,"[ERROR] Impossible to read configuration file : provided array of players is null");

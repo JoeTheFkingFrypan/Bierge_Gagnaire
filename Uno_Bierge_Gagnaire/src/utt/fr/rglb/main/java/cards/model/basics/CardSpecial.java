@@ -1,4 +1,4 @@
-package utt.fr.rglb.main.java.cards.model.basics;
+ï»¿package utt.fr.rglb.main.java.cards.model.basics;
 
 import com.google.common.base.Preconditions;
 
@@ -6,7 +6,7 @@ import utt.fr.rglb.main.java.game.model.GameFlag;
 
 
 /**
- * Classe correspondant à une carte spéciale (carte avec un effet)
+ * Classe correspondant Ã  une carte spÃ©ciale (carte avec un effet)
  */
 public class CardSpecial extends Card {	
 	private static final long serialVersionUID = 1L;
@@ -16,8 +16,8 @@ public class CardSpecial extends Card {
 	/* ========================================= CONSTRUCTOR ========================================= */
 	
 	/**
-	 * Constructeur de carte spéciale
-	 * @param value Valeur de la carte (doit être supérieure à 0)
+	 * Constructeur de carte spÃ©ciale
+	 * @param value Valeur de la carte (doit Ãªtre supÃ©rieure Ã  0)
 	 * @param color Couleur de la carte
 	 * @param effect Effet de la carte
 	 */
@@ -31,8 +31,8 @@ public class CardSpecial extends Card {
 	/* ========================================= EFFECT ========================================= */
 
 	/**
-	 * Méthode permettant de déclencher l'execution d'un effet
-	 * @return GameFlag correspondant à l'état induit par le déclenchement de l'effet
+	 * MÃ©thode permettant de dÃ©clencher l'execution d'un effet
+	 * @return GameFlag correspondant Ã  l'Ã©tat induit par le dÃ©clenchement de l'effet
 	 */
 	public GameFlag triggerEffect() {
 		if(this.bluffing) {
@@ -53,15 +53,15 @@ public class CardSpecial extends Card {
 	}
 	
 	/**
-	 * Méthode permettant de récupérer la desciption de l'effet associé à la carte spéciale
-	 * @return String correspondant à la description de l'effet
+	 * MÃ©thode permettant de rÃ©cupÃ©rer la desciption de l'effet associÃ© Ã  la carte spÃ©ciale
+	 * @return String correspondant Ã  la description de l'effet
 	 */
 	private String getEffectDescription() {
 		return this.effect.getDescription();
 	}
 	
 	/**
-	 * Méthode permettant de définir si l'effet secondaire devra être délenché
+	 * MÃ©thode permettant de dÃ©finir si l'effet secondaire devra Ãªtre dÃ©lenchÃ©
 	 */
 	@Override
 	public void setBluffOn() {
@@ -83,10 +83,10 @@ public class CardSpecial extends Card {
 	}
 	
 	/**
-	 * Méthode permettant de savoir si une carte peut être jouée par dessus la carte actuelle (dans le cas d'une carte SPECIALE)
-	 * A noter que dans le cas des cartes spéciales, la valeur n'est pas un critère de compatibilité
+	 * MÃ©thode permettant de savoir si une carte peut Ãªtre jouÃ©e par dessus la carte actuelle (dans le cas d'une carte SPECIALE)
+	 * A noter que dans le cas des cartes spÃ©ciales, la valeur n'est pas un critÃ¨re de compatibilitÃ©
 	 * @param otherCard Carte que l'on souhaite eventuellement jouer
-	 * @return <code>TRUE</code> si la carte est "compatible" (si elle peut être jouée), <code>FALSE</code> sinon
+	 * @return <code>TRUE</code> si la carte est "compatible" (si elle peut Ãªtre jouÃ©e), <code>FALSE</code> sinon
 	 */
 	private boolean isCompatibleWithSpecialCard(CardSpecial otherCard) {
 		Preconditions.checkNotNull(otherCard,"[ERROR] Impossible to test compatibility : provided card is null");
@@ -102,8 +102,8 @@ public class CardSpecial extends Card {
 	}
 	
 	/**
-	 * Méthode privée permettant de gérer la comparaison entre carte spéciale et la carte passée en paramètre (dans le cas d'une carte NUMEROTEE)
-	 * @param otherCard Carte dont on souhaite tester la compatibilité
+	 * MÃ©thode privÃ©e permettant de gÃ©rer la comparaison entre carte spÃ©ciale et la carte passÃ©e en paramÃ¨tre (dans le cas d'une carte NUMEROTEE)
+	 * @param otherCard Carte dont on souhaite tester la compatibilitÃ©
 	 * @return <code>TRUE</code> si la carte est compatible, <code>FALSE</code> sinon
 	 */
 	private boolean isCompatibleWithNumberedCard(Card otherCard) {
@@ -116,8 +116,8 @@ public class CardSpecial extends Card {
 	}
 	
 	/**
-	 * Méthode privée permettant de savoir si l'effet de la carte actuelle est le même que l'effet passé en paramètre
-	 * @param effectFromAnotherCard Effet d'une 2ème carte, passé en paramètre
+	 * MÃ©thode privÃ©e permettant de savoir si l'effet de la carte actuelle est le mÃªme que l'effet passÃ© en paramÃ¨tre
+	 * @param effectFromAnotherCard Effet d'une 2Ã¨me carte, passÃ© en paramÃ¨tre
 	 * @return <code>TRUE</code> si les 2 effets sont identiques, <code>FALSE</code> sinon
 	 */
 	private boolean hasSameEffectThan(String effectFromAnotherCard) {
@@ -128,7 +128,7 @@ public class CardSpecial extends Card {
 	/* ========================================= BASIC COMPARAISON ========================================= */
 
 	/**
-	 * Méthode définissant les critères d'égalité entre deux cartes spéciales
+	 * MÃ©thode dÃ©finissant les critÃ¨res d'Ã©galitÃ© entre deux cartes spÃ©ciales
 	 */
 	@Override
 	public boolean equals(Object other) {
@@ -147,7 +147,7 @@ public class CardSpecial extends Card {
 	/* ========================================= GETTERS ========================================= */
 	
 	/**
-	 * Méthode permettant de récuperer la description d'un effet
+	 * MÃ©thode permettant de rÃ©cuperer la description d'un effet
 	 * @return String contenant la description de l'effet de la carte
 	 */
 	public String getEffect() {
@@ -155,7 +155,7 @@ public class CardSpecial extends Card {
 	}
 	
 	/**
-	 * Méthode permettant de vérifier si une carte est spéciale ou non
+	 * MÃ©thode permettant de vÃ©rifier si une carte est spÃ©ciale ou non
 	 * @return <code>TRUE</code> s'il s'agit d'une CarteSpeciale, <code>FALSE</code> sinon
 	 */
 	@Override
@@ -164,7 +164,7 @@ public class CardSpecial extends Card {
 	}
 
 	/**
-	 * Méthode permettant de savoir si la carte est un +4
+	 * MÃ©thode permettant de savoir si la carte est un +4
 	 * @return Renvoit <code>TRUE</code> si la carte est un +4 (joker), <code>FALSE</code> sinon
 	 */
 	@Override
@@ -178,7 +178,7 @@ public class CardSpecial extends Card {
 	/* ========================================= DISPLAY ========================================= */
 
 	/**
-	 * Méthode permettant spécifiant la façon dont s'affiche une carte spéciale
+	 * MÃ©thode permettant spÃ©cifiant la faÃ§on dont s'affiche une carte spÃ©ciale
 	 */
 	@Override
 	public String toString() {

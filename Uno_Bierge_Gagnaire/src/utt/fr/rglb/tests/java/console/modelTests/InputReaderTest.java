@@ -1,4 +1,4 @@
-package utt.fr.rglb.tests.java.console.modelTests;
+ï»¿package utt.fr.rglb.tests.java.console.modelTests;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -20,8 +20,8 @@ import utt.fr.rglb.main.java.console.view.View;
 import utt.fr.rglb.main.java.game.model.GameMode;
 
 /**
- * Classe de tests unitaires validant le comportement des méthodes de la classe InputReader
- * </br>Utilisation de simulacres pour la vue et le lecteur bufferisé --injection de dépendance permettant d'émuler une entrée au clavier (Mockito)
+ * Classe de tests unitaires validant le comportement des mÃ©thodes de la classe InputReader
+ * </br>Utilisation de simulacres pour la vue et le lecteur bufferisÃ© --injection de dÃ©pendance permettant d'Ã©muler une entrÃ©e au clavier (Mockito)
  * @see InputReader
  */
 public class InputReaderTest {
@@ -52,7 +52,7 @@ public class InputReaderTest {
 	@Test
 	public void testGetValidPlayer() throws IOException {
 		when(this.inputStream.readLine()).thenReturn(
-				"qskdlqksdmlk", 	//[ECHEC] - Pas de nombre dans la réponse 
+				"qskdlqksdmlk", 	//[ECHEC] - Pas de nombre dans la rÃ©ponse 
 				"0", 				//[ECHEC] - Nombre non compris entre 2 et 7
 				"120",				//[ECHEC] - Nombre non compris entre 2 et 7
 				"4");				//[SUCCES]
@@ -62,7 +62,7 @@ public class InputReaderTest {
 	@Test
 	public void testGetNumberFromString() throws IOException {
 		String invalidAnswer = "qskdlqksdmlk";
-		when(this.inputStream.readLine()).thenReturn("qskd1lqk2sdm0lk"); //La deuxième string sera interprétée comme "120" --suppression de tous les caractères qui ne sont pas des nombres
+		when(this.inputStream.readLine()).thenReturn("qskd1lqk2sdm0lk"); //La deuxiÃ¨me string sera interprÃ©tÃ©e comme "120" --suppression de tous les caractÃ¨res qui ne sont pas des nombres
 		assertEquals(120,this.inputReader.getNumberFromString(invalidAnswer, this.inputStream));
 		String validAnswer = "8";
 		assertEquals(8,this.inputReader.getNumberFromString(validAnswer, this.inputStream));
@@ -73,12 +73,12 @@ public class InputReaderTest {
 	@Test
 	public void testGetAllPlayerNames() throws IOException {
 		when(this.inputStream.readLine()).thenReturn(
-				"p1","0",			//[SUCCES] - Joueur humain nommé "p1"
-				"p2","0",			//[SUCCES] - Joueur humain nommé "p2"
-				"p2",				//[ECHEC] - Nom déjà présent
-				"p3","1","0",		//[SUCCES] - Joueur IA nommé "p3" avec la première stratégie
-				"p4","1","1",		//[SUCCES] - Joueur IA nommé "p4" avec la deuxième stratégie
-				"p5","1","2"		//[SUCCES] - Joueur IA nommé "p5" avec la troisième stratégie
+				"p1","0",			//[SUCCES] - Joueur humain nommÃ© "p1"
+				"p2","0",			//[SUCCES] - Joueur humain nommÃ© "p2"
+				"p2",				//[ECHEC] - Nom dÃ©jÃ  prÃ©sent
+				"p3","1","0",		//[SUCCES] - Joueur IA nommÃ© "p3" avec la premiÃ¨re stratÃ©gie
+				"p4","1","1",		//[SUCCES] - Joueur IA nommÃ© "p4" avec la deuxiÃ¨me stratÃ©gie
+				"p5","1","2"		//[SUCCES] - Joueur IA nommÃ© "p5" avec la troisiÃ¨me stratÃ©gie
 				);
 		assertEquals("[p1, p2, p3, p4, p5]",this.inputReader.getAllPlayerNames(5, this.inputStream).toString());
 	}
@@ -99,8 +99,8 @@ public class InputReaderTest {
 	public void testGetValidAnswer() throws IOException {
 		when(this.inputStream.readLine()).thenReturn(
 				"invalid",			//[ECHEC] - Pas de nombre
-				"-1",				//[ECHEC] - index invalide (doit être compris entre 0 et le nombre de cartes - 1, soit 3 dans ce cas là)
-				"999",				//[ECHEC] - index invalide (doit être compris entre 0 et le nombre de cartes - 1, soit 3 dans ce cas là)
+				"-1",				//[ECHEC] - index invalide (doit Ãªtre compris entre 0 et le nombre de cartes - 1, soit 3 dans ce cas lÃ )
+				"999",				//[ECHEC] - index invalide (doit Ãªtre compris entre 0 et le nombre de cartes - 1, soit 3 dans ce cas lÃ )
 				"1"					//[SUCCES]
 				);
 		Collection<Card> cardCollection = fillCardCollection();
@@ -111,8 +111,8 @@ public class InputReaderTest {
 	public void testGetAnotherValidIndexFromInputDueToIncompatibleCard() throws IOException {
 		when(this.inputStream.readLine()).thenReturn(
 				"invalid",			//[ECHEC] - Pas de nombre
-				"-1",				//[ECHEC] - index invalide (doit être compris entre 0 et le nombre de cartes - 1, soit 3 dans ce cas là)
-				"999",				//[ECHEC] - index invalide (doit être compris entre 0 et le nombre de cartes - 1, soit 3 dans ce cas là)
+				"-1",				//[ECHEC] - index invalide (doit Ãªtre compris entre 0 et le nombre de cartes - 1, soit 3 dans ce cas lÃ )
+				"999",				//[ECHEC] - index invalide (doit Ãªtre compris entre 0 et le nombre de cartes - 1, soit 3 dans ce cas lÃ )
 				"1"					//[SUCCES]
 				);
 		Collection<Card> cardCollection = fillCardCollection();
@@ -133,8 +133,8 @@ public class InputReaderTest {
 	public void testGetValidColor() throws IOException {
 		when(this.inputStream.readLine()).thenReturn(
 				"invalid",			//[ECHEC] - Pas de nombre
-				"-1",				//[ECHEC] - index invalide (doit être compris entre 0 et le nombre de cartes - 1, soit 3 dans ce cas là)
-				"999",				//[ECHEC] - index invalide (doit être compris entre 0 et le nombre de cartes - 1, soit 3 dans ce cas là)
+				"-1",				//[ECHEC] - index invalide (doit Ãªtre compris entre 0 et le nombre de cartes - 1, soit 3 dans ce cas lÃ )
+				"999",				//[ECHEC] - index invalide (doit Ãªtre compris entre 0 et le nombre de cartes - 1, soit 3 dans ce cas lÃ )
 				"0"					//[SUCCES]
 				);
 		assertEquals(Color.RED,this.inputReader.getValidColor(this.inputStream));
@@ -152,8 +152,8 @@ public class InputReaderTest {
 	public void testGetValidAnswerFromDualChoice() throws IOException {
 		when(this.inputStream.readLine()).thenReturn(
 				"invalid",			//[ECHEC] - Pas de nombre
-				"-1",				//[ECHEC] - index invalide (doit être compris entre 0 et 1)
-				"999",				//[ECHEC] - index invalide (doit être compris entre 0 et 1)
+				"-1",				//[ECHEC] - index invalide (doit Ãªtre compris entre 0 et 1)
+				"999",				//[ECHEC] - index invalide (doit Ãªtre compris entre 0 et 1)
 				"1"					//[SUCCES]
 				);
 		assertEquals(1,this.inputReader.getValidAnswerFromDualChoice(this.inputStream));
@@ -163,8 +163,8 @@ public class InputReaderTest {
 	public void testGetValidAnswerFromTripleChoice() throws IOException {
 		when(this.inputStream.readLine()).thenReturn(
 				"invalid",			//[ECHEC] - Pas de nombre
-				"-1",				//[ECHEC] - index invalide (doit être compris entre 0 et 1)
-				"999",				//[ECHEC] - index invalide (doit être compris entre 0 et 1)
+				"-1",				//[ECHEC] - index invalide (doit Ãªtre compris entre 0 et 1)
+				"999",				//[ECHEC] - index invalide (doit Ãªtre compris entre 0 et 1)
 				"2"					//[SUCCES]
 				);
 		assertEquals(2,this.inputReader.getValidAnswerFromTripleChoice(this.inputStream));
@@ -194,8 +194,8 @@ public class InputReaderTest {
 	public void testAskForConfigurationFileUsage() throws IOException {
 		when(this.inputStream.readLine()).thenReturn(
 				"invalid",			//[ECHEC] - Pas de nombre
-				"-1",				//[ECHEC] - index invalide (doit être compris entre 0 et 1)
-				"3",				//[ECHEC] - index invalide (doit être compris entre 0 et 1)
+				"-1",				//[ECHEC] - index invalide (doit Ãªtre compris entre 0 et 1)
+				"3",				//[ECHEC] - index invalide (doit Ãªtre compris entre 0 et 1)
 				"0"					//[SUCCES]
 				);
 		assertTrue(this.inputReader.askForConfigurationFileUsage(this.inputStream));
@@ -218,8 +218,8 @@ public class InputReaderTest {
 		//Tous les autres cas
 		when(this.inputStream.readLine()).thenReturn(
 				"invalid",			//[ECHEC] - Pas de nombre
-				"-1",				//[ECHEC] - index invalide (doit être compris entre 0 et 1)
-				"3",				//[ECHEC] - index invalide (doit être compris entre 0 et 1)
+				"-1",				//[ECHEC] - index invalide (doit Ãªtre compris entre 0 et 1)
+				"3",				//[ECHEC] - index invalide (doit Ãªtre compris entre 0 et 1)
 				"0"					//[SUCCES]
 				);
 		assertEquals(GameMode.NORMAL,this.inputReader.askForGameMode(5, this.inputStream).getGameMode());

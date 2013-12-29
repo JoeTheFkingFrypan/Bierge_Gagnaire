@@ -1,4 +1,4 @@
-package utt.fr.rglb.main.java.player.controller;
+ï»¿package utt.fr.rglb.main.java.player.controller;
 
 import com.google.common.base.Preconditions;
 
@@ -15,7 +15,7 @@ import utt.fr.rglb.main.java.main.ServerException;
 import utt.fr.rglb.main.java.player.model.PlayerModel;
 
 /**
- * Classe dont le rôle est de gérer tout ce qui touche à un joueur
+ * Classe dont le rÃ´le est de gÃ©rer tout ce qui touche Ã  un joueur
  */
 public class PlayerController implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -36,8 +36,8 @@ public class PlayerController implements Serializable {
 	/* ========================================= CARD PICKUP ========================================= */
 
 	/**
-	 * Méthode permettant d'ajouter une collection de cartes à la main du joueur
-	 * @param cards Collection de cartes devant être ajoutées
+	 * MÃ©thode permettant d'ajouter une collection de cartes Ã  la main du joueur
+	 * @param cards Collection de cartes devant Ãªtre ajoutÃ©es
 	 */
 	public void pickUpCards(Collection<Card> cards) {
 		Preconditions.checkNotNull(cards,"[ERROR] Card collection picked up cannot be null");
@@ -47,8 +47,8 @@ public class PlayerController implements Serializable {
 	}
 
 	/**
-	 * Méthode permettant d'ajouter une unique carte à la main du joueur
-	 * @param card Carte devant être ajoutée
+	 * MÃ©thode permettant d'ajouter une unique carte Ã  la main du joueur
+	 * @param card Carte devant Ãªtre ajoutÃ©e
 	 */
 	public void pickUpOneCard(Card card) {
 		Preconditions.checkNotNull(card,"[ERROR] Card picked up cannot be null");
@@ -58,8 +58,8 @@ public class PlayerController implements Serializable {
 	}
 
 	/**
-	 * Méthiode permettant de forcer un joueur à piocher (avec affichage d'un message)
-	 * @param cards Collection de cartes à ajouter à sa main
+	 * MÃ©thiode permettant de forcer un joueur Ã  piocher (avec affichage d'un message)
+	 * @param cards Collection de cartes Ã  ajouter Ã  sa main
 	 */
 	public void isForcedToPickUpCards(Collection<Card> cards) {
 		Preconditions.checkNotNull(cards,"[ERROR] Card collection picked up cannot be null");
@@ -71,8 +71,8 @@ public class PlayerController implements Serializable {
 	}
 
 	/**
-	 * Méthiode permettant de forcer un joueur à piocher (avec affichage d'un message) --Cas spécifique du jeu d'un +4 sans bluff
-	 * @param cards Collection de cartes à ajouter à sa main
+	 * MÃ©thiode permettant de forcer un joueur Ã  piocher (avec affichage d'un message) --Cas spÃ©cifique du jeu d'un +4 sans bluff
+	 * @param cards Collection de cartes Ã  ajouter Ã  sa main
 	 */
 	public void isForcedToPickUpCardsLegitCase(Collection<Card> cards) {
 		Preconditions.checkNotNull(cards,"[ERROR] Card collection picked up cannot be null");
@@ -85,8 +85,8 @@ public class PlayerController implements Serializable {
 	}
 
 	/**
-	 * Méthiode permettant de forcer un joueur à piocher (avec affichage d'un message) --Cas spécifique du jeu d'un +4 avec bluff
-	 * @param cards Collection de cartes à ajouter à sa main
+	 * MÃ©thiode permettant de forcer un joueur Ã  piocher (avec affichage d'un message) --Cas spÃ©cifique du jeu d'un +4 avec bluff
+	 * @param cards Collection de cartes Ã  ajouter Ã  sa main
 	 */
 	public void isForcedToPickUpCardsBluffCase(Collection<Card> cards) {
 		Preconditions.checkNotNull(cards,"[ERROR] Card collection picked up cannot be null");
@@ -100,9 +100,9 @@ public class PlayerController implements Serializable {
 	/* ========================================= CARD PLAY ========================================= */
 
 	/**
-	 * Méthode permettant de jouer une carte
+	 * MÃ©thode permettant de jouer une carte
 	 * @param index Index de la carte
-	 * @return Carte selectionnée
+	 * @return Carte selectionnÃ©e
 	 */
 	public Card playCard(int index) {
 		Preconditions.checkState(this.player.getNumberOfCardsInHand() > 0, "[ERROR] Impossible to play a card : player has none");
@@ -111,8 +111,8 @@ public class PlayerController implements Serializable {
 	}
 
 	/**
-	 * Méthode permettant de savoir si le joueur a en sa possession au moins une carte compatible avec celle de référence
-	 * @param gameModelBean Objet de référence encapsulant la dernière carte jouée et éventuellement la couleur globale
+	 * MÃ©thode permettant de savoir si le joueur a en sa possession au moins une carte compatible avec celle de rÃ©fÃ©rence
+	 * @param gameModelBean Objet de rÃ©fÃ©rence encapsulant la derniÃ¨re carte jouÃ©e et Ã©ventuellement la couleur globale
 	 * @return <code>TRUE</code> si le joueur en a au moins une, <code>FALSE</code> sinon
 	 */
 	public boolean hasAtLeastOnePlayableCard(CardsModelBean gameModelBean) {
@@ -121,7 +121,7 @@ public class PlayerController implements Serializable {
 	}
 
 	/**
-	 * Méthode privée permettant de récuperer les cartes en main pour pouvoir les afficher
+	 * MÃ©thode privÃ©e permettant de rÃ©cuperer les cartes en main pour pouvoir les afficher
 	 * @return Collection de cartes en main
 	 */
 	protected Collection<Card> getCardsInHand() {
@@ -131,10 +131,10 @@ public class PlayerController implements Serializable {
 	/* ========================================= TURN HANDLING ========================================= */
 
 	/**
-	 * Méthode permettant de gérer le tour d'un joueur
-	 * @param inputReader Objet permettant de recevoir l'index entré par l'utilisateur
-	 * @param gameModelBean Carte du talon (carte de référence)
-	 * @return La carte choisie par l'utilisateur (qui est nécessairement compatible avec le talon)
+	 * MÃ©thode permettant de gÃ©rer le tour d'un joueur
+	 * @param inputReader Objet permettant de recevoir l'index entrÃ© par l'utilisateur
+	 * @param gameModelBean Carte du talon (carte de rÃ©fÃ©rence)
+	 * @return La carte choisie par l'utilisateur (qui est nÃ©cessairement compatible avec le talon)
 	 */
 	//FIXME: Shrink method startTurn
 	public Card startTurn(InputReader inputReader, CardsModelBean gameModelBean) {
@@ -168,10 +168,10 @@ public class PlayerController implements Serializable {
 	}
 
 	/**
-	 * Méthode privée permettant de déterminer si le joueur souhaite réelement jouer un +4 carte dans le cas où il a d'autres cartes jouables
+	 * MÃ©thode privÃ©e permettant de dÃ©terminer si le joueur souhaite rÃ©element jouer un +4 carte dans le cas oÃ¹ il a d'autres cartes jouables
 	 * Cette demande ne sera faite que si le bluff est necessaire pour jouer cette carte
-	 * @param inputReader Objet permettant de recevoir l'index entré par l'utilisateur
-	 * @param gameModelBean Carte du talon (carte de référence)
+	 * @param inputReader Objet permettant de recevoir l'index entrÃ© par l'utilisateur
+	 * @param gameModelBean Carte du talon (carte de rÃ©fÃ©rence)
 	 * @param choosenCard Carte choisie
 	 * @param wantsToPlayAnotherCard
 	 * @return <code>TRUE</code> si le joueur souhaite selectionner une nouvelle carte, <code>FALSE</code> sinon
@@ -188,8 +188,8 @@ public class PlayerController implements Serializable {
 	}
 
 	/**
-	 * Méthode privée permettant de gérer le cas où le joueur est dans l'incapacité de jouer son tour
-	 * @param gameModelbean Carte du talon (carte de référence)
+	 * MÃ©thode privÃ©e permettant de gÃ©rer le cas oÃ¹ le joueur est dans l'incapacitÃ© de jouer son tour
+	 * @param gameModelbean Carte du talon (carte de rÃ©fÃ©rence)
 	 */
 	public void unableToPlayThisTurn(CardsModelBean gameModelbean) {
 		Preconditions.checkNotNull(gameModelbean,"[ERROR] Impossible to start turn, gameModelbean is null");
@@ -204,9 +204,9 @@ public class PlayerController implements Serializable {
 	/* ========================================= EFFECTS RELATED ========================================= */
 
 	/**
-	 * Méthode permettant au joueur de choisir la couleur après avoir joué un joker (ou +4)
-	 * @param isRelatedToPlus4 <code>TRUE</code> pour afficher un message spécial indiquant que le joueur en cours a de nouveau la main (dans le cas du jeu d'un +4), <code>FALSE</code> sinon
-	 * @param inputReader Objet permettant de lire (et valider) les données rentrées au clavier
+	 * MÃ©thode permettant au joueur de choisir la couleur aprÃ¨s avoir jouÃ© un joker (ou +4)
+	 * @param isRelatedToPlus4 <code>TRUE</code> pour afficher un message spÃ©cial indiquant que le joueur en cours a de nouveau la main (dans le cas du jeu d'un +4), <code>FALSE</code> sinon
+	 * @param inputReader Objet permettant de lire (et valider) les donnÃ©es rentrÃ©es au clavier
 	 * @return La couleur choisie par l'utilsateur
 	 */
 	public Color hasToChooseColor(boolean isRelatedToPlus4, InputReader inputReader) {
@@ -219,9 +219,9 @@ public class PlayerController implements Serializable {
 	}
 
 	/**
-	 * Méthode permettant de savoir si le joueur tient à accuser le précédent de bluffer sur un +4
-	 * @param inputReader Objet permettant de lire (et valider) les données rentrées au clavier
-	 * @return <code>TRUE</code> si l'utilisateur souhaite accuser le joueur précédent, <code>FALSE</code> sinon
+	 * MÃ©thode permettant de savoir si le joueur tient Ã  accuser le prÃ©cÃ©dent de bluffer sur un +4
+	 * @param inputReader Objet permettant de lire (et valider) les donnÃ©es rentrÃ©es au clavier
+	 * @return <code>TRUE</code> si l'utilisateur souhaite accuser le joueur prÃ©cÃ©dent, <code>FALSE</code> sinon
 	 */
 	public boolean askIfHeWantsToCheckIfItsLegit(InputReader inputReader) {
 		this.consoleView.displaySeparationText("---- Your call, " + this.getAlias() + " ----");
@@ -233,23 +233,23 @@ public class PlayerController implements Serializable {
 	/* ========================================= GETTERS & UTILS ========================================= */
 
 	/**
-	 * Méthode permettant de récuperer le pseudo du joueur
-	 * @return String correspondant à son pseudo
+	 * MÃ©thode permettant de rÃ©cuperer le pseudo du joueur
+	 * @return String correspondant Ã  son pseudo
 	 */
 	public String getAlias() {
 		return this.player.toString();
 	}
 
 	/**
-	 * Méthode permettant de récuperer le score du joueur
-	 * @return int correspondant à son score
+	 * MÃ©thode permettant de rÃ©cuperer le score du joueur
+	 * @return int correspondant Ã  son score
 	 */
 	public int getScore() {
 		return this.player.getScore();
 	}
 
 	/**
-	 * Méthode permettant de récuperer le nombre de cartes en main
+	 * MÃ©thode permettant de rÃ©cuperer le nombre de cartes en main
 	 * @return int correspondant au nombre de cartes en main
 	 */
 	public int getNumberOfCardsInHand() {
@@ -257,7 +257,7 @@ public class PlayerController implements Serializable {
 	}
 
 	/**
-	 * Méthode permettant de savoir si le joueur possède encore des cartes dans sa main
+	 * MÃ©thode permettant de savoir si le joueur possÃ¨de encore des cartes dans sa main
 	 * @return <code>TRUE</code> si le joueur a au moins une carte en main, <code>FALSE</code> sinon
 	 */
 	public boolean stillHasCards() {
@@ -265,7 +265,7 @@ public class PlayerController implements Serializable {
 	}
 
 	/**
-	 * Méthode defissant comment les objets de cette classe s'affiche
+	 * MÃ©thode defissant comment les objets de cette classe s'affiche
 	 */
 	@Override
 	public String toString() {
@@ -273,15 +273,15 @@ public class PlayerController implements Serializable {
 	}
 
 	/**
-	 * Méthode permettant de ré-initialiser la main du joueur (suppression de toutes ses cartes)
+	 * MÃ©thode permettant de rÃ©-initialiser la main du joueur (suppression de toutes ses cartes)
 	 */
 	public void resetHand() {
 		this.player.resetHand();	
 	}
 
 	/**
-	 * Méthode permettant de ralentir l'execution des décisions de l'IA en imposant un délai de 2 secondes (avec affichage de caractères répétés sur une même ligne typiquement "..." ou rien)
-	 * @param stringToDisplay Message à répété, permettant de simuler une attente
+	 * MÃ©thode permettant de ralentir l'execution des dÃ©cisions de l'IA en imposant un dÃ©lai de 2 secondes (avec affichage de caractÃ¨res rÃ©pÃ©tÃ©s sur une mÃªme ligne typiquement "..." ou rien)
+	 * @param stringToDisplay Message Ã  rÃ©pÃ©tÃ©, permettant de simuler une attente
 	 */
 	protected void chillForTwoSec(String stringToDisplay) {
 		Preconditions.checkNotNull(stringToDisplay,"[ERROR] Impossible display message while waiting : provided message is null");
@@ -298,7 +298,7 @@ public class PlayerController implements Serializable {
 	/* ========================================= POINTS ========================================= */
 
 	/**
-	 * Méthode permettant de récupérer le nombre de points des cartes en main
+	 * MÃ©thode permettant de rÃ©cupÃ©rer le nombre de points des cartes en main
 	 * @return La somme des points de toutes les cartes en main
 	 */
 	public int getPointsFromCardsInHand() {
@@ -310,8 +310,8 @@ public class PlayerController implements Serializable {
 	}
 
 	/**
-	 * Méthode permettant d'incrémenter le score du joueur
-	 * @param playerScore Nombre à ajouter au score actuel
+	 * MÃ©thode permettant d'incrÃ©menter le score du joueur
+	 * @param playerScore Nombre Ã  ajouter au score actuel
 	 * @return <code>TRUE</code> si le joueur a atteint 500 points, <code>FALSE</code> sinon
 	 */
 	public boolean increaseScoreBy(Integer playerScore) {
@@ -324,7 +324,7 @@ public class PlayerController implements Serializable {
 	/* ========================================= UNO ANNOUNCEMENT ========================================= */
 
 	/**
-	 * Méthode permettant de vérifier si le joueur a précédement annoncé UNO
+	 * MÃ©thode permettant de vÃ©rifier si le joueur a prÃ©cÃ©dement annoncÃ© UNO
 	 * @return <code>TRUE</code> si c'est le cas, <code>FALSE</code> sinon
 	 */
 	public boolean hasAnnouncedUno() {
@@ -332,16 +332,16 @@ public class PlayerController implements Serializable {
 	}
 
 	/**
-	 * Méthode permettant de vérifier si le joueur avait effectivement le droit d'annoncer UNO
-	 * @return <code>TRUE</code> s'il reste au joueur 1 carte (annonce lors du jeu de l'avant dernière carte) OU 0 cartes (jeu de la dernière carte), <code>FALSE</code> sinon
+	 * MÃ©thode permettant de vÃ©rifier si le joueur avait effectivement le droit d'annoncer UNO
+	 * @return <code>TRUE</code> s'il reste au joueur 1 carte (annonce lors du jeu de l'avant derniÃ¨re carte) OU 0 cartes (jeu de la derniÃ¨re carte), <code>FALSE</code> sinon
 	 */
 	public boolean deservesTheRightToAnnounceUno() {
 		return (this.player.getNumberOfCardsInHand() == 1) || (this.player.getNumberOfCardsInHand() == 0);
 	}
 
 	/**
-	 * Méthode permettant de vérifier si le joueur a oublié d'annoncer UNO quand il joue sa dernière carte
-	 * @return <code>TRUE</code> si le joueur n'a pas plus de cartes et a effectivement oublié d'annoncer UNO, <code>FALSE</code> sinon
+	 * MÃ©thode permettant de vÃ©rifier si le joueur a oubliÃ© d'annoncer UNO quand il joue sa derniÃ¨re carte
+	 * @return <code>TRUE</code> si le joueur n'a pas plus de cartes et a effectivement oubliÃ© d'annoncer UNO, <code>FALSE</code> sinon
 	 */
 	public boolean hasNoCardAndForgotToAnnounceUno() {
 		boolean hasNoCard = this.player.getNumberOfCardsInHand() == 0;

@@ -1,4 +1,4 @@
-package utt.fr.rglb.tests.java.cards.model.pileTests;
+ï»¿package utt.fr.rglb.tests.java.cards.model.pileTests;
 
 import static org.junit.Assert.*;
 
@@ -13,7 +13,7 @@ import utt.fr.rglb.main.java.cards.model.basics.EffetJoker;
 import utt.fr.rglb.main.java.cards.model.pile.Pile;
 
 /**
- * Classe de tests unitaires validant le comportement des méthodes de la classe Pile
+ * Classe de tests unitaires validant le comportement des mÃ©thodes de la classe Pile
  * @see Pile
  */
 public class PileTest {
@@ -64,7 +64,7 @@ public class PileTest {
 		Collection<Card> cardsFromFilledStack = this.filledStack.emptyPile();
 		assertEquals(1,this.filledStack.size());
 		assertEquals(2,cardsFromFilledStack.size());
-		//Verification des cartes presentes dans la collection où des cartes existent
+		//Verification des cartes presentes dans la collection oÃ¹ des cartes existent
 		assertFalse(cardsFromFilledStack.contains(this.yetAnotherCard));
 		assertTrue(cardsFromFilledStack.contains(this.oneCard));
 		assertTrue(cardsFromFilledStack.contains(this.compatibleCard));
@@ -101,7 +101,7 @@ public class PileTest {
 	
 	@Test
 	public void testToString() {
-		assertEquals("[Talon] 0 cartes ont été jouées",this.emptyStack.toString());
-		assertEquals("[Talon] 3 cartes ont été jouées",this.filledStack.toString());
+		assertEquals("[Talon] 0 cartes ont Ã©tÃ© jouÃ©es",this.emptyStack.toString());
+		assertEquals("[Talon] 3 cartes ont Ã©tÃ© jouÃ©es",this.filledStack.toString());
 	}
 }

@@ -1,4 +1,4 @@
-package utt.fr.rglb.tests.java.console.viewTests;
+﻿package utt.fr.rglb.tests.java.console.viewTests;
 
 import static org.junit.Assert.*;
 
@@ -13,7 +13,7 @@ import org.junit.Test;
 import utt.fr.rglb.main.java.console.view.FancyConsoleDisplay;
 
 /**
- * Classe de tests unitaires validant le comportement des m�thodes de la classe FancyConsoleDisplay
+ * Classe de tests unitaires validant le comportement des méthodes de la classe FancyConsoleDisplay
  * @see FancyConsoleDisplay
  */
 public class FancyConsoleDisplayTest {

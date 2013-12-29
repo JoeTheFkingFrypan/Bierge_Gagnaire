@@ -1,4 +1,4 @@
-package utt.fr.rglb.tests.java.cards.model;
+ï»¿package utt.fr.rglb.tests.java.cards.model;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -14,8 +14,8 @@ import utt.fr.rglb.main.java.cards.model.basics.Effect;
 import java.util.Collection;
 
 /**
- * Classe de tests unitaires validant le comportement des méthodes de la classe CardsController
- * </br>Utilisation de simulacres pour l'effet des cartes spéciales (Mockito)
+ * Classe de tests unitaires validant le comportement des mÃ©thodes de la classe CardsController
+ * </br>Utilisation de simulacres pour l'effet des cartes spÃ©ciales (Mockito)
  * @see CardsModel
  */
 public class CardsModelTest {
@@ -31,7 +31,7 @@ public class CardsModelTest {
 	
 	@Test
 	public void testDrawStarterCard() {
-		//L'ordre de cartes étant aléatoires, il est impossible de postuler sur la valeur et/ou la couleur de la 1ère carte qui sera tirée
+		//L'ordre de cartes Ã©tant alÃ©atoires, il est impossible de postuler sur la valeur et/ou la couleur de la 1Ã¨re carte qui sera tirÃ©e
 		assertNotNull(this.cardsModel.drawStarterCard());
 	}
 

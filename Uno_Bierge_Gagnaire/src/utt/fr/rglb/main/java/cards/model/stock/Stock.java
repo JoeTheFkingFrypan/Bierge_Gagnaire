@@ -1,4 +1,4 @@
-package utt.fr.rglb.main.java.cards.model.stock;
+ï»¿package utt.fr.rglb.main.java.cards.model.stock;
 
 import com.google.common.base.Preconditions;
 import java.util.Collection;
@@ -19,7 +19,7 @@ public class Stock extends AbstractModel {
 	/* ========================================= CONSTRUCTOR ========================================= */
 	
 	/**
-	 * Constructeur de pioche (génére les 108 cartes)
+	 * Constructeur de pioche (gÃ©nÃ©re les 108 cartes)
 	 */
 	public Stock() {
 		this.generator = new CardGenerator();
@@ -27,7 +27,7 @@ public class Stock extends AbstractModel {
 	}
 	
 	/**
-	 * Méthode permettant de ré-initialiser le talon (génération de 108 cartes mélangées)
+	 * MÃ©thode permettant de rÃ©-initialiser le talon (gÃ©nÃ©ration de 108 cartes mÃ©langÃ©es)
 	 */
 	public void resetCards() {
 		this.stock = generateShuffledCards();
@@ -36,16 +36,16 @@ public class Stock extends AbstractModel {
 	/* ========================================= CARD CREATION & REFILL ========================================= */
 	
 	/**
-	 * Méthode privée permettant d'initialiser la pioche (création des 108 cartes dans un ordre aléatoire)
-	 * @return Une Queue contenant toutes les cartes dans un ordre aléatoire
+	 * MÃ©thode privÃ©e permettant d'initialiser la pioche (crÃ©ation des 108 cartes dans un ordre alÃ©atoire)
+	 * @return Une Queue contenant toutes les cartes dans un ordre alÃ©atoire
 	 */
 	private Queue<Card> generateShuffledCards() {
 		return this.generator.generateCards();
 	}
 	
 	/**
-	 * Méthode permettant de s'assurer que la pioche a suffisament de cartes pour satisfaire les besoins des joueurs
-	 * @param cardCountToBeDrawn Nombre de cartes devant être piochées
+	 * MÃ©thode permettant de s'assurer que la pioche a suffisament de cartes pour satisfaire les besoins des joueurs
+	 * @param cardCountToBeDrawn Nombre de cartes devant Ãªtre piochÃ©es
 	 * @return <code>TRUE</code> s'il y a suffisament de cartes, <code>FALSE</code> sinon
 	 */
 	public boolean hasNotEnoughCards(int cardCountToBeDrawn) {
@@ -54,8 +54,8 @@ public class Stock extends AbstractModel {
 	}
 	
 	/**
-	 * Méthode permettant de remplir la pioche si jamais il n'y a plus suffisament de cartes
-	 * @param givenCards Collection de cartes à utiliser pour reconstituer la pioche
+	 * MÃ©thode permettant de remplir la pioche si jamais il n'y a plus suffisament de cartes
+	 * @param givenCards Collection de cartes Ã  utiliser pour reconstituer la pioche
 	 */
 	public void refill(Collection<Card> givenCards) {
 		Preconditions.checkNotNull(givenCards,"[ERROR] Cannot refill cards : given card collection is null");
@@ -66,8 +66,8 @@ public class Stock extends AbstractModel {
 	/* ========================================= DRAW CARD ========================================= */
 	
 	/**
-	 * Méthode permettant de tirer une unique carte depuis la pioche
-	 * @return Première carte de la pioche
+	 * MÃ©thode permettant de tirer une unique carte depuis la pioche
+	 * @return PremiÃ¨re carte de la pioche
 	 */
 	public Card drawOneCard() {
 		Preconditions.checkState(this.stock.size() >= 1,"[ERROR] Cannont draw [1] card : not enough cards");
@@ -75,9 +75,9 @@ public class Stock extends AbstractModel {
 	}
 	
 	/**
-	 * Méthode permettant de tirer une (ou plusieurs) carte(s) depuis la pioche
-	 * @param count Nombre de cartes à tirer
-	 * @return Une collection contenant le nombre de cartes donné
+	 * MÃ©thode permettant de tirer une (ou plusieurs) carte(s) depuis la pioche
+	 * @param count Nombre de cartes Ã  tirer
+	 * @return Une collection contenant le nombre de cartes donnÃ©
 	 */
 	public Collection<Card> drawCards(int count) {
 		Preconditions.checkArgument(this.stock.size() >= count,"[ERROR] Cannont draw [" + count + "] cards : not enough cards");
@@ -91,16 +91,16 @@ public class Stock extends AbstractModel {
 	/* ========================================= GETTERS & UTILS ========================================= */
 	
 	/**
-	 * Méthode permettant de récuperer le nombre de cartes contenues dans la pioche
-	 * @return Nombre de cartes présentes dans la pioche
+	 * MÃ©thode permettant de rÃ©cuperer le nombre de cartes contenues dans la pioche
+	 * @return Nombre de cartes prÃ©sentes dans la pioche
 	 */
 	public int size() {
 		return this.stock.size();
 	}
 	
 	/**
-	 * Méthode permettant de s'assurer la présence d'une carte donnée dans la pioche
-	 * @param card Carte dont la présence est à tester
+	 * MÃ©thode permettant de s'assurer la prÃ©sence d'une carte donnÃ©e dans la pioche
+	 * @param card Carte dont la prÃ©sence est Ã  tester
 	 * @return <code>TRUE</code> si la carte est contenue, <code>FALSE</code> sinon
 	 */
 	public Boolean contains(Card card) {
@@ -109,7 +109,7 @@ public class Stock extends AbstractModel {
 	}
 	
 	/**
-	 * Méthode permettant spécifiant la façon dont s'affiche la pioche
+	 * MÃ©thode permettant spÃ©cifiant la faÃ§on dont s'affiche la pioche
 	 */
 	@Override
 	public String toString() {

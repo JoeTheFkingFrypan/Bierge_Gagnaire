@@ -1,4 +1,4 @@
-package utt.fr.rglb.tests.java.cards.model.basicsTests;
+ï»¿package utt.fr.rglb.tests.java.cards.model.basicsTests;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
@@ -8,7 +8,7 @@ import utt.fr.rglb.main.java.cards.model.basics.EffectReverse;
 import utt.fr.rglb.main.java.game.model.GameFlag;
 
 /**
- * Classe de tests unitaires validant le comportement des méthodes de la classe EffectReverse
+ * Classe de tests unitaires validant le comportement des mÃ©thodes de la classe EffectReverse
  * @see EffectReverse
  */
 public class EffetChangerSensTest {
@@ -21,7 +21,7 @@ public class EffetChangerSensTest {
 	public void setup() {
 		this.effetChangerSens = new EffectReverse();
 		this.expectedDescription = "Inversion";
-		this.expectedString = "Le sens de jeu est inversé";
+		this.expectedString = "Le sens de jeu est inversÃ©";
 		this.expectedFlag = GameFlag.REVERSE;
 	}
 	

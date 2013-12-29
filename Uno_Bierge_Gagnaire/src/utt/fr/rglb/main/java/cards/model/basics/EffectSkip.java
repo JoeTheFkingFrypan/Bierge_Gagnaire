@@ -1,9 +1,9 @@
-package utt.fr.rglb.main.java.cards.model.basics;
+ï»¿package utt.fr.rglb.main.java.cards.model.basics;
 
 import utt.fr.rglb.main.java.game.model.GameFlag;
 
 /**
- * Effet permettant à un joueur de forcer le joueur suivant à passer son tour
+ * Effet permettant Ã  un joueur de forcer le joueur suivant Ã  passer son tour
  */
 public class EffectSkip extends EffectImpl {
 	private static final long serialVersionUID = 1L;

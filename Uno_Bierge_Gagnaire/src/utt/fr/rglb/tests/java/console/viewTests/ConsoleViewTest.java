@@ -1,4 +1,4 @@
-package utt.fr.rglb.tests.java.console.viewTests;
+﻿package utt.fr.rglb.tests.java.console.viewTests;
 
 import static org.junit.Assert.assertEquals;
 
@@ -11,7 +11,7 @@ import org.junit.Test;
 import utt.fr.rglb.main.java.console.view.ConsoleView;
 
 /**
- * Classe de tests unitaires validant le comportement des m�thodes de la classe ConsoleView
+ * Classe de tests unitaires validant le comportement des méthodes de la classe ConsoleView
  * @see ConsoleView
  */
 @SuppressWarnings("unused")

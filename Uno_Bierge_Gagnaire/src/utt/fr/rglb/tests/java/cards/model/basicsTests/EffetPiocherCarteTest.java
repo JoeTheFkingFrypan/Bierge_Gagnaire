@@ -1,4 +1,4 @@
-package utt.fr.rglb.tests.java.cards.model.basicsTests;
+﻿package utt.fr.rglb.tests.java.cards.model.basicsTests;
 
 import static org.junit.Assert.assertEquals;
 
@@ -9,7 +9,7 @@ import utt.fr.rglb.main.java.cards.model.basics.EffectPlus2;
 import utt.fr.rglb.main.java.game.model.GameFlag;
 
 /**
- * Classe de tests unitaires validant le comportement des m�thodes de la classe EffectPlus2
+ * Classe de tests unitaires validant le comportement des méthodes de la classe EffectPlus2
  * @see EffectPlus2
  */
 public class EffetPiocherCarteTest {

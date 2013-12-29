@@ -1,4 +1,4 @@
-/**
- * Package associé au données venant des cartes, qu'elles soient spéciales ou numérotées
+ï»¿/**
+ * Package associÃ© au donnÃ©es venant des cartes, qu'elles soient spÃ©ciales ou numÃ©rotÃ©es
  */
 package utt.fr.rglb.main.java.cards.model.basics;

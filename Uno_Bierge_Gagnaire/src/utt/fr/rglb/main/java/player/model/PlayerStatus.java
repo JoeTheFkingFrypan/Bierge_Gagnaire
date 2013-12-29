@@ -1,11 +1,11 @@
-package utt.fr.rglb.main.java.player.model;
+ï»¿package utt.fr.rglb.main.java.player.model;
 
 import com.google.common.base.Preconditions;
 
 import utt.fr.rglb.main.java.player.AI.CardPickerStrategy;
 
 /**
- * Classe permettant de centraliser les informations requises pour la création d'un joueur
+ * Classe permettant de centraliser les informations requises pour la crÃ©ation d'un joueur
  */
 public class PlayerStatus {
 	private String alias;
@@ -26,9 +26,9 @@ public class PlayerStatus {
 	}
 	
 	/**
-	 * Constructeur de PlayerStatus pour un joueur controllé par la machine (avec une statégie spécifiée)
+	 * Constructeur de PlayerStatus pour un joueur controllÃ© par la machine (avec une statÃ©gie spÃ©cifiÃ©e)
 	 * @param alias Pseudo du joueur
-	 * @param cardPickerStrategy Stratégie associée
+	 * @param cardPickerStrategy StratÃ©gie associÃ©e
 	 */
 	public PlayerStatus(String alias, CardPickerStrategy cardPickerStrategy) {
 		Preconditions.checkNotNull(alias,"[ERROR] Impossible to create PlayerStatus : provided name is null");
@@ -41,7 +41,7 @@ public class PlayerStatus {
 	/* ========================================= GETTERS ========================================= */
 	
 	/**
-	 * Méthode permettant de récupérer le pseudo du joueur
+	 * MÃ©thode permettant de rÃ©cupÃ©rer le pseudo du joueur
 	 * @return String correspondant au pseudo du joueur
 	 */
 	public String getAlias() {
@@ -49,7 +49,7 @@ public class PlayerStatus {
 	}
 	
 	/**
-	 * Méthode permettant de savoir si le joueur est humain, ou s'l s'agit d'une IA
+	 * MÃ©thode permettant de savoir si le joueur est humain, ou s'l s'agit d'une IA
 	 * @return <code>TRUE</code> si le joeur est humain, <code>FALSE</code> sinon
 	 */
 	public boolean isHuman() {
@@ -57,8 +57,8 @@ public class PlayerStatus {
 	}
 	
 	/**
-	 * Méthode permettant de récupérer la stratégie de l'IA
-	 * @return La stratégie de l'IA
+	 * MÃ©thode permettant de rÃ©cupÃ©rer la stratÃ©gie de l'IA
+	 * @return La stratÃ©gie de l'IA
 	 */
 	public CardPickerStrategy getStrategy() {
 		return this.cardPickerStrategy;

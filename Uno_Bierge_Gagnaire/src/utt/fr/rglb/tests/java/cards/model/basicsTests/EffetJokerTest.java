@@ -1,4 +1,4 @@
-package utt.fr.rglb.tests.java.cards.model.basicsTests;
+﻿package utt.fr.rglb.tests.java.cards.model.basicsTests;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
@@ -8,7 +8,7 @@ import utt.fr.rglb.main.java.cards.model.basics.EffetJoker;
 import utt.fr.rglb.main.java.game.model.GameFlag;
 
 /**
- * Classe de tests unitaires validant le comportement des m�thodes de la classe EffetJoker
+ * Classe de tests unitaires validant le comportement des méthodes de la classe EffetJoker
  * @see EffetJoker
  */
 public class EffetJokerTest {

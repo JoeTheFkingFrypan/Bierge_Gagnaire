@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration debug="false"
+	xmlns:log4j='http://jakarta.apache.org/log4j/'>
+	
+	<!--============== CONSOLE APPENDER ==============-->
+	<appender name="consoleAppender" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{dd MMM yyyy HH:mm:ss} %5p %c{1} - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="levelMin" value="INFO" />
+			<param name="levelMax" value="FATAL" />
+		</filter>
+	</appender>
+
+	<!--============== DEBUG APPENDER ==============-->
+	<appender name="debugAppender" class="org.apache.log4j.FileAppender">
+		<param name="file" value="./.log/events_debug.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ABSOLUTE} %-5p [%c{1}] %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelMatchFilter">
+			<param name="levelToMatch" value="DEBUG" />
+		</filter>
+     	<filter class="org.apache.log4j.varia.DenyAllFilter"/>
+	</appender>
+
+	<!--============== MAIN APPENDER ==============-->
+	<appender name="fileAppender" class="org.apache.log4j.RollingFileAppender">
+		<param name="file" value="./.log/events.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ABSOLUTE} %-5p [%c{1}] %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="levelMin" value="INFO" />
+			<param name="levelMax" value="FATAL" />
+		</filter>
+	</appender>
+
+	<!--============== ROOT SETTINGS ==============-->
+	<root>
+		<appender-ref ref="consoleAppender" />
+		<appender-ref ref="debugAppender" />
+		<appender-ref ref="fileAppender" />
+	</root>
+
+</log4j:configuration>

@@ -1,4 +1,4 @@
-package utt.fr.rglb.tests.java.cards.controller;
+﻿package utt.fr.rglb.tests.java.cards.controller;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -12,7 +12,7 @@ import utt.fr.rglb.main.java.console.view.View;
 import java.util.Collection;
 
 /**
- * Classe de tests unitaires validant le comportement des m�thodes de la classe CardsController
+ * Classe de tests unitaires validant le comportement des méthodes de la classe CardsController
  * </br>Utilisation de simulacres pour la vue (Mockito)
  * @see CardsController
  */

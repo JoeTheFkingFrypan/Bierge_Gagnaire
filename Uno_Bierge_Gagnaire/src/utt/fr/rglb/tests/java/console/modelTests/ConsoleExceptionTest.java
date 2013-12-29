@@ -1,4 +1,4 @@
-package utt.fr.rglb.tests.java.console.modelTests;
+﻿package utt.fr.rglb.tests.java.console.modelTests;
 
 import org.junit.Test;
 

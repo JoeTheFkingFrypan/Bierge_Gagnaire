@@ -1,4 +1,4 @@
-/**
- * Package associé aux données en liaison avec les joueurs (partie controlleur)
+ï»¿/**
+ * Package associÃ© aux donnÃ©es en liaison avec les joueurs (partie controlleur)
  */
 package utt.fr.rglb.main.java.player.controller;

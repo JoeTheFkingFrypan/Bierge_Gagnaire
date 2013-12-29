@@ -1,4 +1,4 @@
-package utt.fr.rglb.main.java.console.view;
+Ôªøpackage utt.fr.rglb.main.java.console.view;
 
 import com.google.common.base.Preconditions;
 
@@ -10,7 +10,7 @@ import utt.fr.rglb.main.java.cards.model.basics.CardSpecial;
 import utt.fr.rglb.main.java.cards.model.basics.Color;
 
 /**
- * Classe dÈfinissant les mÈthodes d'affichage
+ * Classe d√©finissant les m√©thodes d'affichage
  */
 public abstract class View implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -28,8 +28,8 @@ public abstract class View implements Serializable {
 	/* ========================================= EMPHASIS ========================================= */
 
 	/**
-	 * MÈthode permettant d'afficher un titre avec emphase
-	 * @param title Titre ‡ afficher
+	 * M√©thode permettant d'afficher un titre avec emphase
+	 * @param title Titre √† afficher
 	 */
 	public void displayTitle(String title) {
 		Preconditions.checkNotNull(title,"[ERROR] Impossible to display text : provided one is null");
@@ -42,8 +42,8 @@ public abstract class View implements Serializable {
 	}
 
 	/**
-	 * MÈthode permettant d'utiliser du texte comme barre de sÈparation (affichage en couleurs nÈgatives)
-	 * @param text Texte ‡ afficher
+	 * M√©thode permettant d'utiliser du texte comme barre de s√©paration (affichage en couleurs n√©gatives)
+	 * @param text Texte √† afficher
 	 */
 	public void displaySeparationText(String text) {
 		Preconditions.checkNotNull(text,"[ERROR] Impossible to display text : provided one is null");
@@ -54,9 +54,9 @@ public abstract class View implements Serializable {
 	/* ========================================= CARD DISPLAY ========================================= */
 
 	/**
-	 * MÈthode permettant d'afficher une carte dans l'interface
-	 * @param string Message ‡ afficher avant la carte
-	 * @param card Carte ‡ afficher
+	 * M√©thode permettant d'afficher une carte dans l'interface
+	 * @param string Message √† afficher avant la carte
+	 * @param card Carte √† afficher
 	 */
 	public void displayCard(String string, Card card) {
 		Preconditions.checkNotNull(card,"[ERROR] Impossible to display card : provided one is null");
@@ -67,9 +67,9 @@ public abstract class View implements Serializable {
 	}
 
 	/**
-	 * MÈthode permettant d'afficher une collection de cartes complËte
-	 * @param string Message ‡ afficher avant la collection
-	 * @param cards Collection de cartes ‡ afficher
+	 * M√©thode permettant d'afficher une collection de cartes compl√®te
+	 * @param string Message √† afficher avant la collection
+	 * @param cards Collection de cartes √† afficher
 	 */
 	public void displayCardCollection(String string, Collection<Card> cards) {
 		Preconditions.checkNotNull(cards,"[ERROR] Impossible to display card collection : provided one is null");
@@ -82,8 +82,8 @@ public abstract class View implements Serializable {
 	}
 
 	/**
-	 * MÈthode privÈe permettant d'afficher une carte avec gestion de sa couleur et de son type (numÈrotÈe, spÈciale)
-	 * @param cardToDisplay Carte ‡ afficher
+	 * M√©thode priv√©e permettant d'afficher une carte avec gestion de sa couleur et de son type (num√©rot√©e, sp√©ciale)
+	 * @param cardToDisplay Carte √† afficher
 	 */
 	private void displayOneCard(Card cardToDisplay) {
 		Preconditions.checkNotNull(cardToDisplay,"[ERROR] Impossible to display card : provided one is null");
@@ -96,8 +96,8 @@ public abstract class View implements Serializable {
 	}
 
 	/**
-	 * MÈthode privÈe permettant d'afficher une unique carte avec gestion de sa couleur et de son type (numÈrotÈe, spÈciale) en accolant son index
-	 * @param cardToDisplay Carte ‡ afficher
+	 * M√©thode priv√©e permettant d'afficher une unique carte avec gestion de sa couleur et de son type (num√©rot√©e, sp√©ciale) en accolant son index
+	 * @param cardToDisplay Carte √† afficher
 	 * @param index Index de la carte 
 	 */
 	private void displayOneCard(Card cardToDisplay, int index) {
@@ -114,8 +114,8 @@ public abstract class View implements Serializable {
 	/* ========================================= SPECIAL CARD DISPLAY ========================================= */
 
 	/**
-	 * MÈthode privÈe permettant d'afficher une carte spÈciale dans la console (avec gestion de la couleur et de son effet)
-	 * @param cardToDisplay Carte ‡ afficher
+	 * M√©thode priv√©e permettant d'afficher une carte sp√©ciale dans la console (avec gestion de la couleur et de son effet)
+	 * @param cardToDisplay Carte √† afficher
 	 */
 	private void displaySpecialCard(CardSpecial cardToDisplay) {
 		Preconditions.checkNotNull(cardToDisplay,"[ERROR] Impossible to display card : provided one is null");
@@ -134,8 +134,8 @@ public abstract class View implements Serializable {
 	}
 
 	/**
-	 * MÈthode privÈe permettant d'afficher une carte spÈciale dans la console (avec gestion de la couleur et de son effet) en accolant son index
-	 * @param cardToDisplay Carte ‡ afficher
+	 * M√©thode priv√©e permettant d'afficher une carte sp√©ciale dans la console (avec gestion de la couleur et de son effet) en accolant son index
+	 * @param cardToDisplay Carte √† afficher
 	 * @param index Index de la carte
 	 */
 	private void displaySpecialCard(CardSpecial cardToDisplay, int index) {
@@ -158,8 +158,8 @@ public abstract class View implements Serializable {
 	/* ========================================= NUMBERED CARD DISPLAY ========================================= */
 
 	/**
-	 * MÈthode privÈe permettant d'afficher une carte numÈrotÈe (avec gestion de sa couleur) 
-	 * @param cardToDisplay Carte ‡ afficher
+	 * M√©thode priv√©e permettant d'afficher une carte num√©rot√©e (avec gestion de sa couleur) 
+	 * @param cardToDisplay Carte √† afficher
 	 */
 	private void displayNumberedCard(Card cardToDisplay) {
 		Preconditions.checkNotNull(cardToDisplay,"[ERROR] Impossible to display card : provided one is null");
@@ -176,8 +176,8 @@ public abstract class View implements Serializable {
 	}
 
 	/**
-	 * MÈthode privÈe permettant d'afficher une carte numÈrotÈe (avec gestion de sa couleur) 
-	 * @param cardToDisplay Carte ‡ afficher
+	 * M√©thode priv√©e permettant d'afficher une carte num√©rot√©e (avec gestion de sa couleur) 
+	 * @param cardToDisplay Carte √† afficher
 	 * @param index Index de la carte
 	 */
 	private void displayNumberedCard(Card cardToDisplay, int index) {
@@ -210,8 +210,8 @@ public abstract class View implements Serializable {
 	/* ========================================= GREEN TEXT ========================================= */
 
 	/**
-	 * MÈthode permettant d'afficher une unique ligne de couleur verte dans l'interface
-	 * @param string Message ‡ afficher
+	 * M√©thode permettant d'afficher une unique ligne de couleur verte dans l'interface
+	 * @param string Message √† afficher
 	 */
 	public void displayOneLineOfGreenText(String string) {
 		this.consoleDisplay.displayBlankLine();
@@ -220,10 +220,10 @@ public abstract class View implements Serializable {
 	}
 
 	/**
-	 * MÈthode permettant d'afficher une unique ligne de couleur verte avec un ÈlÈment mis en emphase (placeholder)
-	 * @param part01 PremiËre partie du texte ‡ afficher
+	 * M√©thode permettant d'afficher une unique ligne de couleur verte avec un √©l√©ment mis en emphase (placeholder)
+	 * @param part01 Premi√®re partie du texte √† afficher
 	 * @param placeholder01 Partie mise en emphase (blanc)
-	 * @param part02 DeuxiËme partie du texte ‡ afficher
+	 * @param part02 Deuxi√®me partie du texte √† afficher
 	 */
 	public void displayGreenEmphasisUsingPlaceholders(String part01, String placeholder01, String part02) {
 		this.consoleDisplay.displayBlankLine();
@@ -246,8 +246,8 @@ public abstract class View implements Serializable {
 	/* ========================================= JOKER TEXT ========================================= */
 	
 	/**
-	 * MÈthode permettant d'afficher une unique ligne de couleur magenta dans l'interface
-	 * @param string Message ‡ afficher
+	 * M√©thode permettant d'afficher une unique ligne de couleur magenta dans l'interface
+	 * @param string Message √† afficher
 	 */
 	public void displayOneLineOfJokerText(String string) {
 		this.consoleDisplay.displayBlankLine();
@@ -256,9 +256,9 @@ public abstract class View implements Serializable {
 	}
 
 	/**
-	 * MÈthode permettant d'afficher 2 lignes de couleur magenta dans la console
-	 * @param string Message ‡ afficher sur la 1Ëre ligne
-	 * @param string2 Message ‡ afficher sur la 2Ëme ligne
+	 * M√©thode permettant d'afficher 2 lignes de couleur magenta dans la console
+	 * @param string Message √† afficher sur la 1√®re ligne
+	 * @param string2 Message √† afficher sur la 2√®me ligne
 	 */
 	public void displayTwoLinesOfJokerText(String string, String string2) {
 		this.consoleDisplay.displayBlankLine();
@@ -269,10 +269,10 @@ public abstract class View implements Serializable {
 	}
 	
 	/**
-	 * MÈthode permettant d'afficher une unique ligne de couleur magenta dans l'interface (avec 1 mot mis en emphase)
-	 * @param part01 PremiËre partie du texte ‡ afficher
+	 * M√©thode permettant d'afficher une unique ligne de couleur magenta dans l'interface (avec 1 mot mis en emphase)
+	 * @param part01 Premi√®re partie du texte √† afficher
 	 * @param placeholder01 Partie mise en emphase (blanc)
-	 * @param part02 DeuxiËme partie du texte ‡ afficher
+	 * @param part02 Deuxi√®me partie du texte √† afficher
 	 */
 	public void displayJokerEmphasisUsingPlaceholders(String part01, String placeholder01, String part02) {
 		this.consoleDisplay.displayBlankLine();
@@ -283,10 +283,10 @@ public abstract class View implements Serializable {
 	}
 
 	/**
-	 * MÈthode permettant d'afficher une unique ligne de couleur magenta dans l'interface (avec 1 mot mis en emphase et affichage d'une carte)
-	 * UtilisÈe lors du jeu d'une carte par l'IA --permet d'avoir un retour visuel sur ses dÈcisions
-	 * @param part01 PremiËre partie du texte ‡ afficher
-	 * @param card Carte ‡ afficher
+	 * M√©thode permettant d'afficher une unique ligne de couleur magenta dans l'interface (avec 1 mot mis en emphase et affichage d'une carte)
+	 * Utilis√©e lors du jeu d'une carte par l'IA --permet d'avoir un retour visuel sur ses d√©cisions
+	 * @param part01 Premi√®re partie du texte √† afficher
+	 * @param card Carte √† afficher
 	 */
 	public void displayJokerEmphasisUsingPlaceholders(String part01, Card card) {
 		this.consoleDisplay.displayBlankLine();
@@ -296,12 +296,12 @@ public abstract class View implements Serializable {
 	}
 
 	/**
-	 * MÈthode permettant d'afficher une unique ligne de couleur magenta dans l'interface (avec 2 mots mis en emphase)
-	 * @param part01 PremiËre partie du texte ‡ afficher
+	 * M√©thode permettant d'afficher une unique ligne de couleur magenta dans l'interface (avec 2 mots mis en emphase)
+	 * @param part01 Premi√®re partie du texte √† afficher
 	 * @param placeholder01 Partie mise en emphase (blanc)
-	 * @param part02 DeuxiËme partie du texte ‡ afficher
+	 * @param part02 Deuxi√®me partie du texte √† afficher
 	 * @param placeholder02 Partie mise en emphase (blanc)
-	 * @param part03 TroisiËme partie du texte ‡ afficher
+	 * @param part03 Troisi√®me partie du texte √† afficher
 	 */
 	public void displayJokerEmphasisUsingPlaceholders(String part01, String placeholder01, String part02, String placeholder02, String part03) {
 		this.consoleDisplay.displayBlankLine();
@@ -314,14 +314,14 @@ public abstract class View implements Serializable {
 	}
 
 	/**
-	 * MÈthode permettant d'afficher une unique ligne de couleur magenta dans l'interface (avec 3 mots mis en emphase)
-	 * @param part01 PremiËre partie du texte ‡ afficher
+	 * M√©thode permettant d'afficher une unique ligne de couleur magenta dans l'interface (avec 3 mots mis en emphase)
+	 * @param part01 Premi√®re partie du texte √† afficher
 	 * @param placeholder01 Partie mise en emphase (blanc)
-	 * @param part02 DeuxiËme partie du texte ‡ afficher
+	 * @param part02 Deuxi√®me partie du texte √† afficher
 	 * @param placeholder02 Partie mise en emphase (blanc)
-	 * @param part03 TroisiËme partie du texte ‡ afficher
+	 * @param part03 Troisi√®me partie du texte √† afficher
 	 * @param placeholder03 Partie mise en emphase (blanc)
-	 * @param part04 QuatriËme partie du texte ‡ afficher
+	 * @param part04 Quatri√®me partie du texte √† afficher
 	 */
 	public void displayJokerEmphasisUsingPlaceholders(String part01, String placeholder01, String part02, String placeholder02, String part03, String placeholder03, String part04) {
 		this.consoleDisplay.appendJokerText(part01);
@@ -337,8 +337,8 @@ public abstract class View implements Serializable {
 	/* ========================================= WHITE TEXT ========================================= */
 
 	/**
-	 * MÈthode permettant d'afficher une unique ligne de couleur blanche dans l'interface
-	 * @param string Message ‡ afficher
+	 * M√©thode permettant d'afficher une unique ligne de couleur blanche dans l'interface
+	 * @param string Message √† afficher
 	 */
 	public void displayOneLineOfBoldText(String string) {
 		this.consoleDisplay.displayBlankLine();
@@ -347,10 +347,10 @@ public abstract class View implements Serializable {
 	}
 
 	/**
-	 * MÈthode permettant d'afficher du texte de couleur blanche (avec 1 mot emphasÈ) sans aller ‡ la ligne
-	 * @param part01 PremiËre partie du texte ‡ afficher
+	 * M√©thode permettant d'afficher du texte de couleur blanche (avec 1 mot emphas√©) sans aller √† la ligne
+	 * @param part01 Premi√®re partie du texte √† afficher
 	 * @param placeholder01 Partie mise en emphase (joker/magenta)
-	 * @param part02 DeuxiËme partie du texte ‡ afficher
+	 * @param part02 Deuxi√®me partie du texte √† afficher
 	 */
 	public void StartOneLineOfBoldText(String part01, String placeholder01, String part02) {
 		this.consoleDisplay.displayBlankLine();
@@ -360,8 +360,8 @@ public abstract class View implements Serializable {
 	}
 	
 	/**
-	 * MÈthode permettant d'afficher du texte de couleur blanche sur une ligne dÈj‡ existante
-	 * @param string Message ‡ afficher
+	 * M√©thode permettant d'afficher du texte de couleur blanche sur une ligne d√©j√† existante
+	 * @param string Message √† afficher
 	 */
 	public void AppendOneLineOfBoldText(String string) {
 		this.consoleDisplay.appendBoldText(string);
@@ -370,8 +370,8 @@ public abstract class View implements Serializable {
 	/* ========================================= RED TEXT ========================================= */
 
 	/**
-	 * MÈthode permettant d'afficher une unique ligne de couleur rouge dans l'interface
-	 * @param string Message ‡ afficher
+	 * M√©thode permettant d'afficher une unique ligne de couleur rouge dans l'interface
+	 * @param string Message √† afficher
 	 */
 	public void displayOneLineOfRedText(String string) {
 		this.consoleDisplay.displayBlankLine();
@@ -380,9 +380,9 @@ public abstract class View implements Serializable {
 	}
 
 	/**
-	 * MÈthode permettant d'afficher 2 lignes de couleur rouge dans la console
-	 * @param string Message ‡ afficher sur la 1Ëre ligne
-	 * @param string2 Message ‡ afficher sur la 2Ëme ligne
+	 * M√©thode permettant d'afficher 2 lignes de couleur rouge dans la console
+	 * @param string Message √† afficher sur la 1√®re ligne
+	 * @param string2 Message √† afficher sur la 2√®me ligne
 	 */
 	public void displayErrorMessage(String string, String string2) {
 		this.consoleDisplay.displayBlankLine();
@@ -392,10 +392,10 @@ public abstract class View implements Serializable {
 	}
 
 	/**
-	 * MÈthode permettant d'afficher une unique ligne de couleur rouge dans l'interface (avec 1 mot mis en emphase)
-	 * @param part01 PremiËre partie du texte ‡ afficher
+	 * M√©thode permettant d'afficher une unique ligne de couleur rouge dans l'interface (avec 1 mot mis en emphase)
+	 * @param part01 Premi√®re partie du texte √† afficher
 	 * @param placeholder01 Partie mise en emphase (blanc)
-	 * @param part02 DeuxiËme partie du texte ‡ afficher
+	 * @param part02 Deuxi√®me partie du texte √† afficher
 	 */
 	public void displayErrorMessageUsingPlaceholders(String part01, String placeholder01, String part02) {
 		this.consoleDisplay.displayBlankLine();
@@ -406,10 +406,10 @@ public abstract class View implements Serializable {
 	}
 
 	/**
-	 * MÈthode permettant d'afficher une unique ligne de couleur rouge dans l'interface (avec 2 mots mis en emphase)
-	 * @param part01 PremiËre partie du texte ‡ afficher
+	 * M√©thode permettant d'afficher une unique ligne de couleur rouge dans l'interface (avec 2 mots mis en emphase)
+	 * @param part01 Premi√®re partie du texte √† afficher
 	 * @param placeholder01 Partie mise en emphase (blanc)
-	 * @param part02 DeuxiËme partie du texte ‡ afficher
+	 * @param part02 Deuxi√®me partie du texte √† afficher
 	 * @param placeholder02 Partie mise en emphase (blanc)
 	 */
 	public void displayErrorMessageUsingPlaceholders(String part01, String placeholder01, String part02, String placeholder02) {
@@ -422,12 +422,12 @@ public abstract class View implements Serializable {
 	}
 	
 	/**
-	 * MÈthode permettant d'afficher une unique ligne de couleur rouge dans l'interface (avec 2 mots mis en emphase)
-	 * @param part01 PremiËre partie du texte ‡ afficher
+	 * M√©thode permettant d'afficher une unique ligne de couleur rouge dans l'interface (avec 2 mots mis en emphase)
+	 * @param part01 Premi√®re partie du texte √† afficher
 	 * @param placeholder01 Partie mise en emphase (blanc)
-	 * @param part02 DeuxiËme partie du texte ‡ afficher
+	 * @param part02 Deuxi√®me partie du texte √† afficher
 	 * @param placeholder02 Partie mise en emphase (blanc)
-	 * @param part03 TroisiËme partie du texte ‡ afficher
+	 * @param part03 Troisi√®me partie du texte √† afficher
 	 */
 	public void displayErrorMessageUsingPlaceholders(String part01, String placeholder01, String part02, String placeholder02, String part03) {
 		this.consoleDisplay.displayBlankLine();
@@ -440,13 +440,13 @@ public abstract class View implements Serializable {
 	}
 
 	/**
-	 * MÈthode permettant d'afficher une 2 lignes de couleur rouge dans l'interface (avec 2 mots mis en emphase)
-	 * @param part01 PremiËre partie du texte ‡ afficher sur la 1Ëre ligne
+	 * M√©thode permettant d'afficher une 2 lignes de couleur rouge dans l'interface (avec 2 mots mis en emphase)
+	 * @param part01 Premi√®re partie du texte √† afficher sur la 1√®re ligne
 	 * @param placeholder01 Partie mise en emphase (blanc)
-	 * @param part02 DeuxiËme partie du texte ‡ afficher sur la 1Ëre ligne
+	 * @param part02 Deuxi√®me partie du texte √† afficher sur la 1√®re ligne
 	 * @param placeholder02 Partie mise en emphase (blanc)
-	 * @param part03 TroisiËme partie du texte ‡ afficher sur la 1Ëre ligne
-	 * @param part04 QuatriËme partie du texte ‡ afficher sur la 2Ëme ligne
+	 * @param part03 Troisi√®me partie du texte √† afficher sur la 1√®re ligne
+	 * @param part04 Quatri√®me partie du texte √† afficher sur la 2√®me ligne
 	 */
 	public void displayErrorMessageUsingPlaceholders(String part01, String placeholder01, String part02, String placeholder02, String part03, String part04) {
 		this.consoleDisplay.displayBlankLine();
@@ -460,15 +460,15 @@ public abstract class View implements Serializable {
 	}
 
 	/**
-	 * MÈthode permettant d'afficher une 2 lignes de couleur rouge dans l'interface (avec 3 mots mis en emphase)
-	 * @param part01 PremiËre partie du texte ‡ afficher sur la 1Ëre ligne
+	 * M√©thode permettant d'afficher une 2 lignes de couleur rouge dans l'interface (avec 3 mots mis en emphase)
+	 * @param part01 Premi√®re partie du texte √† afficher sur la 1√®re ligne
 	 * @param placeholder01 Partie mise en emphase (blanc)
-	 * @param part02 DeuxiËme partie du texte ‡ afficher sur la 1Ëre ligne
+	 * @param part02 Deuxi√®me partie du texte √† afficher sur la 1√®re ligne
 	 * @param placeholder02 Partie mise en emphase (blanc)
-	 * @param part03 TroisiËme partie du texte ‡ afficher sur la 1Ëre ligne
+	 * @param part03 Troisi√®me partie du texte √† afficher sur la 1√®re ligne
 	 * @param placeholder03 Partie mise en emphase (blanc)
-	 * @param part04 QuatriËme partie du texte ‡ afficher sur la 1Ëre ligne
-	 * @param part05 CinquiËme partie du texte ‡ afficher sur la 2Ëme ligne
+	 * @param part04 Quatri√®me partie du texte √† afficher sur la 1√®re ligne
+	 * @param part05 Cinqui√®me partie du texte √† afficher sur la 2√®me ligne
 	 */
 	public void displayErrorMessageUsingPlaceholders(String part01, String placeholder01, String part02, String placeholder02, String part03, String placeholder03, String part04, String part05) {
 		this.consoleDisplay.displayBlankLine();
@@ -486,7 +486,7 @@ public abstract class View implements Serializable {
 	/* ========================================= COLOR DEPENDANT TEXT ========================================= */
 
 	/**
-	 * MÈthode permettant d'afficher le nom de la couleur globale dans l'interface (colorÈ de maniËre adÈquate)
+	 * M√©thode permettant d'afficher le nom de la couleur globale dans l'interface (color√© de mani√®re ad√©quate)
 	 */
 	public void displayTextBasedOnItsColor(String part01, Color globalColor, String redText, String blueText, String greenText, String yellowText) {
 		this.consoleDisplay.appendBoldText(part01);
@@ -503,7 +503,7 @@ public abstract class View implements Serializable {
 	}
 
 	/**
-	 * MÈthode permettant d'afficher toutes les couleurs disponibles dans l'interface (avec texte et index fixes)
+	 * M√©thode permettant d'afficher toutes les couleurs disponibles dans l'interface (avec texte et index fixes)
 	 */
 	public void displayAvailableColors() {
 		this.consoleDisplay.appendBoldText("Available Colors are : ");
@@ -516,10 +516,10 @@ public abstract class View implements Serializable {
 	}
 
 	/**
-	 * MÈthode permettant d'afficher les choix accessibles ‡ l'utilisateur (Y/N question avec index et couleurs distinctives)
-	 * @param question Question ‡ afficher ‡ l'utilisateur
-	 * @param choice1 Premier choix (affichÈ en vert)
-	 * @param choice2 DeuxiËme choix (affichÈ en rouge)
+	 * M√©thode permettant d'afficher les choix accessibles √† l'utilisateur (Y/N question avec index et couleurs distinctives)
+	 * @param question Question √† afficher √† l'utilisateur
+	 * @param choice1 Premier choix (affich√© en vert)
+	 * @param choice2 Deuxi√®me choix (affich√© en rouge)
 	 */
 	public void displayChoice(String question, String choice1, String choice2) {
 		this.consoleDisplay.displayBlankLine();
@@ -531,11 +531,11 @@ public abstract class View implements Serializable {
 	}
 
 	/**
-	 * MÈthode permettant d'afficher les choix accessibles ‡ l'utilisateur (A/B/C question avec index et couleurs distinctives)
-	 * @param question Question ‡ afficher ‡ l'utilisateur
-	 * @param choice1 Premier choix (affichÈ en vert)
-	 * @param choice2 DeuxiËme choix (affichÈ en jaune)
-	 * @param choice3 TroisiËme choix (affichÈ en rouge)
+	 * M√©thode permettant d'afficher les choix accessibles √† l'utilisateur (A/B/C question avec index et couleurs distinctives)
+	 * @param question Question √† afficher √† l'utilisateur
+	 * @param choice1 Premier choix (affich√© en vert)
+	 * @param choice2 Deuxi√®me choix (affich√© en jaune)
+	 * @param choice3 Troisi√®me choix (affich√© en rouge)
 	 */
 	public void displayChoice(String question, String choice1, String choice2, String choice3) {
 		this.consoleDisplay.displayBlankLine();
@@ -551,7 +551,7 @@ public abstract class View implements Serializable {
 	/* ========================================= UTILS ========================================= */
 
 	/**
-	 * MÈthode permettant de nettoyer la console (suppression de toutes lignes affichÈes)
+	 * M√©thode permettant de nettoyer la console (suppression de toutes lignes affich√©es)
 	 */
 	public void clearDisplay() {
 		this.consoleDisplay.clearDisplay();

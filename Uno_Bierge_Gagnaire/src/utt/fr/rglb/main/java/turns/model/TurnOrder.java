@@ -1,9 +1,9 @@
-package utt.fr.rglb.main.java.turns.model;
+ï»¿package utt.fr.rglb.main.java.turns.model;
 
 /**
- * Enumération définissant l'ordre de jeu
+ * EnumÃ©ration dÃ©finissant l'ordre de jeu
  * </br>Valeurs possibles :
- * </br> - {@code CLOCKWISE} : Sens des aiguilles d'une montre (par défaut)
+ * </br> - {@code CLOCKWISE} : Sens des aiguilles d'une montre (par dÃ©faut)
  * </br> - {@code COUNTER_CLOCKWISE} : Sens inverse des aiguilles d'une montre
  */
 public enum TurnOrder {

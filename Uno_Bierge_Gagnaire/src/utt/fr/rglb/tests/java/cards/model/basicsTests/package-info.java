@@ -1,4 +1,4 @@
-/**
- * Package associé aux tests unitaires basés sur le package source contenant les données associées aux modèles des cartes
+ï»¿/**
+ * Package associÃ© aux tests unitaires basÃ©s sur le package source contenant les donnÃ©es associÃ©es aux modÃ¨les des cartes
  */
 package utt.fr.rglb.tests.java.cards.model.basicsTests;

@@ -1,4 +1,4 @@
-/**
- * Package associé aux données en liaison avec la console
+ï»¿/**
+ * Package associÃ© aux donnÃ©es en liaison avec la console
  */
 package utt.fr.rglb.main.java.console.model;

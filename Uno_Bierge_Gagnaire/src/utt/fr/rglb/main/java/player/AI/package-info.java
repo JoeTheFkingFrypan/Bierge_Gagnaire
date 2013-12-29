@@ -1,4 +1,4 @@
-/**
- * Package associé au données liées à l'IA et ses différents comportements
+ï»¿/**
+ * Package associÃ© au donnÃ©es liÃ©es Ã  l'IA et ses diffÃ©rents comportements
  */
 package utt.fr.rglb.main.java.player.AI;

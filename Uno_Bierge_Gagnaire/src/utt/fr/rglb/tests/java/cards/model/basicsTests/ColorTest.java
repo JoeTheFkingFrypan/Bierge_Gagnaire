@@ -1,4 +1,4 @@
-package utt.fr.rglb.tests.java.cards.model.basicsTests;
+ï»¿package utt.fr.rglb.tests.java.cards.model.basicsTests;
 
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -7,8 +7,8 @@ import org.junit.Test;
 import utt.fr.rglb.main.java.cards.model.basics.Color;
 
 /**
- * Classe de tests unitaires validant le comportement des méthodes de la classe Color
- * </br>Utilisation de simulacres pour l'effet des cartes spéciales (Mockito)
+ * Classe de tests unitaires validant le comportement des mÃ©thodes de la classe Color
+ * </br>Utilisation de simulacres pour l'effet des cartes spÃ©ciales (Mockito)
  * @see Color
  */
 public class ColorTest {

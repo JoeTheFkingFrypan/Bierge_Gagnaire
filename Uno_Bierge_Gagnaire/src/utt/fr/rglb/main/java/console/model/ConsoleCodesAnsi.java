@@ -1,9 +1,9 @@
-package utt.fr.rglb.main.java.console.model;
+ï»¿package utt.fr.rglb.main.java.console.model;
 
 import java.io.Serializable;
 
 /**
- * Classe contenant une énumération statique de codes ANSI
+ * Classe contenant une Ã©numÃ©ration statique de codes ANSI
  */
 public class ConsoleCodesAnsi implements Serializable {
 	private static final long serialVersionUID = 1L;

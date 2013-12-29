@@ -1,4 +1,4 @@
-package utt.fr.rglb.main.java.cards.model;
+ï»¿package utt.fr.rglb.main.java.cards.model;
 
 import com.google.common.base.Preconditions;
 import java.io.Serializable;
@@ -11,9 +11,9 @@ import utt.fr.rglb.main.java.cards.model.basics.Color;
 import utt.fr.rglb.main.java.console.view.View;
 
 /**
- * Classe dont le rôle est de permettre un test de compatibilité entre la carte choisie par l'utilisateur et la carte de référence de manière plus aisée
- * </br>Elle comprend également la couleur globale définie lors du jeu d'un joker.
- * </br>Elle centralise donc tous les critères de validité lors du choix d'une carte
+ * Classe dont le rÃ´le est de permettre un test de compatibilitÃ© entre la carte choisie par l'utilisateur et la carte de rÃ©fÃ©rence de maniÃ¨re plus aisÃ©e
+ * </br>Elle comprend Ã©galement la couleur globale dÃ©finie lors du jeu d'un joker.
+ * </br>Elle centralise donc tous les critÃ¨res de validitÃ© lors du choix d'une carte
  */
 public class CardsModelBean implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -25,8 +25,8 @@ public class CardsModelBean implements Serializable {
 
 	/**
 	 * Constructeur de GameModelBean
-	 * @param lastCardPlayed Carte dernièrement jouée (carte visible du talon)
-	 * @param globalColor Couleur globale ayant éventuellement été choisie
+	 * @param lastCardPlayed Carte derniÃ¨rement jouÃ©e (carte visible du talon)
+	 * @param globalColor Couleur globale ayant Ã©ventuellement Ã©tÃ© choisie
 	 * @param consoleView Vue permettant d'afficher des informations dans l'interface
 	 */
 	public CardsModelBean(Card lastCardPlayed, Color globalColor, View consoleView) {
@@ -41,7 +41,7 @@ public class CardsModelBean implements Serializable {
 	/* ========================================= COMPARAISON - HIGH LEVEL ========================================= */
 
 	/**
-	 * Méthode permettant de s'assurer que la collection de cartes passée en paramètre a au moins une carte compatible avec la référence/couleur globale
+	 * MÃ©thode permettant de s'assurer que la collection de cartes passÃ©e en paramÃ¨tre a au moins une carte compatible avec la rÃ©fÃ©rence/couleur globale
 	 * @param cardsFromPlayer Collection de cartes
 	 * @return <code>TRUE</code> si la collection contient au moins une carte compatible, <code>FALSE</code> sinon
 	 */
@@ -56,8 +56,8 @@ public class CardsModelBean implements Serializable {
 	}
 	
 	/**
-	 * Méthode permettant de s'assurer que la carte passée en paramètre est compatible avec la référence/couleur globale
-	 * @param cardFromPlayer Carte dont on souhaite connaitre la compatibilité
+	 * MÃ©thode permettant de s'assurer que la carte passÃ©e en paramÃ¨tre est compatible avec la rÃ©fÃ©rence/couleur globale
+	 * @param cardFromPlayer Carte dont on souhaite connaitre la compatibilitÃ©
 	 * @return <code>TRUE</code> si la carte est compatible, <code>FALSE</code> sinon
 	 */
 	public boolean isCompatibleWith(Card cardFromPlayer) {
@@ -71,8 +71,8 @@ public class CardsModelBean implements Serializable {
 	}
 
 	/**
-	 * Méthode privée permettant de procéder à la comparaison entre la carte de référence et la carte SPECIALE passée en paramètre
-	 * @param specialCardFromPlayer Carte dont on souhaite connaitre la compatibilité
+	 * MÃ©thode privÃ©e permettant de procÃ©der Ã  la comparaison entre la carte de rÃ©fÃ©rence et la carte SPECIALE passÃ©e en paramÃ¨tre
+	 * @param specialCardFromPlayer Carte dont on souhaite connaitre la compatibilitÃ©
 	 * @return <code>TRUE</code> si la carte est compatible, <code>FALSE</code> sinon
 	 */
 	private boolean compatibilityCheckWithSpecialCard(CardSpecial specialCardFromPlayer) {
@@ -85,8 +85,8 @@ public class CardsModelBean implements Serializable {
 	}
 
 	/**
-	 * Méthode privée permettant de procéder à la comparaison entre la carte de référence et la carte passée en paramètre
-	 * @param cardFromPlayer Carte dont on souhaite connaitre la compatibilité
+	 * MÃ©thode privÃ©e permettant de procÃ©der Ã  la comparaison entre la carte de rÃ©fÃ©rence et la carte passÃ©e en paramÃ¨tre
+	 * @param cardFromPlayer Carte dont on souhaite connaitre la compatibilitÃ©
 	 * @return <code>TRUE</code> si la carte est compatible, <code>FALSE</code> sinon
 	 */
 	private boolean compatibilityCheckWithNumberedCard(Card cardFromPlayer) {
@@ -101,8 +101,8 @@ public class CardsModelBean implements Serializable {
 	/* ========================================= COMPARAISON - UTILS ========================================= */
 
 	/**
-	 * Méthode privée permettant de vérifier si une "simple" comparaison est suffisante pour attester de sa compatibilité avec la référence
-	 * @param currentCard Carte dont on souhaite connaitre la compatibilité
+	 * MÃ©thode privÃ©e permettant de vÃ©rifier si une "simple" comparaison est suffisante pour attester de sa compatibilitÃ© avec la rÃ©fÃ©rence
+	 * @param currentCard Carte dont on souhaite connaitre la compatibilitÃ©
 	 */
 	private boolean numberedCardComparaisonIsEnough(Card currentCard) {
 		Preconditions.checkNotNull(currentCard,"[ERROR] Could not check compatibility : provided card is null");
@@ -113,8 +113,8 @@ public class CardsModelBean implements Serializable {
 	}
 	
 	/**
-	 * Méthode privée permettant de vérifier si une "simple" comparaison est suffisante pour attester de sa compatibilité avec la référence
-	 * @param currentCard Carte dont on souhaite connaitre la compatibilité
+	 * MÃ©thode privÃ©e permettant de vÃ©rifier si une "simple" comparaison est suffisante pour attester de sa compatibilitÃ© avec la rÃ©fÃ©rence
+	 * @param currentCard Carte dont on souhaite connaitre la compatibilitÃ©
 	 * @return <code>TRUE</code> si la carte est compatible (couleur identique, effet identique) 
 	 */
 	private boolean specialCardComparaisonIsEnough(CardSpecial currentCard) {
@@ -126,8 +126,8 @@ public class CardsModelBean implements Serializable {
 	}
 
 	/**
-	 * Méthode privée permettant de vérifier si une comparaison de couleur entre la couleur globale et celle de la carte passée en paramètre est suffisante pour attester de sa compatibilité
-	 * @param currentCard Carte dont on souhaite connaitre la compatibilité
+	 * MÃ©thode privÃ©e permettant de vÃ©rifier si une comparaison de couleur entre la couleur globale et celle de la carte passÃ©e en paramÃ¨tre est suffisante pour attester de sa compatibilitÃ©
+	 * @param currentCard Carte dont on souhaite connaitre la compatibilitÃ©
 	 * @return <code>TRUE</code> si la carte est compatible (couleur identique) 
 	 */
 	private boolean globalComparaisonIsEnough(Card currentCard) {
@@ -143,7 +143,7 @@ public class CardsModelBean implements Serializable {
 	/* ========================================= GETTERS ========================================= */
 
 	/**
-	 * Méthode permettant d'obtenir les index des cartes jouables en main
+	 * MÃ©thode permettant d'obtenir les index des cartes jouables en main
 	 * @param cardCollection Cartes actuellement en main
 	 * @return Liste d'index correspondant aux cartes jouables
 	 */
@@ -161,7 +161,7 @@ public class CardsModelBean implements Serializable {
 	}
 	
 	/**
-	 * Méhode permettant de déterminer si l'utilisateur peut jouer d'autres cartes qu'un +4
+	 * MÃ©hode permettant de dÃ©terminer si l'utilisateur peut jouer d'autres cartes qu'un +4
 	 * @param cardCollection Cartes actuellement en main
 	 * @return <code>TRUE</code> si le joueur a d'autres cartes jouables qui ne sont pas des +4, <code>FALSE</code> sinon
 	 */
@@ -179,16 +179,16 @@ public class CardsModelBean implements Serializable {
 	}
 	
 	/**
-	 * Méthode permettant de savoir si une couleur globale est définie (si un joker/+4 a été précédement joué)
-	 * @return <code>TRUE</code> si une couleur globale est définie, <code>FALSE</code> sinon
+	 * MÃ©thode permettant de savoir si une couleur globale est dÃ©finie (si un joker/+4 a Ã©tÃ© prÃ©cÃ©dement jouÃ©)
+	 * @return <code>TRUE</code> si une couleur globale est dÃ©finie, <code>FALSE</code> sinon
 	 */
 	public boolean globalColorIsSet() {
 		return ! this.globalColor.equals(Color.JOKER);
 	}
 
 	/**
-	 * Méthode permettant de récuperer la dernière carte ayant été jouée (sans la retirer)
-	 * @return La dernière carte ayant été jouée
+	 * MÃ©thode permettant de rÃ©cuperer la derniÃ¨re carte ayant Ã©tÃ© jouÃ©e (sans la retirer)
+	 * @return La derniÃ¨re carte ayant Ã©tÃ© jouÃ©e
 	 */
 	public Card getLastCardPlayed() {
 		return this.lastCardPlayed;
@@ -197,7 +197,7 @@ public class CardsModelBean implements Serializable {
 	/* ========================================= DISPLAY ========================================= */
 
 	/**
-	 * Méthode permettant d'ajouter la couleur globale dans l'interface (colorée de manière adéquate)
+	 * MÃ©thode permettant d'ajouter la couleur globale dans l'interface (colorÃ©e de maniÃ¨re adÃ©quate)
 	 */
 	public void appendGlobalColorIfItIsSet() {
 		if(globalColorIsSet()) {

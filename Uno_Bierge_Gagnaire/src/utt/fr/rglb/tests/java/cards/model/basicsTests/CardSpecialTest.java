@@ -1,4 +1,4 @@
-package utt.fr.rglb.tests.java.cards.model.basicsTests;
+ï»¿package utt.fr.rglb.tests.java.cards.model.basicsTests;
 
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
@@ -12,12 +12,12 @@ import utt.fr.rglb.main.java.cards.model.basics.Effect;
 import utt.fr.rglb.main.java.game.model.GameFlag;
 
 /**
- * Classe de tests unitaires validant le comportement des méthodes de la classe CardSpecial
- * </br>Utilisation de simulacres pour l'effet des cartes spéciales (Mockito)
+ * Classe de tests unitaires validant le comportement des mÃ©thodes de la classe CardSpecial
+ * </br>Utilisation de simulacres pour l'effet des cartes spÃ©ciales (Mockito)
  * @see CardSpecial
  */
 public class CardSpecialTest {
-	//Elements composant les différentes cartes
+	//Elements composant les diffÃ©rentes cartes
 	private Integer referenceValue;
 	private Integer completelyDifferentValue;
 	private Color referenceColor;

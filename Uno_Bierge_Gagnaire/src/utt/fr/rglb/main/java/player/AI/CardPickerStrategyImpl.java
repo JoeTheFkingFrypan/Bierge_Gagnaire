@@ -1,4 +1,4 @@
-package utt.fr.rglb.main.java.player.AI;
+ï»¿package utt.fr.rglb.main.java.player.AI;
 
 import com.google.common.base.Preconditions;
 import java.io.Serializable;
@@ -8,16 +8,16 @@ import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.cards.model.basics.Color;
 
 /**
- * Classe abstraite correspondant à l'implémentation de l'interface CardPickerStrategy
+ * Classe abstraite correspondant Ã  l'implÃ©mentation de l'interface CardPickerStrategy
  */
 public abstract class CardPickerStrategyImpl implements CardPickerStrategy, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Méthode permettant d'obtenir l'index de la carte la plus appropriée, basé sur le type de stratégie
-	 * @param playableIndexes Collection de numéro corrspondant aux indices des cartes jouables
+	 * MÃ©thode permettant d'obtenir l'index de la carte la plus appropriÃ©e, basÃ© sur le type de stratÃ©gie
+	 * @param playableIndexes Collection de numÃ©ro corrspondant aux indices des cartes jouables
 	 * @param cardCollection Collection de cartes en main
-	 * @return int correspondant à la carte choisie
+	 * @return int correspondant Ã  la carte choisie
 	 */
 	protected abstract int findBestCardToPlay(Collection<Integer> playableIndexes, Collection<Card> cardCollection);
 

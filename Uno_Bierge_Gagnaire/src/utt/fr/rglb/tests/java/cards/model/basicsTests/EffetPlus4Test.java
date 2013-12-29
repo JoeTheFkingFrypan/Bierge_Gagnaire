@@ -1,4 +1,4 @@
-package utt.fr.rglb.tests.java.cards.model.basicsTests;
+﻿package utt.fr.rglb.tests.java.cards.model.basicsTests;
 
 import static org.junit.Assert.assertEquals;
 
@@ -9,7 +9,7 @@ import utt.fr.rglb.main.java.cards.model.basics.EffectPlus4;
 import utt.fr.rglb.main.java.game.model.GameFlag;
 
 /**
- * Classe de tests unitaires validant le comportement des m�thodes de la classe EffectPlus4
+ * Classe de tests unitaires validant le comportement des méthodes de la classe EffectPlus4
  * @see EffectPlus4
  */
 public class EffetPlus4Test {

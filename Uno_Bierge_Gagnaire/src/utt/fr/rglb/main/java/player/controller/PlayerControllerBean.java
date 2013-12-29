@@ -1,4 +1,4 @@
-package utt.fr.rglb.main.java.player.controller;
+ï»¿package utt.fr.rglb.main.java.player.controller;
 
 import com.google.common.base.Preconditions;
 import java.io.Serializable;
@@ -7,7 +7,7 @@ import java.util.Collection;
 import utt.fr.rglb.main.java.cards.model.basics.Card;
 
 /**
- * Classe encapsulant toutes les informations permettant d'accèder à un joueur, à ses cartes et toutes les informations necessaires à la terminaison d'un round et d'une partie
+ * Classe encapsulant toutes les informations permettant d'accÃ¨der Ã  un joueur, Ã  ses cartes et toutes les informations necessaires Ã  la terminaison d'un round et d'une partie
  */
 public class PlayerControllerBean implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -36,7 +36,7 @@ public class PlayerControllerBean implements Serializable {
 	/* ========================================= GETTERS ========================================= */
 	
 	/**
-	 * Méthode permettant de vérifier si le joueur encapsulé possède encore des cartes
+	 * MÃ©thode permettant de vÃ©rifier si le joueur encapsulÃ© possÃ¨de encore des cartes
 	 * @return <code>TRUE</code> s'il lui reste encore des cartes, <code>FALSE</code> sinon
 	 */
 	public boolean stillHasCards() {
@@ -44,23 +44,23 @@ public class PlayerControllerBean implements Serializable {
 	}
 	
 	/**
-	 * Méthode permettant de vérifier si le joueur encapsulé a annoncé UNO
-	 * @return <code>TRUE</code> s'il a annoncé UNO, <code>FALSE</code> sinon
+	 * MÃ©thode permettant de vÃ©rifier si le joueur encapsulÃ© a annoncÃ© UNO
+	 * @return <code>TRUE</code> s'il a annoncÃ© UNO, <code>FALSE</code> sinon
 	 */
 	public boolean hasAnnouncedUno() {
 		return this.hasAnnouncedUno;
 	}
 	
 	/**
-	 * Méthode permettant de vérifier si le joueur encapsulé a remporté la partie
-	 * @return <code>TRUE</code> s'il a remporté la partie, <code>FALSE</code> sinon
+	 * MÃ©thode permettant de vÃ©rifier si le joueur encapsulÃ© a remportÃ© la partie
+	 * @return <code>TRUE</code> s'il a remportÃ© la partie, <code>FALSE</code> sinon
 	 */
 	public boolean hasNotWonTheGame() {
 		return this.hasNotWonTheGame;
 	}
 	
 	/**
-	 * Méthode permettant de vérifier si le joueur encapsulé a le droit d'annoncer UNO
+	 * MÃ©thode permettant de vÃ©rifier si le joueur encapsulÃ© a le droit d'annoncer UNO
 	 * @return <code>TRUE</code> s'il a le droit d'annoncer UNO, <code>FALSE</code> sinon
 	 */
 	public boolean deservesTheRightToAnnounceUno() {
@@ -68,23 +68,23 @@ public class PlayerControllerBean implements Serializable {
 	}
 	
 	/**
-	 * Méthode permettant de vérifier si le joueur a joué sa dernière carte en ayant oublié d'annoncer UNO
-	 * @return <code>TRUE</code> s'il a joué sa dernière carte en ayant oublié d'annoncer UNO, <code>FALSE</code> sinon
+	 * MÃ©thode permettant de vÃ©rifier si le joueur a jouÃ© sa derniÃ¨re carte en ayant oubliÃ© d'annoncer UNO
+	 * @return <code>TRUE</code> s'il a jouÃ© sa derniÃ¨re carte en ayant oubliÃ© d'annoncer UNO, <code>FALSE</code> sinon
 	 */
 	public boolean hasNoCardAndForgotToAnnounceUno() {
 		return this.currentPlayer.hasNoCardAndForgotToAnnounceUno();
 	}
 
 	/**
-	 * Méthode permettant de récupérer le joueur encapsulé
-	 * @return Le joueur encapsulé
+	 * MÃ©thode permettant de rÃ©cupÃ©rer le joueur encapsulÃ©
+	 * @return Le joueur encapsulÃ©
 	 */
 	public PlayerController getPlayer() {
 		return this.currentPlayer;
 	}
 		
 	/**
-	 * Méthode permettant de récupérer le pseudo du joueur
+	 * MÃ©thode permettant de rÃ©cupÃ©rer le pseudo du joueur
 	 * @return <code>TRUE</code> s'il lui reste encore des cartes, <code>FALSE</code> sinon
 	 */
 	public String getAlias() {
@@ -94,8 +94,8 @@ public class PlayerControllerBean implements Serializable {
 	/* ========================================= LOGIC ========================================= */
 	
 	/**
-	 * Méthode permettant forcer un joueur à ajouter des cartes dans sa main
-	 * @param cardPenalty Collection de cartes correspondat à la pénalité reçue
+	 * MÃ©thode permettant forcer un joueur Ã  ajouter des cartes dans sa main
+	 * @param cardPenalty Collection de cartes correspondat Ã  la pÃ©nalitÃ© reÃ§ue
 	 */
 	public void isForcedToPickUpCards(Collection<Card> cardPenalty) {
 		Preconditions.checkNotNull(cardPenalty,"[ERROR] Impossible to give card penalty to player : provided card collection is null");
@@ -104,9 +104,9 @@ public class PlayerControllerBean implements Serializable {
 	}
 
 	/**
-	 * Méthode permettant d'incrémenter le score actuel du joueur, en vérifiant si le joueur a remporté la partie ou non
-	 * @param pointsReceived Points reçus
-	 * @return <code>TRUE</code> si son score est inférieur à 500, <code>FALSE</code> sinon
+	 * MÃ©thode permettant d'incrÃ©menter le score actuel du joueur, en vÃ©rifiant si le joueur a remportÃ© la partie ou non
+	 * @param pointsReceived Points reÃ§us
+	 * @return <code>TRUE</code> si son score est infÃ©rieur Ã  500, <code>FALSE</code> sinon
 	 */
 	public boolean increaseScoreBy(Integer pointsReceived) {
 		Preconditions.checkNotNull(pointsReceived,"[ERROR] Impossible to increase score : provided amount of points is null");

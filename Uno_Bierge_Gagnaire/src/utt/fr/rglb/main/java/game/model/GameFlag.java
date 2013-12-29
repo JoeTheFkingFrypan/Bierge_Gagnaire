@@ -1,9 +1,9 @@
-package utt.fr.rglb.main.java.game.model;
+ï»¿package utt.fr.rglb.main.java.game.model;
 
 /**
- * Enumeration comprenant tous les états de jeu pouvant se produire lors du jeu d'une carte
+ * Enumeration comprenant tous les Ã©tats de jeu pouvant se produire lors du jeu d'une carte
  * </br>Valeurs possibles :
- * </br> - {@code NORMAL} : Dans les cas où une carte numérotée a été jouée (ou quand tous les effets ont été déclenchés)
+ * </br> - {@code NORMAL} : Dans les cas oÃ¹ une carte numÃ©rotÃ©e a Ã©tÃ© jouÃ©e (ou quand tous les effets ont Ã©tÃ© dÃ©clenchÃ©s)
  * </br> - {@code REVERSE} : Inversion du sens de jeu
  * </br> - {@code SKIP} : Interdiction pour le joueur suivant de jouer
  * </br> - {@code COLOR_PICK} : Le joueur en cours doit choisir une couleur

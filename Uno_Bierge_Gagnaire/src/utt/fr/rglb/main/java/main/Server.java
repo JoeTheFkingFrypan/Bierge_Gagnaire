@@ -1,4 +1,4 @@
-package utt.fr.rglb.main.java.main;
+Ôªøpackage utt.fr.rglb.main.java.main;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -9,7 +9,7 @@ import utt.fr.rglb.main.java.console.view.View;
 import utt.fr.rglb.main.java.game.controller.GameController;
 
 /**
- * Classe correspondant au serveur de jeu comprenant tous les Èlements necessaire au fonctionnement d'une partie
+ * Classe correspondant au serveur de jeu comprenant tous les √©lements necessaire au fonctionnement d'une partie
  */
 public class Server implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -20,7 +20,7 @@ public class Server implements Serializable {
 	/* ========================================= CONSTRUCTOR ========================================= */
 
 	/**
-	 * Constructeur privÈ de serveur
+	 * Constructeur priv√© de serveur
 	 */
 	private Server() {
 		Server.consoleView = new ConsoleView();
@@ -29,8 +29,8 @@ public class Server implements Serializable {
 	}
 
 	/**
-	 * MÈthode permettant une unique instance de serveur (singleton)
-	 * CrÈe l'instance si elle n'existe pas, ou la retourne si elle existe dÈj‡
+	 * M√©thode permettant une unique instance de serveur (singleton)
+	 * Cr√©e l'instance si elle n'existe pas, ou la retourne si elle existe d√©j√†
 	 * @return L'instance unique de serveur
 	 */
 	private static Server buildServer() {
@@ -39,7 +39,7 @@ public class Server implements Serializable {
 	}
 
 	/**
-	 * MÈthode perrmetant de rÈcupÈrer l'unique instance de serveur
+	 * M√©thode perrmetant de r√©cup√©rer l'unique instance de serveur
 	 * @return L'instance unique de serveur
 	 */
 	public static Server getInstance() {
@@ -53,7 +53,7 @@ public class Server implements Serializable {
 	/* ========================================= GAME LOGIC ========================================= */
 
 	/**
-	 * MÈthode permetant de lancer une partie de UNO
+	 * M√©thode permetant de lancer une partie de UNO
 	 */
 	public void startPlaying() {
 		Server.gameController.startAnotherGame();

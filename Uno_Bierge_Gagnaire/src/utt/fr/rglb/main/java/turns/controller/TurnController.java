@@ -1,4 +1,4 @@
-package utt.fr.rglb.main.java.turns.controller;
+ï»¿package utt.fr.rglb.main.java.turns.controller;
 
 import java.io.BufferedReader;
 import java.io.Serializable;
@@ -17,7 +17,7 @@ import utt.fr.rglb.main.java.player.model.PlayersToCreate;
 import com.google.common.base.Preconditions;
 
 /**
- * Classe dont le rôle est de gérer tout ce qui touche aux joueurs, et passage au joueur suivant
+ * Classe dont le rÃ´le est de gÃ©rer tout ce qui touche aux joueurs, et passage au joueur suivant
  */
 public class TurnController implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -39,14 +39,14 @@ public class TurnController implements Serializable {
 /* ========================================= RESET ========================================= */
 	
 	/**
-	 * Méthode permettant de ré-initialiser l'index du joueur devant commencer la partie (fonction du sens de jeu)
+	 * MÃ©thode permettant de rÃ©-initialiser l'index du joueur devant commencer la partie (fonction du sens de jeu)
 	 */
 	public void resetPlayerIndex() {
 		this.turnModel.resetPlayerIndex();
 	}
 	
 	/**
-	 * Méthode permettant de ré-initialiser le système de tour de jeu (remise par défaut du sens de jeu, suppression de tous les joueurs)
+	 * MÃ©thode permettant de rÃ©-initialiser le systÃ¨me de tour de jeu (remise par dÃ©faut du sens de jeu, suppression de tous les joueurs)
 	 */
 	public void resetTurn() {
 		this.turnModel.resetTurn();
@@ -55,7 +55,7 @@ public class TurnController implements Serializable {
 	/* ========================================= PLAYER CREATION ========================================= */
 
 	/**
-	 * Méthode permettant de créer tous les joueurs à partir de leurs noms, et de leur donner un ordre aléatoire
+	 * MÃ©thode permettant de crÃ©er tous les joueurs Ã  partir de leurs noms, et de leur donner un ordre alÃ©atoire
 	 * @param playersAwaitingCreation Collection contenant le nom de tous les joueurs
 	 */
 	public void createPlayersFrom(PlayersToCreate playersAwaitingCreation, BufferedReader inputStream) {
@@ -64,7 +64,7 @@ public class TurnController implements Serializable {
 	}
 	
 	/**
-	 * Méthode permettant de créer tous les joueurs à partir de leurs noms, sans leur donner un ordre aléatoire
+	 * MÃ©thode permettant de crÃ©er tous les joueurs Ã  partir de leurs noms, sans leur donner un ordre alÃ©atoire
 	 * @param playerNames Collection contenant le nom de tous les joueurs
 	 */
 	public void createPlayersWithoutScamblingFrom(Collection<String> playerNames, BufferedReader inputStream) {
@@ -74,7 +74,7 @@ public class TurnController implements Serializable {
 	}
 
 	/**
-	 * Méthode permettant d'initialiser la main des joueurs en leur donnant 7 cartes chacun
+	 * MÃ©thode permettant d'initialiser la main des joueurs en leur donnant 7 cartes chacun
 	 * @param cards Collection initiale de 7 cartes
 	 */
 	public void giveCardsToNextPlayer(Collection<Card> cards) {
@@ -85,7 +85,7 @@ public class TurnController implements Serializable {
 	/* ========================================= TURN ORDER ========================================= */
 
 	/**
-	 * Méthode permettant d'inverser le sens dans lequel est choisi le joueur suivant
+	 * MÃ©thode permettant d'inverser le sens dans lequel est choisi le joueur suivant
 	 */
 	public void reverseCurrentOrder() {
 		this.consoleView.displayOneLineOfRedText("Turn order has been inverted");
@@ -93,15 +93,15 @@ public class TurnController implements Serializable {
 	}
 
 	/**
-	 * Méthode permettant de trouver le joueur suivant (en fonction du sens du jeu)
-	 * @return Le controlleur associé au joueur suivant
+	 * MÃ©thode permettant de trouver le joueur suivant (en fonction du sens du jeu)
+	 * @return Le controlleur associÃ© au joueur suivant
 	 */
 	public PlayerController findCurrentPlayer() {
 		return this.turnModel.findCurrentPlayer();
 	}
 
 	/**
-	 * Méthode permettant de trouver le joueur suivant
+	 * MÃ©thode permettant de trouver le joueur suivant
 	 * @return Le prochain joueur qui doit jouer
 	 */
 	public PlayerController findNextPlayer() {
@@ -111,7 +111,7 @@ public class TurnController implements Serializable {
 	}
 
 	/**
-	 * Méthode permettant de trouver le joueur suivant (sans changer l'index du joueur actuel)
+	 * MÃ©thode permettant de trouver le joueur suivant (sans changer l'index du joueur actuel)
 	 * @return Le prochain joueur qui doit jouer
 	 */
 	public PlayerController findNextPlayerWithoutChangingCurrentPlayer() {
@@ -121,7 +121,7 @@ public class TurnController implements Serializable {
 	/* ========================================= EFFECT RELATED ========================================= */
 	
 	/**
-	 * Méthode permettant d'empêcher le joueur suivant de jouer
+	 * MÃ©thode permettant d'empÃªcher le joueur suivant de jouer
 	 */
 	public void skipNextPlayer() {
 		PlayerController currentPlayer = this.turnModel.cycleThroughPlayers();
@@ -137,9 +137,9 @@ public class TurnController implements Serializable {
 	/* ========================================= ROUND WIN EVENT HANDLING ========================================= */
 	
 	/**
-	 * Méthode permettant de calculer le score du joueur ayant gagné
-	 * @param gameWinner Joueur ayant remporté le round
-	 * @return <code>TRUE</code> si le joueur a gagné (score > 500 points), <code>FALSE</code> sinon
+	 * MÃ©thode permettant de calculer le score du joueur ayant gagnÃ©
+	 * @param gameWinner Joueur ayant remportÃ© le round
+	 * @return <code>TRUE</code> si le joueur a gagnÃ© (score > 500 points), <code>FALSE</code> sinon
 	 */
 	public boolean computeIndividualEndOfTurn(PlayerControllerBean gameWinner) {
 		Preconditions.checkNotNull(gameWinner,"[ERROR] Impossible to compute individual score : provided PlayerControllerBean cannot be null");
@@ -152,9 +152,9 @@ public class TurnController implements Serializable {
 	}
 	
 	/**
-	 * Méthode permettant de calculer le score de l'équipe ayant gagné
-	 * @param gameWinner Joueur ayant remporté le round
-	 * @return <code>TRUE</code> si l'équipe a gagné (score > 500 points), <code>FALSE</code> sinon
+	 * MÃ©thode permettant de calculer le score de l'Ã©quipe ayant gagnÃ©
+	 * @param gameWinner Joueur ayant remportÃ© le round
+	 * @return <code>TRUE</code> si l'Ã©quipe a gagnÃ© (score > 500 points), <code>FALSE</code> sinon
 	 */
 	public boolean computeTeamEndOfTurn(PlayerControllerBean gameWinner) {
 		Preconditions.checkNotNull(gameWinner,"[ERROR] Impossible to compute team score : provided PlayerControllerBean cannot be null");
@@ -170,16 +170,16 @@ public class TurnController implements Serializable {
 	/* ========================================= TEAM PLAY ========================================= */
 	
 	/**
-	 * Méthode permettant de séparer les jouers en différentes équipes de 2 joueurs
+	 * MÃ©thode permettant de sÃ©parer les jouers en diffÃ©rentes Ã©quipes de 2 joueurs
 	 */
 	public void splitPlayersIntoTeams() {
 		this.turnModel.splitPlayersIntoTeams();
 	}
 	
 	/**
-	 * Méthode permettant de récuperer l'équipe ayant gagné (qui contient le joueur donné)
-	 * @param winningPlayer Joueur victorieux dont on souhaite connaitre l'équipe
-	 * @return L'équipe à laquelle appartient le joueur donné
+	 * MÃ©thode permettant de rÃ©cuperer l'Ã©quipe ayant gagnÃ© (qui contient le joueur donnÃ©)
+	 * @param winningPlayer Joueur victorieux dont on souhaite connaitre l'Ã©quipe
+	 * @return L'Ã©quipe Ã  laquelle appartient le joueur donnÃ©
 	 */
 	public PlayerTeam findWinningTeam(PlayerControllerBean winningPlayer) {
 		Preconditions.checkNotNull(winningPlayer,"[ERROR] Impossible to find winning team : provided PlayerControllerBean cannot be null");
@@ -189,7 +189,7 @@ public class TurnController implements Serializable {
 	/* ========================================= SCORE ========================================= */
 	
 	/**
-	 * Méthode permettant d'afficher les scores de tous les joueurs
+	 * MÃ©thode permettant d'afficher les scores de tous les joueurs
 	 */
 	public void displayIndividualTotalScore() {
 		Collection<PlayerController> players = this.turnModel.getAllPlayers();
@@ -202,7 +202,7 @@ public class TurnController implements Serializable {
 	}
 	
 	/**
-	 * Méthode permettant d'afficher les scores de toutes les équipes
+	 * MÃ©thode permettant d'afficher les scores de toutes les Ã©quipes
 	 */
 	public void displayTeamTotalScore() {
 		Map<Integer, PlayerTeam> teams = this.turnModel.getAllTeams();
@@ -218,7 +218,7 @@ public class TurnController implements Serializable {
 	/* ========================================= GETTERS & DISPLAY ========================================= */
 	
 	/**
-	 * Méthode permettant de récupérer le nombre de joueurs
+	 * MÃ©thode permettant de rÃ©cupÃ©rer le nombre de joueurs
 	 * @return int correspondant au nombre de joueurs
 	 */
 	public int getNumberOfPlayers() {
@@ -226,7 +226,7 @@ public class TurnController implements Serializable {
 	}
 
 	/**
-	 * Méthode permettant d'afficher la composition de toutes les équipes
+	 * MÃ©thode permettant d'afficher la composition de toutes les Ã©quipes
 	 */
 	public void displayTeams() {
 		Map<Integer, PlayerTeam> teams = this.turnModel.getAllTeams();

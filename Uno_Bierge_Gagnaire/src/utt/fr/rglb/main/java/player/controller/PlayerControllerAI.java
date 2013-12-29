@@ -1,4 +1,4 @@
-package utt.fr.rglb.main.java.player.controller;
+ï»¿package utt.fr.rglb.main.java.player.controller;
 
 import com.google.common.base.Preconditions;
 
@@ -13,7 +13,7 @@ import utt.fr.rglb.main.java.console.view.View;
 import utt.fr.rglb.main.java.player.AI.CardPickerStrategy;
 
 /**
- * Classe correspondant à un joueur controllé par une IA
+ * Classe correspondant Ã  un joueur controllÃ© par une IA
  */
 public class PlayerControllerAI extends PlayerController {
 	private static final long serialVersionUID = 1L;
@@ -65,7 +65,7 @@ public class PlayerControllerAI extends PlayerController {
 	}
 	
 	/**
-	 * Méthode permettant à l'IA de déterminer si l'annonce de UNO doit être faite 
+	 * MÃ©thode permettant Ã  l'IA de dÃ©terminer si l'annonce de UNO doit Ãªtre faite 
 	 * @param alias 
 	 */
 	public void decideIfAnnouncingUnoIsNecessary(String alias) {

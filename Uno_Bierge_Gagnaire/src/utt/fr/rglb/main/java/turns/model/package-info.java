@@ -1,4 +1,4 @@
-/**
- * Package associé aux données en liaison avec le contexte de jeu (partie modèle)
+ï»¿/**
+ * Package associÃ© aux donnÃ©es en liaison avec le contexte de jeu (partie modÃ¨le)
  */
 package utt.fr.rglb.main.java.turns.model;

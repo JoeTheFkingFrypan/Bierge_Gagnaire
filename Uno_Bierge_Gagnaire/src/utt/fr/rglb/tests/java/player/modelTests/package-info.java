@@ -1,4 +1,4 @@
-/**
- * Package associé aux tests unitaires basés sur le package source contenant les données associées au modèle du joueur
+ï»¿/**
+ * Package associÃ© aux tests unitaires basÃ©s sur le package source contenant les donnÃ©es associÃ©es au modÃ¨le du joueur
  */
 package utt.fr.rglb.tests.java.player.modelTests;

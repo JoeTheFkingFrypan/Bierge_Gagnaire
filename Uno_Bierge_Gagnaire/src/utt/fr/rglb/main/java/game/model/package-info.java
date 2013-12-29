@@ -1,4 +1,4 @@
-/**
- * Package associé aux données liées à la gestion de l'ensemble de la partie
+ï»¿/**
+ * Package associÃ© aux donnÃ©es liÃ©es Ã  la gestion de l'ensemble de la partie
  */
 package utt.fr.rglb.main.java.game.model;

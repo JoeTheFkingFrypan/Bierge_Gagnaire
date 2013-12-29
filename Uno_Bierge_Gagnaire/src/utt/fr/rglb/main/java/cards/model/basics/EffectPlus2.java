@@ -1,17 +1,17 @@
-package utt.fr.rglb.main.java.cards.model.basics;
+ï»¿package utt.fr.rglb.main.java.cards.model.basics;
 
 import utt.fr.rglb.main.java.game.model.GameFlag;
 
 /**
- * Effet permettant au joueur actuel de forcer le joueur suivant à piocher un certain nombre de cartes 
+ * Effet permettant au joueur actuel de forcer le joueur suivant Ã  piocher un certain nombre de cartes 
  */
 public class EffectPlus2 extends EffectImpl {
 	private static final long serialVersionUID = 1L;
 	private final int cardsThatMustBeDrawn;
 
 	/**
-	 * Constructeur permettant de créer un EffectPlus2
-	 * @param cardsThatMustBeDrawn Nombre de cartes devant être piochées
+	 * Constructeur permettant de crÃ©er un EffectPlus2
+	 * @param cardsThatMustBeDrawn Nombre de cartes devant Ãªtre piochÃ©es
 	 */
 	public EffectPlus2 (int cardsThatMustBeDrawn) {
 		this.cardsThatMustBeDrawn = cardsThatMustBeDrawn;

@@ -1,4 +1,4 @@
-/**
- * Package associé à la vue liée à la console
+ï»¿/**
+ * Package associÃ© Ã  la vue liÃ©e Ã  la console
  */
 package utt.fr.rglb.main.java.console.view;

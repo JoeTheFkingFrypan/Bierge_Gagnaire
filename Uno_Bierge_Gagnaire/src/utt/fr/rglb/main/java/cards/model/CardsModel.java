@@ -1,4 +1,4 @@
-package utt.fr.rglb.main.java.cards.model;
+ï»¿package utt.fr.rglb.main.java.cards.model;
 
 import com.google.common.base.Preconditions;
 import java.util.Collection;
@@ -10,7 +10,7 @@ import utt.fr.rglb.main.java.cards.model.stock.Stock;
 import utt.fr.rglb.main.java.console.model.AbstractModel;
 
 /**
- * Classe comprenant les classes composant le jeu (pioche et talon) et leurs données
+ * Classe comprenant les classes composant le jeu (pioche et talon) et leurs donnÃ©es
  */
 public class CardsModel extends AbstractModel {
 	private static final long serialVersionUID = 1L;
@@ -21,9 +21,9 @@ public class CardsModel extends AbstractModel {
 	/* ========================================= CONSTRUCTOR ========================================= */
 
 	/**
-	 * Constructeur de GameModel (crée en interne la pioche et la pile) générant l'ensemble des 108 cartes
-	 * Initialise également le sens de rotation par défaut
-	 * Tire également la toute première carte depuis la pioche pour former le talon
+	 * Constructeur de GameModel (crÃ©e en interne la pioche et la pile) gÃ©nÃ©rant l'ensemble des 108 cartes
+	 * Initialise Ã©galement le sens de rotation par dÃ©faut
+	 * Tire Ã©galement la toute premiÃ¨re carte depuis la pioche pour former le talon
 	 */
 	public CardsModel () {
 		this.globalColor = Color.JOKER;
@@ -32,8 +32,8 @@ public class CardsModel extends AbstractModel {
 	}
 
 	/**
-	 * Méthode privée permettant d'initialiser le talon (en tirant la première carte de la pioche)
-	 * @return La première carte tirée depuis la pioche
+	 * MÃ©thode privÃ©e permettant d'initialiser le talon (en tirant la premiÃ¨re carte de la pioche)
+	 * @return La premiÃ¨re carte tirÃ©e depuis la pioche
 	 */
 	public Card drawStarterCard() {
 		Card starterCard = drawOneCard();
@@ -44,8 +44,8 @@ public class CardsModel extends AbstractModel {
 	/* ========================================= CARD DRAW ========================================= */
 
 	/**
-	 * Méthode permettant de tirer une unique carte (avec gestion en cas de pioche vide)
-	 * @return La première carte de la pioche
+	 * MÃ©thode permettant de tirer une unique carte (avec gestion en cas de pioche vide)
+	 * @return La premiÃ¨re carte de la pioche
 	 */
 	public Card drawOneCard() {
 		refillStockIfNeeded(1);
@@ -53,9 +53,9 @@ public class CardsModel extends AbstractModel {
 	}
 
 	/**
-	 * Méthode permettant de tirer les n premières cartes de la pioche (avec gestion en cas de pioche vide)
-	 * @param count Nombre de cartes à tirer
-	 * @return Les n premières carte de la pioche
+	 * MÃ©thode permettant de tirer les n premiÃ¨res cartes de la pioche (avec gestion en cas de pioche vide)
+	 * @param count Nombre de cartes Ã  tirer
+	 * @return Les n premiÃ¨res carte de la pioche
 	 */
 	public Collection<Card> drawCards(int count) {
 		Preconditions.checkArgument(count > 0,"[ERROR] Invalid card amount, must not be negative");
@@ -64,8 +64,8 @@ public class CardsModel extends AbstractModel {
 	}
 
 	/**
-	 * Méthode permettant de remplir la pioche si jamais le nombre d ecartes n'est pas suffisant pour piocher
-	 * @param count Nombre de cartes souhaité
+	 * MÃ©thode permettant de remplir la pioche si jamais le nombre d ecartes n'est pas suffisant pour piocher
+	 * @param count Nombre de cartes souhaitÃ©
 	 */
 	private void refillStockIfNeeded(int count) {
 		Preconditions.checkArgument(count > 0,"[ERROR] Invalid card amount, must not be negative");
@@ -78,7 +78,7 @@ public class CardsModel extends AbstractModel {
 	/* ========================================= PLAY CARD ========================================= */
 
 	/**
-	 * Méthode permettant de jouer une carte
+	 * MÃ©thode permettant de jouer une carte
 	 * @param chosenCard Carte choisie pour l'utilisateur
 	 */
 	public void playCard(Card chosenCard) {
@@ -88,8 +88,8 @@ public class CardsModel extends AbstractModel {
 	}
 
 	/**
-	 * Méthode permettant de récuperer la dernière carte ayant été jouée (sans la retirer du talon)
-	 * @return La dernière carte ayant été jouée
+	 * MÃ©thode permettant de rÃ©cuperer la derniÃ¨re carte ayant Ã©tÃ© jouÃ©e (sans la retirer du talon)
+	 * @return La derniÃ¨re carte ayant Ã©tÃ© jouÃ©e
 	 */
 	public Card showLastCardPlayed() {
 		return this.pile.showLastCardPlayed();
@@ -98,7 +98,7 @@ public class CardsModel extends AbstractModel {
 	/* ========================================= GLOBAL COLOR ========================================= */
 	
 	/**
-	 * Méthode permettant de définir la couleur globale (couleur spécifiée par l'utilisateur)
+	 * MÃ©thode permettant de dÃ©finir la couleur globale (couleur spÃ©cifiÃ©e par l'utilisateur)
 	 * @param chosenColor Couleur choisie par l'utilisateur
 	 */
 	public void setGlobalColor(Color chosenColor) {
@@ -108,8 +108,8 @@ public class CardsModel extends AbstractModel {
 	}
 
 	/**
-	 * Méthode permettant de savoir si une couleur globale est définie (si un joker/+4 a été précédement joué)
-	 * @return <code>TRUE</code> si une couleur globale est définie, <code>FALSE</code> sinon
+	 * MÃ©thode permettant de savoir si une couleur globale est dÃ©finie (si un joker/+4 a Ã©tÃ© prÃ©cÃ©dement jouÃ©)
+	 * @return <code>TRUE</code> si une couleur globale est dÃ©finie, <code>FALSE</code> sinon
 	 */
 	public boolean globalColorIsSet() {
 		if(Color.JOKER.equals(getGlobalColor())) {
@@ -120,8 +120,8 @@ public class CardsModel extends AbstractModel {
 	}
 
 	/**
-	 * Méthode permettant de récupérer la couleur globale définie
-	 * @return La couleur associée
+	 * MÃ©thode permettant de rÃ©cupÃ©rer la couleur globale dÃ©finie
+	 * @return La couleur associÃ©e
 	 */
 	public Color getGlobalColor() {
 		return this.globalColor;
@@ -130,7 +130,7 @@ public class CardsModel extends AbstractModel {
 	/* ========================================= UTILS ========================================= */
 
 	/**
-	 * Méthode permettant de récupere le nombre de cartes contenues dans la pioche
+	 * MÃ©thode permettant de rÃ©cupere le nombre de cartes contenues dans la pioche
 	 * @return La taille de la pioche
 	 */
 	public int getStockSize() {
@@ -138,7 +138,7 @@ public class CardsModel extends AbstractModel {
 	}
 
 	/**
-	 * Méthode permettant de récupere le nombre de cartes contenues dans le talon
+	 * MÃ©thode permettant de rÃ©cupere le nombre de cartes contenues dans le talon
 	 * @return La taille de le talon
 	 */
 	public int getPileSize() {
@@ -146,7 +146,7 @@ public class CardsModel extends AbstractModel {
 	}
 	
 	/**
-	 * Méthode privée permettant de ré-initialiser la couleur globale après qu'une carte ait été jouée
+	 * MÃ©thode privÃ©e permettant de rÃ©-initialiser la couleur globale aprÃ¨s qu'une carte ait Ã©tÃ© jouÃ©e
 	 */
 	private void resetGlobalColor() {
 		this.globalColor = Color.JOKER;
@@ -155,7 +155,7 @@ public class CardsModel extends AbstractModel {
 	/* ========================================= RESET ========================================= */
 	
 	/**
-	 * Méthode permettant de ré-initialiser les collections de cartes (talon et pioche)
+	 * MÃ©thode permettant de rÃ©-initialiser les collections de cartes (talon et pioche)
 	 */
 	public void resetCards() {
 		this.pile.resetCards();

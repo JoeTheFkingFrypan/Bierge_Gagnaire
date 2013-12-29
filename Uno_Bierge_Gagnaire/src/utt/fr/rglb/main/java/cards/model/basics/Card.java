@@ -1,4 +1,4 @@
-package utt.fr.rglb.main.java.cards.model.basics;
+ï»¿package utt.fr.rglb.main.java.cards.model.basics;
 
 import java.io.Serializable;
 
@@ -7,8 +7,8 @@ import utt.fr.rglb.main.java.main.ServerException;
 import com.google.common.base.Preconditions;
 
 /**
- * Classe mère correspondant à une carte de jeu (valeur, numéro, couleur)
- * </br>Définit les comportements communs à toutes les cartes
+ * Classe mÃ¨re correspondant Ã  une carte de jeu (valeur, numÃ©ro, couleur)
+ * </br>DÃ©finit les comportements communs Ã  toutes les cartes
  */
 public class Card implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -19,8 +19,8 @@ public class Card implements Serializable {
 
 	/**
 	 * Constructeur de carte
-	 * @param value Numéro de la carte (doit être supérieure à 0 dans tous les cas, et inférieur à 9 s'il s'agit d'une carte numérotée)
-	 * @param color Couleur de la carte (doit être différent de Joker s'il s'agit d'une carte numérotée)
+	 * @param value NumÃ©ro de la carte (doit Ãªtre supÃ©rieure Ã  0 dans tous les cas, et infÃ©rieur Ã  9 s'il s'agit d'une carte numÃ©rotÃ©e)
+	 * @param color Couleur de la carte (doit Ãªtre diffÃ©rent de Joker s'il s'agit d'une carte numÃ©rotÃ©e)
 	 */
 	public Card (int value, Color color) {
 		Preconditions.checkNotNull(color,"[ERROR] Color cannot be null");
@@ -36,9 +36,9 @@ public class Card implements Serializable {
 	/* ========================================= ADVANCED COMPARAISON ========================================= */
 
 	/**
-	 * Méthode permettant de savoir si une carte peut être jouée par dessus la carte actuelle
+	 * MÃ©thode permettant de savoir si une carte peut Ãªtre jouÃ©e par dessus la carte actuelle
 	 * @param otherCard Carte que l'on souhaite eventuellement jouer
-	 * @return <code>TRUE</code> si la carte est "compatible" (si elle peut être jouée), <code>FALSE</code> sinon
+	 * @return <code>TRUE</code> si la carte est "compatible" (si elle peut Ãªtre jouÃ©e), <code>FALSE</code> sinon
 	 */
 	public boolean isCompatibleWith(Card otherCard) {
 		if(this.hasSameValueThan(otherCard.getValue())) {
@@ -53,8 +53,8 @@ public class Card implements Serializable {
 	}
 
 	/**
-	 * Méthode protégée permettant de savoir si la couleur de la carte actuelle est la même que la couleur passée en paramètre
-	 * @param colorFromAnotherCard Couleur d'une 2ème carte, passée en paramètre
+	 * MÃ©thode protÃ©gÃ©e permettant de savoir si la couleur de la carte actuelle est la mÃªme que la couleur passÃ©e en paramÃ¨tre
+	 * @param colorFromAnotherCard Couleur d'une 2Ã¨me carte, passÃ©e en paramÃ¨tre
 	 * @return <code>TRUE</code> si les 2 couleurs sont identiques, <code>FALSE</code> sinon
 	 */
 	protected boolean hasSameColorThan(Color colorFromAnotherCard) {
@@ -63,8 +63,8 @@ public class Card implements Serializable {
 	}
 
 	/**
-	 * Méthode protégée permettant de savoir si la valeur de la carte actuelle est la même que la valeur passée en paramètre
-	 * @param valueFromAnotherCard Valeur d'une 2ème carte, passée en paramètre
+	 * MÃ©thode protÃ©gÃ©e permettant de savoir si la valeur de la carte actuelle est la mÃªme que la valeur passÃ©e en paramÃ¨tre
+	 * @param valueFromAnotherCard Valeur d'une 2Ã¨me carte, passÃ©e en paramÃ¨tre
 	 * @return <code>TRUE</code> si les 2 valeurs sont identiques, <code>FALSE</code> sinon
 	 */
 	protected boolean hasSameValueThan(int valueFromAnotherCard) {
@@ -74,7 +74,7 @@ public class Card implements Serializable {
 	/* ========================================= BASIC COMPARAISON ========================================= */
 
 	/**
-	 * Méthode définissant les critères d'égalité entre deux cartes
+	 * MÃ©thode dÃ©finissant les critÃ¨res d'Ã©galitÃ© entre deux cartes
 	 */
 	@Override
 	public boolean equals(Object other) {
@@ -92,7 +92,7 @@ public class Card implements Serializable {
 	/* ========================================= GETTERS ========================================= */
 
 	/**
-	 * Méthode permettant de vérifier si une carte est spéciale ou non
+	 * MÃ©thode permettant de vÃ©rifier si une carte est spÃ©ciale ou non
 	 * @return <code>TRUE</code> s'il s'agit d'une CarteSpeciale, <code>FALSE</code> sinon
 	 */
 	public Boolean isSpecial() {
@@ -100,15 +100,15 @@ public class Card implements Serializable {
 	}
 
 	/**
-	 * Méthode permettant de récuperer la valeur d'une carte
-	 * @return La valeur de la carte (dans le cas d'une carte numérotée, il s'agit aussi de son numéro)
+	 * MÃ©thode permettant de rÃ©cuperer la valeur d'une carte
+	 * @return La valeur de la carte (dans le cas d'une carte numÃ©rotÃ©e, il s'agit aussi de son numÃ©ro)
 	 */
 	public Integer getValue() {
 		return this.value;
 	}
 
 	/**
-	 * Méthode permettant de récuperer la couleur d'une carte
+	 * MÃ©thode permettant de rÃ©cuperer la couleur d'une carte
 	 * @return La couleur de la carte
 	 */
 	public Color getColor () {
@@ -116,7 +116,7 @@ public class Card implements Serializable {
 	}
 	
 	/**
-	 * Méthode permettant déterminer facilement si une carte est de couleur rouge
+	 * MÃ©thode permettant dÃ©terminer facilement si une carte est de couleur rouge
 	 * @return Renvoit <code>TRUE</code> si la carte est rouge, <code>FALSE</code> sinon
 	 */
 	public boolean isRed() {
@@ -124,7 +124,7 @@ public class Card implements Serializable {
 	}
 
 	/**
-	 * Méthode permettant déterminer facilement si une carte est de couleur bleue
+	 * MÃ©thode permettant dÃ©terminer facilement si une carte est de couleur bleue
 	 * @return Renvoit <code>TRUE</code> si la carte est bleue, <code>FALSE</code> sinon
 	 */
 	public boolean isBlue() {
@@ -132,7 +132,7 @@ public class Card implements Serializable {
 	}
 	
 	/**
-	 * Méthode permettant déterminer facilement si une carte est de couleur verte
+	 * MÃ©thode permettant dÃ©terminer facilement si une carte est de couleur verte
 	 * @return Renvoit <code>TRUE</code> si la carte est verte, <code>FALSE</code> sinon
 	 */
 	public boolean isGreen() {
@@ -140,7 +140,7 @@ public class Card implements Serializable {
 	}
 	
 	/**
-	 * Méthode permettant déterminer facilement si une carte est de couleur jaune
+	 * MÃ©thode permettant dÃ©terminer facilement si une carte est de couleur jaune
 	 * @return Renvoit <code>TRUE</code> si la carte est jaune, <code>FALSE</code> sinon
 	 */
 	public boolean isYellow() {
@@ -148,7 +148,7 @@ public class Card implements Serializable {
 	}
 	
 	/**
-	 * Méthode permettant déterminer facilement si une carte est sans couleur (joker)
+	 * MÃ©thode permettant dÃ©terminer facilement si une carte est sans couleur (joker)
 	 * @return Renvoit <code>TRUE</code> si la carte est sans couleur (joker), <code>FALSE</code> sinon
 	 */
 	public boolean isJoker() {
@@ -156,7 +156,7 @@ public class Card implements Serializable {
 	}
 	
 	/**
-	 * Méthode permettant de savoir si la carte est un +4
+	 * MÃ©thode permettant de savoir si la carte est un +4
 	 * @return Renvoit <code>TRUE</code> si la carte est un +4 (joker), <code>FALSE</code> sinon
 	 */
 	public boolean isPlusFour() {
@@ -164,7 +164,7 @@ public class Card implements Serializable {
 	}
 
 	/**
-	 * Méthode permettant de définir si l'effet secondaire devra être délenché
+	 * MÃ©thode permettant de dÃ©finir si l'effet secondaire devra Ãªtre dÃ©lenchÃ©
 	 */
 	public void setBluffOn() {
 		throw new ServerException("Impossible to set bluff on a numbered card");
@@ -173,7 +173,7 @@ public class Card implements Serializable {
 	/* ========================================= DISPLAY ========================================= */
 
 	/**
-	 * Méthode permettant spécifiant la façon dont s'affiche une carte
+	 * MÃ©thode permettant spÃ©cifiant la faÃ§on dont s'affiche une carte
 	 */
 	@Override
 	public String toString() {

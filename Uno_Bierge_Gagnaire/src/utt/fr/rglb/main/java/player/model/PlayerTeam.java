@@ -1,4 +1,4 @@
-package utt.fr.rglb.main.java.player.model;
+ï»¿package utt.fr.rglb.main.java.player.model;
 
 import com.google.common.base.Preconditions;
 import java.io.Serializable;
@@ -7,7 +7,7 @@ import utt.fr.rglb.main.java.player.controller.PlayerController;
 import utt.fr.rglb.main.java.player.controller.PlayerControllerBean;
 
 /**
- * Classe dont le rôle est de gérer une équipe de 2 joueurs
+ * Classe dont le rÃ´le est de gÃ©rer une Ã©quipe de 2 joueurs
  */
 public class PlayerTeam implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -26,8 +26,8 @@ public class PlayerTeam implements Serializable {
 	/* ========================================= PLAYER ADDITION ========================================= */
 	
 	/**
-	 * Méthode permettant d'ajouter le 1er joueur à l'équipe
-	 * @param player Joueur à ajouter à l'équipe
+	 * MÃ©thode permettant d'ajouter le 1er joueur Ã  l'Ã©quipe
+	 * @param player Joueur Ã  ajouter Ã  l'Ã©quipe
 	 */
 	public void addFirstPlayer(PlayerController player) {
 		Preconditions.checkNotNull(player,"[ERROR] Impossible to add first player : provided player is null");
@@ -36,8 +36,8 @@ public class PlayerTeam implements Serializable {
 	}
 
 	/**
-	 * Méthode permettant d'ajouter le 2ème joueur à l'équipe
-	 * @param player Joueur à ajouter à l'équipe
+	 * MÃ©thode permettant d'ajouter le 2Ã¨me joueur Ã  l'Ã©quipe
+	 * @param player Joueur Ã  ajouter Ã  l'Ã©quipe
 	 */
 	public void addSecondPlayer(PlayerController player) {
 		Preconditions.checkNotNull(player,"[ERROR] Impossible to add second player : provided player is null");
@@ -48,8 +48,8 @@ public class PlayerTeam implements Serializable {
 	/* ========================================= SCORING ========================================= */
 	
 	/**
-	 * Méthode permettant de récupérer la valeur des mains des 2 joueurs
-	 * @return int correspondant à la somme des points provenant des cartes en main des 2 joueurs
+	 * MÃ©thode permettant de rÃ©cupÃ©rer la valeur des mains des 2 joueurs
+	 * @return int correspondant Ã  la somme des points provenant des cartes en main des 2 joueurs
 	 */
 	public int getScoreFromBothHands() {
 		int totalScore = 0;
@@ -59,17 +59,17 @@ public class PlayerTeam implements Serializable {
 	}
 
 	/**
-	 * Méthode permettant de récupérer le score de l'équipe
-	 * @return int correspondant au score de l'équipe
+	 * MÃ©thode permettant de rÃ©cupÃ©rer le score de l'Ã©quipe
+	 * @return int correspondant au score de l'Ã©quipe
 	 */
 	public int getScore() {
 		return this.score;
 	}
 
 	/**
-	 * Méthode permettant d'incrémenter le score de l'équipe et de vérifier si l'équipe a remporté la partie
-	 * @param sumPlayerScore Nombre à ajouter au score actuel de l'équipe
-	 * @return <code>TRUE<code> si l'équipe a gagné la partie (score > 500), <code>FALSE</code> sinon
+	 * MÃ©thode permettant d'incrÃ©menter le score de l'Ã©quipe et de vÃ©rifier si l'Ã©quipe a remportÃ© la partie
+	 * @param sumPlayerScore Nombre Ã  ajouter au score actuel de l'Ã©quipe
+	 * @return <code>TRUE<code> si l'Ã©quipe a gagnÃ© la partie (score > 500), <code>FALSE</code> sinon
 	 */
 	public boolean increaseScore(int sumPlayerScore) {
 		Preconditions.checkNotNull(sumPlayerScore,"[ERROR] Impossible to increase team score : provided amount is null");
@@ -85,9 +85,9 @@ public class PlayerTeam implements Serializable {
 	}
 
 	/**
-	 * Méthode permettant de déterminier si le joueur donné appartient à cette équipe
-	 * @param winningPlayer Joueur dont la présence est à vérifier
-	 * @return <code>TRUE</code> si le joueur donné est dans l'équipe, <code>FALSE</code> sinon
+	 * MÃ©thode permettant de dÃ©terminier si le joueur donnÃ© appartient Ã  cette Ã©quipe
+	 * @param winningPlayer Joueur dont la prÃ©sence est Ã  vÃ©rifier
+	 * @return <code>TRUE</code> si le joueur donnÃ© est dans l'Ã©quipe, <code>FALSE</code> sinon
 	 */
 	public boolean contains(PlayerControllerBean winningPlayer) {
 		Preconditions.checkNotNull(winningPlayer,"[ERROR] Impossible find if player is contained inside this team : provided player is null");

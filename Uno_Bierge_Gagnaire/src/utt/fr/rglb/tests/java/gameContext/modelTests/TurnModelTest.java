@@ -1,4 +1,4 @@
-package utt.fr.rglb.tests.java.gameContext.modelTests;
+ï»¿package utt.fr.rglb.tests.java.gameContext.modelTests;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -16,8 +16,8 @@ import utt.fr.rglb.main.java.player.controller.PlayerController;
 import utt.fr.rglb.main.java.player.model.PlayersToCreate;
 
 /**
- * Classe de tests unitaires validant le comportement des méthodes de la classe TurnModel
- * </br>Utilisation de simulacres pour la vue et le lecteur bufferisé --injection de dépendance permettant d'émuler une entrée au clavier (Mockito)
+ * Classe de tests unitaires validant le comportement des mÃ©thodes de la classe TurnModel
+ * </br>Utilisation de simulacres pour la vue et le lecteur bufferisÃ© --injection de dÃ©pendance permettant d'Ã©muler une entrÃ©e au clavier (Mockito)
  * @see TurnModel
  */
 public class TurnModelTest {

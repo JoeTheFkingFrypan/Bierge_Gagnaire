@@ -1,4 +1,4 @@
-/**
- * Package associé aux tests basés sur la console et à lagestion des données provenant de l'utilisateur
+ï»¿/**
+ * Package associÃ© aux tests basÃ©s sur la console et Ã  lagestion des donnÃ©es provenant de l'utilisateur
  */
 package utt.fr.rglb.tests.java.console.modelTests;

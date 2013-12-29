@@ -1,4 +1,4 @@
-package utt.fr.rglb.main.java.player.AI;
+ï»¿package utt.fr.rglb.main.java.player.AI;
 
 import com.google.common.base.Preconditions;
 
@@ -10,14 +10,14 @@ import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.cards.model.basics.Color;
 
 /**
- * Classe correspondant à l'implémentation d'une stratégie
+ * Classe correspondant Ã  l'implÃ©mentation d'une stratÃ©gie
  */
 public class DrawFromColorMajority extends CardPickerStrategyImpl {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Méthode permettant d'obtenir l'index de la carte la plus appropriée, basé sur le type de stratégie
-	 * </br>La carte choisie sera la 1ère carte jouable dont la couleur est celle majoritaire dans la main du joueur
+	 * MÃ©thode permettant d'obtenir l'index de la carte la plus appropriÃ©e, basÃ© sur le type de stratÃ©gie
+	 * </br>La carte choisie sera la 1Ã¨re carte jouable dont la couleur est celle majoritaire dans la main du joueur
 	 */
 	@Override
 	protected int findBestCardToPlay(Collection<Integer> playableIndexes, Collection<Card> cardCollection) {
@@ -38,10 +38,10 @@ public class DrawFromColorMajority extends CardPickerStrategyImpl {
 	}
 	
 	/**
-	 * Méthode permettant à l'IA de déterminer si accuser le joueur précédent de bluffer est une bonne idée ou pas
-	 * </br>La décision d'accuser le joueur précédent est faite de la manière suivante
-	 * </br> - Si l'IA a moins de 4 cartes, il essayera toujours de vérifier
-	 * </br> - Si l'IA a plus de 4 cartes ou plus, la décision est aléatoire
+	 * MÃ©thode permettant Ã  l'IA de dÃ©terminer si accuser le joueur prÃ©cÃ©dent de bluffer est une bonne idÃ©e ou pas
+	 * </br>La dÃ©cision d'accuser le joueur prÃ©cÃ©dent est faite de la maniÃ¨re suivante
+	 * </br> - Si l'IA a moins de 4 cartes, il essayera toujours de vÃ©rifier
+	 * </br> - Si l'IA a plus de 4 cartes ou plus, la dÃ©cision est alÃ©atoire
 	 */
 	@Override
 	public boolean chooseIfAccusingPreviousPlayerOfBluffingIsWorthIt(Collection<Card> cardCollection) {

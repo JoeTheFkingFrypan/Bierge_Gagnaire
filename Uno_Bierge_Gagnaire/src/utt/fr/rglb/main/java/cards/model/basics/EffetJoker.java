@@ -1,9 +1,9 @@
-package utt.fr.rglb.main.java.cards.model.basics;
+﻿package utt.fr.rglb.main.java.cards.model.basics;
 
 import utt.fr.rglb.main.java.game.model.GameFlag;
 
 /**
- * Effet permettant au joueur de choisir la couleur � utiliser
+ * Effet permettant au joueur de choisir la couleur à utiliser
  */
 public class EffetJoker extends EffectImpl {
 	private static final long serialVersionUID = 1L;

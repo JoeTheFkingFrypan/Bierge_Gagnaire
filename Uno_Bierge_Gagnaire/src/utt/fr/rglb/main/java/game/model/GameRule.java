@@ -1,11 +1,11 @@
-package utt.fr.rglb.main.java.game.model;
+ï»¿package utt.fr.rglb.main.java.game.model;
 
 import java.io.Serializable;
 
 import com.google.common.base.Preconditions;
 
 /**
- * Classe dont le rôle est d'encapsuler le mode de jeu et l'état actuel de la partie
+ * Classe dont le rÃ´le est d'encapsuler le mode de jeu et l'Ã©tat actuel de la partie
  */
 public class GameRule implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -27,7 +27,7 @@ public class GameRule implements Serializable {
 	}
 	
 	/**
-	 * Méthode permettant de savoir si le mode 2 joueurs a été choisi
+	 * MÃ©thode permettant de savoir si le mode 2 joueurs a Ã©tÃ© choisi
 	 * @return <code>TRUE</code> si c'est le cas, <code>FALSE</code> sinon
 	 */
 	public boolean indicatesTwoPlayersMode() {
@@ -35,7 +35,7 @@ public class GameRule implements Serializable {
 	}
 	
 	/**
-	 * Méthode permettant de savoir si le mode par équipe a été choisi
+	 * MÃ©thode permettant de savoir si le mode par Ã©quipe a Ã©tÃ© choisi
 	 * @return <code>TRUE</code> si c'est le cas, <code>FALSE</code> sinon
 	 */
 	public boolean indicatesTeamPlayScoring() {
@@ -45,15 +45,15 @@ public class GameRule implements Serializable {
 	/* ========================================= GAME FLAG - SETTERS ========================================= */
 	
 	/**
-	 * Méthode permettant de remettre l'état du jeu à son état par défaut
+	 * MÃ©thode permettant de remettre l'Ã©tat du jeu Ã  son Ã©tat par dÃ©faut
 	 */
 	public void resetFlag() {
 		this.gameFlag = GameFlag.NORMAL;
 	}
 
 	/**
-	 * Méthode permettant de mettre à jour l'état acutel de jeu
-	 * @param flag Nouvel état
+	 * MÃ©thode permettant de mettre Ã  jour l'Ã©tat acutel de jeu
+	 * @param flag Nouvel Ã©tat
 	 */
 	public void setFlag(GameFlag flag) {
 		Preconditions.checkNotNull(flag,"[ERROR] Impossible to set current game state : provided game flag is null");
@@ -63,8 +63,8 @@ public class GameRule implements Serializable {
 	/* ========================================= GAME FLAG - GETTERS ========================================= */
 	
 	/**
-	 * Méthode permettant de déterminer s'il faut inverser l'ordre de jeu
-	 * L'état de jeu sera remis à son état par défaut (NORMAL) si jamais la méthode renvoie <code>TRUE</code>
+	 * MÃ©thode permettant de dÃ©terminer s'il faut inverser l'ordre de jeu
+	 * L'Ã©tat de jeu sera remis Ã  son Ã©tat par dÃ©faut (NORMAL) si jamais la mÃ©thode renvoie <code>TRUE</code>
 	 * @return <code>TRUE</code> si c'est le cas, <code>FALSE</code> sinon
 	 */
 	public boolean shouldReverseTurn() {
@@ -74,8 +74,8 @@ public class GameRule implements Serializable {
 	}
 	
 	/**
-	 * Méthode permettant de déterminer s'il faut passer le tour du joueur suivant
-	 * L'état de jeu sera remis à son état par défaut (NORMAL) si jamais la méthode renvoie <code>TRUE</code>
+	 * MÃ©thode permettant de dÃ©terminer s'il faut passer le tour du joueur suivant
+	 * L'Ã©tat de jeu sera remis Ã  son Ã©tat par dÃ©faut (NORMAL) si jamais la mÃ©thode renvoie <code>TRUE</code>
 	 * @return <code>TRUE</code> si c'est le cas, <code>FALSE</code> sinon
 	 */
 	public boolean shouldSkipNextPlayerTurn() {
@@ -85,8 +85,8 @@ public class GameRule implements Serializable {
 	}
 	
 	/**
-	 * Méthode permettant de déterminer si le joueur en cours doit choisir une couleur
-	 * L'état de jeu sera remis à son état par défaut (NORMAL) si jamais la méthode renvoie <code>TRUE</code>
+	 * MÃ©thode permettant de dÃ©terminer si le joueur en cours doit choisir une couleur
+	 * L'Ã©tat de jeu sera remis Ã  son Ã©tat par dÃ©faut (NORMAL) si jamais la mÃ©thode renvoie <code>TRUE</code>
 	 * @return <code>TRUE</code> si c'est le cas, <code>FALSE</code> sinon
 	 */
 	public boolean shouldPickColor() {
@@ -96,8 +96,8 @@ public class GameRule implements Serializable {
 	}
 	
 	/**
-	 * Méthode permettant de déterminer s'il faut donner une pénalité de 2 cartes au joueur suivant
-	 * L'état de jeu sera remis à son état par défaut (NORMAL) si jamais la méthode renvoie <code>TRUE</code>
+	 * MÃ©thode permettant de dÃ©terminer s'il faut donner une pÃ©nalitÃ© de 2 cartes au joueur suivant
+	 * L'Ã©tat de jeu sera remis Ã  son Ã©tat par dÃ©faut (NORMAL) si jamais la mÃ©thode renvoie <code>TRUE</code>
 	 * @return <code>TRUE</code> si c'est le cas, <code>FALSE</code> sinon
 	 */
 	public boolean shouldGivePlus2CardPenalty() {
@@ -107,8 +107,8 @@ public class GameRule implements Serializable {
 	}
 	
 	/**
-	 * Méthode permettant de déterminer si le joueur en cours doit choisir une couleur et donner une pénalité de 4 cartes au joueur suivant
-	 * L'état de jeu sera remis à son état par défaut (NORMAL) si jamais la méthode renvoie <code>TRUE</code>
+	 * MÃ©thode permettant de dÃ©terminer si le joueur en cours doit choisir une couleur et donner une pÃ©nalitÃ© de 4 cartes au joueur suivant
+	 * L'Ã©tat de jeu sera remis Ã  son Ã©tat par dÃ©faut (NORMAL) si jamais la mÃ©thode renvoie <code>TRUE</code>
 	 * @return <code>TRUE</code> si c'est le cas, <code>FALSE</code> sinon
 	 */
 	public boolean shouldGivePlus4CardPenalty() {
@@ -118,8 +118,8 @@ public class GameRule implements Serializable {
 	}
 	
 	/**
-	 * Méthode permettant de déterminer si le joueur en cours doit choisir une couleur et donner une pénalité de 4 cartes au joueur suivant
-	 * L'état de jeu sera remis à son état par défaut (NORMAL) si jamais la méthode renvoie <code>TRUE</code>
+	 * MÃ©thode permettant de dÃ©terminer si le joueur en cours doit choisir une couleur et donner une pÃ©nalitÃ© de 4 cartes au joueur suivant
+	 * L'Ã©tat de jeu sera remis Ã  son Ã©tat par dÃ©faut (NORMAL) si jamais la mÃ©thode renvoie <code>TRUE</code>
 	 * @return <code>TRUE</code> si c'est le cas, <code>FALSE</code> sinon
 	 */
 	public boolean shouldGivePlus4CardPenaltyWhileBluffing() {
@@ -129,9 +129,9 @@ public class GameRule implements Serializable {
 	}
 	
 	/**
-	 * Méthode privée permettant de ré-initialiser l'état de jeu uniquement dans le cas où l'effet testé est bien celui attendu
-	 * Ceci permet d'éviter un appel de méthode supplémentaire après avoir appliquer ledit effet
-	 * Il est ré-initialiser en amont plutôt qu'à postériori
+	 * MÃ©thode privÃ©e permettant de rÃ©-initialiser l'Ã©tat de jeu uniquement dans le cas oÃ¹ l'effet testÃ© est bien celui attendu
+	 * Ceci permet d'Ã©viter un appel de mÃ©thode supplÃ©mentaire aprÃ¨s avoir appliquer ledit effet
+	 * Il est rÃ©-initialiser en amont plutÃ´t qu'Ã  postÃ©riori
 	 */
 	private boolean resetGameFlagIfNeeded(boolean resetNeeded, GameFlag currentFlag) {
 		Preconditions.checkNotNull(resetNeeded,"[ERROR] Impossible to find if a reset is required : provided reset flag is null");

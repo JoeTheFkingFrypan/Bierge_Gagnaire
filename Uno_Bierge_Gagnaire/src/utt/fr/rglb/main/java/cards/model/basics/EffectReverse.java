@@ -1,4 +1,4 @@
-package utt.fr.rglb.main.java.cards.model.basics;
+﻿package utt.fr.rglb.main.java.cards.model.basics;
 
 import utt.fr.rglb.main.java.game.model.GameFlag;
 
@@ -20,7 +20,7 @@ public class EffectReverse extends EffectImpl {
 
 	@Override
 	public String toString() {
-		return "Le sens de jeu est invers�";
+		return "Le sens de jeu est inversé";
 	}
 	
 	@Override

@@ -1,4 +1,4 @@
-package utt.fr.rglb.main.java.cards.model.pile;
+ï»¿package utt.fr.rglb.main.java.cards.model.pile;
 
 import com.google.common.base.Preconditions;
 import java.io.Serializable;
@@ -8,8 +8,8 @@ import java.util.Stack;
 import utt.fr.rglb.main.java.cards.model.basics.Card;
 
 /**
- * Classe permettant de réception les cartes jouées (avec comparaison par rapport à la dernière reçue).
- * </br>Sert également à reconstituer la pioche lorsque cette dernière est vide.
+ * Classe permettant de rÃ©ception les cartes jouÃ©es (avec comparaison par rapport Ã  la derniÃ¨re reÃ§ue).
+ * </br>Sert Ã©galement Ã  reconstituer la pioche lorsque cette derniÃ¨re est vide.
  */
 public class Pile implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -27,8 +27,8 @@ public class Pile implements Serializable {
 	/* ========================================= PLAY CARD ========================================= */
 	
 	/**
-	 * Méthode permettant de jouer une carte
-	 * @param card Carte à jouer
+	 * MÃ©thode permettant de jouer une carte
+	 * @param card Carte Ã  jouer
 	 */
 	public void receiveCard(Card card) {
 		Preconditions.checkNotNull(card,"[ERROR] Cannot play card : provided card is null");
@@ -38,8 +38,8 @@ public class Pile implements Serializable {
 	/* ========================================= EMPTYING (USED TO REFILL) ========================================= */
 
 	/**
-	 * Méthode permettant de vider le talon de ses cartes (sauf de la dernière jouée) et de les transférer
-	 * @return L'ensemble des cartes (exceptée la dernière jouée) provenant du talon
+	 * MÃ©thode permettant de vider le talon de ses cartes (sauf de la derniÃ¨re jouÃ©e) et de les transfÃ©rer
+	 * @return L'ensemble des cartes (exceptÃ©e la derniÃ¨re jouÃ©e) provenant du talon
 	 */
 	public Collection<Card> emptyPile() {
 		Preconditions.checkState(size() > 0, "[ERROR] Impossible to refill stock : pile is empty");
@@ -54,7 +54,7 @@ public class Pile implements Serializable {
 	/* ========================================= RESET ========================================= */
 	
 	/**
-	 * Méthode permettant de ré-initialiser le talon (suppression de toutes les cartes)
+	 * MÃ©thode permettant de rÃ©-initialiser le talon (suppression de toutes les cartes)
 	 */
 	public void resetCards() {
 		this.talon.clear();
@@ -63,26 +63,26 @@ public class Pile implements Serializable {
 	/* ========================================= GETTERS & DISPLAY ========================================= */
 
 	/**
-	 * Méthode permettant de visionner la dernière carte jouée
-	 * @return Carte dernièrement jouée
+	 * MÃ©thode permettant de visionner la derniÃ¨re carte jouÃ©e
+	 * @return Carte derniÃ¨rement jouÃ©e
 	 */
 	public Card showLastCardPlayed() {
 		return this.talon.peek();
 	}
 	
 	/**
-	 * Méthode permettant de récuperer le nombre de cartes contenues dans le talon
-	 * @return Nombre de cartes présentes dans le talon
+	 * MÃ©thode permettant de rÃ©cuperer le nombre de cartes contenues dans le talon
+	 * @return Nombre de cartes prÃ©sentes dans le talon
 	 */
 	public int size() {
 		return this.talon.size();
 	}
 	
 	/**
-	 * Méthode permettant spécifiant la façon dont s'affiche le talon
+	 * MÃ©thode permettant spÃ©cifiant la faÃ§on dont s'affiche le talon
 	 */
 	@Override
 	public String toString() {
-		return "[Talon] " + talon.size() + " cartes ont été jouées";
+		return "[Talon] " + talon.size() + " cartes ont Ã©tÃ© jouÃ©es";
 	}
 }

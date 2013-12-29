@@ -1,4 +1,4 @@
-package utt.fr.rglb.tests.java.cards.model.stockTests;
+ï»¿package utt.fr.rglb.tests.java.cards.model.stockTests;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -19,8 +19,8 @@ import utt.fr.rglb.main.java.cards.model.basics.EffetJoker;
 import utt.fr.rglb.main.java.cards.model.stock.Stock;
 
 /**
- * Classe de tests unitaires validant le comportement des méthodes de la classe Stock
- * </br>Utilisation de simulacres pour l'effet des cartes spéciales (Mockito)
+ * Classe de tests unitaires validant le comportement des mÃ©thodes de la classe Stock
+ * </br>Utilisation de simulacres pour l'effet des cartes spÃ©ciales (Mockito)
  * @see Stock
  */
 public class StockTest {
@@ -35,17 +35,17 @@ public class StockTest {
 	
 	@Before
 	public void setup() throws Exception {
-		//Création de 5 cartes
+		//CrÃ©ation de 5 cartes
 		this.carte01 = new Card(8,Color.RED);
 		this.carte02 = new Card(0,Color.BLUE);
 		this.carte03 = new CardSpecial(20, Color.GREEN, new EffectReverse());
 		this.carte04 = new CardSpecial(20, Color.YELLOW, new EffectPlus2(2));
 		this.carte05 = new CardSpecial(50, Color.JOKER, new EffetJoker());
-		//Création des pioches
+		//CrÃ©ation des pioches
 		this.stock = new Stock();
 		this.stock.resetCards();
 		this.baseQueue = fillCardsInsideQueue();
-		//Spécifications du comportement des objets mockés
+		//SpÃ©cifications du comportement des objets mockÃ©s
 		this.mockedPioche = PowerMockito.spy(new Stock());
 		defineBehaviourForMockedObjects();
 	}

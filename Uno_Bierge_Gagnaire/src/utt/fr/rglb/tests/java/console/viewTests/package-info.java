@@ -1,4 +1,4 @@
-/**
- * Package associé aux tests basés sur les différents affichages de la vue
+ï»¿/**
+ * Package associÃ© aux tests basÃ©s sur les diffÃ©rents affichages de la vue
  */
 package utt.fr.rglb.tests.java.console.viewTests;
