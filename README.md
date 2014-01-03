@@ -25,6 +25,7 @@ SECTION 02 - Sommaire
 6. Plugins recommandés
 7. Intégration de Maven sur Eclipse
 8. Intégration de JavaFX sur Eclipse
+9. Analyse des journaux
 
 SECTION 03 - Notes importantes
 ---
@@ -148,7 +149,7 @@ SECTION 06 - Plugins Recommandés
 #### ANSI Escape in Console :
 
 * `ANSI Escape in Console`  ([site officiel](http://goo.gl/Yth0XK)) n'est pas nécessaire si le programme est exécuté depuis le JAR --__Méthode recommandée__
-* Si vous souhaitez de même utiliser Eclipse pour lancer le UNO la démarche est comme suit : `Help` -> `Install new software` -> Entrer `http://www.mihai-nita.net/eclipse` dans le champs `Work With` -> Cocher `ANSI console` -> Cliquer sur`Next/Finish`
+* Si vous souhaitez tout de même utiliser Eclipse pour lancer le UNO la démarche est comme suit : `Help` -> `Install new software` -> Entrer `http://www.mihai-nita.net/eclipse` dans le champs `Work With` -> Cocher `ANSI console` -> Cliquer sur`Next/Finish`
 
 SECTION 07 - Intégration de Maven sur Eclipse
 ---
@@ -212,16 +213,31 @@ Deux choix sont possible :
 	
 Pour `JavaFX 8` :
 
-	1. Installer le JDK 8 ([site de téléchargement](https://jdk8.java.net/download.html)) Notez que le JRE 8 est inclu dans le fichier d'installation du JDK 8
-	2. Dans Eclipse, `Clique-droit` sur la racine du projet -> `Properties` -> `Java Build Path` -> `Libraries`
-	3. Vérifier que la version du fichier `jfxrt.jar` correspond à la version du JRE utilisée (32 bits ou 64 bits)
-	4. Cliquer sur `Add JARs` pour l'ajouter -> aller dans `libs` puis dans `JDK8` puis dans le dossier `32 bits` ou `64 bits` et selectionner le jar correspondant
-	5. Dans cette même fenêtre, cliquer sur `JRE System Library` -> `Edit` -> Dans `Alternate JRE` selection `JR8`
+1. Installer le JDK 8 ([site de téléchargement](https://jdk8.java.net/download.html)) --Notez que le JRE 8 est inclu dans le fichier d'installation du JDK 8
+2. Dans cette fenêtre, cliquer sur `JRE System Library` -> `Edit` -> Dans `Alternate JRE` selectionner `JR8`
+3. Dans Eclipse, `Clique-droit` sur la racine du projet -> `Properties` -> `Java Build Path` -> `Libraries`
+4. Vérifier que la version du fichier `jfxrt.jar` correspond à la version du JRE utilisée (32 bits ou 64 bits)
+5. Cliquer sur `Add JARs` pour l'ajouter -> aller dans `libs` puis dans `JDK8` puis dans le dossier `32 bits` ou `64 bits` et selectionner le jar correspondant
 	
 Pour `JavaFX 2` :
 
-	1. Dans Eclipse, `Clique-droit` sur la racine du projet -> `Properties` -> `Java Build Path` -> `Libraries`
-	2. Vérifier que la version du fichier `jfxrt.jar` correspond à la version du JRE utilisée (32 bits ou 64 bits)
-	3. Cliquer sur `Add JARs` pour l'ajouter -> aller dans `libs` puis dans `JDK7` puis dans le dossier `32 bits` ou `64 bits` et selectionner le jar correspondant
-	4. Dans cette même fenêtre, cliquer sur `JRE System Library` -> `Edit` -> Dans `Alternate JRE` selection `JR8`
-	
+1. Dans Eclipse, `Clique-droit` sur la racine du projet -> `Properties` -> `Java Build Path` -> `Libraries`
+2. Dans cette fenêtre, cliquer sur `JRE System Library` -> `Edit` -> Dans `Alternate JRE` selectionner `JR7`
+3. Vérifier que la version du fichier `jfxrt.jar` correspond à la version du JRE utilisée (32 bits ou 64 bits)
+4. Cliquer sur `Add JARs` pour l'ajouter -> aller dans `libs` puis dans `JDK7` puis dans le dossier `32 bits` ou `64 bits` et selectionner le jar correspondant
+
+SECTION 09 - Analyse des journaux
+---
+
+Le programme libre Notepad++ est formidable pour une telle chose puisqu'il laisse libre l'utilisateur de définir la coloration syntaxique
+
+Pour le configurer rien de plus simple il suffit de télécharger un de ces fichiers xml :
+
+* Pour un affichage BLANC sur NOIR : http://goo.gl/TSF6oo
+* Pour un affichage NOIR sur BLANC : http://goo.gl/SNXYTN
+
+Puis dans Notepad++ : 
+
+1. Cliquer sur `Langage` -> `Définir votre langage` -> `Importer` -> Naviguer jusqu'au fichier téléchargé
+2. Redemarrer Notepad++
+3. Cliquer sur `Langage` -> cliquer sur `log4j-black` ou `log4j-white` (tout en bas de la liste) quand un des fichiers .log est ouvert pour avoir la coloration associée

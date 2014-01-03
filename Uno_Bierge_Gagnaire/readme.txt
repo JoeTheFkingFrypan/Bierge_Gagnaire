@@ -5,7 +5,6 @@ LO02 UNO Project
 	Version du projet : 3.0.0
 	Couverture actuelle du code : 61.3 %
 
-
 	GroupId : Uno_Bierge_Gagnaire
 	ArtifactId : Uno_Bierge_Gagnaire
 	Version : 3.0.0
@@ -30,6 +29,7 @@ SECTION 02 - Sommaire
 	6. Plugins recommandés
 	7. Intégration de Maven sur Eclipse
 	8. Intégration de JavaFX sur Eclipse
+	9. Analyse des journaux
 
 =====================================
 SECTION 03 - Notes importantes
@@ -135,7 +135,7 @@ EclEmma :
 
 ANSI Escape in Console :
 	ANSI Escape in Console  (http://goo.gl/Yth0XK))n'est pas nécessaire si le programme est exécuté depuis le JAR --Méthode recommandée
-	Si vous souhaitez de même utiliser Eclipse pour lancer le UNO la démarche est comme suit : Help -> Install new software -> Entrer http://www.mihai-nita.net/eclipse dans le champs Work With -> Cocher ANSI console -> Cliquer surNext/Finish
+	Si vous souhaitez tout de même utiliser Eclipse pour lancer le UNO la démarche est comme suit : Help -> Install new software -> Entrer http://www.mihai-nita.net/eclipse dans le champs Work With -> Cocher ANSI console -> Cliquer surNext/Finish
 
 =====================================
 SECTION 07 - Intégration de Maven sur Eclipse
@@ -179,47 +179,34 @@ Installation de e(fx)clipse
 	Installer le plugin e(fx)clipse : (http://goo.gl/oAqh6Q)
 	Méthode d'installation : Help -> Eclipse Marketplace et taper dans find le nom associé.
 
+Configuration du projet pour fonctionner avec JavaFX. Deux choix sont possible : 
+	Utiliser `JavaFX 8` afin de profiter des dernières innovations
+	Utiliser `JavaFX 2` demandant très peu de pré-requis
+	
+Pour `JavaFX 8` :
+	1. Installer le JDK 8 ([site de téléchargement](https://jdk8.java.net/download.html)) --Notez que le JRE 8 est inclu dans le fichier d'installation du JDK 8
+	2. Dans cette fenêtre, cliquer sur `JRE System Library` -> `Edit` -> Dans `Alternate JRE` selectionner `JR8`
+	3. Dans Eclipse, `Clique-droit` sur la racine du projet -> `Properties` -> `Java Build Path` -> `Libraries`
+	4. Vérifier que la version du fichier `jfxrt.jar` correspond à la version du JRE utilisée (32 bits ou 64 bits)
+	5. Cliquer sur `Add JARs` pour l'ajouter -> aller dans `libs` puis dans `JDK8` puis dans le dossier `32 bits` ou `64 bits` et selectionner le jar correspondant
+	
+Pour `JavaFX 2` :
+	1. Dans Eclipse, `Clique-droit` sur la racine du projet -> `Properties` -> `Java Build Path` -> `Libraries`
+	2. Dans cette fenêtre, cliquer sur `JRE System Library` -> `Edit` -> Dans `Alternate JRE` selectionner `JR7`
+	3. Vérifier que la version du fichier `jfxrt.jar` correspond à la version du JRE utilisée (32 bits ou 64 bits)
+	4. Cliquer sur `Add JARs` pour l'ajouter -> aller dans `libs` puis dans `JDK7` puis dans le dossier `32 bits` ou `64 bits` et selectionner le jar correspondant
+
 =====================================
 SECTION 09 - Analyse des journaux
 ---------------------------- 
 
 Le programme libre Notepad++ est formidable pour une telle chose puisqu'il laisse libre l'utilisateur de définir la coloration syntaxique
 
-Pour le configurer rien de plus simple il suffit d'éditier le fichier "" situé dans "%APPDATA%\Notepad++", et de rajouter les lignes suivantes (ou de créer le fichier s'il n'existe pas) :
+Pour le configurer rien de plus simple il suffit de télécharger un de ces fichiers xml :
+	Pour un affichage BLANC sur NOIR : http://goo.gl/TSF6oo
+	Pour un affichage NOIR sur BLANC : http://goo.gl/SNXYTN
 
-	<NotepadPlus>
-		<UserLang name="Log4j" ext="log">
-			<Settings>
-				<Global caseIgnored="no" escapeChar=":" />
-				<TreatAsSymbol comment="yes" commentLine="no" />
-				<Prefix words1="no" words2="no" words3="no" words4="no" />
-			</Settings>
-			<KeywordLists>
-				<Keywords name="Delimiters">[&apos;0]&apos;0</Keywords>
-				<Keywords name="Folder+"></Keywords>
-				<Keywords name="Folder-"></Keywords>
-				<Keywords name="Operators">-</Keywords>
-				<Keywords name="Comment">1/* 2*/ 0// 0</Keywords>
-				<Keywords name="Words1">ERROR</Keywords>
-				<Keywords name="Words2">FATAL</Keywords>
-				<Keywords name="Words3">INFO</Keywords>
-				<Keywords name="Words4">WARN</Keywords>
-			</KeywordLists>
-			<Styles>
-				<WordsStyle name="DEFAULT" styleID="11" fgColor="FFFFFF" bgColor="FFFFFF" colorStyle="0" fontName="Courier New" fontStyle="0" />
-				<WordsStyle name="FOLDEROPEN" styleID="12" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" />
-				<WordsStyle name="FOLDERCLOSE" styleID="13" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" />
-				<WordsStyle name="KEYWORD1" styleID="5" fgColor="FF8080" bgColor="FFFFFF" colorStyle="1" fontName="" fontStyle="0" />
-				<WordsStyle name="KEYWORD2" styleID="6" fgColor="FF0000" bgColor="FFFFFF" colorStyle="1" fontName="" fontStyle="1" />
-				<WordsStyle name="KEYWORD3" styleID="7" fgColor="0080FF" bgColor="FFFFFF" colorStyle="1" fontName="" fontStyle="0" />
-				<WordsStyle name="KEYWORD4" styleID="8" fgColor="FFFF00" bgColor="FFFFFF" colorStyle="1" fontName="" fontStyle="0" />
-				<WordsStyle name="COMMENT" styleID="1" fgColor="008040" bgColor="FFFFFF" fontName="" fontStyle="0" />
-				<WordsStyle name="COMMENT LINE" styleID="2" fgColor="008040" bgColor="FFFFFF" fontName="" fontStyle="0" />
-				<WordsStyle name="NUMBER" styleID="4" fgColor="FFFF80" bgColor="FFFFFF" fontName="" fontStyle="0" />
-				<WordsStyle name="OPERATOR" styleID="10" fgColor="FFFFFF" bgColor="FFFFFF" colorStyle="2" fontName="" fontStyle="0" />
-				<WordsStyle name="DELIMINER1" styleID="14" fgColor="C0C0C0" bgColor="FFFFFF" colorStyle="1" fontName="" fontStyle="0" />
-				<WordsStyle name="DELIMINER2" styleID="15" fgColor="FF8080" bgColor="FFFFFF" colorStyle="1" fontName="" fontStyle="0" />
-				<WordsStyle name="DELIMINER3" styleID="16" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" />
-			</Styles>
-		</UserLang>
-	</NotepadPlus>
+Puis dans Notepad++ : 
+	1. Cliquer sur `Langage` -> `Définir votre langage` -> `Importer` -> Naviguer jusqu'au fichier téléchargé
+	2. Redemarrer Notepad++
+	3. Cliquer sur `Langage` -> cliquer sur `log4j-black` ou `log4j-white` (tout en bas de la liste) quand un des fichiers .log est ouvert pour avoir la coloration associée	
