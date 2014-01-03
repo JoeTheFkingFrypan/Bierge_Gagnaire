@@ -1,11 +1,8 @@
 package utt.fr.rglb.main.java.view.graphics.fxml;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import org.controlsfx.control.action.Action;
-import org.controlsfx.dialog.Dialogs;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,8 +18,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -30,8 +25,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class FXMLControllerSummaryScreen extends AbstractFXMLController {
@@ -85,7 +78,6 @@ public class FXMLControllerSummaryScreen extends AbstractFXMLController {
 			players.add(goForIt,0,playerCount+4,4,1);
 		} catch (ConfigFileDaoException e) {
 			mainGrid.getChildren().remove(numberLabel);
-
 			ObservableList<RowConstraints> rowConstraints = mainGrid.getRowConstraints();
 			int rowNumber = 0;
 			for(RowConstraints currentRowConstraints : rowConstraints) {
@@ -103,44 +95,8 @@ public class FXMLControllerSummaryScreen extends AbstractFXMLController {
 			modeLabel.setId("errorMessage");
 			modeLabel.setWrapText(true);
 			mainGrid.add(modeLabel,0,1,3,1);
-			Button goForIt = createErrorButton();
+			Button goForIt = createErrorButton(mainGrid.getScene(),"setup.fxml");
 			mainGrid.add(goForIt,0,2,3,1);
-
-			if(!System.getProperty("java.runtime.version").startsWith("1.8.")) {
-				log.warn("It seems you're not using JavaFX/JDK 8, nodal messages won't display");
-				log.warn("    |--  Detected : java.specification.version : " + "\"" + System.getProperty("java.specification.version") + "\"");
-				log.warn("    |--  Detected : java.version : " + "\"" + System.getProperty("java.version") + "\"");
-				log.warn("    |--  Detected : java.runtime.version : " + "\"" + System.getProperty("java.runtime.version") + "\"");
-			} else {
-				Label label = null;
-				Button hyperlink7a = null;
-				log.warn("Reaching critical zone");
-
-				label = new Label("Error Dialog: ");
-				label.setFont(Font.font("Amble, Arial", 13));
-				label.setTextFill(Color.BLUE);
-
-				log.warn("adding label");
-				mainGrid.add(label, 0, 2);
-
-				log.warn("creating modal");
-				hyperlink7a = new Button("Show");
-				hyperlink7a.setOnAction(new EventHandler<ActionEvent>() {
-					@Override public void handle(ActionEvent e) {
-						Action response = Dialogs.create().lightweight()
-								.title("It looks like you're making a bad decision")
-								.message("Exception Encountered")
-								.showError();
-
-						System.out.println("response: " + response);
-					}
-				});
-				log.warn("adding hyperlink");
-				mainGrid.add(hyperlink7a, 0, 2);
-			}
-
-			log.error(e.getMessage());
-			log.error("Setup screen will now be loaded to be able to create a game");
 		}
 	}
 
@@ -179,24 +135,6 @@ public class FXMLControllerSummaryScreen extends AbstractFXMLController {
 				log.info("Info about all " + playersToCreate.size() + " players successfully gathered");
 				log.info("Preparing to create " + playersToCreate.toString());
 				gameController.createGameFrom(choosenRules,playersToCreate,scene);
-			}
-		});
-		return goForIt;
-	}
-
-	private Button createErrorButton() {
-		Button goForIt = new Button("Continue to setup screen");
-		goForIt.getStyleClass().add("declineButton");
-		goForIt.setOnAction(new EventHandler<ActionEvent>() {
-			@Override public void handle(ActionEvent e) {
-				try {
-					Scene scene = mainGrid.getScene();
-					log.info("Loading JavaFX setup screen from file : \"setup.fxml\"");
-					Parent root= FXMLLoader.load(getClass().getResource("/utt/fr/rglb/main/ressources/fxml/setup.fxml"));
-					scene.setRoot(root);
-				} catch (IOException e1) {
-					throw new FXMLControllerException("[ERROR] While trying to load screen from \"setup.fxml\"",e1);
-				}
 			}
 		});
 		return goForIt;

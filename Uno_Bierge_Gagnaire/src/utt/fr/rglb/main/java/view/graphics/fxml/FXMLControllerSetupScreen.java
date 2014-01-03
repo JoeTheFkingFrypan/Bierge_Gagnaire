@@ -36,7 +36,7 @@ public class FXMLControllerSetupScreen  extends AbstractFXMLController {
 	private static final Logger log = LoggerFactory.getLogger(FXMLControllerSetupScreen.class);
 	private GameControllerGraphicsOriented gameController;
 	private boolean impossibleToForwardRequest;
-	private Label errorMessageNullName;
+	private Label errorMessageEmptyName;
 	private Label errorMessageSameName;
 	private Label gameModeLabel;
 	private ChoiceBox<String> gameModeChoice;
@@ -170,8 +170,8 @@ public class FXMLControllerSetupScreen  extends AbstractFXMLController {
 				if(errorMessageSameName != null) {
 					players.getChildren().remove(errorMessageSameName);
 				}
-				if(errorMessageNullName != null) {
-					players.getChildren().remove(errorMessageNullName);
+				if(errorMessageEmptyName != null) {
+					players.getChildren().remove(errorMessageEmptyName);
 				}
 				Scene scene= playerNumber.getScene();
 				Integer playerCount = Integer.parseInt(playerNumber.getValue());
@@ -199,12 +199,13 @@ public class FXMLControllerSetupScreen  extends AbstractFXMLController {
 		TextField textField = (TextField) scene.lookup(textFieldId);
 		String playerName = textField.getText();
 		boolean errorNullName = playerName.equals("");
-		boolean errorSameName = names.contains(playerName);
+		boolean errorSameName = false;
 		if(errorNullName) {
-			errorMessageNullName = new Label("[ERROR] Impossible to continue : at least 1 players has no name");
-			errorMessageNullName.setId("errorMessage");
-			players.add(errorMessageNullName,0,playerCount+5,4,1);
+			errorMessageEmptyName = new Label("[ERROR] Impossible to continue : at least 1 players has no name");
+			errorMessageEmptyName.setId("errorMessage");
+			players.add(errorMessageEmptyName,0,playerCount+5,4,1);
 		} else {
+			errorSameName = names.contains(playerName);
 			if(errorSameName) {
 				errorMessageSameName = new Label("[ERROR] Impossible to continue : at least 2 players have the same name");
 				errorMessageSameName.setId("errorMessage");

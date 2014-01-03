@@ -7,11 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane alignment="TOP_CENTER" hgap="5.0" maxHeight="300.0"
-	maxWidth="1100.0" minHeight="300.0" minWidth="200.0" prefHeight="300.0"
-	prefWidth="200.0" styleClass="root" vgap="5.0" xmlns="http://javafx.com/javafx/8"
-	xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="utt.fr.rglb.main.java.view.graphics.fxml.FXMLControllerWelcomeScreen">
+<GridPane fx:id="mainGrid" alignment="TOP_CENTER" hgap="5.0" maxHeight="300.0" maxWidth="1100.0" minHeight="300.0" minWidth="200.0" prefHeight="300.0" prefWidth="200.0" styleClass="root" vgap="5.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utt.fr.rglb.main.java.view.graphics.fxml.FXMLControllerWelcomeScreen">
 
 	<padding>
 		<Insets bottom="10.0" left="25.0" right="25.0" top="25.0" />
@@ -22,83 +18,52 @@
 	</stylesheets>
 
 	<children>
-		<GridPane fx:id="headerGrid" alignment="TOP_CENTER"
-			maxHeight="55.0" minWidth="1100.0" vgap="25.0" GridPane.halignment="CENTER"
-			GridPane.valignment="CENTER" xmlns:fx="http://javafx.com/fxml">
+		<GridPane fx:id="headerGrid" alignment="TOP_CENTER" maxHeight="55.0" minWidth="1100.0" vgap="25.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" xmlns:fx="http://javafx.com/fxml">
 			<columnConstraints>
-				<ColumnConstraints halignment="CENTER" hgrow="SOMETIMES"
-					minWidth="10.0" prefWidth="100.0" />
+				<ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
 				<ColumnConstraints />
 			</columnConstraints>
 			<rowConstraints>
-				<RowConstraints minHeight="30.0" prefHeight="30.0"
-					valignment="CENTER" />
-				<RowConstraints minHeight="30.0" prefHeight="30.0"
-					valignment="CENTER" />
-				<RowConstraints minHeight="30.0" prefHeight="30.0"
-					valignment="CENTER" />
+				<RowConstraints minHeight="30.0" prefHeight="30.0" valignment="CENTER" />
+				<RowConstraints minHeight="30.0" prefHeight="30.0" valignment="CENTER" />
+				<RowConstraints minHeight="30.0" prefHeight="30.0" valignment="CENTER" />
 			</rowConstraints>
 			<children>
-				<Text id="header" fx:id="header" strokeType="OUTSIDE"
-					strokeWidth="0.0" styleClass="fancyText" />
-				<Label styleClass="mainText"
-					text="Configuration file can be used to create the game easily without spending time on setting up everything."
-					textOverrun="WORD_ELLIPSIS" wrapText="true" GridPane.halignment="CENTER"
-					GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="CENTER"
-					GridPane.vgrow="NEVER">
-					<GridPane.margin>
-						<Insets top="40.0" />
-					</GridPane.margin>
+				<Text id="header" fx:id="header" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="fancyText" />
+				<Label styleClass="mainText" text="Configuration file can be used to create the game easily without spending time on setting up everything." textOverrun="WORD_ELLIPSIS" wrapText="true" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
 				</Label>
-				<Label styleClass="mainText" text="Would you like to load it now?"
-					textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.hgrow="NEVER"
-					GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
-					<GridPane.margin>
-						<Insets top="40.0" />
-					</GridPane.margin>
+				<Label styleClass="mainText" text="Would you like to load it now?" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="NEVER">
 				</Label>
 			</children>
 		</GridPane>
-		<GridPane alignment="TOP_CENTER" maxWidth="275.0" minWidth="200.0"
-			GridPane.halignment="CENTER" GridPane.hgrow="NEVER"
-			GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="NEVER"
-			xmlns:fx="http://javafx.com/fxml">
+		<GridPane fx:id="buttonGrid" alignment="CENTER" maxWidth="300.0" minWidth="200.0" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="NEVER" xmlns:fx="http://javafx.com/fxml">
 			<columnConstraints>
-				<ColumnConstraints minWidth="10.0" prefWidth="100.0" />
-				<ColumnConstraints xmlns="http://javafx.com/javafx/8"
-					xmlns:fx="http://javafx.com/fxml/1" />
-				<ColumnConstraints halignment="CENTER" minWidth="10.0"
-					prefWidth="100.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+				<ColumnConstraints halignment="CENTER" minWidth="150.0" prefWidth="150.0" />
+				<ColumnConstraints xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+				<ColumnConstraints halignment="CENTER" minWidth="150.0" prefWidth="150.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
 			</columnConstraints>
 			<children>
-				<Button styleClass="acceptButton" id="acceptButton" fx:id="acceptButton" alignment="CENTER_RIGHT"
-					contentDisplay="CENTER" minWidth="75.0" onAction="#handleAcceptButtonAction"
-					text="Accept" textAlignment="CENTER" GridPane.columnIndex="0"
-					GridPane.halignment="CENTER" GridPane.rowIndex="1"
-					GridPane.valignment="CENTER">
+				<Button id="acceptButton" fx:id="acceptButton" alignment="CENTER_RIGHT" contentDisplay="CENTER" minWidth="75.0" onAction="#handleAcceptButtonAction" styleClass="acceptButton" text="Accept" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
 				</Button>
-				<Button styleClass="declineButton" id="declineButton" fx:id="declineButton"
-					contentDisplay="CENTER" minWidth="75.0" onAction="#handleDeclineButtonAction"
-					text="Decline" textAlignment="CENTER" GridPane.columnIndex="2"
-					GridPane.halignment="CENTER" GridPane.rowIndex="1"
-					GridPane.valignment="CENTER">
+				<Button id="declineButton" fx:id="declineButton" contentDisplay="CENTER" minWidth="75.0" onAction="#handleDeclineButtonAction" styleClass="declineButton" text="Decline" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
 				</Button>
+				<Label GridPane.rowIndex="2" />
 			</children>
 			<rowConstraints>
 				<RowConstraints />
-				<RowConstraints valignment="TOP" />
+				<RowConstraints valignment="CENTER" />
+				<RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
 			</rowConstraints>
-			<GridPane.margin>
-				<Insets top="50.0" />
-			</GridPane.margin>
 		</GridPane>
+		<Label GridPane.rowIndex="2" />
 	</children>
 	<columnConstraints>
-		<ColumnConstraints hgrow="NEVER" />
+		<ColumnConstraints halignment="CENTER" hgrow="NEVER" />
 	</columnConstraints>
 	<rowConstraints>
 		<RowConstraints valignment="TOP" />
 		<RowConstraints valignment="TOP" />
+		<RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
 	</rowConstraints>
 
 </GridPane>

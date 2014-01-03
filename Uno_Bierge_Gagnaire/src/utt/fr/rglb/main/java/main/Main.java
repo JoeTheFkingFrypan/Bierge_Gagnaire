@@ -30,6 +30,7 @@ public class Main {
 		boolean graphicsGameWanted = parseProgramArgument(args);
 		try {
 			if(graphicsGameWanted) {
+				displayWarningIfNotUsingJavaFX8();
 				GraphicsView graphicsView = new GraphicsView();
 				Server server = Server.getInstance(graphicsView);
 				server.startPlaying();
@@ -40,25 +41,42 @@ public class Main {
 				server.startPlaying();
 			}
 		} catch (UnsupportedClassVersionError e) {
-			log.error("It appears you're not using a correct version of \"jfxrt.jar\"");
-			log.error("Please fix your java build path in order to run the program");
-			log.error("    |--  Detected : java.specification.version : \"" + System.getProperty("java.specification.version") + "\"");
-			log.error("    |--  Detected : java.version : \"" + System.getProperty("java.version") + "\"");
-			log.error("    |--  Detected : java.runtime.version : \"" + System.getProperty("java.runtime.version") + "\"");
-			log.error("    |--  Detected : sun.arch.data.model : \"" + System.getProperty("sun.arch.data.model") + " bits\"");
-			log.error("        [PROGRAM TERMINATED]        ");
-			log.error("");
+			handleLibraryConflict();
 		} catch (Exception e) {
-			log.error("====================================");
-			log.error("[ERROR] An unexpected error happened");
-			log.error("Class involved : " + e.getClass());
-			log.error("Message from Exception : " + e.getMessage());
-			log.error("------ STACK TRACE ------");
-			log.error( "failed!", e );
-			log.error("====================================");
-			log.error("        [PROGRAM TERMINATED]        ");
-			log.error("");
+			handleException(e);
 		}
+	}
+
+	private static void displayWarningIfNotUsingJavaFX8() {
+		if(!System.getProperty("java.runtime.version").startsWith("1.8.")) {
+			log.warn("It seems you're not using JavaFX/JDK 8, nodal messages won't display");
+			log.warn("    |--  Detected : java.specification.version : " + "\"" + System.getProperty("java.specification.version") + "\"");
+			log.warn("    |--  Detected : java.version : " + "\"" + System.getProperty("java.version") + "\"");
+			log.warn("    |--  Detected : java.runtime.version : " + "\"" + System.getProperty("java.runtime.version") + "\"");
+		}
+	}
+
+	private static void handleLibraryConflict() {
+		log.error("It appears you're not using a correct version of \"jfxrt.jar\"");
+		log.error("Please fix your java build path in order to run the program");
+		log.error("    |--  Detected : java.specification.version : \"" + System.getProperty("java.specification.version") + "\"");
+		log.error("    |--  Detected : java.version : \"" + System.getProperty("java.version") + "\"");
+		log.error("    |--  Detected : java.runtime.version : \"" + System.getProperty("java.runtime.version") + "\"");
+		log.error("    |--  Detected : sun.arch.data.model : \"" + System.getProperty("sun.arch.data.model") + " bits\"");
+		log.error("        [PROGRAM TERMINATED]        ");
+		log.error("");
+	}
+
+	private static void handleException(Exception e) {
+		log.error("====================================");
+		log.error("[ERROR] An unexpected error happened");
+		log.error("Class involved : " + e.getClass());
+		log.error("Message from Exception : " + e.getMessage());
+		log.error("------ STACK TRACE ------");
+		log.error( "failed!", e );
+		log.error("====================================");
+		log.error("        [PROGRAM TERMINATED]        ");
+		log.error("");
 	}
 
 	private static boolean parseProgramArgument(String[] args) {

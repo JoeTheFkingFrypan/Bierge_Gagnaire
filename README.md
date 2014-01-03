@@ -35,7 +35,7 @@ SECTION 03 - Notes importantes
 Afin de pouvoir fonctionner correctement Eclipse a besoin d'un certain nombre de plugins et d'outils (dont certains sont installés par défaut) :
 
 * `Maven` (se référer à la SECTION 7 - Intégration de Maven sur Eclipse)
-* `e(fx)clipse` (se référer à la SECTION 8 - Intégration de JavaFX sur Eclipse)
+* `e(fx)clipse` (se référer à la SECTION 8 - Intégration de JavaFX sur Eclipse) --doute sur sa nécessité
 
 
 #### Eclipse & Codes ANSI :
