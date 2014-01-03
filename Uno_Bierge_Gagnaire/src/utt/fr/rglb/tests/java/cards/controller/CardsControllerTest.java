@@ -2,12 +2,13 @@
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import utt.fr.rglb.main.java.cards.controller.CardsController;
 import utt.fr.rglb.main.java.cards.model.basics.Card;
-import utt.fr.rglb.main.java.console.view.View;
+import utt.fr.rglb.main.java.view.AbstractView;
 
 import java.util.Collection;
 
@@ -18,11 +19,11 @@ import java.util.Collection;
  */
 public class CardsControllerTest {
 	private CardsController gameController;
-	private View mockedView;
+	private AbstractView mockedView;
 	
 	@Before
 	public void setup() {
-		this.mockedView = mock(View.class);
+		this.mockedView = mock(AbstractView.class);
 		this.gameController = new CardsController(this.mockedView);
 		this.gameController.resetCards();
 	}

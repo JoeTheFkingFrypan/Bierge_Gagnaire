@@ -10,7 +10,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import utt.fr.rglb.main.java.console.view.FancyConsoleDisplay;
+import utt.fr.rglb.main.java.view.console.FancyConsoleDisplay;
 
 /**
  * Classe de tests unitaires validant le comportement des méthodes de la classe FancyConsoleDisplay

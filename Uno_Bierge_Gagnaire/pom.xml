@@ -6,11 +6,10 @@
 	<artifactId>Uno_Bierge_Gagnaire</artifactId>
 	<version>3.0.0</version>
 	<packaging>jar</packaging>
-	
+
 	<organization>
 		<name>SirJoes</name>
 	</organization>
-
 
 	<name>LO02-UnoProject-Bierge-Gagnaire</name>
 	<description>Java project - Autumn 2013</description>
@@ -25,12 +24,16 @@
 		<powermock.version>1.5.2</powermock.version>
 		<power.jUnit4.version>1.5.2</power.jUnit4.version>
 		<jansi.version>1.11</jansi.version>
+		<apacheCommons.version>2.6</apacheCommons.version>
 		<slf4j.version>1.6.1</slf4j.version>
-		<javafx.tools.ant.jar>${java.home}/lib/ant-javafx.jar</javafx.tools.ant.jar>
+		<log4j.version>1.2.16</log4j.version>
+		<controlsFX.version>8.0.4</controlsFX.version>
 	</properties>
 
 
 	<dependencies>
+	
+		<!-- ====================== UTILS ====================== -->
 		<dependency>
 			<!-- Requis pour Google Guava : http://findbugs.sourceforge.net/ -->
 			<groupId>com.google.code.findbugs</groupId>
@@ -49,6 +52,29 @@
 			<artifactId>gson</artifactId>
 			<version>${gson.version}</version>
 		</dependency>
+		
+		<!-- ====================== DISPLAY ====================== -->
+		
+		<dependency>
+			<!-- Fancy console Display -->
+			<groupId>org.fusesource.jansi</groupId>
+			<artifactId>jansi</artifactId>
+			<version>${jansi.version}</version>
+		</dependency>
+		<dependency>
+			<!-- MigLayout -->
+			<groupId>com.miglayout</groupId>
+			<artifactId>miglayout-javafx</artifactId>
+			<version>4.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.controlsfx</groupId>
+			<artifactId>controlsfx</artifactId>
+			<version>${controlsFX.version}</version>
+		</dependency>
+		
+		
+		<!-- ====================== UNIT TESTS ====================== -->
 		<dependency>
 			<!-- http://junit.org/ -->
 			<groupId>junit</groupId>
@@ -77,44 +103,38 @@
 			<version>${power.jUnit4.version}</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<!-- Fancy console Display -->
-			<groupId>org.fusesource.jansi</groupId>
-			<artifactId>jansi</artifactId>
-			<version>${jansi.version}</version>
-		</dependency>
-		<dependency>
-			<!-- MigLayout -->
-			<groupId>com.miglayout</groupId>
-			<artifactId>miglayout-javafx</artifactId>
-			<version>4.2</version>
-		</dependency>
+		
+		<!-- ====================== LOGGING ====================== -->
+		
 		<dependency>
 			<!-- Apache Commons -->
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
-			<version>2.6</version>
+			<version>${apacheCommons.version}</version>
 		</dependency>
 		<dependency>
-			<!-- Logging -->
+			<!-- Logging - slf4j -->
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>${slf4j.version}</version>
 		</dependency>
 		<dependency>
+			<!-- Logging - jcl-Over -->
 			<groupId>org.slf4j</groupId>
 			<artifactId>jcl-over-slf4j</artifactId>
 			<version>${slf4j.version}</version>
 		</dependency>
 		<dependency>
+			<!-- Logging - slf4j-log4j -->
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>${slf4j.version}</version>
 		</dependency>
 		<dependency>
+			<!-- Logging - log4j -->
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.16</version>
+			<version>${log4j.version}</version>
 		</dependency>
 	</dependencies>
 

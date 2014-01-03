@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane alignment="TOP_CENTER" hgap="5.0" maxHeight="300.0" maxWidth="200.0" minHeight="300.0" minWidth="200.0" prefHeight="300.0" prefWidth="200.0" styleClass="root" vgap="5.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utt.fr.rglb.main.java.view.graphics.fxml.FXMLControllerTeamDisplayScreen">
+
+	<padding>
+		<Insets bottom="10.0" left="25.0" right="25.0" top="25.0" />
+	</padding>
+
+	<stylesheets>
+		<URL value="@../css/styles.css" />
+	</stylesheets>
+
+	<children>
+		<GridPane fx:id="headerGrid" alignment="TOP_CENTER" maxHeight="55.0" minWidth="900.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" xmlns:fx="http://javafx.com/fxml">
+			<columnConstraints>
+				<ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+				<ColumnConstraints />
+			</columnConstraints>
+			<rowConstraints>
+				<RowConstraints minHeight="30.0" prefHeight="30.0" valignment="CENTER" />
+			</rowConstraints>
+			<children><AnchorPane prefHeight="1.0" prefWidth="1.0" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.vgrow="NEVER" />
+			</children>
+		</GridPane>
+		<GridPane fx:id="" alignment="TOP_CENTER" minHeight="250.0" minWidth="675.0" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="NEVER" xmlns:fx="http://javafx.com/fxml">
+			<columnConstraints>
+				<ColumnConstraints minWidth="10.0" prefWidth="100.0" />
+				<ColumnConstraints xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+			</columnConstraints>
+			<children>
+				<TableView fx:id="teamDisplay" minHeight="113.0" minWidth="675.0" prefHeight="113.0" prefWidth="675.0" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="NEVER" xmlns:fx="http://javafx.com/fxml">
+					<columns>
+						<TableColumn fx:id="teamName" editable="false" minWidth="225.0" prefWidth="225.0" text="Team #" />
+						<TableColumn fx:id="firstPlayer" editable="false" minWidth="225.0" prefWidth="225.0" text="1st Player" />
+						<TableColumn fx:id="secondPlayer" editable="false" minWidth="225.0" prefWidth="225.0" text="2nd Player" />
+					</columns>
+				</TableView>
+				<Button fx:id="acceptButton" alignment="CENTER_RIGHT" contentDisplay="CENTER" minWidth="75.0" onAction="#handleContinueButtonAction" styleClass="acceptButton" text="Continue" textAlignment="CENTER" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+					<GridPane.margin>
+						<Insets top="50.0" />
+					</GridPane.margin>
+				</Button>
+			</children>
+			<rowConstraints>
+				<RowConstraints minHeight="113.0" valignment="CENTER" vgrow="NEVER" />
+				<RowConstraints valignment="TOP" />
+			</rowConstraints>
+			<GridPane.margin>
+				<Insets />
+			</GridPane.margin>
+		</GridPane>
+	</children>
+	<columnConstraints>
+		<ColumnConstraints hgrow="NEVER" />
+	</columnConstraints>
+	<rowConstraints>
+		<RowConstraints valignment="TOP" />
+		<RowConstraints valignment="TOP" />
+	</rowConstraints>
+
+</GridPane>

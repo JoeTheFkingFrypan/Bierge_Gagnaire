@@ -6,12 +6,14 @@ import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import utt.fr.rglb.main.java.console.view.View;
 import utt.fr.rglb.main.java.player.AI.DrawFirstCard;
 import utt.fr.rglb.main.java.player.AI.DrawFromColorMajority;
 import utt.fr.rglb.main.java.player.AI.DrawMostValuableCard;
-import utt.fr.rglb.main.java.player.controller.PlayerControllerAI;
-import utt.fr.rglb.main.java.player.controller.PlayerController;
+import utt.fr.rglb.main.java.player.controller.PlayerControllerAIConsoleOriented;
+import utt.fr.rglb.main.java.player.controller.PlayerControllerAIGraphicsOriented;
+import utt.fr.rglb.main.java.player.controller.PlayerControllerConsoleOriented;
+import utt.fr.rglb.main.java.player.controller.PlayerControllerGraphicsOriented;
+import utt.fr.rglb.main.java.view.AbstractView;
 
 /**
  * Classe englobant tous les joeuurs devant être créés et les informations qui leur sont associés
@@ -63,24 +65,24 @@ public class PlayersToCreate {
 		if(strategyIndex == 0) {
 			this.playersAwaitingCreation.add(new PlayerStatus(playerNameFromInput,new DrawFirstCard()));
 		} else if(strategyIndex == 1) {
-			this.playersAwaitingCreation.add(new PlayerStatus(playerNameFromInput,new DrawMostValuableCard()));
-		} else {
 			this.playersAwaitingCreation.add(new PlayerStatus(playerNameFromInput,new DrawFromColorMajority()));
+		} else {
+			this.playersAwaitingCreation.add(new PlayerStatus(playerNameFromInput,new DrawMostValuableCard()));
 		}
 	}
 	
-	/* ========================================= PLAYER CREATION ========================================= */
+	/* ========================================= PLAYER CREATION - CONSOLE VIEW ========================================= */
 	
 	/**
 	 * Méthode permettant de créer tous les joueurs à partir de leurs informations associés 
 	 * @param consoleView Vue permettant d'afficher des informatios
 	 * @return Une Collection de PlayerController correspondant à tous les joueurs devant être créés
 	 */
-	public List<PlayerController> createAllPlayersFromTheirRespectiveData(View consoleView, BufferedReader inputStream) {
+	public List<PlayerControllerConsoleOriented> createAllConsolePlayersFromTheirRespectiveData(AbstractView consoleView, BufferedReader inputStream) {
 		Preconditions.checkNotNull(consoleView,"[ERROR] Impossible to create all players : provided view is null");
-		List<PlayerController> players = new ArrayList<PlayerController>(); 
+		List<PlayerControllerConsoleOriented> players = new ArrayList<PlayerControllerConsoleOriented>(); 
 		for(PlayerStatus curentPlayer : this.playersAwaitingCreation) {
-			players.add(createPlayerFrom(curentPlayer,consoleView,inputStream));
+			players.add(createConsolePlayerFrom(curentPlayer,consoleView,inputStream));
 		}
 		return players;
 	}
@@ -91,15 +93,42 @@ public class PlayersToCreate {
 	 * @param consoleView Vue permettant d'afficher des informations
 	 * @return Le PlayerController associé au joueur
 	 */
-	private PlayerController createPlayerFrom(PlayerStatus curentPlayer, View consoleView, BufferedReader inputStream) {
+	private PlayerControllerConsoleOriented createConsolePlayerFrom(PlayerStatus curentPlayer, AbstractView consoleView, BufferedReader inputStream) {
 		Preconditions.checkNotNull(curentPlayer,"[ERROR] Impossible to create all players : provided player data is null");
 		Preconditions.checkNotNull(consoleView,"[ERROR] Impossible to create all players : provided view is null");
 		if(curentPlayer.isHuman()) {
-			return new PlayerController(curentPlayer.getAlias(), consoleView, inputStream);
+			return new PlayerControllerConsoleOriented(curentPlayer.getAlias(), consoleView, inputStream);
 		} else {
-			return new PlayerControllerAI(curentPlayer.getAlias(), consoleView, curentPlayer.getStrategy(),inputStream);
+			return new PlayerControllerAIConsoleOriented(curentPlayer.getAlias(), consoleView, curentPlayer.getStrategy(),inputStream);
 		}
 	}
+	
+	/* ========================================= PLAYER CREATION - GRAPHICS VIEW ========================================= */
+	
+	/**
+	 * Méthode permettant de créer tous les joueurs à partir de leurs informations associés 
+	 * @param consoleView Vue permettant d'afficher des informatios
+	 * @return Une Collection de PlayerController correspondant à tous les joueurs devant être créés
+	 */
+	public List<PlayerControllerGraphicsOriented> createAllGraphicsPlayersFromTheirRespectiveData(AbstractView consoleView) {
+		Preconditions.checkNotNull(consoleView,"[ERROR] Impossible to create all players : provided view is null");
+		List<PlayerControllerGraphicsOriented> players = new ArrayList<PlayerControllerGraphicsOriented>(); 
+		for(PlayerStatus curentPlayer : this.playersAwaitingCreation) {
+			players.add(createGraphicsPlayerFrom(curentPlayer,consoleView));
+		}
+		return players;
+	}
+	
+	private PlayerControllerGraphicsOriented createGraphicsPlayerFrom(PlayerStatus curentPlayer, AbstractView consoleView) {
+		Preconditions.checkNotNull(curentPlayer,"[ERROR] Impossible to create all players : provided player data is null");
+		Preconditions.checkNotNull(consoleView,"[ERROR] Impossible to create all players : provided view is null");
+		if(curentPlayer.isHuman()) {
+			return new PlayerControllerGraphicsOriented(curentPlayer.getAlias(), consoleView);
+		} else {
+			return new PlayerControllerAIGraphicsOriented(curentPlayer.getAlias(), consoleView, curentPlayer.getStrategy());
+		}
+	}
+	
 	
 	/* ========================================= UTILS ========================================= */
 	
@@ -114,5 +143,9 @@ public class PlayersToCreate {
 	 */
 	public int size() {
 		return this.playersAwaitingCreation.size();
+	}
+	
+	public List<PlayerStatus> getAllPlayers() {
+		return this.playersAwaitingCreation;
 	}
 }

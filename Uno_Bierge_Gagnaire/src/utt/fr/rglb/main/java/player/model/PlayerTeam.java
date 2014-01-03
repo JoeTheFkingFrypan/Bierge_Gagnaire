@@ -1,9 +1,11 @@
 ﻿package utt.fr.rglb.main.java.player.model;
 
 import com.google.common.base.Preconditions;
+
 import java.io.Serializable;
 
-import utt.fr.rglb.main.java.player.controller.PlayerController;
+import utt.fr.rglb.main.java.player.controller.AbstractPlayerController;
+import utt.fr.rglb.main.java.player.controller.PlayerControllerConsoleOriented;
 import utt.fr.rglb.main.java.player.controller.PlayerControllerBean;
 
 /**
@@ -11,8 +13,8 @@ import utt.fr.rglb.main.java.player.controller.PlayerControllerBean;
  */
 public class PlayerTeam implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private PlayerController playerOne;
-	private PlayerController playerTwo;
+	private AbstractPlayerController playerOne;
+	private AbstractPlayerController playerTwo;
 	private Integer score;
 
 	/* ========================================= CONSTRUCTOR ========================================= */
@@ -27,22 +29,22 @@ public class PlayerTeam implements Serializable {
 	
 	/**
 	 * Méthode permettant d'ajouter le 1er joueur à l'équipe
-	 * @param player Joueur à ajouter à l'équipe
+	 * @param abstractPlayerController Joueur à ajouter à l'équipe
 	 */
-	public void addFirstPlayer(PlayerController player) {
-		Preconditions.checkNotNull(player,"[ERROR] Impossible to add first player : provided player is null");
+	public void addFirstPlayer(AbstractPlayerController abstractPlayerController) {
+		Preconditions.checkNotNull(abstractPlayerController,"[ERROR] Impossible to add first player : provided player is null");
 		Preconditions.checkState(this.playerOne == null,"[ERROR] to add first player : it has already been added");
-		this.playerOne = player;
+		this.playerOne = abstractPlayerController;
 	}
 
 	/**
 	 * Méthode permettant d'ajouter le 2ème joueur à l'équipe
-	 * @param player Joueur à ajouter à l'équipe
+	 * @param abstractPlayerController Joueur à ajouter à l'équipe
 	 */
-	public void addSecondPlayer(PlayerController player) {
-		Preconditions.checkNotNull(player,"[ERROR] Impossible to add second player : provided player is null");
-		Preconditions.checkState(this.playerOne == null,"[ERROR] to add second player : it has already been added");
-		this.playerTwo = player;
+	public void addSecondPlayer(AbstractPlayerController abstractPlayerController) {
+		Preconditions.checkNotNull(abstractPlayerController,"[ERROR] Impossible to add second player : provided player is null");
+		Preconditions.checkState(this.playerTwo == null,"[ERROR] to add second player : it has already been added");
+		this.playerTwo = abstractPlayerController;
 	}
 
 	/* ========================================= SCORING ========================================= */
@@ -91,7 +93,15 @@ public class PlayerTeam implements Serializable {
 	 */
 	public boolean contains(PlayerControllerBean winningPlayer) {
 		Preconditions.checkNotNull(winningPlayer,"[ERROR] Impossible find if player is contained inside this team : provided player is null");
-		PlayerController playerControllerFromWinningPlayer = winningPlayer.getPlayer();
+		PlayerControllerConsoleOriented playerControllerFromWinningPlayer = (PlayerControllerConsoleOriented) winningPlayer.getPlayer();
 		return this.playerOne.equals(playerControllerFromWinningPlayer) || this.playerTwo.equals(playerControllerFromWinningPlayer);
+	}
+	
+	public String getNameFromFirstPlayer() {
+		return this.playerOne.toString();
+	}
+	
+	public String getNameFromSecondPlayer() {
+		return this.playerTwo.toString();
 	}
 }

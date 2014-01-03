@@ -11,10 +11,10 @@ import java.util.Collection;
 import utt.fr.rglb.main.java.cards.model.CardsModelBean;
 import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.cards.model.basics.Color;
-import utt.fr.rglb.main.java.console.view.View;
 import utt.fr.rglb.main.java.game.model.GameMode;
 import utt.fr.rglb.main.java.game.model.GameRule;
 import utt.fr.rglb.main.java.player.model.PlayersToCreate;
+import utt.fr.rglb.main.java.view.AbstractView;
 
 /**
  * Classe permettant de demander à l'utilisateur d'entrer des informations au clavier, et de les valider
@@ -23,17 +23,17 @@ import utt.fr.rglb.main.java.player.model.PlayersToCreate;
  */
 public class InputReader implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private View consoleView;
+	private AbstractView view;
 
 	/* ========================================= CONSTRUCTOR ========================================= */
 
 	/**
 	 * Constructeur d'Input Reader
-	 * @param consoleView Vue permettant d'afficher des informations dans l'interface
+	 * @param view Vue permettant d'afficher des informations dans l'interface
 	 */
-	public InputReader(View consoleView) {
-		Preconditions.checkNotNull(consoleView,"[ERROR] Impossible to create input reader : provided view is null");
-		this.consoleView = consoleView;
+	public InputReader(AbstractView view) {
+		Preconditions.checkNotNull(view,"[ERROR] Impossible to create input reader : provided view is null");
+		this.view = view;
 	}
 
 	/* ========================================= PLAYER NUMBER ========================================= */
@@ -45,7 +45,7 @@ public class InputReader implements Serializable {
 	 * @return Un int correspondant au nombre de joueurs (entre 2 et 7)
 	 */
 	public int getValidPlayerNumberDueToInvalidConfigFile(BufferedReader inputStream, String errorMessage) {
-		this.consoleView.displayOneLineOfRedText(errorMessage);
+		this.view.displayOneLineOfRedText(errorMessage);
 		return this.getValidPlayerNumber(inputStream);
 	}
 	
@@ -55,11 +55,11 @@ public class InputReader implements Serializable {
 	 * @return Un int correspondant au nombre de joueurs (entre 2 et 7)
 	 */
 	public int getValidPlayerNumber(BufferedReader inputStream) {
-		this.consoleView.displayOneLineOfBoldText("How many players? [expected : 2-7]");
+		this.view.displayOneLineOfBoldText("How many players? [expected : 2-7]");
 		String answer = readAnotherLine(inputStream);
 		Integer playerNumber = getNumberFromString(answer,inputStream);
 		while(playerNumber < 2 || playerNumber > 7) {
-			this.consoleView.displayErrorMessageUsingPlaceholders("[ERROR] There can only ","2 ","to ","7 ","players (",playerNumber.toString()," is not allowed)","Please enter a valid player number");
+			this.view.displayErrorMessageUsingPlaceholders("[ERROR] There can only ","2 ","to ","7 ","players (",playerNumber.toString()," is not allowed)","Please enter a valid player number");
 			answer = readAnotherLine(inputStream);
 			playerNumber = getNumberFromString(answer,inputStream);
 		}
@@ -78,7 +78,7 @@ public class InputReader implements Serializable {
 	public int getNumberFromString(String answer, BufferedReader inputStream) {
 		Preconditions.checkNotNull(answer,"[ERROR] Couldn't read answer : provided one was null");
 		while(hasAnInvalidNumberFormat(answer)) {
-			this.consoleView.displayErrorMessage("[ERROR] Only numbers are allowed : " + answer + " is forbidden","Please enter a VALID player number, any invalid characters will be removed");
+			this.view.displayErrorMessage("[ERROR] Only numbers are allowed : " + answer + " is forbidden","Please enter a VALID player number, any invalid characters will be removed");
 			answer = readAnotherLine(inputStream);
 		}
 		String digitsFromAnswer = CharMatcher.inRange('0', '9').or(CharMatcher.is('-')).retainFrom(answer);
@@ -116,14 +116,14 @@ public class InputReader implements Serializable {
 	public PlayersToCreate getAllPlayerNames(Integer playerNumber,BufferedReader inputStream) {
 		Preconditions.checkNotNull(playerNumber, "[ERROR] Impossible to get all player names : player count is null");
 		Preconditions.checkArgument(playerNumber > 0, "[ERROR] Impossible to get all player names : player count is invalid");
-		this.consoleView.displayGreenEmphasisUsingPlaceholders("You successfully chose [",playerNumber.toString(),"] players");
-		this.consoleView.displayOneLineOfBoldText("Please enter their name, one at a time (multi word aliases allowed)");
+		this.view.displayGreenEmphasisUsingPlaceholders("You successfully chose [",playerNumber.toString(),"] players");
+		this.view.displayOneLineOfBoldText("Please enter their name, one at a time (multi word aliases allowed)");
 		PlayersToCreate playersAwaitingCreation = new PlayersToCreate();
 		for(int i=0; i<playerNumber; i++) {
 			boolean isTheLastOneToCreate = (i == (playerNumber-1));
 			addValidNameFromInput(playersAwaitingCreation,isTheLastOneToCreate,inputStream);
 		}
-		this.consoleView.displayJokerEmphasisUsingPlaceholders("Player creation complete, ",playersAwaitingCreation.toString()," will compete against each other");
+		this.view.displayJokerEmphasisUsingPlaceholders("Player creation complete, ",playersAwaitingCreation.toString()," will compete against each other");
 		return playersAwaitingCreation;
 	}
 
@@ -137,22 +137,22 @@ public class InputReader implements Serializable {
 		Preconditions.checkNotNull(playersAwaitingCreation, "[ERROR] Impossible to add another name : provided collection is null");
 		String playerNameFromInput = getValidAlias(inputStream);
 		while(playersAwaitingCreation.contains(playerNameFromInput)) {
-			this.consoleView.displayErrorMessage("[ERROR] There already is a player with this name", "Please pick another one");
+			this.view.displayErrorMessage("[ERROR] There already is a player with this name", "Please pick another one");
 			playerNameFromInput = getValidAlias(inputStream);
 		}
-		this.consoleView.displayChoice("Is it a real player or an AI?","0:Real Player ", "1:AI ");
+		this.view.displayChoice("Is it a real player or an AI?","0:Real Player ", "1:AI ");
 		int answer = this.getValidAnswerFromDualChoice(inputStream);
 		if(answer == 0) {
 			playersAwaitingCreation.addHumanPlayer(playerNameFromInput);
 		} else {
-			this.consoleView.displayChoice("What kind of behavior do you want him to have?","0:Naive ", "1:Demophobia ", "2:Joker O.C.D. ");
+			this.view.displayChoice("What kind of behavior do you want him to have?","0:Weak ", "1:Normal ", "2:Strong ");
 			answer = this.getValidAnswerFromTripleChoice(inputStream);
 			playersAwaitingCreation.addIAPlayerProvidingStrategyIndex(playerNameFromInput,answer);
 
 		}
-		this.consoleView.displayGreenEmphasisUsingPlaceholders("Player [",playerNameFromInput,"] created");
+		this.view.displayGreenEmphasisUsingPlaceholders("Player [",playerNameFromInput,"] created");
 		if(!isTheLastOneToCreate) {
-			this.consoleView.displayOneLineOfBoldText("Please enter another player name");
+			this.view.displayOneLineOfBoldText("Please enter another player name");
 		}
 	}
 
@@ -165,7 +165,7 @@ public class InputReader implements Serializable {
 		String playerNameFromInput = readAnotherLine(inputStream);
 		String nameWithoutSpace = CharMatcher.WHITESPACE.removeFrom(playerNameFromInput);
 		while(playerNameFromInput.length() == 0 || nameWithoutSpace.length() == 0) {
-			this.consoleView.displayErrorMessage("[ERROR] An alias must have at least one letter/number","Please pick one");
+			this.view.displayErrorMessage("[ERROR] An alias must have at least one letter/number","Please pick one");
 			playerNameFromInput = readAnotherLine(inputStream);
 		}
 		return playerNameFromInput;
@@ -201,7 +201,7 @@ public class InputReader implements Serializable {
 		Preconditions.checkNotNull(alias,"[ERROR] Cannot get another valid index because provided alias is null");
 		Preconditions.checkNotNull(cardCollection,"[ERROR] Cannot get another valid index because provided card collection is null");
 		Preconditions.checkNotNull(gameModelbean,"[ERROR] Cannot get another valid index because provided gameModelBean is null");
-		this.consoleView.displayErrorMessage("[ERROR] Choosen card is not compatible","Please pick another one");
+		this.view.displayErrorMessage("[ERROR] Choosen card is not compatible","Please pick another one");
 		return getValidAnswer(alias,cardCollection,gameModelbean,inputStream);
 	}
 
@@ -219,7 +219,7 @@ public class InputReader implements Serializable {
 		String answer = readAnotherLine(inputStream);
 		int choosenIndex = getNumberFromStringDisplayingCardInfo(answer,cardCollection,gameModelbean,inputStream);
 		while(choosenIndex < 0 || choosenIndex > boundLimit) {
-			this.consoleView.displayErrorMessageUsingPlaceholders("[ERROR] Invalid card number (Expected: number from ", "0 ", "to ", boundLimit.toString(), ")", "Please enter a VALID card number");
+			this.view.displayErrorMessageUsingPlaceholders("[ERROR] Invalid card number (Expected: number from ", "0 ", "to ", boundLimit.toString(), ")", "Please enter a VALID card number");
 			displayCardsInfo(cardCollection,gameModelbean);
 			answer = readAnotherLine(inputStream);
 			choosenIndex = getNumberFromString(answer,inputStream);
@@ -240,7 +240,7 @@ public class InputReader implements Serializable {
 		Preconditions.checkNotNull(cardCollection,"[ERROR] Cannot get number from string because provided card collection is null");
 		Preconditions.checkNotNull(gameModelbean,"[ERROR] Cannot get number from string because provided gameModelBean is null");
 		while(hasAnInvalidNumberFormat(answer)) {
-			this.consoleView.displayErrorMessage("[ERROR] Only numbers are allowed --[NOTE] UNO word might also be used here", "Please enter a VALID number, any other invalid characters will be removed");
+			this.view.displayErrorMessage("[ERROR] Only numbers are allowed --[NOTE] UNO word might also be used here", "Please enter a VALID number, any other invalid characters will be removed");
 			displayCardsInfo(cardCollection, gameModelbean);
 			answer = readAnotherLine(inputStream);
 		}
@@ -256,10 +256,10 @@ public class InputReader implements Serializable {
 	private void displayCardsInfo(Collection<Card> cardCollection, CardsModelBean gameModelbean) {
 		Preconditions.checkNotNull(cardCollection, "[ERROR] Impossible to get card index from player's cards : provided collection is null");
 		Preconditions.checkNotNull(gameModelbean, "[ERROR] Impossible to get card index from player's cards : provided gameModelBean is null");
-		this.consoleView.displayCardCollection("* Your cards are : ", cardCollection);
-		this.consoleView.displayCard("* The last card played was : ", gameModelbean.getLastCardPlayed());
+		this.view.displayCardCollection("* Your cards are : ", cardCollection);
+		this.view.displayCard("* The last card played was : ", gameModelbean.getLastCardPlayed());
 		gameModelbean.appendGlobalColorIfItIsSet();
-		this.consoleView.displayOneLineOfBoldText("Please choose a card to play, remember to say UNO if you play your 2nd last card");
+		this.view.displayOneLineOfBoldText("Please choose a card to play, remember to say UNO if you play your 2nd last card");
 	}
 
 	/* ========================================= COLOR PICKING ========================================= */
@@ -270,11 +270,11 @@ public class InputReader implements Serializable {
 	 * @return La couleur choisie par l'utilisateur
 	 */
 	public Color getValidColor(BufferedReader inputStream) {
-		this.consoleView.displayAvailableColors();
+		this.view.displayAvailableColors();
 		String answer = readAnotherLine(inputStream);
 		int choosenIndex = getNumberFromString(answer,inputStream);
 		while(choosenIndex < 0 || choosenIndex >= 4) {
-			this.consoleView.displayErrorMessageUsingPlaceholders("[ERROR] Invalid number (Expected: number from ", "0 ", "to ", "3 ", ")", "Please enter a VALID card number");
+			this.view.displayErrorMessageUsingPlaceholders("[ERROR] Invalid number (Expected: number from ", "0 ", "to ", "3 ", ")", "Please enter a VALID card number");
 			answer = readAnotherLine(inputStream);
 			choosenIndex = getNumberFromString(answer,inputStream);
 		}
@@ -299,7 +299,7 @@ public class InputReader implements Serializable {
 		case 3:
 			return Color.YELLOW;
 		default:
-			this.consoleView.displayErrorMessage("[ERROR] Something went terribly wrong with indexes", "Please pick another one");
+			this.view.displayErrorMessage("[ERROR] Something went terribly wrong with indexes", "Please pick another one");
 			return getValidColor(inputStream);
 		}
 	}
@@ -329,7 +329,7 @@ public class InputReader implements Serializable {
 		String answer = readAnotherLine(inputStream);
 		int index = getNumberFromString(answer,inputStream);
 		while(index != 0 && index != 1) {
-			this.consoleView.displayErrorMessageUsingPlaceholders("[ERROR] Only ", "0 ", "and ", "1 ", "are correct answers // " + index + " is not allowed", "Please enter a VALID number, any invalid characters will be removed");
+			this.view.displayErrorMessageUsingPlaceholders("[ERROR] Only ", "0 ", "and ", "1 ", "are correct answers // " + index + " is not allowed", "Please enter a VALID number, any invalid characters will be removed");
 			answer = readAnotherLine(inputStream);
 			index = getNumberFromString(answer,inputStream);
 		}
@@ -345,7 +345,7 @@ public class InputReader implements Serializable {
 		String answer = readAnotherLine(inputStream);
 		int index = getNumberFromString(answer,inputStream);
 		while(index != 0 && index != 1 && index != 2) {
-			this.consoleView.displayErrorMessageUsingPlaceholders("[ERROR] Only ", "0 ", ", ", "1 ", "and ", "3", "are correct answers // " + index + " is not allowed", "Please enter a VALID number, any invalid characters will be removed");
+			this.view.displayErrorMessageUsingPlaceholders("[ERROR] Only ", "0 ", ", ", "1 ", "and ", "3", "are correct answers // " + index + " is not allowed", "Please enter a VALID number, any invalid characters will be removed");
 			answer = readAnotherLine(inputStream);
 			index = getNumberFromString(answer,inputStream);
 		}
@@ -371,7 +371,7 @@ public class InputReader implements Serializable {
 	 * @return int correspondant à l'index de sa réponse <code>0</code> pour <code>OUI</code>, <code>1</code> pour <code>NON</code> 
 	 */
 	public boolean askForConfigurationFileUsage(BufferedReader inputStream) {
-		this.consoleView.displayChoice("Would you like to load game settings from configuration file?","0:YES ", "1:NO ");
+		this.view.displayChoice("Would you like to load game settings from configuration file?","0:YES ", "1:NO ");
 		int choice = this.getValidAnswerFromDualChoice(inputStream);
 		if(choice == 0) {
 			return true;
@@ -390,7 +390,7 @@ public class InputReader implements Serializable {
 		//Preconditions.checkNotNull(size, "[ERROR] Impossible find game mode based on its index : provided index is null");
 		//Preconditions.checkArgument(size < 0, "[ERROR] Impossible find game mode based on its index : provided index is negative");
 		if(size.equals(2)) {
-			this.consoleView.displayChoice("Would you like to set game mode to TWO PLAYERS ONLY --Or play with classic rules?","0:YES ", "1:NO ");
+			this.view.displayChoice("Would you like to set game mode to TWO PLAYERS ONLY --Or play with classic rules?","0:YES ", "1:NO ");
 			int choice = this.getValidAnswerFromDualChoice(inputStream);
 			if(choice == 0) {
 				return new GameRule(GameMode.TWO_PLAYERS);
@@ -398,23 +398,23 @@ public class InputReader implements Serializable {
 				return new GameRule(GameMode.NORMAL);
 			}
 		} else if((size%2) == 0){
-			this.consoleView.displayChoice("What game mode would you like to choose?","0:CLASSIC ", "1:LAST-MAN STANDING ", "2:TEAM-PLAY ");
+			this.view.displayChoice("What game mode would you like to choose?","0:CLASSIC ", "1:LAST-MAN STANDING ", "2:TEAM-PLAY ");
 			int choice = this.getValidAnswerFromTripleChoice(inputStream);
 			if(choice == 0) {
 				return new GameRule(GameMode.NORMAL);
 			} else if(choice == 1) {
-				this.consoleView.displayOneLineOfYellowText("[FEATURE ", "NOT YET IMPLEMENTED ", "-> SWITCHING TO ", "CLASSIC ", "GAME MODE]");
+				this.view.displayOneLineOfYellowText("[FEATURE ", "NOT YET IMPLEMENTED ", "-> SWITCHING TO ", "CLASSIC ", "GAME MODE]");
 				return new GameRule(GameMode.UNO_CHALLENGE);
 			} else {
 				return new GameRule(GameMode.TEAM_PLAY);
 			}
 		} else {
-			this.consoleView.displayChoice("What game mode would you like to choose?","0:CLASSIC ", "1:LAST-MAN STANDING ");
+			this.view.displayChoice("What game mode would you like to choose?","0:CLASSIC ", "1:LAST-MAN STANDING ");
 			int choice = this.getValidAnswerFromDualChoice(inputStream);
 			if(choice == 0) {
 				return new GameRule(GameMode.NORMAL);
 			} else {
-				this.consoleView.displayOneLineOfYellowText("[FEATURE ", "NOT YET IMPLEMENTED ", "-> SWITCHING TO ", "CLASSIC ", "GAME MODE]");
+				this.view.displayOneLineOfYellowText("[FEATURE ", "NOT YET IMPLEMENTED ", "-> SWITCHING TO ", "CLASSIC ", "GAME MODE]");
 				return new GameRule(GameMode.UNO_CHALLENGE);
 			}
 		}
@@ -426,8 +426,8 @@ public class InputReader implements Serializable {
 	 * @return <code>TRUE</code> si l'utilisateur souhaite jouer une nouvelle carte (s'il ne tente pas le bluff), <code>FALSE</code> sinon
 	 */
 	public boolean askIfHeWantsToPlayAnotherCard(BufferedReader inputStream) {
-		this.consoleView.displayOneLineOfJokerText("You have other playable cards, are you sure that you want to play that one?");
-		this.consoleView.displayChoice("--Note that you might receive penalty for bluffing", "0:Yes, I'm sure ", "1: No, nevermind ");
+		this.view.displayOneLineOfJokerText("You have other playable cards, are you sure that you want to play that one?");
+		this.view.displayChoice("--Note that you might receive penalty for bluffing", "0:Yes, I'm sure ", "1: No, nevermind ");
 		int choice = this.getValidAnswerFromDualChoice(inputStream);
 		if(choice == 0) {
 			return false;
@@ -442,7 +442,7 @@ public class InputReader implements Serializable {
 	 * @return <code>TRUE</code> si l'utilisateur souhaite accuser le joueur précédent, <code>FALSE</code> sinon
 	 */
 	public boolean askIfHeWantsToCheckIfItsLegit(BufferedReader inputStream) {
-		this.consoleView.displayChoice("Would you like to accuse him of bluffing?", "0:Yes ", "1: Nope ");
+		this.view.displayChoice("Would you like to accuse him of bluffing?", "0:Yes ", "1: Nope ");
 		int choice = this.getValidAnswerFromDualChoice(inputStream);
 		if(choice == 0) {
 			return true;

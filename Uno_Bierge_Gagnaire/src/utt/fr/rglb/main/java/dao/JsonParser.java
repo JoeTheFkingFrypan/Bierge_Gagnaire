@@ -53,8 +53,8 @@ public class JsonParser {
 		Map<?,?> infoFromPlayer = (Map<?,?>) players.get(rank);
 		try {
 			String nickname = (String) infoFromPlayer.get("nickname");
-			if(playersToCreate.contains(nickname)) {
-				throw new ConfigFileDaoException("[ERROR] Configuration settings are invalid : each player must have a different name (currently, at least 2 of them are named : " + nickname + ")");
+			if(playersToCreate.contains(nickname) || nickname.equals("")) {
+				throw new ConfigFileDaoException("[ERROR] Configuration settings are invalid : each player must have a different name AND must not be empty (" + nickname + " is incorrect)");
 			}
 			String status = (String) infoFromPlayer.get("status");
 			if(status.equals("human")) {

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane alignment="TOP_CENTER" hgap="10.0" maxHeight="400.0" maxWidth="200.0" minHeight="400.0" minWidth="200.0" prefHeight="400.0" prefWidth="200.0" styleClass="root" vgap="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utt.fr.rglb.main.java.view.graphics.fxml.FXMLControllerSetupScreen">
+
+	<padding>
+		<Insets bottom="10.0" left="25.0" right="25.0" top="25.0" />
+	</padding>
+
+	<stylesheets>
+		<URL value="@../css/styles.css" />
+	</stylesheets>
+
+	<children>
+		<GridPane fx:id="headerGrid" vgap="25.0" GridPane.halignment="CENTER" GridPane.valignment="TOP" xmlns:fx="http://javafx.com/fxml">
+			<columnConstraints>
+				<ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+			</columnConstraints>
+			<rowConstraints>
+				<RowConstraints minHeight="30.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="30.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
+			</rowConstraints>
+			<children>
+				<ProgressIndicator fx:id="progress" minHeight="75.0" progress="0.0" GridPane.rowIndex="1">
+					<GridPane.margin>
+						<Insets top="75.0" />
+					</GridPane.margin>
+				</ProgressIndicator>
+			</children>
+		</GridPane>
+		<GridPane fx:id="mainGrid" hgap="10.0" vgap="15.0" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="TOP" xmlns:fx="http://javafx.com/fxml">
+			<columnConstraints>
+				<ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="175.0" minWidth="175.0" prefWidth="175.0" />
+				<ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="175.0" minWidth="175.0" prefWidth="175.0" />
+				<ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="175.0" minWidth="175.0" prefWidth="175.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+			</columnConstraints>
+			<rowConstraints>
+				<RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="NEVER" />
+				<RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="NEVER" />
+				<RowConstraints maxHeight="-Infinity" minHeight="-Infinity" />
+				<RowConstraints />
+				<RowConstraints />
+				<RowConstraints />
+			</rowConstraints>
+			<children>
+				<Label styleClass="mainText" text="How many players:" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+					<GridPane.margin>
+						<Insets />
+					</GridPane.margin>
+				</Label>
+				<ChoiceBox fx:id="playerNumber" minWidth="75.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="TOP" xmlns:fx="http://javafx.com/fxml">
+					<items>
+						<FXCollections fx:factory="observableArrayList" />
+					</items>
+					<GridPane.margin>
+						<Insets />
+					</GridPane.margin>
+				</ChoiceBox>
+
+				<GridPane id="" fx:id="players" alignment="CENTER" hgap="25.0" minWidth="700.0" vgap="5.0" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="TOP" GridPane.vgrow="NEVER" xmlns:fx="http://javafx.com/fxml">
+					<columnConstraints>
+						<ColumnConstraints halignment="CENTER" hgrow="NEVER" minWidth="150.0" prefWidth="150.0" />
+						<ColumnConstraints halignment="CENTER" hgrow="NEVER" minWidth="150.0" prefWidth="150.0" />
+						<ColumnConstraints halignment="CENTER" hgrow="NEVER" minWidth="150.0" prefWidth="150.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+						<ColumnConstraints halignment="CENTER" hgrow="NEVER" minWidth="150.0" prefWidth="150.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+					</columnConstraints>
+					<rowConstraints>
+						<RowConstraints minHeight="30.0" prefHeight="30.0" valignment="TOP" vgrow="NEVER" />
+						<RowConstraints minHeight="30.0" prefHeight="30.0" valignment="TOP" vgrow="NEVER" />
+						<RowConstraints minHeight="30.0" prefHeight="30.0" valignment="TOP" vgrow="NEVER" />
+						<RowConstraints minHeight="30.0" prefHeight="30.0" valignment="TOP" vgrow="NEVER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+						<RowConstraints minHeight="30.0" prefHeight="30.0" valignment="TOP" vgrow="NEVER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+						<RowConstraints minHeight="30.0" prefHeight="30.0" valignment="TOP" vgrow="NEVER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+						<RowConstraints minHeight="30.0" prefHeight="30.0" valignment="TOP" vgrow="NEVER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+						<RowConstraints minHeight="30.0" prefHeight="30.0" valignment="TOP" vgrow="NEVER" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+					</rowConstraints>
+					<GridPane.margin>
+						<Insets top="25.0" />
+					</GridPane.margin>
+				</GridPane>
+			</children>
+			<GridPane.margin>
+				<Insets top="50.0" />
+			</GridPane.margin>
+		</GridPane>
+	</children>
+	<columnConstraints>
+		<ColumnConstraints />
+		<ColumnConstraints />
+		<ColumnConstraints />
+	</columnConstraints>
+	<rowConstraints>
+		<RowConstraints />
+		<RowConstraints />
+		<RowConstraints />
+		<RowConstraints />
+		<RowConstraints />
+		<RowConstraints />
+		<RowConstraints />
+		<RowConstraints />
+	</rowConstraints>
+</GridPane>

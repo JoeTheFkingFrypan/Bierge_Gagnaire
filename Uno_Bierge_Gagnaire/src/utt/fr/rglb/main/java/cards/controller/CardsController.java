@@ -1,6 +1,7 @@
 ﻿package utt.fr.rglb.main.java.cards.controller;
 
 import com.google.common.base.Preconditions;
+
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -9,8 +10,8 @@ import utt.fr.rglb.main.java.cards.model.CardsModelBean;
 import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.cards.model.basics.CardSpecial;
 import utt.fr.rglb.main.java.cards.model.basics.Color;
-import utt.fr.rglb.main.java.console.view.View;
 import utt.fr.rglb.main.java.game.model.GameFlag;
+import utt.fr.rglb.main.java.view.AbstractView;
 
 /**
 * Classe dont le rôle est de gérer tout ce qui est associé aux cartes (compatibilité, pioche, jeu, etc)
@@ -18,18 +19,18 @@ import utt.fr.rglb.main.java.game.model.GameFlag;
 public class CardsController implements Serializable {
         private static final long serialVersionUID = 1L;
         private CardsModel cardsModel;
-        private View consoleView;
+        private AbstractView view;
         
         /* ========================================= CONSTRUCTOR ========================================= */
         
         /**
          * Constructeur de gameControlleur
-         * @param consoleView Vue permettant d'afficher les données dans l'interface
+         * @param view Vue permettant d'afficher les données dans l'interface
          */
-        public CardsController(View consoleView) {
-                Preconditions.checkNotNull(consoleView,"[ERROR] Impossible to create game controller : provided view is null");
+        public CardsController(AbstractView view) {
+                Preconditions.checkNotNull(view,"[ERROR] Impossible to create game controller : provided view is null");
                 this.cardsModel = new CardsModel();
-                this.consoleView = consoleView;
+                this.view = view;
         }
         
         /* ========================================= CARD DRAW ========================================= */
@@ -126,7 +127,7 @@ public class CardsController implements Serializable {
          * @return Un bean comportant la carte dernièrement jouée (carte de référence) et la couleur globale
          */
         public CardsModelBean getRequiredReferences() {
-                return new CardsModelBean(showLastCardPlayed(), getGlobalColor(), this.consoleView);
+                return new CardsModelBean(showLastCardPlayed(), getGlobalColor(), this.view);
         }
         
         /**
@@ -137,7 +138,7 @@ public class CardsController implements Serializable {
                 Preconditions.checkNotNull(chosenColor,"[ERROR] Impossible to set global color : provided color is null");
                 Preconditions.checkArgument(!chosenColor.equals(Color.JOKER),"[ERROR] Impossible to set global color : JOKER is not a valid global color");
                 String colorName = chosenColor.toString();
-                this.consoleView.displayTextBasedOnItsColor("Color is now ",chosenColor,colorName,colorName,colorName,colorName);                
+                this.view.displayTextBasedOnItsColor("Color is now ",chosenColor,colorName);                
                 this.cardsModel.setGlobalColor(chosenColor);
         }
         

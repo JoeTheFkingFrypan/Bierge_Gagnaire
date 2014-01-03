@@ -8,7 +8,7 @@ import java.io.PrintStream;
 import org.junit.After;
 import org.junit.Test;
 
-import utt.fr.rglb.main.java.console.view.ConsoleView;
+import utt.fr.rglb.main.java.view.console.ConsoleView;
 
 /**
  * Classe de tests unitaires validant le comportement des méthodes de la classe ConsoleView

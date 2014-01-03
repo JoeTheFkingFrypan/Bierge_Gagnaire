@@ -15,7 +15,7 @@ import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.cards.model.basics.CardSpecial;
 import utt.fr.rglb.main.java.cards.model.basics.Color;
 import utt.fr.rglb.main.java.cards.model.basics.Effect;
-import utt.fr.rglb.main.java.console.view.View;
+import utt.fr.rglb.main.java.view.AbstractView;
 
 /**
  * Classe de tests unitaires validant le comportement des méthodes de la classe CardsModelBean
@@ -26,7 +26,7 @@ public class CardsModelBeanTest {
 	private CardsModelBean cardsModelBean;
 	private Card lastCardPlayed;
 	private Color globalColor;
-	private View consoleView;
+	private AbstractView consoleView;
 	private Effect mockedEffect;
 	private CardSpecial lastCardPlayedInOrderToSetGlobalColor;
 	private CardsModelBean cardsModelBeanWithGlobalColorSet;
@@ -35,7 +35,7 @@ public class CardsModelBeanTest {
 	public void setup() {
 		this.lastCardPlayed = new Card(2,Color.RED);
 		this.globalColor = Color.JOKER;
-		this.consoleView = mock(View.class);
+		this.consoleView = mock(AbstractView.class);
 		this.mockedEffect = mock(Effect.class);
 		this.lastCardPlayedInOrderToSetGlobalColor = new CardSpecial(50, Color.JOKER, this.mockedEffect);
 		this.cardsModelBean = new CardsModelBean(this.lastCardPlayed, this.globalColor, this.consoleView);

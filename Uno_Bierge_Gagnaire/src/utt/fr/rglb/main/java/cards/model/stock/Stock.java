@@ -1,17 +1,18 @@
 ﻿package utt.fr.rglb.main.java.cards.model.stock;
 
 import com.google.common.base.Preconditions;
+
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Queue;
 
 import utt.fr.rglb.main.java.cards.model.basics.Card;
-import utt.fr.rglb.main.java.console.model.AbstractModel;
 
 /**
  * Classe permettant de piocher des cartes, comprenant initialement l'ensemble des 108 cartes de jeu
  */
-public class Stock extends AbstractModel {
+public class Stock implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private CardGenerator generator;
 	private Queue<Card> stock;

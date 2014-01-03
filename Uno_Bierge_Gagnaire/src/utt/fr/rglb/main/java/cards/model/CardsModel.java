@@ -1,18 +1,18 @@
 ﻿package utt.fr.rglb.main.java.cards.model;
 
 import com.google.common.base.Preconditions;
+
+import java.io.Serializable;
 import java.util.Collection;
 
 import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.cards.model.basics.Color;
 import utt.fr.rglb.main.java.cards.model.pile.Pile;
 import utt.fr.rglb.main.java.cards.model.stock.Stock;
-import utt.fr.rglb.main.java.console.model.AbstractModel;
-
 /**
  * Classe comprenant les classes composant le jeu (pioche et talon) et leurs données
  */
-public class CardsModel extends AbstractModel {
+public class CardsModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Color globalColor;
 	private Stock stock;

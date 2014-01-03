@@ -15,9 +15,9 @@ import utt.fr.rglb.main.java.cards.model.CardsModelBean;
 import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.cards.model.basics.Color;
 import utt.fr.rglb.main.java.console.model.InputReader;
-import utt.fr.rglb.main.java.console.view.ConsoleView;
-import utt.fr.rglb.main.java.console.view.View;
 import utt.fr.rglb.main.java.game.model.GameMode;
+import utt.fr.rglb.main.java.view.AbstractView;
+import utt.fr.rglb.main.java.view.console.ConsoleView;
 
 /**
  * Classe de tests unitaires validant le comportement des méthodes de la classe InputReader
@@ -26,7 +26,7 @@ import utt.fr.rglb.main.java.game.model.GameMode;
  */
 public class InputReaderTest {
 	private InputReader inputReader;
-	private View consoleView;
+	private AbstractView consoleView;
 	private BufferedReader inputStream;
 	private CardsModelBean gameModelBean;
 

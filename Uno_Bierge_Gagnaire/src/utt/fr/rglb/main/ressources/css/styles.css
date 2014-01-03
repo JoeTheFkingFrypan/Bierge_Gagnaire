@@ -1,0 +1,167 @@
+/* ======================= Application wide styles ======================= */
+
+.label {
+	-fx-text-alignment: center;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #CCC;
+    -fx-background-color: transparent;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}
+
+.choice-box {
+    -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 );
+}
+
+.choice-box .label {
+    -fx-text-fill: #000;
+    -fx-font-weight: bold;
+}
+
+.text-field {
+    -fx-font-size: 15px;
+    -fx-text-fill: #000;
+    -fx-font-weight: bold;
+}
+
+.label:hover {
+	-fx-text-alignment: center;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #CCC;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}
+
+.button {
+	-fx-text-alignment: center;
+    -fx-text-fill: white;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#61a2b1, #2A5058);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+.button:hover{
+    -fx-base: #395bae;
+    -fx-background-color: linear-gradient(#2A5058, #61a2b1);
+}
+
+.main-panel {
+    -fx-background-image: url("../images/background01.jpg");
+    -fx-background-repeat: stretch;  
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0); 
+}
+
+.hello-message {
+    -fx-text-fill: #CC3333;
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}
+
+.root {
+     -fx-background-image: url("../images/background03.jpg");
+     -fx-background-repeat: stretch; 
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0); 
+}
+
+.mainText {
+	-fx-font-size: 15px;
+	-fx-font-family: "Arial Black";
+}
+
+.pane {
+	-fx-text-alignment: center;
+    -fx-background-color: #8fbc8f;
+}
+
+.grid {
+	-fx-text-alignment: center;
+    -fx-background-color: white;
+    -fx-background-radius: 5.0;
+    -fx-background-insets: 0.0 5.0 0.0 5.0;
+    -fx-padding: 10;
+    -fx-hgap: 10;
+    -fx-vgap: 10;
+}
+
+
+.vbox {
+    -fx-border-color: #2e8b57;
+    -fx-border-width: 2px;
+    -fx-padding: 10;
+    -fx-spacing: 8;
+}
+
+.hbox {
+    -fx-background-color: #2f4f4f;
+    -fx-padding: 15;
+    -fx-spacing: 10;
+}
+
+.flow-tile {
+    -fx-padding: 10.0 3.0 5.0 0.0;
+    -fx-hgap: 4;
+    -fx-vgap: 4;
+}
+
+.tooltip {    
+    -fx-background-color: linear-gradient(#e2ecfe, #99bcfd);
+}
+
+.page-corner {
+    -fx-background-color: linear-gradient(from 0% 0% to 50% 50%,#3278fa,#99bcfd);
+}
+
+.fancyText {
+   -fx-font-size: 50px;
+   -fx-text-alignment: center;
+   -fx-font-family: "Arial Black";
+   -fx-font-family: "Snap ITC";
+   -fx-fill: #FFF;
+}
+
+.acceptButton {
+	-fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-family: "Arial Black";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#00B20E, #005D0E);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+.declineButton {
+	-fx-text-fill: white;
+    -fx-font-size: 15px;
+    -fx-font-family: "Arial Black";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#FF0000, #910200);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+/* ======================= Component specific styles ======================= */
+
+#actiontarget {
+  -fx-fill: GREEN;
+  -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.1) , 0,0,0,1 );  
+  -fx-font-weight: bold;
+}
+
+#errorMessage {
+    -fx-font-size: 15px;
+    -fx-font-family: "Arial Black";
+	-fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#FF0000, #910200);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+
+#hbox-custom {
+    -fx-padding: 8;
+    -fx-background-radius: 5.0; 
+}
+
+#button-custom {
+    -fx-text-alignment: center;
+}

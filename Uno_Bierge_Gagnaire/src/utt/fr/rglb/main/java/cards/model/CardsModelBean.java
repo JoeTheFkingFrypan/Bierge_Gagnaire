@@ -1,6 +1,7 @@
 ﻿package utt.fr.rglb.main.java.cards.model;
 
 import com.google.common.base.Preconditions;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,7 +9,7 @@ import java.util.Collection;
 import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.cards.model.basics.CardSpecial;
 import utt.fr.rglb.main.java.cards.model.basics.Color;
-import utt.fr.rglb.main.java.console.view.View;
+import utt.fr.rglb.main.java.view.AbstractView;
 
 /**
  * Classe dont le rôle est de permettre un test de compatibilité entre la carte choisie par l'utilisateur et la carte de référence de manière plus aisée
@@ -19,7 +20,7 @@ public class CardsModelBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Card lastCardPlayed;
 	private Color globalColor;
-	private View consoleView;
+	private AbstractView consoleView;
 
 	/* ========================================= CONSTRUCTOR ========================================= */
 
@@ -29,7 +30,7 @@ public class CardsModelBean implements Serializable {
 	 * @param globalColor Couleur globale ayant éventuellement été choisie
 	 * @param consoleView Vue permettant d'afficher des informations dans l'interface
 	 */
-	public CardsModelBean(Card lastCardPlayed, Color globalColor, View consoleView) {
+	public CardsModelBean(Card lastCardPlayed, Color globalColor, AbstractView consoleView) {
 		Preconditions.checkNotNull(lastCardPlayed,"[ERROR] provided card was null");
 		Preconditions.checkNotNull(globalColor,"[ERROR] provided global color was null");
 		Preconditions.checkNotNull(consoleView,"[ERROR] provided view was null");

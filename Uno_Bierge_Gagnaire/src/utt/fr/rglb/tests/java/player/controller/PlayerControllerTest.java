@@ -12,30 +12,30 @@ import org.junit.Test;
 
 import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.cards.model.basics.Color;
-import utt.fr.rglb.main.java.console.view.View;
-import utt.fr.rglb.main.java.player.controller.PlayerController;
+import utt.fr.rglb.main.java.player.controller.PlayerControllerConsoleOriented;
+import utt.fr.rglb.main.java.view.AbstractView;
 
 /**
  * Classe de tests unitaires validant le comportement des méthodes de la classe PlayerController
  * </br>Utilisation de simulacres pour la vue et le lecteur bufferisé --injection de dépendance permettant d'émuler une entrée au clavier (Mockito)
- * @see PlayerController
+ * @see PlayerControllerConsoleOriented
  */
 public class PlayerControllerTest {
 	private String referenceName;
-	private PlayerController playerController;
+	private PlayerControllerConsoleOriented playerController;
 	private ArrayList<Card> cardsToPickUp;
 	private Card firstCard;
 	private Card secondCard;
 	private Card thirdCard;
-	private View mockedView;
+	private AbstractView mockedView;
 	private BufferedReader inputStream;
 	
 	@Before
 	public void setup() {
-		this.mockedView = mock(View.class);
+		this.mockedView = mock(AbstractView.class);
 		this.inputStream = mock(BufferedReader.class);
 		this.referenceName = "player1";
-		this.playerController = new PlayerController(this.referenceName,this.mockedView,this.inputStream);
+		this.playerController = new PlayerControllerConsoleOriented(this.referenceName,this.mockedView,this.inputStream);
 		this.cardsToPickUp = new ArrayList<Card>();
 		this.firstCard = new Card(1,Color.RED);
 		this.secondCard = new Card(1,Color.BLUE);
@@ -49,12 +49,12 @@ public class PlayerControllerTest {
 	
 	@Test(expected=NullPointerException.class)
 	public void testFailToCreatePlayerControllerDueToNullName() {
-		this.playerController = new PlayerController(null, this.mockedView,this.inputStream);
+		this.playerController = new PlayerControllerConsoleOriented(null, this.mockedView,this.inputStream);
 	}
 	
 	@Test(expected=NullPointerException.class)
 	public void testFailToCreatePlayerControllerDueToNullView() {
-		this.playerController = new PlayerController(this.referenceName, null,this.inputStream);
+		this.playerController = new PlayerControllerConsoleOriented(this.referenceName, null,this.inputStream);
 	}
 	
 	/* ========================================= CARD PICKUP ========================================= */

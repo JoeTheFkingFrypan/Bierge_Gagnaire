@@ -36,4 +36,9 @@ public class DrawFirstCard extends CardPickerStrategyImpl {
 		Random a = new Random();
 		return a.nextBoolean();
 	}
+	
+	@Override
+	public String toString() {
+		return "Weak";
+	}
 }

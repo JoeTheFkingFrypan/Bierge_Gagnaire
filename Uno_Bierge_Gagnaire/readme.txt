@@ -162,8 +162,8 @@ Importation du projet sous Eclipse avec Maven :
 	Il suffit de faire File -> Import -> Existing Maven Project
 
 Fonctionnement de Maven (pour télécharger toutes les dépendances)
-	1. Clique-droit sur la racine du projet -> Maven -> Clean
-	2. Clique-droit sur la racine du projet -> Maven -> Install
+	1. Clique-droit sur la racine du projet -> Run As -> Maven Clean
+	2. Clique-droit sur la racine du projet -> Run As -> Maven Install
 	3. Clique-droit sur la racine du projet -> Maven -> Update Project	
 	
 =====================================
@@ -178,3 +178,48 @@ Pour quelle raison :
 Installation de e(fx)clipse
 	Installer le plugin e(fx)clipse : (http://goo.gl/oAqh6Q)
 	Méthode d'installation : Help -> Eclipse Marketplace et taper dans find le nom associé.
+
+=====================================
+SECTION 09 - Analyse des journaux
+---------------------------- 
+
+Le programme libre Notepad++ est formidable pour une telle chose puisqu'il laisse libre l'utilisateur de définir la coloration syntaxique
+
+Pour le configurer rien de plus simple il suffit d'éditier le fichier "" situé dans "%APPDATA%\Notepad++", et de rajouter les lignes suivantes (ou de créer le fichier s'il n'existe pas) :
+
+	<NotepadPlus>
+		<UserLang name="Log4j" ext="log">
+			<Settings>
+				<Global caseIgnored="no" escapeChar=":" />
+				<TreatAsSymbol comment="yes" commentLine="no" />
+				<Prefix words1="no" words2="no" words3="no" words4="no" />
+			</Settings>
+			<KeywordLists>
+				<Keywords name="Delimiters">[&apos;0]&apos;0</Keywords>
+				<Keywords name="Folder+"></Keywords>
+				<Keywords name="Folder-"></Keywords>
+				<Keywords name="Operators">-</Keywords>
+				<Keywords name="Comment">1/* 2*/ 0// 0</Keywords>
+				<Keywords name="Words1">ERROR</Keywords>
+				<Keywords name="Words2">FATAL</Keywords>
+				<Keywords name="Words3">INFO</Keywords>
+				<Keywords name="Words4">WARN</Keywords>
+			</KeywordLists>
+			<Styles>
+				<WordsStyle name="DEFAULT" styleID="11" fgColor="FFFFFF" bgColor="FFFFFF" colorStyle="0" fontName="Courier New" fontStyle="0" />
+				<WordsStyle name="FOLDEROPEN" styleID="12" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" />
+				<WordsStyle name="FOLDERCLOSE" styleID="13" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" />
+				<WordsStyle name="KEYWORD1" styleID="5" fgColor="FF8080" bgColor="FFFFFF" colorStyle="1" fontName="" fontStyle="0" />
+				<WordsStyle name="KEYWORD2" styleID="6" fgColor="FF0000" bgColor="FFFFFF" colorStyle="1" fontName="" fontStyle="1" />
+				<WordsStyle name="KEYWORD3" styleID="7" fgColor="0080FF" bgColor="FFFFFF" colorStyle="1" fontName="" fontStyle="0" />
+				<WordsStyle name="KEYWORD4" styleID="8" fgColor="FFFF00" bgColor="FFFFFF" colorStyle="1" fontName="" fontStyle="0" />
+				<WordsStyle name="COMMENT" styleID="1" fgColor="008040" bgColor="FFFFFF" fontName="" fontStyle="0" />
+				<WordsStyle name="COMMENT LINE" styleID="2" fgColor="008040" bgColor="FFFFFF" fontName="" fontStyle="0" />
+				<WordsStyle name="NUMBER" styleID="4" fgColor="FFFF80" bgColor="FFFFFF" fontName="" fontStyle="0" />
+				<WordsStyle name="OPERATOR" styleID="10" fgColor="FFFFFF" bgColor="FFFFFF" colorStyle="2" fontName="" fontStyle="0" />
+				<WordsStyle name="DELIMINER1" styleID="14" fgColor="C0C0C0" bgColor="FFFFFF" colorStyle="1" fontName="" fontStyle="0" />
+				<WordsStyle name="DELIMINER2" styleID="15" fgColor="FF8080" bgColor="FFFFFF" colorStyle="1" fontName="" fontStyle="0" />
+				<WordsStyle name="DELIMINER3" styleID="16" fgColor="000000" bgColor="FFFFFF" fontName="" fontStyle="0" />
+			</Styles>
+		</UserLang>
+	</NotepadPlus>

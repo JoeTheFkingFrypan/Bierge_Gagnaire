@@ -14,7 +14,7 @@ public class PlayerControllerBean implements Serializable {
 	private boolean stillHasCards;
 	private boolean hasAnnouncedUno;
 	private boolean hasNotWonTheGame;
-	private PlayerController currentPlayer;
+	private AbstractPlayerController currentPlayer;
 	
 	/* ========================================= CONSTRUCTOR ========================================= */
 	
@@ -25,7 +25,7 @@ public class PlayerControllerBean implements Serializable {
 		this.hasAnnouncedUno = false;
 	}	
 	
-	public PlayerControllerBean(PlayerController currentPlayer) {
+	public PlayerControllerBean(AbstractPlayerController currentPlayer) {
 		Preconditions.checkNotNull(currentPlayer,"[ERROR] Impossible create PlayerControllerBean : provided player is null");
 		this.currentPlayer = currentPlayer;
 		this.stillHasCards = currentPlayer.stillHasCards();
@@ -79,7 +79,7 @@ public class PlayerControllerBean implements Serializable {
 	 * Méthode permettant de récupérer le joueur encapsulé
 	 * @return Le joueur encapsulé
 	 */
-	public PlayerController getPlayer() {
+	public AbstractPlayerController getPlayer() {
 		return this.currentPlayer;
 	}
 		

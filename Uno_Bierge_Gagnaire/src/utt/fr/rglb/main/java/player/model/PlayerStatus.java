@@ -11,9 +11,9 @@ public class PlayerStatus {
 	private String alias;
 	private boolean isHuman;
 	private CardPickerStrategy cardPickerStrategy;
-	
+
 	/* ========================================= CONSTRUCTOR ========================================= */
-	
+
 	/**
 	 * Constructeur de PlayerStatus pour un joueur humain
 	 * @param alias Pseudo du joueur
@@ -24,7 +24,7 @@ public class PlayerStatus {
 		this.isHuman = true;
 		this.cardPickerStrategy = null;
 	}
-	
+
 	/**
 	 * Constructeur de PlayerStatus pour un joueur controllé par la machine (avec une statégie spécifiée)
 	 * @param alias Pseudo du joueur
@@ -39,7 +39,7 @@ public class PlayerStatus {
 	}
 
 	/* ========================================= GETTERS ========================================= */
-	
+
 	/**
 	 * Méthode permettant de récupérer le pseudo du joueur
 	 * @return String correspondant au pseudo du joueur
@@ -47,7 +47,7 @@ public class PlayerStatus {
 	public String getAlias() {
 		return this.alias;
 	}
-	
+
 	/**
 	 * Méthode permettant de savoir si le joueur est humain, ou s'l s'agit d'une IA
 	 * @return <code>TRUE</code> si le joeur est humain, <code>FALSE</code> sinon
@@ -55,22 +55,34 @@ public class PlayerStatus {
 	public boolean isHuman() {
 		return this.isHuman;
 	}
-	
+
 	/**
 	 * Méthode permettant de récupérer la stratégie de l'IA
 	 * @return La stratégie de l'IA
 	 */
-	public CardPickerStrategy getStrategy() {
+	public CardPickerStrategy getStrategy() {		
 		return this.cardPickerStrategy;
 	}
-	
+
 	@Override 
 	public String toString() {
-		return this.alias;
+		if(this.isHuman) {
+			return " {" + this.alias + " / Human} ";
+		} else {
+			return " {" + this.alias + " / AI - " + this.cardPickerStrategy.toString() + "} ";
+		}
+	}
+
+	public String getType() {
+		if(this.isHuman) {
+			return "Human";
+		} else {
+			return "AI - " + this.cardPickerStrategy.toString();
+		}
 	}
 	
 	/* ========================================= COMPARAISON ========================================= */
-	
+
 	@Override
 	public boolean equals(Object other) {
 		boolean isPlayerStatus = (other instanceof PlayerStatus);

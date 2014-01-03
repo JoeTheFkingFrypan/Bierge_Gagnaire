@@ -183,9 +183,8 @@ SECTION 07 - Intégration de Maven sur Eclipse
 * Il suffit de faire `File` -> `Import` -> `Existing Maven Project`
 
 #### Fonctionnement de Maven (pour télécharger toutes les dépendances)
-
-1. `Clique-droit` sur la racine du projet -> `Maven` -> `Clean`
-2. `Clique-droit` sur la racine du projet -> `Maven` -> `Install`
+1. `Clique-droit` sur la racine du projet -> `Run As` -> `Maven Clean`
+2. `Clique-droit` sur la racine du projet -> `Run As` -> `Maven Install`
 3. `Clique-droit` sur la racine du projet -> `Maven` -> `Update Project`
 
 SECTION 08 - Intégration de JavaFX sur Eclipse
@@ -203,3 +202,26 @@ SECTION 08 - Intégration de JavaFX sur Eclipse
 
 * Installer le plugin `e(fx)clipse` : ([site officiel](http://goo.gl/oAqh6Q))
 * Méthode d'installation : `Help` -> `Eclipse Marketplace` et taper dans `find` le nom associé.
+
+###Configuration du projet pour fonctionner avec JavaFX
+
+Deux choix sont possible : 
+	
+* Utiliser `JavaFX 8` afin de profiter des dernières innovations
+* Utiliser `JavaFX 2` demandant très peu de pré-requis
+	
+Pour `JavaFX 8` :
+
+	1. Installer le JDK 8 ([site de téléchargement](https://jdk8.java.net/download.html)) Notez que le JRE 8 est inclu dans le fichier d'installation du JDK 8
+	2. Dans Eclipse, `Clique-droit` sur la racine du projet -> `Properties` -> `Java Build Path` -> `Libraries`
+	3. Vérifier que la version du fichier `jfxrt.jar` correspond à la version du JRE utilisée (32 bits ou 64 bits)
+	4. Cliquer sur `Add JARs` pour l'ajouter -> aller dans `libs` puis dans `JDK8` puis dans le dossier `32 bits` ou `64 bits` et selectionner le jar correspondant
+	5. Dans cette même fenêtre, cliquer sur `JRE System Library` -> `Edit` -> Dans `Alternate JRE` selection `JR8`
+	
+Pour `JavaFX 2` :
+
+	1. Dans Eclipse, `Clique-droit` sur la racine du projet -> `Properties` -> `Java Build Path` -> `Libraries`
+	2. Vérifier que la version du fichier `jfxrt.jar` correspond à la version du JRE utilisée (32 bits ou 64 bits)
+	3. Cliquer sur `Add JARs` pour l'ajouter -> aller dans `libs` puis dans `JDK7` puis dans le dossier `32 bits` ou `64 bits` et selectionner le jar correspondant
+	4. Dans cette même fenêtre, cliquer sur `JRE System Library` -> `Edit` -> Dans `Alternate JRE` selection `JR8`
+	
