@@ -29,14 +29,16 @@ public class InputReaderTest {
 	private AbstractView consoleView;
 	private BufferedReader inputStream;
 	private CardsModelBean gameModelBean;
+	private int whateverPath;
 
 	@Before
 	public void setup() {
+		this.whateverPath = 0;
 		this.inputStream = mock(BufferedReader.class);
 		this.consoleView = mock(ConsoleView.class);
 		this.inputReader = new InputReader(consoleView);
 		this.gameModelBean = mock(CardsModelBean.class);
-		when(this.gameModelBean.getLastCardPlayed()).thenReturn(new Card(9,Color.YELLOW));
+		when(this.gameModelBean.getLastCardPlayed()).thenReturn(new Card(9,Color.YELLOW,this.whateverPath));
 		when(this.gameModelBean.globalColorIsSet()).thenReturn(false);
 	}
 
@@ -121,9 +123,9 @@ public class InputReaderTest {
 	
 	private Collection<Card> fillCardCollection() {
 		Collection<Card> cardCollection = new ArrayList<Card>();
-		cardCollection.add(new Card(3,Color.RED));
-		cardCollection.add(new Card(9,Color.BLUE));
-		cardCollection.add(new Card(2,Color.GREEN));
+		cardCollection.add(new Card(3,Color.RED,this.whateverPath));
+		cardCollection.add(new Card(9,Color.BLUE,this.whateverPath));
+		cardCollection.add(new Card(2,Color.GREEN,this.whateverPath));
 		return cardCollection;
 	}
 	

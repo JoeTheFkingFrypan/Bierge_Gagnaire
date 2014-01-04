@@ -1,24 +1,13 @@
 package utt.fr.rglb.main.java.game.model;
 
 import java.io.Serializable;
-import java.util.Collection;
-
-import utt.fr.rglb.main.java.cards.controller.CardsController;
 import utt.fr.rglb.main.java.cards.model.CardsModelBean;
-import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.player.controller.AbstractPlayerController;
 import utt.fr.rglb.main.java.player.controller.PlayerControllerBean;
 import utt.fr.rglb.main.java.player.model.PlayerTeam;
-import utt.fr.rglb.main.java.view.AbstractView;
 
 public abstract class AbstractGameModel implements Serializable {
 	protected static final long serialVersionUID = 1L;
-	protected CardsController cardsController;
-	protected GameRule gameRule;
-
-	public AbstractGameModel(AbstractView view) {
-		this.cardsController = new CardsController(view);
-	}
 	
 	/* ========================================= INITIALIZING ========================================= */
 
@@ -35,9 +24,7 @@ public abstract class AbstractGameModel implements Serializable {
 	/**
 	 * Méthode permettant de réinitialiser les cartes (en cas de démarrage d'un nouveau round)
 	 */
-	public void resetCards() {
-		this.cardsController.resetCards();
-	}
+	public abstract void resetCards();
 
 	/* ========================================= GAME LOGIC ========================================= */
 
@@ -59,10 +46,7 @@ public abstract class AbstractGameModel implements Serializable {
 	/**
 	 * Méthode permettant de tirer la 1ère carte de la pioche et d'appliquer son effet
 	 */
-	public void drawFirstCardAndApplyItsEffect() {
-		GameFlag effect = this.cardsController.applyEffectFromAnotherFirstCard();
-		triggerEffectFromFirstCard(effect);
-	}
+	public abstract void drawFirstCardAndApplyItsEffect();
 
 	/**
 	 * Méthode permettant d'appliquer l'effet en provenance de la 1ère carte retournée du talon
@@ -77,25 +61,13 @@ public abstract class AbstractGameModel implements Serializable {
 	 * Cette méthode prend en compte le mode de jeu, définissant des comportements particuliers au besoin
 	 * @param currentPlayer Joueur venant de poser la carte spéciale
 	 */
-	protected void triggerEffect(AbstractPlayerController currentPlayer) {
-		if(this.gameRule.indicatesTwoPlayersMode()) {
-			triggerEffectWithOnlyTwoPlayers(currentPlayer);
-		} else {
-			triggerEffectWithMoreThanTwoPlayers(currentPlayer);
-		}
-	}
+	protected abstract void triggerEffect(AbstractPlayerController currentPlayer);
 
 	/**
 	 * Méthode permettant d'appliquer les effets des cartes spéciales sur la partie --Cas d'une partie à 2 joueurs
 	 * @param currentPlayer Joueur en cours (celui devant éventuellement choisir une couleur)
 	 */
-	protected void triggerEffectWithOnlyTwoPlayers(AbstractPlayerController currentPlayer){
-		if(this.gameRule.shouldReverseTurn()) {
-			this.triggerCycleSilently();
-		} else {
-			triggerEffect(currentPlayer);
-		}
-	}
+	protected abstract void triggerEffectWithOnlyTwoPlayers(AbstractPlayerController currentPlayer);
 
 	/**
 	 * Méthode permettant d'appliquer les effets des cartes spéciales sur la partie --Cas d'une partie classique
@@ -132,10 +104,7 @@ public abstract class AbstractGameModel implements Serializable {
 	 * @param cardsToDraw int représentant le nombre de cartes à piocher
 	 * @param targetedPlayer Joueur devant piocher lesdites cartes
 	 */
-	protected void triggerPlusX(int cardsToDraw, AbstractPlayerController targetedPlayer) {
-		Collection<Card> cards = this.cardsController.drawCards(cardsToDraw);
-		targetedPlayer.isForcedToPickUpCards(cards);
-	}
+	protected abstract void triggerPlusX(int cardsToDraw, AbstractPlayerController targetedPlayer);
 
 	/**
 	 * Méthode permettant de forcer un joueur à piocher un nombre donné de cartes avec gestion du bluff par couleurs appropriées
@@ -143,14 +112,7 @@ public abstract class AbstractGameModel implements Serializable {
 	 * @param targetedPlayer Joueur devant piocher lesdites cartes
 	 * @param wasLegit <code>TRUE</code> si le jeu de la carte était légitime, <code>FALSE</code> sinon
 	 */
-	protected void triggerPlusX(int cardsToDraw, AbstractPlayerController targetedPlayer, boolean wasLegit) {
-		Collection<Card> cards = this.cardsController.drawCards(cardsToDraw);
-		if(wasLegit) {
-			targetedPlayer.isForcedToPickUpCardsLegitCase(cards);
-		} else {
-			targetedPlayer.isForcedToPickUpCardsBluffCase(cards);
-		}
-	}
+	protected abstract void triggerPlusX(int cardsToDraw, AbstractPlayerController targetedPlayer, boolean wasLegit);
 
 	/**
 	 * Méthode permettant de donner au joueur suivant l'opportunité de contrer un éventuel bluff
@@ -164,20 +126,14 @@ public abstract class AbstractGameModel implements Serializable {
 	 * @param currentPlayer Joueur devant être pénalisé
 	 * @param cardCount Nombre de cartes devant être piochées
 	 */
-	public void giveCardPenaltyTo(AbstractPlayerController currentPlayer, int cardCount) {
-		Collection<Card> cardPenalty = this.cardsController.drawCards(cardCount);
-		currentPlayer.isForcedToPickUpCards(cardPenalty);
-	}
+	public abstract void giveCardPenaltyTo(AbstractPlayerController currentPlayer, int cardCount);
 
 	/**
 	 * Méthode permettant de donner une pénalité au joueur donné
 	 * @param player Joueur devant être pénalisé (encapsulée dans un PlayerControllerBean)
 	 * @param cardCount Nombre de cartes devant être piochées
 	 */
-	public void giveCardPenaltyTo(PlayerControllerBean player, int cardCount) {
-		Collection<Card> cardPenalty = this.cardsController.drawCards(cardCount);
-		player.isForcedToPickUpCards(cardPenalty);
-	}
+	public abstract void giveCardPenaltyTo(PlayerControllerBean player, int cardCount);
 
 	/**
 	 * Méthode permettant d'obtenir une réponse valide
@@ -217,9 +173,7 @@ public abstract class AbstractGameModel implements Serializable {
 	 * Méthode permettant de déterminer si le mode de jeu choisi est celui à deux joueurs
 	 * @return <code>TRUE</code> si c'est le cas, <code>FALSE</code> sinon
 	 */
-	public boolean indicatesTeamPlayScoring() {
-		return this.gameRule.indicatesTeamPlayScoring();
-	}
+	public abstract boolean indicatesTeamPlayScoring();
 
 	/**
 	 * Méthode permettant de récuperer l'équipe à laquelle appartient le joueur donné

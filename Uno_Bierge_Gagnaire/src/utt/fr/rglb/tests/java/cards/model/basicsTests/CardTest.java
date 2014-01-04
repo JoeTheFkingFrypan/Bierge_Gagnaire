@@ -2,6 +2,7 @@
 
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -24,42 +25,44 @@ public class CardTest {
 	private Card compatibleCardSameColor;
 	private CardSpecial compatibleJokerCard;
 	private Effect mockedEffect;
+	private int whateverPath;
 	
 	@Before
 	public void setup() {
 		this.referenceValue = new Integer(0);
 		this.referenceColor = Color.YELLOW;
-		this.referenceCard = new Card(this.referenceValue, this.referenceColor);
-		this.compatibleCardSameNumber = new Card(this.referenceValue, Color.BLUE);
-		this.compatibleCardSameColor = new Card(9, this.referenceColor);
-		this.incompatibleCard = new Card(7, Color.RED);
+		this.whateverPath = 0;
+		this.referenceCard = new Card(this.referenceValue, this.referenceColor,this.whateverPath);
+		this.compatibleCardSameNumber = new Card(this.referenceValue, Color.BLUE,this.whateverPath);
+		this.compatibleCardSameColor = new Card(9, this.referenceColor,this.whateverPath);
+		this.incompatibleCard = new Card(7, Color.RED,this.whateverPath);
 		this.mockedEffect = mock(Effect.class);
-		this.compatibleJokerCard = new CardSpecial(25, Color.JOKER, mockedEffect);
+		this.compatibleJokerCard = new CardSpecial(25, Color.JOKER, mockedEffect,this.whateverPath);
 	}
 	
 	/* ========================================= CONSTRUCTOR ========================================= */
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void failToCreateCardValueTooLow() {
-		Card wayTooLowValue = new Card(-999,Color.RED);
+		Card wayTooLowValue = new Card(-999,Color.RED,this.whateverPath);
 		wayTooLowValue.isSpecial();
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testFailToCreateCardValueTooHigh() {
-		Card wayTooHighValue = new Card(999,Color.RED);
+		Card wayTooHighValue = new Card(999,Color.RED,this.whateverPath);
 		wayTooHighValue.isSpecial();
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
 	public void testFailToCreateInexistingCardIncorrectColor() {
-		Card incorrectColor = new Card(7,Color.JOKER);
+		Card incorrectColor = new Card(7,Color.JOKER,this.whateverPath);
 		incorrectColor.isSpecial();
 	}
 	
 	@Test(expected=NullPointerException.class)
 	public void testFailToCreateInexistingCardNullColor() {
-		Card incorrectColor = new Card(7,null);
+		Card incorrectColor = new Card(7,null,this.whateverPath);
 		incorrectColor.isSpecial();
 	}
 
@@ -82,7 +85,7 @@ public class CardTest {
 		assertFalse(this.referenceCard.equals(compatibleCardSameColor));
 		assertFalse(this.referenceCard.equals(compatibleCardSameColor));
 		assertFalse(this.referenceCard.equals(compatibleCardSameColor));
-		Card sameCardAsReferenceCard = new Card(this.referenceValue, this.referenceColor);
+		Card sameCardAsReferenceCard = new Card(this.referenceValue, this.referenceColor,this.whateverPath);
 		assertTrue(this.referenceCard.equals(sameCardAsReferenceCard));
 	}
 	

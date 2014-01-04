@@ -10,11 +10,6 @@ public abstract class AbstractGameController implements Serializable {
 	/* ========================================= INITIALIZING ========================================= */
 
 	/**
-	 * Méthode permettant d'initialiser les paramètres (nombre de joueurs, nom de chacun des joueurs)
-	 */
-	protected abstract void initializeGameSettings();
-
-	/**
 	 * Méthode permettant de tout ré-initialiser lors du demarrage d'une nouvelle partie
 	 */
 	protected abstract void resetEverything();

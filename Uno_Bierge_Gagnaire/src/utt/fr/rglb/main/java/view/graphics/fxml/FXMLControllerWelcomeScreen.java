@@ -38,12 +38,14 @@ public class FXMLControllerWelcomeScreen extends AbstractFXMLController {
 
 	@Override
 	public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
+		this.gameController.backgroundLoadImages();
 		Text header = createSwaggifiedHeader("Welcome to our UNO");
 		headerGrid.add(header, 0, 0);
 	}
 
 	@FXML protected void handleDeclineButtonAction(ActionEvent event) {
 		try {
+			this.gameController.backgroundLoadImages();
 			Scene scene = headerGrid.getScene();
 			log.info("User not using configuration file, setup screen will now be displayed");
 			log.info("Loading JavaFX setup screen from file : \"setup.fxml\"");

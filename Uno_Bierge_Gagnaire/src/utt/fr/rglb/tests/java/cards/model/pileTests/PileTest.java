@@ -3,6 +3,7 @@
 import static org.junit.Assert.*;
 
 import java.util.Collection;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,12 +23,14 @@ public class PileTest {
 	private Card oneCard;
 	private Card compatibleCard;
 	private Card yetAnotherCard;
+	private int whateverPath;
 	
 	@Before
 	public void setup() {
-		this.oneCard = new Card(7,Color.RED);
-		this.compatibleCard = new Card(7,Color.BLUE);
-		this.yetAnotherCard = new CardSpecial(20,Color.JOKER,new EffetJoker());
+		this.whateverPath = 0;
+		this.oneCard = new Card(7,Color.RED,this.whateverPath);
+		this.compatibleCard = new Card(7,Color.BLUE,this.whateverPath);
+		this.yetAnotherCard = new CardSpecial(20,Color.JOKER,new EffetJoker(),this.whateverPath);
 		this.emptyStack = new Pile();
 		this.filledStack = fillStackWithCards();
 	}

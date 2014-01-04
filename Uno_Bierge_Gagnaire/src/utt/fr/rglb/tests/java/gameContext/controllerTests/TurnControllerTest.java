@@ -28,9 +28,11 @@ public class TurnControllerTest {
 	private TurnControllerConsoleOriented turnControllerWithoutScramble;
 	private TurnControllerConsoleOriented turnControllerWithScrambledPlayers;
 	private BufferedReader mockedInputStream;
+	private int whateverPath;
 	
 	@Before
 	public void setup() {
+		this.whateverPath = 0;
 		this.mockedView = mock(AbstractView.class);
 		this.turnControllerWithoutScramble = new TurnControllerConsoleOriented(this.mockedView);
 		this.turnControllerWithScrambledPlayers = new TurnControllerConsoleOriented(this.mockedView);
@@ -75,9 +77,9 @@ public class TurnControllerTest {
 	
 	@Test
 	public void testGiveCardsToNextPlayer() {
-		Card c1 = new Card(1,Color.BLUE);
-		Card c2 = new Card(2,Color.BLUE);
-		Card c3 = new Card(3,Color.BLUE);
+		Card c1 = new Card(1,Color.BLUE,this.whateverPath);
+		Card c2 = new Card(2,Color.BLUE,this.whateverPath);
+		Card c3 = new Card(3,Color.BLUE,this.whateverPath);
 		Collection<Card> cards = Arrays.asList(c1,c2,c3);
 		Collection<String> playerNames =generatePlayerNames();
 		this.turnControllerWithoutScramble.createPlayersWithoutScamblingFrom(playerNames,this.mockedInputStream);

@@ -29,17 +29,19 @@ public class PlayerControllerTest {
 	private Card thirdCard;
 	private AbstractView mockedView;
 	private BufferedReader inputStream;
+	private int whateverPath;
 	
 	@Before
 	public void setup() {
+		this.whateverPath = 0;
 		this.mockedView = mock(AbstractView.class);
 		this.inputStream = mock(BufferedReader.class);
 		this.referenceName = "player1";
 		this.playerController = new PlayerControllerConsoleOriented(this.referenceName,this.mockedView,this.inputStream);
 		this.cardsToPickUp = new ArrayList<Card>();
-		this.firstCard = new Card(1,Color.RED);
-		this.secondCard = new Card(1,Color.BLUE);
-		this.thirdCard = new Card(2,Color.GREEN);
+		this.firstCard = new Card(1,Color.RED,this.whateverPath);
+		this.secondCard = new Card(1,Color.BLUE,this.whateverPath);
+		this.thirdCard = new Card(2,Color.GREEN,this.whateverPath);
 		this.cardsToPickUp.add(firstCard);
 		this.cardsToPickUp.add(secondCard);
 		this.cardsToPickUp.add(thirdCard);

@@ -6,7 +6,8 @@ import static org.mockito.Mockito.mock;
 import org.junit.Before;
 import org.junit.Test;
 
-import utt.fr.rglb.main.java.cards.controller.CardsController;
+import utt.fr.rglb.main.java.cards.controller.AbstractCardsController;
+import utt.fr.rglb.main.java.cards.controller.CardsControllerConsoleOriented;
 import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.view.AbstractView;
 
@@ -15,16 +16,16 @@ import java.util.Collection;
 /**
  * Classe de tests unitaires validant le comportement des méthodes de la classe CardsController
  * </br>Utilisation de simulacres pour la vue (Mockito)
- * @see CardsController
+ * @see CardsControllerConsoleOriented
  */
 public class CardsControllerTest {
-	private CardsController gameController;
+	private AbstractCardsController gameController;
 	private AbstractView mockedView;
 	
 	@Before
 	public void setup() {
 		this.mockedView = mock(AbstractView.class);
-		this.gameController = new CardsController(this.mockedView);
+		this.gameController = new CardsControllerConsoleOriented(this.mockedView);
 		this.gameController.resetCards();
 	}
 
@@ -32,7 +33,7 @@ public class CardsControllerTest {
 	
 	@Test(expected=NullPointerException.class) 
 	public void testFailToCreateGameControllerDueToNullView() {
-		this.gameController = new CardsController(null);
+		this.gameController = new CardsControllerConsoleOriented(null);
 	}
 	
 	/* ========================================= CARD DRAW ========================================= */

@@ -2,6 +2,7 @@
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,9 +22,11 @@ import java.util.Collection;
 public class CardsModelTest {
 	private CardsModel cardsModel;
 	private Effect mockedEffect;
+	private int whateverPath;
 
 	@Before
 	public void setup() {
+		this.whateverPath = 0;
 		this.cardsModel = new CardsModel();
 		this.cardsModel.resetCards();
 		this.mockedEffect = mock(Effect.class);
@@ -66,10 +69,10 @@ public class CardsModelTest {
 	
 	@Test
 	public void testPlayCard() {
-		Card referenceCard = new Card (5,Color.RED);
-		Card randomCard = new Card(7,Color.BLUE);
-		Card anotherRandomCard = new Card(5,Color.BLUE);
-		Card yetAnotherRandomCard = new Card(2,Color.RED);
+		Card referenceCard = new Card (5,Color.RED,this.whateverPath);
+		Card randomCard = new Card(7,Color.BLUE,this.whateverPath);
+		Card anotherRandomCard = new Card(5,Color.BLUE,this.whateverPath);
+		Card yetAnotherRandomCard = new Card(2,Color.RED,this.whateverPath);
 
 		int expectedPileSize = 1;
 		this.cardsModel.playCard(referenceCard);
@@ -144,7 +147,7 @@ public class CardsModelTest {
 	@Test
 	public void testGetPileSize() {
 		assertEquals(0,this.cardsModel.getPileSize());
-		this.cardsModel.playCard(new Card(2,Color.RED));
+		this.cardsModel.playCard(new Card(2,Color.RED,this.whateverPath));
 		assertEquals(1,this.cardsModel.getPileSize());
 		Card firstCard = this.cardsModel.showLastCardPlayed();
 		this.cardsModel.playCard(generateCompatibleCardFrom(firstCard));
@@ -152,9 +155,9 @@ public class CardsModelTest {
 	
 	private Card generateCompatibleCardFrom(Card firstCard) {
 		if(firstCard.isSpecial()) {
-			return new CardSpecial(20,firstCard.getColor(),this.mockedEffect);
+			return new CardSpecial(20,firstCard.getColor(),this.mockedEffect,this.whateverPath);
 		} else {
-			return new Card(2,firstCard.getColor());
+			return new Card(2,firstCard.getColor(),this.whateverPath);
 		}
 	}
 	

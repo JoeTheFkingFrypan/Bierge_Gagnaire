@@ -32,7 +32,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 
 
-public class FXMLControllerSetupScreen  extends AbstractFXMLController {
+public class FXMLControllerSetupScreen extends AbstractFXMLController {
 	private static final Logger log = LoggerFactory.getLogger(FXMLControllerSetupScreen.class);
 	private GameControllerGraphicsOriented gameController;
 	private boolean impossibleToForwardRequest;

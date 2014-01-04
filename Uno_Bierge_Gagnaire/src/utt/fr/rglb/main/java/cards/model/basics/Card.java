@@ -14,6 +14,7 @@ public class Card implements Serializable {
 	private static final long serialVersionUID = 1L;
 	protected final int value;
 	protected final Color color;
+	protected final int imageIndex;
 
 	/* ========================================= CONSTRUCTOR ========================================= */
 
@@ -22,7 +23,7 @@ public class Card implements Serializable {
 	 * @param value Numéro de la carte (doit être supérieure à 0 dans tous les cas, et inférieur à 9 s'il s'agit d'une carte numérotée)
 	 * @param color Couleur de la carte (doit être différent de Joker s'il s'agit d'une carte numérotée)
 	 */
-	public Card (int value, Color color) {
+	public Card (int value, Color color, int imageIndex) {
 		Preconditions.checkNotNull(color,"[ERROR] Color cannot be null");
 		Preconditions.checkArgument(value >= 0,"[ERROR] Invalid card number (expected > 0, was : " + value + ")");
 		if(!isSpecial()) {
@@ -31,6 +32,7 @@ public class Card implements Serializable {
 		}
 		this.value = value;
 		this.color = color;
+		this.imageIndex = imageIndex;
 	}
 
 	/* ========================================= ADVANCED COMPARAISON ========================================= */
@@ -113,6 +115,10 @@ public class Card implements Serializable {
 	 */
 	public Color getColor () {
 		return this.color;
+	}
+	
+	public int getImageIndex() {
+		return this.imageIndex;
 	}
 	
 	/**

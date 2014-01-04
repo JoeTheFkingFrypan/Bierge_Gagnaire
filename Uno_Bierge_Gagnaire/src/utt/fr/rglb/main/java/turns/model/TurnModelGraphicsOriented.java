@@ -403,4 +403,12 @@ public class TurnModelGraphicsOriented extends AbstractTurnModel {
 	public Map<Integer, PlayerTeam> getAllTeams() {
 		return this.teams;
 	}
+
+	public Map<String, Collection<Card>> getAllCardsFromPlayers() {
+		Map<String, Collection<Card>> cardsFromPlayers = new TreeMap<String, Collection<Card>>();
+		for(PlayerControllerGraphicsOriented player : this.players) {
+			cardsFromPlayers.put(player.getAlias(), player.getCardsInHand());
+		}
+		return cardsFromPlayers;
+	}
 }

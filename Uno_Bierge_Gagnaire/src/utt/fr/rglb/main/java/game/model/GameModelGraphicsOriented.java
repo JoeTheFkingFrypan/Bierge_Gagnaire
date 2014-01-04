@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Map;
 
 import javafx.scene.Scene;
+import utt.fr.rglb.main.java.cards.controller.CardsControllerGraphicsOriented;
 import utt.fr.rglb.main.java.cards.model.CardsModelBean;
 import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.dao.ConfigurationReader;
@@ -19,12 +20,16 @@ import utt.fr.rglb.main.java.view.graphics.GraphicsView;
 public class GameModelGraphicsOriented extends AbstractGameModel {
 	private static final long serialVersionUID = 1L;
 	private TurnControllerGraphicsOriented turnController;
+	private CardsControllerGraphicsOriented cardsController;
+	protected GameRule gameRule;
+	@SuppressWarnings("unused") private GraphicsView view;
 
 	/* ========================================= CONSTRUCTOR ========================================= */
 	
 	public GameModelGraphicsOriented(GraphicsView view) {
-		super(view);
 		this.turnController = new TurnControllerGraphicsOriented(view);
+		this.cardsController = new CardsControllerGraphicsOriented(view);
+		this.view = view;
 	}
 	
 	/* ========================================= INITIALIZING ========================================= */
@@ -62,6 +67,11 @@ public class GameModelGraphicsOriented extends AbstractGameModel {
 		this.gameRule.resetFlag();
 	}
 	
+	@Override
+	public void resetCards() {
+		this.cardsController.resetCards();
+	}
+	
 	/* ========================================= GAME LOGIC ========================================= */
 	
 	@Override
@@ -91,6 +101,12 @@ public class GameModelGraphicsOriented extends AbstractGameModel {
 	/* ========================================= EFFECTS ========================================= */
 	
 	@Override
+	public void drawFirstCardAndApplyItsEffect() {
+		GameFlag effect = this.cardsController.applyEffectFromAnotherFirstCard();
+		triggerEffectFromFirstCard(effect);
+	}
+	
+	@Override
 	protected void triggerEffectFromFirstCard(GameFlag effectFromFirstCard) {
 		if(effectFromFirstCard.equals(GameFlag.PLUS_FOUR)) {
 			drawFirstCardAndApplyItsEffect();
@@ -99,6 +115,24 @@ public class GameModelGraphicsOriented extends AbstractGameModel {
 			triggerEffect(nextPlayer);
 		}
 		this.turnController.resetPlayerIndex();
+	}
+	
+	@Override
+	protected void triggerEffect(AbstractPlayerController currentPlayer) {
+		if(this.gameRule.indicatesTwoPlayersMode()) {
+			triggerEffectWithOnlyTwoPlayers(currentPlayer);
+		} else {
+			triggerEffectWithMoreThanTwoPlayers(currentPlayer);
+		}
+	}
+	
+	@Override
+	protected void triggerEffectWithOnlyTwoPlayers(AbstractPlayerController currentPlayer) {
+		if(this.gameRule.shouldReverseTurn()) {
+			this.triggerCycleSilently();
+		} else {
+			triggerEffect(currentPlayer);
+		}
 	}
 	
 	@Override
@@ -154,6 +188,22 @@ public class GameModelGraphicsOriented extends AbstractGameModel {
 	protected void triggerColorPicking(AbstractPlayerController currentPlayer, boolean isRelatedToPlus4) {
 		//TODO
 	}
+	
+	@Override
+	protected void triggerPlusX(int cardsToDraw, AbstractPlayerController targetedPlayer) {
+		Collection<Card> cards = this.cardsController.drawCards(cardsToDraw);
+		targetedPlayer.isForcedToPickUpCards(cards);
+	}
+	
+	@Override
+	protected void triggerPlusX(int cardsToDraw, AbstractPlayerController targetedPlayer, boolean wasLegit) {
+		Collection<Card> cards = this.cardsController.drawCards(cardsToDraw);
+		if(wasLegit) {
+			targetedPlayer.isForcedToPickUpCardsLegitCase(cards);
+		} else {
+			targetedPlayer.isForcedToPickUpCardsBluffCase(cards);
+		}
+	}
 
 	@Override
 	protected boolean triggerBluffing(AbstractPlayerController nextPlayer) {
@@ -161,6 +211,18 @@ public class GameModelGraphicsOriented extends AbstractGameModel {
 		return false;
 	}
 
+	@Override
+	public void giveCardPenaltyTo(AbstractPlayerController currentPlayer, int cardCount) {
+		Collection<Card> cardPenalty = this.cardsController.drawCards(cardCount);
+		currentPlayer.isForcedToPickUpCards(cardPenalty);
+	}
+	
+	@Override
+	public void giveCardPenaltyTo(PlayerControllerBean player, int cardCount) {
+		Collection<Card> cardPenalty = this.cardsController.drawCards(cardCount);
+		player.isForcedToPickUpCards(cardPenalty);
+	}
+	
 	@Override
 	public int getValidChoiceAnswer() {
 		//TODO
@@ -209,6 +271,11 @@ public class GameModelGraphicsOriented extends AbstractGameModel {
 	}
 	
 	@Override
+	public boolean indicatesTeamPlayScoring() {
+		return this.gameRule.indicatesTeamPlayScoring();
+	}
+	
+	@Override
 	public PlayerTeam findWinningTeam(PlayerControllerBean winningPlayer) {
 		return this.turnController.findWinningTeam(winningPlayer);
 	}
@@ -216,5 +283,17 @@ public class GameModelGraphicsOriented extends AbstractGameModel {
 
 	public Map<Integer, PlayerTeam> getAllTeams() {
 		return this.turnController.getAllTeams();
+	}
+
+	public Card retrieveImageFromLastCardPlayed() {
+		return this.cardsController.retrieveImageFromLastCardPlayed();
+	}
+
+	public void backgroundLoadImages() {
+		this.cardsController.backgroundLoadImages();	
+	}
+
+	public Map<String, Collection<Card>> getAllCardsFromPlayers() {
+		return this.turnController.getAllCardsFromPlayers();
 	}
 }

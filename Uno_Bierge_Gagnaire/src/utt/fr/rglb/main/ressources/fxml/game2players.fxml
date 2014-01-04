@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<GridPane fx:id="mainGrid" alignment="CENTER" styleClass="root" vgap="5.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utt.fr.rglb.main.java.view.graphics.fxml.FXMLControllerGameScreen">
+
+	<stylesheets>
+		<URL value="@../css/styles.css" />
+	</stylesheets>
+	<columnConstraints>
+		<ColumnConstraints halignment="CENTER" />
+		<ColumnConstraints halignment="CENTER" />
+		<ColumnConstraints halignment="CENTER" />
+	</columnConstraints>
+	<rowConstraints>
+		<RowConstraints valignment="CENTER" />
+		<RowConstraints valignment="CENTER" />
+		<RowConstraints valignment="CENTER" />
+		<RowConstraints valignment="CENTER" />
+		<RowConstraints valignment="CENTER" />
+		<RowConstraints valignment="CENTER" />
+		<RowConstraints valignment="CENTER" />
+		<RowConstraints valignment="CENTER" />
+	</rowConstraints>
+	<opaqueInsets>
+		<Insets />
+	</opaqueInsets>
+	<children>
+		<GridPane fx:id="playerTwoGrid" alignment="TOP_CENTER" GridPane.halignment="CENTER" GridPane.valignment="TOP" xmlns:fx="http://javafx.com/fxml">
+			<columnConstraints>
+				<ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="125.0" prefWidth="125.0" />
+			</columnConstraints>
+			<rowConstraints>
+				<RowConstraints minHeight="125.0" prefHeight="125.0" valignment="CENTER" vgrow="SOMETIMES" />
+				<RowConstraints minHeight="125.0" prefHeight="125.0" valignment="CENTER" vgrow="SOMETIMES" />
+			</rowConstraints>
+			<children>
+				<Label fx:id="playerTwoName" GridPane.rowIndex="1" />
+				<GridPane fx:id="playerTwoCardsGrid" alignment="BOTTOM_CENTER" hgap="8.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER" xmlns:fx="http://javafx.com/fxml">
+					<columnConstraints>
+						<ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="125.0" prefWidth="125.0" />
+					</columnConstraints>
+					<rowConstraints>
+						<RowConstraints minHeight="125.0" prefHeight="125.0" valignment="CENTER" vgrow="SOMETIMES" />
+					</rowConstraints>
+				</GridPane>
+			</children>
+		</GridPane>
+		<ImageView fx:id="lastCardPlayed" fitHeight="125.0" fitWidth="80" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+		<GridPane fx:id="playerOneGrid" alignment="BOTTOM_CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" xmlns:fx="http://javafx.com/fxml">
+			<columnConstraints>
+				<ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="125.0" prefWidth="125.0" />
+			</columnConstraints>
+			<rowConstraints>
+				<RowConstraints minHeight="125.0" prefHeight="125.0" valignment="CENTER" vgrow="SOMETIMES" />
+				<RowConstraints />
+			</rowConstraints>
+			<children>
+				<Label fx:id="playerOneName" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+				<GridPane fx:id="playerOneCardsGrid" alignment="TOP_CENTER" hgap="8.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" xmlns:fx="http://javafx.com/fxml">
+					<columnConstraints>
+						<ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="125.0" prefWidth="125.0" />
+					</columnConstraints>
+					<rowConstraints>
+						<RowConstraints minHeight="125.0" prefHeight="125.0" valignment="CENTER" vgrow="SOMETIMES" />
+					</rowConstraints>
+				</GridPane>
+			</children>
+		</GridPane>
+	</children>
+</GridPane>

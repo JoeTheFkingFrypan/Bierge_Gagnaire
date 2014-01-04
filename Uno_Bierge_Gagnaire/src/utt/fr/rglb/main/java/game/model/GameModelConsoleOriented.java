@@ -3,6 +3,7 @@
 import java.io.BufferedReader;
 import java.util.Collection;
 
+import utt.fr.rglb.main.java.cards.controller.CardsControllerConsoleOriented;
 import utt.fr.rglb.main.java.cards.model.CardsModelBean;
 import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.cards.model.basics.Color;
@@ -24,8 +25,10 @@ import utt.fr.rglb.main.java.view.AbstractView;
 public class GameModelConsoleOriented extends AbstractGameModel {
 	private static final long serialVersionUID = 1L;
 	protected TurnControllerConsoleOriented turnController;
+	private CardsControllerConsoleOriented cardsController;
 	private BufferedReader inputStream;
 	private InputReader inputReader;
+	protected GameRule gameRule;
 
 	/* ========================================= CONSTRUCTOR ========================================= */
 	
@@ -34,8 +37,8 @@ public class GameModelConsoleOriented extends AbstractGameModel {
 	 * @param view Vue permettant d'afficher des informations
 	 */
 	public GameModelConsoleOriented(AbstractView view, BufferedReader inputStream) {
-		super(view);
 		this.turnController = new TurnControllerConsoleOriented(view);
+		this.cardsController = new CardsControllerConsoleOriented(view);
 		this.inputReader = new InputReader(view);
 		this.inputStream = inputStream;
 	}
@@ -84,6 +87,11 @@ public class GameModelConsoleOriented extends AbstractGameModel {
 		this.gameRule.resetFlag();
 	}
 	
+	@Override
+	public void resetCards() {
+		this.cardsController.resetCards();
+	}
+	
 	/* ========================================= GAME LOGIC ========================================= */
 	
 	@Override
@@ -115,6 +123,12 @@ public class GameModelConsoleOriented extends AbstractGameModel {
 	/* ========================================= EFFECTS ========================================= */
 	
 	@Override
+	public void drawFirstCardAndApplyItsEffect() {
+		GameFlag effect = this.cardsController.applyEffectFromAnotherFirstCard();
+		triggerEffectFromFirstCard(effect);
+	}
+	
+	@Override
 	protected void triggerEffectFromFirstCard(GameFlag effectFromFirstCard) {
 		if(effectFromFirstCard.equals(GameFlag.PLUS_FOUR)) {
 			drawFirstCardAndApplyItsEffect();
@@ -123,6 +137,24 @@ public class GameModelConsoleOriented extends AbstractGameModel {
 			triggerEffect(nextPlayer);
 		}
 		this.turnController.resetPlayerIndex();
+	}
+	
+	@Override
+	protected void triggerEffectWithOnlyTwoPlayers(AbstractPlayerController currentPlayer) {
+		if(this.gameRule.shouldReverseTurn()) {
+			this.triggerCycleSilently();
+		} else {
+			triggerEffect(currentPlayer);
+		}
+	}
+	
+	@Override
+	protected void triggerEffect(AbstractPlayerController currentPlayer) {
+		if(this.gameRule.indicatesTwoPlayersMode()) {
+			triggerEffectWithOnlyTwoPlayers(currentPlayer);
+		} else {
+			triggerEffectWithMoreThanTwoPlayers(currentPlayer);
+		}
 	}
 	
 	@Override
@@ -179,10 +211,38 @@ public class GameModelConsoleOriented extends AbstractGameModel {
 		Color chosenColor = currentPlayer.hasToChooseColor(isRelatedToPlus4,this.inputReader);
 		this.cardsController.setGlobalColor(chosenColor);
 	}
+	
+	@Override
+	protected void triggerPlusX(int cardsToDraw, AbstractPlayerController targetedPlayer) {
+		Collection<Card> cards = this.cardsController.drawCards(cardsToDraw);
+		targetedPlayer.isForcedToPickUpCards(cards);
+	}
+	
+	@Override
+	protected void triggerPlusX(int cardsToDraw, AbstractPlayerController targetedPlayer, boolean wasLegit) {
+		Collection<Card> cards = this.cardsController.drawCards(cardsToDraw);
+		if(wasLegit) {
+			targetedPlayer.isForcedToPickUpCardsLegitCase(cards);
+		} else {
+			targetedPlayer.isForcedToPickUpCardsBluffCase(cards);
+		}
+	}
 
 	@Override
 	protected boolean triggerBluffing(AbstractPlayerController nextPlayer) {
 		return nextPlayer.askIfHeWantsToCheckIfItsLegit(this.inputReader);
+	}
+
+	@Override
+	public void giveCardPenaltyTo(AbstractPlayerController currentPlayer, int cardCount) {
+		Collection<Card> cardPenalty = this.cardsController.drawCards(cardCount);
+		currentPlayer.isForcedToPickUpCards(cardPenalty);
+	}
+	
+	@Override
+	public void giveCardPenaltyTo(PlayerControllerBean player, int cardCount) {
+		Collection<Card> cardPenalty = this.cardsController.drawCards(cardCount);
+		player.isForcedToPickUpCards(cardPenalty);
 	}
 
 	@Override
@@ -229,6 +289,11 @@ public class GameModelConsoleOriented extends AbstractGameModel {
 		} catch (InterruptedException e) {
 			throw new ServerException("[ERROR] Something went wrong while waiting during score display",e);
 		}
+	}
+	
+	@Override
+	public boolean indicatesTeamPlayScoring() {
+		return this.gameRule.indicatesTeamPlayScoring();
 	}
 	
 	@Override

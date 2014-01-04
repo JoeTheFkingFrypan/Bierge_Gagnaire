@@ -25,6 +25,11 @@ import utt.fr.rglb.main.java.cards.model.basics.EffetJoker;
 //FIXME : create factory
 class CardGenerator implements Serializable {
 	private static final long serialVersionUID = 1L;
+	private final int starterRedIndex = 0;
+	private final int starterBlueIndex = 13;
+	private final int starterYellowIndex = 26;
+	private final int starterGreenIndex = 39;
+	private final int starterSpecialIndex = 52;
 	
 	/* ========================================= COLLECTIONS CREATION ========================================= */
 
@@ -83,14 +88,15 @@ class CardGenerator implements Serializable {
 	
 	/**
 	 * Méthode permettant de créer toutes les cartes "non-spéciales", donc toutes les cartes numérotées
+	 * @param i 
 	 * @return Liste comprenant toutes les cartes sus-citées (1 carte Zéro et 2 cartes par numéro de 1 à 9 pour chaque couleur)
 	 */
 	private List<Card> createAllNonSpecialCards() {
 		List<Card> nonSpecialCards = new ArrayList<Card>();
-		nonSpecialCards.addAll(createAllCardsWithSpecificColor(Color.RED));
-		nonSpecialCards.addAll(createAllCardsWithSpecificColor(Color.BLUE));
-		nonSpecialCards.addAll(createAllCardsWithSpecificColor(Color.YELLOW));
-		nonSpecialCards.addAll(createAllCardsWithSpecificColor(Color.GREEN));
+		nonSpecialCards.addAll(createAllCardsWithSpecificColor(Color.RED, this.starterRedIndex));
+		nonSpecialCards.addAll(createAllCardsWithSpecificColor(Color.BLUE, this.starterBlueIndex));
+		nonSpecialCards.addAll(createAllCardsWithSpecificColor(Color.YELLOW, this.starterYellowIndex));
+		nonSpecialCards.addAll(createAllCardsWithSpecificColor(Color.GREEN, this.starterGreenIndex));
 		return nonSpecialCards;
 	}
 	
@@ -99,22 +105,16 @@ class CardGenerator implements Serializable {
 	 * @param color Couleur commune des cartes
 	 * @return Un ensemble de 19 cartes (1 carte Zéro et 2 cartes par numéro de 1 à 9) de même couleur
 	 */
-	private List<Card> createAllCardsWithSpecificColor(Color color) {
+	private List<Card> createAllCardsWithSpecificColor(Color color, int currentImageIndex) {
 		List<Card> cardsWithSpecificColor = new ArrayList<Card>();
-		addAmountOfCardsOf(1, cardsWithSpecificColor, 0, color);
-		addAllOtherColoredNumberedCards(color, cardsWithSpecificColor);
-		return cardsWithSpecificColor;
-	}
-	
-	/**
-	 * Méthode privée permettant de créer toutes les paires de cartes numérotées
-	 * @param color Couleur commune des cartes
-	 * @param currentCards Collection de cartes à remplir
-	 */
-	private void addAllOtherColoredNumberedCards(Color color, List<Card> currentCards) {
+		addAmountOfCardsOf(1, cardsWithSpecificColor, 0, color, currentImageIndex++);
 		for(int number=1; number<=9; number++) {
-			addAmountOfCardsOf(2, currentCards, number, color);
+			addAmountOfCardsOf(2, cardsWithSpecificColor, number, color,currentImageIndex++);
 		}
+		addAmountOfSpecialCardsOf(2, cardsWithSpecificColor, 20, color, new EffectPlus2(2),currentImageIndex++);
+		addAmountOfSpecialCardsOf(2, cardsWithSpecificColor, 20, color, new EffectReverse(),currentImageIndex++);
+		addAmountOfSpecialCardsOf(2, cardsWithSpecificColor, 20, color, new EffectSkip(),currentImageIndex++);
+		return cardsWithSpecificColor;
 	}
 	
 	/**
@@ -124,9 +124,9 @@ class CardGenerator implements Serializable {
 	 * @param number Numéro de la carte
 	 * @param color Couleur de la carte
 	 */
-	private void addAmountOfCardsOf(int amount, List<Card> currentCards, int number, Color color) {
+	private void addAmountOfCardsOf(int amount, List<Card> currentCards, int number, Color color, int imageIndex) {
 		for(int i=0; i<amount; i++) {
-			currentCards.add(new Card(number,color));
+			currentCards.add(new Card(number,color,imageIndex));
 		}
 	}
 	
@@ -134,50 +134,15 @@ class CardGenerator implements Serializable {
 	
 	/**
 	 * Méthode privée permettant de créer toutes les cartes spéciales (colorées, ou joker)
+	 * @param i 
 	 * @return Une collection de cartes contenant uniquement les cartes spéciales
 	 */
 	private List<Card> createAllSpecialCards() {
 		List<Card> specialCards = new ArrayList<Card>();
-		specialCards.addAll(createAllColoredSpecialCards());
-		specialCards.addAll(createAllColorlessSpecialCards());
+		int currentImageIndex = this.starterSpecialIndex;
+		addAmountOfSpecialCardsOf(4, specialCards, 50, Color.JOKER, new EffetJoker(),currentImageIndex++);
+		addAmountOfSpecialCardsOf(4, specialCards, 50, Color.JOKER, new EffectPlus4(),currentImageIndex++);
 		return specialCards;
-	}
-
-	/**
-	 * Méthode privée permettant de créer toutes les cartes spéciales colorées (6 par couleur)
-	 * @return Une collection de cartes contenant uniquement les cartes spéciales colorées
-	 */
-	private List<Card> createAllColoredSpecialCards() {
-		List<Card> coloredSpecialCards = new ArrayList<Card>();
-		coloredSpecialCards.addAll(createAllSpecialCardsWtihSpecificColor(Color.RED));
-		coloredSpecialCards.addAll(createAllSpecialCardsWtihSpecificColor(Color.BLUE));
-		coloredSpecialCards.addAll(createAllSpecialCardsWtihSpecificColor(Color.YELLOW));
-		coloredSpecialCards.addAll(createAllSpecialCardsWtihSpecificColor(Color.GREEN));
-		return coloredSpecialCards;
-	}
-
-	/**
-	 * Méthode privée permettant de créer toutes les cartes spéciales colorées d'une couleur définie
-	 * @param color Couleur commune à toutes les cartes spéciales
-	 * @return Une Collection de cartes contenant uniquement les cartes spéciales numérotées d'une couleur donnée
-	 */
-	private List<Card> createAllSpecialCardsWtihSpecificColor(Color color) {
-		List<Card> coloredSpecialCards = new ArrayList<Card>();
-		addAmountOfSpecialCardsOf(2, coloredSpecialCards, 20, color, new EffectPlus2(2));
-		addAmountOfSpecialCardsOf(2, coloredSpecialCards, 20, color, new EffectReverse());
-		addAmountOfSpecialCardsOf(2, coloredSpecialCards, 20, color, new EffectSkip());
-		return coloredSpecialCards;
-	}
-	
-	/**
-	 * Méthode privée permettant de créer les cartes spéciales non colorées (Joker)
-	 * @return Une collection de cartes comprenant uniquement les cartes joker
-	 */
-	private List<Card> createAllColorlessSpecialCards() {
-		List<Card> colorlessSpecialCards = new ArrayList<Card>();
-		addAmountOfSpecialCardsOf(4, colorlessSpecialCards, 50, Color.JOKER, new EffetJoker());
-		addAmountOfSpecialCardsOf(4, colorlessSpecialCards, 50, Color.JOKER, new EffectPlus4());
-		return colorlessSpecialCards;
 	}
 	
 	/**
@@ -188,9 +153,9 @@ class CardGenerator implements Serializable {
 	 * @param color Couleur de la carte
 	 * @param effect Effet de la carte
 	 */
-	private void addAmountOfSpecialCardsOf(int amount, List<Card> currentCards, int pointsValue, Color color, Effect effect) {
+	private void addAmountOfSpecialCardsOf(int amount, List<Card> currentCards, int pointsValue, Color color, Effect effect, int currentImageIndex) {
 		for(int i=0; i<amount; i++) {
-			currentCards.add(new CardSpecial(pointsValue,color,effect));
+			currentCards.add(new CardSpecial(pointsValue,color,effect,currentImageIndex));
 		}
 	}
 }

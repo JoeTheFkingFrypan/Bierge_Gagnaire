@@ -146,4 +146,8 @@ public class TurnControllerGraphicsOriented extends AbstractTurnController {
 
 	}
 
+	public Map<String, Collection<Card>> getAllCardsFromPlayers() {
+		return this.turnModel.getAllCardsFromPlayers();
+	}
+
 }

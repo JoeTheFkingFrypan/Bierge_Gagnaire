@@ -33,7 +33,6 @@ public class GameControllerConsoleOriented extends AbstractGameController {
 
 	/* ========================================= INITIALIZING ========================================= */
 
-	@Override
 	protected void initializeGameSettings() {
 		this.view.displayTitle("SETTINGS");
 		this.gameModel.initializeGameSettings();

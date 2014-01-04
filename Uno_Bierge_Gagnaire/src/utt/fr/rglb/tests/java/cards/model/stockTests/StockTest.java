@@ -7,7 +7,9 @@ import java.util.Queue;
 
 import org.junit.Test;
 import org.junit.Before;
+
 import static org.junit.Assert.*;
+
 import org.powermock.api.mockito.PowerMockito;
 
 import utt.fr.rglb.main.java.cards.model.basics.Card;
@@ -32,15 +34,17 @@ public class StockTest {
 	private Card carte03;
 	private Card carte04;
 	private Card carte05;
+	private int whateverPath;
 	
 	@Before
 	public void setup() throws Exception {
+		this.whateverPath = 0;
 		//Création de 5 cartes
-		this.carte01 = new Card(8,Color.RED);
-		this.carte02 = new Card(0,Color.BLUE);
-		this.carte03 = new CardSpecial(20, Color.GREEN, new EffectReverse());
-		this.carte04 = new CardSpecial(20, Color.YELLOW, new EffectPlus2(2));
-		this.carte05 = new CardSpecial(50, Color.JOKER, new EffetJoker());
+		this.carte01 = new Card(8,Color.RED,this.whateverPath);
+		this.carte02 = new Card(0,Color.BLUE,this.whateverPath);
+		this.carte03 = new CardSpecial(20, Color.GREEN, new EffectReverse(),this.whateverPath);
+		this.carte04 = new CardSpecial(20, Color.YELLOW, new EffectPlus2(2),this.whateverPath);
+		this.carte05 = new CardSpecial(50, Color.JOKER, new EffetJoker(),this.whateverPath);
 		//Création des pioches
 		this.stock = new Stock();
 		this.stock.resetCards();
@@ -98,9 +102,9 @@ public class StockTest {
 	@Test
 	public void testRefillCards() {
 		Collection<Card> givenCards = new ArrayList<Card>();
-		Card firstCard = new Card(1,Color.YELLOW);
-		Card secondCard = new Card(2,Color.YELLOW);
-		Card thirdCard = new Card(3,Color.YELLOW);
+		Card firstCard = new Card(1,Color.YELLOW,this.whateverPath);
+		Card secondCard = new Card(2,Color.YELLOW,this.whateverPath);
+		Card thirdCard = new Card(3,Color.YELLOW,this.whateverPath);
 		givenCards.add(firstCard);
 		givenCards.add(secondCard);
 		givenCards.add(thirdCard);
@@ -176,7 +180,7 @@ public class StockTest {
 		assertTrue(this.stock.contains(this.carte05));
 		assertTrue(this.mockedPioche.contains(this.carte05));
 		//N'importe quelle autre carte (valide)
-		Card carte06 = new Card(9,Color.YELLOW);
+		Card carte06 = new Card(9,Color.YELLOW,this.whateverPath);
 		PowerMockito.doReturn(this.baseQueue.contains(carte06)).when(mockedPioche,"contains",carte06);
 		assertTrue(this.stock.contains(carte06));
 		assertFalse(this.mockedPioche.contains(carte06));

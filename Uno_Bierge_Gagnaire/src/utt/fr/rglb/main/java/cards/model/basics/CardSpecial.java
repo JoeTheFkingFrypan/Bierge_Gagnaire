@@ -21,8 +21,8 @@ public class CardSpecial extends Card {
 	 * @param color Couleur de la carte
 	 * @param effect Effet de la carte
 	 */
-	public CardSpecial(int value, Color color, Effect effect) {
-		super(value, color);
+	public CardSpecial(int value, Color color, Effect effect, int imageIndex) {
+		super(value, color, imageIndex);
 		Preconditions.checkNotNull(effect,"[ERROR] Effect cannot be null");
 		this.effect = effect;
 		this.bluffing = false;

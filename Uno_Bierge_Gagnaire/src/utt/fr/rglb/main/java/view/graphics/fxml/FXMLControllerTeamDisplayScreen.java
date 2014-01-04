@@ -22,7 +22,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class FXMLControllerTeamDisplayScreen  extends AbstractFXMLController {
+public class FXMLControllerTeamDisplayScreen extends AbstractFXMLController {
 	private static final Logger log = LoggerFactory.getLogger(FXMLControllerTeamDisplayScreen.class);
 	private GameControllerGraphicsOriented gameController;
 

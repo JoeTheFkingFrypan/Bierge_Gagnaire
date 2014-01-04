@@ -34,6 +34,7 @@ public class PlayerModelTest {
 	private Collection<Card> emptyCollection;
 	private Collection<Card> collectionOfJustOneCard;
 	private Collection<Card> collectionOfMultipleCards;
+	private int whateverPath;
 	
 	@Before
 	public void setup() {
@@ -55,10 +56,11 @@ public class PlayerModelTest {
 	
 	private void initializeCards() {
 		this.mockedEffect = mock(Effect.class);
-		this.c1 = new Card(0,Color.BLUE);
-		this.c2 = new Card(7,Color.GREEN);
-		this.c3 = new CardSpecial(20, Color.RED, mockedEffect);
-		this.c4 = new CardSpecial(50, Color.JOKER, mockedEffect);
+		this.whateverPath = 0;
+		this.c1 = new Card(0,Color.BLUE,this.whateverPath);
+		this.c2 = new Card(7,Color.GREEN,this.whateverPath);
+		this.c3 = new CardSpecial(20, Color.RED, mockedEffect,this.whateverPath);
+		this.c4 = new CardSpecial(50, Color.JOKER, mockedEffect,this.whateverPath);
 	}
 
 	private void initializeCardCollections() {
