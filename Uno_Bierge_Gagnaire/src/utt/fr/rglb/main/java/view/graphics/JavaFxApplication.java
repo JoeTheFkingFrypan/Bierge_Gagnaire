@@ -33,11 +33,7 @@ public class JavaFxApplication extends Application {
 
 	public void runGraphicsView(String[] args) {
 		this.applicationStillStopped = false;
-		try {
-			Application.launch(args);
-		} catch(FXMLControllerException e) {
-			log.error("LOL SOMETHING BAD HAPPENED",e);
-		}
+		Application.launch(args);
 	}
 
 	@Override
