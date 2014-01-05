@@ -411,4 +411,10 @@ public class TurnModelGraphicsOriented extends AbstractTurnModel {
 		}
 		return cardsFromPlayers;
 	}
+
+	public void removeCardsFromPlayers() {
+		for(PlayerControllerGraphicsOriented player : this.players) {
+			player.resetHand();
+		}
+	}
 }

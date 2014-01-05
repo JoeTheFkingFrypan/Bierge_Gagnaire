@@ -6,6 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <GridPane fx:id="mainGrid" alignment="CENTER" styleClass="root" vgap="5.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="utt.fr.rglb.main.java.view.graphics.fxml.FXMLControllerGameScreen">
 
@@ -52,7 +53,11 @@
 			</children>
 		</GridPane>
 		<ImageView fx:id="lastCardPlayed" fitHeight="125.0" fitWidth="80" pickOnBounds="true" preserveRatio="true" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
-		<GridPane fx:id="playerOneGrid" alignment="BOTTOM_CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" xmlns:fx="http://javafx.com/fxml">
+		<Text id="eventsAnnouncer" fx:id="eventsAnnouncer" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.rowIndex="2">
+<GridPane.margin>
+<Insets top="25.0" />
+</GridPane.margin></Text>
+		<GridPane fx:id="playerOneGrid" alignment="BOTTOM_CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" xmlns:fx="http://javafx.com/fxml">
 			<columnConstraints>
 				<ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="125.0" prefWidth="125.0" />
 			</columnConstraints>

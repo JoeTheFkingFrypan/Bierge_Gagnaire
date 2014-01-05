@@ -1,6 +1,7 @@
 package utt.fr.rglb.main.java.game.controller;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import javafx.scene.Scene;
@@ -12,6 +13,7 @@ import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.game.model.GameModelGraphicsOriented;
 import utt.fr.rglb.main.java.game.model.GameRule;
 import utt.fr.rglb.main.java.player.controller.PlayerControllerBean;
+import utt.fr.rglb.main.java.player.controller.PlayerControllerGraphicsOriented;
 import utt.fr.rglb.main.java.player.model.PlayerTeam;
 import utt.fr.rglb.main.java.player.model.PlayersToCreate;
 import utt.fr.rglb.main.java.view.graphics.GraphicsView;
@@ -143,5 +145,13 @@ public class GameControllerGraphicsOriented extends AbstractGameController {
 
 	public Map<String, Collection<Card>> getAllCardsFromPlayers() {
 		return this.gameModel.getAllCardsFromPlayers();
+	}
+
+	public List<PlayerControllerGraphicsOriented> getAllPlayers() {
+		return this.gameModel.getAllPlayers();
+	}
+
+	public void removeCardsFromPlayers() {
+		this.gameModel.removeCardsFromPlayers();
 	}
 }

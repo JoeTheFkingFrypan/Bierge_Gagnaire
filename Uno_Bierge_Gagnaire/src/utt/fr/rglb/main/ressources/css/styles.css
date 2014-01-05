@@ -154,7 +154,20 @@
     -fx-effect: dropshadow(gaussian,rgba(255,0,0,0.7), 5, 5.5 , 0.5, 0.5);
 }
 
+.inactiveImageView {
+	-fx-effect: dropshadow(gaussian,rgba(225,255,255,0.7), 5, 5.5 , 0.5, 0.5);
+}
+
 /* ======================= Component specific styles ======================= */
+
+#eventsAnnouncer {
+	-fx-animated: true;
+   -fx-font-size: 50px;
+   -fx-text-alignment: center;
+   -fx-font-family: "Arial Black";
+   -fx-font-family: "Snap ITC";
+   -fx-fill: #FFF;
+}
 
 #actiontarget {
   -fx-fill: GREEN;

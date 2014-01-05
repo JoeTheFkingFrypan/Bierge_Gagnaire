@@ -2,6 +2,7 @@ package utt.fr.rglb.main.java.view.graphics;
 
 
 import java.io.IOException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,6 +13,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.SceneAntialiasing;
 import javafx.stage.Stage;
 
 public class JavaFxApplication extends Application {
@@ -41,7 +43,7 @@ public class JavaFxApplication extends Application {
 		try {
 			log.info("Loading JavaFX welcome screen from file : \"welcome.fxml\"");
 			Parent root = FXMLLoader.load(getClass().getResource("/utt/fr/rglb/main/ressources/fxml/welcome.fxml"));
-			this.scene = new Scene(root, this.width, this.height);
+			this.scene = new Scene(root, this.width, this.height, true, SceneAntialiasing.BALANCED);
 			stage.setTitle("[LO02-UNO] Gagnaire / Bierge");
 			stage.setScene(scene);
 			stage.show();

@@ -13,5 +13,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="libs/JDK7/64bits/jfxrt.1.7.64bits.jar"/>
 	<classpathentry kind="lib" path="libs/JDK8/64bits/jfxrt.1.8.64bits.jar"/>
+	<classpathentry kind="lib" path="libs/JDK7/32bits/jfxrt.1.7.32bits.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

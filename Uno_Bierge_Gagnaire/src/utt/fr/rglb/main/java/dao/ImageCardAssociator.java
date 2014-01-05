@@ -67,4 +67,8 @@ public class ImageCardAssociator  {
 		ImageCardAssociator.imagesFromCards[imagesAlreadyLoaded++] = new Image(path + currentColor + "Passe" + extension, this.width,this.height,true,true,true);
 		return imagesAlreadyLoaded;
 	}
+
+	public static Image retrieveIdleImage() {
+		return ImageCardAssociator.imagesFromCards[54];
+	}
 }

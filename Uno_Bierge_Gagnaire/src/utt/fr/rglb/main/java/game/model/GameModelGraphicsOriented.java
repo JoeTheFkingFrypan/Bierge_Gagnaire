@@ -1,6 +1,7 @@
 package utt.fr.rglb.main.java.game.model;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import javafx.scene.Scene;
@@ -295,5 +296,13 @@ public class GameModelGraphicsOriented extends AbstractGameModel {
 
 	public Map<String, Collection<Card>> getAllCardsFromPlayers() {
 		return this.turnController.getAllCardsFromPlayers();
+	}
+
+	public List<PlayerControllerGraphicsOriented> getAllPlayers() {
+		return this.turnController.getAllPlayers();
+	}
+
+	public void removeCardsFromPlayers() {
+		this.turnController.removeCardsFromPlayers();
 	}
 }

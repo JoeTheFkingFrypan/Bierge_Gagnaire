@@ -1,6 +1,7 @@
 package utt.fr.rglb.main.java.turns.controller;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 
 import com.google.common.base.Preconditions;
@@ -148,6 +149,14 @@ public class TurnControllerGraphicsOriented extends AbstractTurnController {
 
 	public Map<String, Collection<Card>> getAllCardsFromPlayers() {
 		return this.turnModel.getAllCardsFromPlayers();
+	}
+
+	public List<PlayerControllerGraphicsOriented> getAllPlayers() {
+		return this.turnModel.getAllPlayers();
+	}
+
+	public void removeCardsFromPlayers() {
+		this.turnModel.removeCardsFromPlayers();
 	}
 
 }
