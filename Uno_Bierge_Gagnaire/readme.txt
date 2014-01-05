@@ -38,7 +38,6 @@ SECTION 03 - Notes importantes
 	Prérequis :
 	Afin de pouvoir fonctionner correctement Eclipse a besoin d'un certain nombre de plugins et d'outils (dont certains sont installés par défaut) :
 		Maven (se référer à la SECTION 7 - Intégration de Maven sur Eclipse)
-		e(fx)clipse (se référer à la SECTION 8 - Intégration de JavaFX sur Eclipse)
 
 	Eclipse & Codes ANSI :
 		La version "console" de notre jeu UNO utilise des codes ANSI pour afficher du texte en couleur dans la console
@@ -61,6 +60,7 @@ SECTION 04 - Outils et bibliothèques utilisées
 Outils utilisés :
 	Maven
 	Log4j
+	JavaFX
 
 Utilisation de bibliothèques (voir pom.xml) :
 	JUnit : tests unitaires
@@ -128,6 +128,7 @@ SECTION 06 - Plugins Recommandés
 Pour quelles raisons :
 	Si vous souhaitez tester la couverture du code par les tests unitaires : EclEmma
 	Si vous souhaitez avoir un affichage du texte en couleur dans la console d'Eclipse : ANSI Escape in Console
+	Si vous souhaitez pouvoir éditer de manière intuitive les fichiers fxml, css (ou tout autres dérivés de JavaFX) : E(fx)clipse
 
 EclEmma :
 	EclEmma (http://goo.gl/kUMw96) est recommandé mais pas requis.
@@ -137,6 +138,9 @@ ANSI Escape in Console :
 	ANSI Escape in Console  (http://goo.gl/Yth0XK))n'est pas nécessaire si le programme est exécuté depuis le JAR --Méthode recommandée
 	Si vous souhaitez tout de même utiliser Eclipse pour lancer le UNO la démarche est comme suit : Help -> Install new software -> Entrer http://www.mihai-nita.net/eclipse dans le champs Work With -> Cocher ANSI console -> Cliquer surNext/Finish
 
+E(fx)clipse
+	Se référerer à la SECTION 08 - Intégration de JavaFX sur Eclipse
+	
 =====================================
 SECTION 07 - Intégration de Maven sur Eclipse
 ---------------------------- 
@@ -173,29 +177,39 @@ SECTION 08 - Intégration de JavaFX sur Eclipse
 Pour quelle raison :
 	Ce projet utilise JavaFX pour l'affichage dans une interface graphique
 	JavaFX est un ensemble d'outils créés par Oracle permettant de concevoir et de créer des applications riches en java.
-	Il n'existe à l'heure actuelle aucune intégration simple de ce framework dans Maven, raison motivant la nécessité du plugin e(fx)clipse, permettant l'intégration dans Eclipse
-
+	Il n'existe à l'heure actuelle aucune intégration simple de ce framework dans Maven, raison motivant l'importation de jars correspondant à JavaFX dans le dossier `libs` du projet
+	Un outil est mis à disposition par Oracle afin de faciliter le développement d'applications utilisant JavaFX : 
+		JavaFX SceneBuilder (http://www.oracle.com/technetwork/java/javafx/tools/index.html) 
+		Il permet de créer intuitivement des interfaces graphiques par des outils visuels
+		
 Installation de e(fx)clipse
+	Son rôle est de faciliter l'intégration de JavaFX dans Eclipse, en fournissant un éditeur de fichiers fxml et de l'autocomplétion concernant les fichiers css
 	Installer le plugin e(fx)clipse : (http://goo.gl/oAqh6Q)
 	Méthode d'installation : Help -> Eclipse Marketplace et taper dans find le nom associé.
 
 Configuration du projet pour fonctionner avec JavaFX. Deux choix sont possible : 
-	Utiliser `JavaFX 8` afin de profiter des dernières innovations
+	Utiliser `JavaFX 8` afin de profiter des dernières innovations (animations, fenêtre modales, etc)
 	Utiliser `JavaFX 2` demandant très peu de pré-requis
 	
 Pour `JavaFX 8` :
-	1. Installer le JDK 8 ([site de téléchargement](https://jdk8.java.net/download.html)) --Notez que le JRE 8 est inclu dans le fichier d'installation du JDK 8
-	2. Dans cette fenêtre, cliquer sur `JRE System Library` -> `Edit` -> Dans `Alternate JRE` selectionner `JR8`
-	3. Dans Eclipse, `Clique-droit` sur la racine du projet -> `Properties` -> `Java Build Path` -> `Libraries`
-	4. Vérifier que la version du fichier `jfxrt.jar` correspond à la version du JRE utilisée (32 bits ou 64 bits)
-	5. Cliquer sur `Add JARs` pour l'ajouter -> aller dans `libs` puis dans `JDK8` puis dans le dossier `32 bits` ou `64 bits` et selectionner le jar correspondant
+	1. Installer le JDK 8 (https://jdk8.java.net/download.html) --Notez que le JRE 8 est inclu dans le fichier d'installation du JDK 8
+	2. Dans Eclipse, faire `Clique-droit` sur la racine du projet -> `Properties` -> `Java Build Path` -> `Libraries`
+	3. Vérifier que `JRE System Library` indique `[jre8]`
+
+	Si tel n'est pas le cas :
+		Cliquer sur `JRE System Library` -> `Edit` -> Dans `Alternate JRE` sélectionner `JR8`
 	
 Pour `JavaFX 2` :
-	1. Dans Eclipse, `Clique-droit` sur la racine du projet -> `Properties` -> `Java Build Path` -> `Libraries`
-	2. Dans cette fenêtre, cliquer sur `JRE System Library` -> `Edit` -> Dans `Alternate JRE` selectionner `JR7`
-	3. Vérifier que la version du fichier `jfxrt.jar` correspond à la version du JRE utilisée (32 bits ou 64 bits)
-	4. Cliquer sur `Add JARs` pour l'ajouter -> aller dans `libs` puis dans `JDK7` puis dans le dossier `32 bits` ou `64 bits` et selectionner le jar correspondant
-
+	1. Dans Eclipse, faire `Clique-droit` sur la racine du projet -> `Properties` -> `Java Build Path` -> `Libraries`
+	2. Vérifier que `JRE System Library` indique `[jre7]`
+	
+	Si tel n'est pas le cas :
+		Cliquer sur `JRE System Library` -> `Edit` -> Dans `Alternate JRE` sélectionner `JR7`
+	
+Dans tous les cas
+	1. Vérifier que les 4 jars jfxrt.X.X.YYbits soient présents (1 seul suffit, mais cela suppose que vous sachiez lequel correspond à votre version de Java)
+	2. Pour en rajouter un : Cliquer sur `Add JARs` pour l'ajouter -> aller dans le dossier `libs` puis dans `JDKX` puis dans le dossier `32 bits` ou `64 bits` et selectionner le jar correspondant	
+	
 =====================================
 SECTION 09 - Analyse des journaux
 ---------------------------- 

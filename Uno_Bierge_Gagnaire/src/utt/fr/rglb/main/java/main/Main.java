@@ -68,14 +68,12 @@ public class Main {
 	}
 
 	private static void handleException(Exception e) {
-		log.error("====================================");
-		log.error("[ERROR] An unexpected error happened");
+		log.error("/!\\ ==== [ERROR] An unexpected error happened ==== /!\\");
 		log.error("Class involved : " + e.getClass());
 		log.error("Message from Exception : " + e.getMessage());
 		log.error("------ STACK TRACE ------");
 		log.error( "failed!", e );
-		log.error("====================================");
-		log.error("        [PROGRAM TERMINATED]        ");
+		log.error("/!\\ =========== [PROGRAM TERMINATED] =========== /!\\");
 		log.error("");
 	}
 

@@ -1,6 +1,5 @@
 package utt.fr.rglb.main.java.view.graphics;
 
-
 import java.io.IOException;
 
 import org.slf4j.Logger;
@@ -13,7 +12,6 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.SceneAntialiasing;
 import javafx.stage.Stage;
 
 public class JavaFxApplication extends Application {
@@ -35,7 +33,11 @@ public class JavaFxApplication extends Application {
 
 	public void runGraphicsView(String[] args) {
 		this.applicationStillStopped = false;
-		Application.launch(args);
+		try {
+			Application.launch(args);
+		} catch(FXMLControllerException e) {
+			log.error("LOL SOMETHING BAD HAPPENED",e);
+		}
 	}
 
 	@Override
@@ -43,7 +45,7 @@ public class JavaFxApplication extends Application {
 		try {
 			log.info("Loading JavaFX welcome screen from file : \"welcome.fxml\"");
 			Parent root = FXMLLoader.load(getClass().getResource("/utt/fr/rglb/main/ressources/fxml/welcome.fxml"));
-			this.scene = new Scene(root, this.width, this.height, true, SceneAntialiasing.BALANCED);
+			this.scene = new Scene(root, this.width, this.height);
 			stage.setTitle("[LO02-UNO] Gagnaire / Bierge");
 			stage.setScene(scene);
 			stage.show();
