@@ -417,4 +417,8 @@ public class TurnModelGraphicsOriented extends AbstractTurnModel {
 			player.resetHand();
 		}
 	}
+
+	public int getIndexFromActivePlayer() {
+		return this.currentPlayerIndex;
+	}
 }

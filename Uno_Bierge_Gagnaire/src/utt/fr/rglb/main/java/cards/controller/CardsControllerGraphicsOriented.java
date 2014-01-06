@@ -9,20 +9,16 @@ import utt.fr.rglb.main.java.cards.model.CardsModelBean;
 import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.cards.model.basics.CardSpecial;
 import utt.fr.rglb.main.java.cards.model.basics.Color;
-import utt.fr.rglb.main.java.dao.ImageCardAssociator;
 import utt.fr.rglb.main.java.game.model.GameFlag;
 import utt.fr.rglb.main.java.view.AbstractView;
 import utt.fr.rglb.main.java.view.graphics.GraphicsView;
 
 public class CardsControllerGraphicsOriented extends AbstractCardsController {
 	protected static final long serialVersionUID = 1L;
-	//FIXME HERE FUCKER
-	protected ImageCardAssociator imageCardAssociator;
 	protected CardsModel cardsModel;
 	protected GraphicsView view;
 
 	/* ========================================= CONSTRUCTOR ========================================= */
-
 	/**
 	 * Constructeur de gameControlleur
 	 * @param view Vue permettant d'afficher les données dans l'interface
@@ -31,7 +27,6 @@ public class CardsControllerGraphicsOriented extends AbstractCardsController {
 		Preconditions.checkNotNull(view,"[ERROR] Impossible to create game controller : provided view is null");
 		this.cardsModel = new CardsModel();
 		this.view = (GraphicsView)view;
-		this.imageCardAssociator = new ImageCardAssociator();
 	}
 
 	/* ========================================= CARD DRAW ========================================= */
@@ -41,7 +36,6 @@ public class CardsControllerGraphicsOriented extends AbstractCardsController {
 		Preconditions.checkArgument(count>0, "[ERROR] Amount of cards drawn must be strictly higher than 0 (Expected : 1+)");
 		return this.cardsModel.drawCards(count);
 	}
-
 
 	@Override
 	public Card drawOneCard() {
@@ -101,7 +95,7 @@ public class CardsControllerGraphicsOriented extends AbstractCardsController {
 	/* ========================================= GLOBAL COLOR ========================================= */
 
 	@Override
-	public CardsModelBean getRequiredReferences() {
+	public CardsModelBean getReferences() {
 		return new CardsModelBean(showLastCardPlayed(), getGlobalColor(), this.view);
 	}
 
@@ -122,9 +116,5 @@ public class CardsControllerGraphicsOriented extends AbstractCardsController {
 	@Override
 	public void resetCards() {
 		this.cardsModel.resetCards();
-	}
-
-	public void backgroundLoadImages() {
-		this.imageCardAssociator.backgroundLoadImages();
 	}
 }

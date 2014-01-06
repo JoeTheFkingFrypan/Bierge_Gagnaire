@@ -65,16 +65,16 @@ public class GameControllerConsoleOriented extends AbstractGameController {
 	@Override
 	protected PlayerControllerBean playOneRound() {
 		startNewRound();
-		PlayerControllerBean roundWinner = new PlayerControllerBean();
-		while(roundWinner.stillHasCards()) {
-			roundWinner = this.gameModel.playOneTurn();
-			if(roundWinner.hasAnnouncedUno()) {
-				handleUnoAnnoucement(roundWinner);
-			} else if(roundWinner.hasNoCardAndForgotToAnnounceUno()) {
-				handleMissingUnoAnnoucement(roundWinner);
+		PlayerControllerBean currentPlayer = new PlayerControllerBean();
+		while(currentPlayer.stillHasCards()) {
+			currentPlayer = this.gameModel.playOneTurn();
+			if(currentPlayer.hasAnnouncedUno()) {
+				handleUnoAnnoucement(currentPlayer);
+			} else if(currentPlayer.hasNoCardAndForgotToAnnounceUno()) {
+				handleMissingUnoAnnoucement(currentPlayer);
 			}
 		}
-		return roundWinner;
+		return currentPlayer;
 	}
 
 	@Override

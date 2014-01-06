@@ -3,11 +3,13 @@ package utt.fr.rglb.main.java.turns.controller;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.google.common.base.Preconditions;
 
 import javafx.scene.Scene;
 import utt.fr.rglb.main.java.cards.model.basics.Card;
+import utt.fr.rglb.main.java.player.controller.AbstractPlayerController;
 import utt.fr.rglb.main.java.player.controller.PlayerControllerBean;
 import utt.fr.rglb.main.java.player.controller.PlayerControllerGraphicsOriented;
 import utt.fr.rglb.main.java.player.model.PlayerTeam;
@@ -54,7 +56,8 @@ public class TurnControllerGraphicsOriented extends AbstractTurnController {
 
 	@Override
 	public void reverseCurrentOrder() {
-		// TODO Auto-generated method stub
+		this.view.displayOneLineOfRedText("Turn order has been inverted");
+		this.turnModel.reverseCurrentOrder();
 	}
 
 	@Override
@@ -64,9 +67,9 @@ public class TurnControllerGraphicsOriented extends AbstractTurnController {
 
 	@Override
 	public PlayerControllerGraphicsOriented findNextPlayer() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.turnModel.cycleThroughPlayers();
 	}
+
 
 	@Override
 	public PlayerControllerGraphicsOriented findNextPlayerWithoutChangingCurrentPlayer() {
@@ -77,14 +80,14 @@ public class TurnControllerGraphicsOriented extends AbstractTurnController {
 
 	@Override
 	public void skipNextPlayer() {
-		// TODO Auto-generated method stub
+		this.turnModel.cycleThroughPlayers();
 	}
 
 	@Override
 	public void cycleSilently() {
-		// TODO Auto-generated method stub
+		this.turnModel.cycleSilentlyThroughPlayers();
 	}
-	
+
 	@Override
 	public void giveCardsToNextPlayer(Collection<Card> cards) {
 		Preconditions.checkNotNull(cards,"[ERROR] Provided card collection cannot be null");
@@ -95,14 +98,23 @@ public class TurnControllerGraphicsOriented extends AbstractTurnController {
 
 	@Override
 	public boolean computeIndividualEndOfTurn(PlayerControllerBean gameWinner) {
-		// TODO Auto-generated method stub
-		return false;
+		Preconditions.checkNotNull(gameWinner,"[ERROR] Impossible to compute individual score : provided PlayerControllerBean cannot be null");
+		Integer pointsReceived = this.turnModel.sumAllIndividualPlayerScore();
+		boolean hasWon = gameWinner.increaseScoreBy(pointsReceived);
+		this.turnModel.resetAllHands();
+		//TODO display stuff
+		return hasWon;
 	}
 
 	@Override
 	public boolean computeTeamEndOfTurn(PlayerControllerBean gameWinner) {
-		// TODO Auto-generated method stub
-		return false;
+		Preconditions.checkNotNull(gameWinner,"[ERROR] Impossible to compute team score : provided PlayerControllerBean cannot be null");
+		PlayerTeam winningTeam = this.turnModel.findWinningTeam(gameWinner);
+		Integer pointsReceived = this.turnModel.sumAllTeamScore(winningTeam);
+		boolean hasWon = this.turnModel.increaseScoreOfTheWinningTeam(winningTeam,pointsReceived);
+		this.turnModel.resetAllHands();
+		//TODO display stuff
+		return hasWon;
 	}
 
 	/* ========================================= TEAM PLAY ========================================= */
@@ -112,7 +124,7 @@ public class TurnControllerGraphicsOriented extends AbstractTurnController {
 		Preconditions.checkNotNull(winningPlayer,"[ERROR] Impossible to find winning team : provided PlayerControllerBean cannot be null");
 		return this.turnModel.findWinningTeam(winningPlayer);
 	}
-	
+
 	public void displayTeams(Scene scene) {
 		this.view.displayTeamScreen(scene);
 	}
@@ -120,18 +132,27 @@ public class TurnControllerGraphicsOriented extends AbstractTurnController {
 	public Map<Integer, PlayerTeam> getAllTeams() {
 		return this.turnModel.getAllTeams();
 	}
-	
+
 
 	/* ========================================= SCORE ========================================= */
 
 	@Override
 	public void displayIndividualTotalScore() {
-		// TODO Auto-generated method stub
+		Collection<PlayerControllerGraphicsOriented> players = this.turnModel.getAllPlayers();
+		for(AbstractPlayerController currentPlayer : players) {
+			Integer currentScore = currentPlayer.getScore();
+			Integer pointsNeededToWin = 500 - currentScore;
+		}
 	}
 
 	@Override
 	public void displayTeamTotalScore() {
-		// TODO Auto-generated method stub
+		Map<Integer, PlayerTeam> teams = this.turnModel.getAllTeams();
+		for(Entry<Integer, PlayerTeam> teamEntry : teams.entrySet()) {
+			PlayerTeam currentTeam = teamEntry.getValue();
+			Integer currentScore = currentTeam.getScore();
+			Integer pointsNeededToWin = 500 - currentScore;	
+		}
 	}
 
 	/* ========================================= GETTERS & DISPLAY ========================================= */
@@ -140,7 +161,7 @@ public class TurnControllerGraphicsOriented extends AbstractTurnController {
 	public int getNumberOfPlayers() {
 		return this.turnModel.getNumberOfPlayers();
 	}
-	
+
 	@Override
 	public void displayTeams() {
 		// TODO Auto-generated method stub
@@ -157,6 +178,10 @@ public class TurnControllerGraphicsOriented extends AbstractTurnController {
 
 	public void removeCardsFromPlayers() {
 		this.turnModel.removeCardsFromPlayers();
+	}
+
+	public int getIndexFromActivePlayer() {
+		return this.turnModel.getIndexFromActivePlayer();
 	}
 
 }

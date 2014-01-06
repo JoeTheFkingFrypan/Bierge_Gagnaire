@@ -4,6 +4,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.scene.Scene;
 import utt.fr.rglb.main.java.cards.controller.CardsControllerGraphicsOriented;
 import utt.fr.rglb.main.java.cards.model.CardsModelBean;
@@ -17,13 +20,17 @@ import utt.fr.rglb.main.java.player.model.PlayerTeam;
 import utt.fr.rglb.main.java.player.model.PlayersToCreate;
 import utt.fr.rglb.main.java.turns.controller.TurnControllerGraphicsOriented;
 import utt.fr.rglb.main.java.view.graphics.GraphicsView;
+import utt.fr.rglb.main.java.view.graphics.fxml.FXMLControllerGameScreen;
+import utt.fr.rglb.main.java.view.graphics.fxml.GraphicsReferences;
 
 public class GameModelGraphicsOriented extends AbstractGameModel {
+	private static final Logger log = LoggerFactory.getLogger(GameModelGraphicsOriented.class);
 	private static final long serialVersionUID = 1L;
 	private TurnControllerGraphicsOriented turnController;
 	private CardsControllerGraphicsOriented cardsController;
 	protected GameRule gameRule;
 	@SuppressWarnings("unused") private GraphicsView view;
+	private FXMLControllerGameScreen fxmlController;
 
 	/* ========================================= CONSTRUCTOR ========================================= */
 	
@@ -31,6 +38,10 @@ public class GameModelGraphicsOriented extends AbstractGameModel {
 		this.turnController = new TurnControllerGraphicsOriented(view);
 		this.cardsController = new CardsControllerGraphicsOriented(view);
 		this.view = view;
+	}
+
+	public void setCurrentFXMLController(FXMLControllerGameScreen fxmlController) {
+		this.fxmlController = fxmlController;
 	}
 	
 	/* ========================================= INITIALIZING ========================================= */
@@ -77,20 +88,21 @@ public class GameModelGraphicsOriented extends AbstractGameModel {
 	
 	@Override
 	public PlayerControllerBean playOneTurn() {
-		CardsModelBean references = this.cardsController.getRequiredReferences();
+		CardsModelBean references = this.cardsController.getReferences();
 		PlayerControllerGraphicsOriented currentPlayer = this.turnController.findNextPlayer();
-		if(currentPlayer.hasAtLeastOnePlayableCard(references)) {
-			chooseCardAndPlayIt(references, currentPlayer);
-		} else {
-			Card cardDrawn = this.cardsController.drawOneCard();
-			currentPlayer.pickUpOneCard(cardDrawn);
-			if(currentPlayer.hasAtLeastOnePlayableCard(references)) {
-				chooseCardAndPlayIt(references, currentPlayer);
+		GraphicsReferences graphicsReferences = new GraphicsReferences(references,this.turnController.getIndexFromActivePlayer());
+		
+		if(!currentPlayer.hasAtLeastOnePlayableCard(references)) {
+			Card firstCardDrawn = this.cardsController.drawOneCard();
+			if(references.isCompatibleWith(firstCardDrawn)) {
+				graphicsReferences.setNeedOfDrawingOneTime(firstCardDrawn);
 			} else {
-				currentPlayer.unableToPlayThisTurn(references);
+				Card secondCardDrawn = this.cardsController.drawOneCard();
+				graphicsReferences.setNeedOfDrawingOneTime(firstCardDrawn,secondCardDrawn);
 			}
 		}
-		triggerEffect(currentPlayer);
+		this.fxmlController.playOneTurn(graphicsReferences);
+		//triggerEffect(currentPlayer);
 		return new PlayerControllerBean(currentPlayer);
 	}
 	
@@ -290,10 +302,6 @@ public class GameModelGraphicsOriented extends AbstractGameModel {
 		return this.cardsController.retrieveImageFromLastCardPlayed();
 	}
 
-	public void backgroundLoadImages() {
-		this.cardsController.backgroundLoadImages();	
-	}
-
 	public Map<String, Collection<Card>> getAllCardsFromPlayers() {
 		return this.turnController.getAllCardsFromPlayers();
 	}
@@ -304,5 +312,10 @@ public class GameModelGraphicsOriented extends AbstractGameModel {
 
 	public void removeCardsFromPlayers() {
 		this.turnController.removeCardsFromPlayers();
+	}
+
+
+	public CardsModelBean getReferences() {
+		return this.cardsController.getReferences();
 	}
 }

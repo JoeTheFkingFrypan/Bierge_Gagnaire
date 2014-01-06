@@ -1,6 +1,11 @@
 package utt.fr.rglb.main.java.player.controller;
 
 import java.util.Collection;
+import java.util.List;
+
+import javafx.animation.PauseTransition;
+import javafx.animation.SequentialTransition;
+import javafx.util.Duration;
 
 import com.google.common.base.Preconditions;
 
@@ -10,10 +15,12 @@ import utt.fr.rglb.main.java.cards.model.basics.Color;
 import utt.fr.rglb.main.java.console.model.InputReader;
 import utt.fr.rglb.main.java.player.model.PlayerModel;
 import utt.fr.rglb.main.java.view.AbstractView;
+import utt.fr.rglb.main.java.view.graphics.fxml.CustomImageView;
 
 //FIXME
 public class PlayerControllerGraphicsOriented extends AbstractPlayerController {
 	private static final long serialVersionUID = 1L;
+	private List<CustomImageView> displayableCards;
 
 	public PlayerControllerGraphicsOriented(String name, AbstractView consoleView) {
 		Preconditions.checkNotNull(name,"[ERROR] name cannot be null");
@@ -27,6 +34,10 @@ public class PlayerControllerGraphicsOriented extends AbstractPlayerController {
 	@Override
 	public Collection<Card> getCardsInHand() {
 		return this.player.getCardsInHand();
+	}
+	
+	public Card peekAtCard(int cardIndex) {
+		return this.player.peekAtCard(cardIndex);
 	}
 	
 	@Override
@@ -77,7 +88,7 @@ public class PlayerControllerGraphicsOriented extends AbstractPlayerController {
 	}
 
 	/* ========================================= TURN HANDLING ========================================= */
-
+	
 	@Override
 	public Card startTurn(InputReader inputReader, CardsModelBean gameModelBean) {
 		// TODO Auto-generated method stub
@@ -117,4 +128,16 @@ public class PlayerControllerGraphicsOriented extends AbstractPlayerController {
 		
 	}
 
+	public void setDisplayableCards(List<CustomImageView> displayableCards) {
+		this.displayableCards = displayableCards;
+	}
+
+	public SequentialTransition generateEffectFromDisplayableCards() {
+		SequentialTransition cardsAnimation = new SequentialTransition();
+		for(CustomImageView imageView : this.displayableCards) {
+			cardsAnimation.getChildren().add(imageView.generateEffect());
+			cardsAnimation.getChildren().add(new PauseTransition(Duration.millis(50)));
+		}
+		return cardsAnimation;
+	}
 }

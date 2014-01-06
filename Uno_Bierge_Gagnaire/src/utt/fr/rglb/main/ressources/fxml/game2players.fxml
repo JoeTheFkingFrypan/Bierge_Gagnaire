@@ -8,96 +8,70 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<GridPane fx:id="mainGrid" alignment="CENTER" styleClass="root"
-	vgap="5.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-	fx:controller="utt.fr.rglb.main.java.view.graphics.fxml.FXMLControllerGameScreen">
-
-	<stylesheets>
-		<URL value="@../css/styles.css" />
-	</stylesheets>
-	<columnConstraints>
-		<ColumnConstraints halignment="CENTER" />
-		<ColumnConstraints halignment="CENTER" />
-		<ColumnConstraints halignment="CENTER" />
-	</columnConstraints>
-	<rowConstraints>
-		<RowConstraints valignment="CENTER" />
-		<RowConstraints valignment="CENTER" />
-		<RowConstraints valignment="CENTER" />
-		<RowConstraints valignment="CENTER" />
-		<RowConstraints valignment="CENTER" />
-		<RowConstraints valignment="CENTER" />
-		<RowConstraints valignment="CENTER" />
-		<RowConstraints valignment="CENTER" />
-	</rowConstraints>
-	<children>
-		<GridPane fx:id="playerTwoGrid" alignment="TOP_CENTER"
-			GridPane.halignment="CENTER" GridPane.valignment="TOP"
-			xmlns:fx="http://javafx.com/fxml">
-			<columnConstraints>
-				<ColumnConstraints halignment="CENTER" hgrow="SOMETIMES"
-					minWidth="125.0" prefWidth="125.0" />
-			</columnConstraints>
-			<rowConstraints>
-				<RowConstraints minHeight="125.0" prefHeight="125.0"
-					valignment="CENTER" vgrow="SOMETIMES" />
-				<RowConstraints minHeight="125.0" prefHeight="125.0"
-					valignment="CENTER" vgrow="SOMETIMES" />
-			</rowConstraints>
-			<children>
-				<Label fx:id="playerTwoName" GridPane.rowIndex="1" />
-				<GridPane fx:id="playerTwoCardsGrid" alignment="BOTTOM_CENTER"
-					hgap="8.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER"
-					xmlns:fx="http://javafx.com/fxml">
-					<columnConstraints>
-						<ColumnConstraints halignment="CENTER" hgrow="SOMETIMES"
-							minWidth="125.0" prefWidth="125.0" />
-					</columnConstraints>
-					<rowConstraints>
-						<RowConstraints minHeight="125.0" prefHeight="125.0"
-							valignment="CENTER" vgrow="SOMETIMES" />
-					</rowConstraints>
-				</GridPane>
-			</children>
-		</GridPane>
-		<ImageView fx:id="lastCardPlayed" fitHeight="125.0"
-			fitWidth="80" pickOnBounds="true" preserveRatio="true"
-			GridPane.halignment="CENTER" GridPane.rowIndex="1"
-			GridPane.valignment="CENTER" />
-		<Text id="eventsAnnouncer" fx:id="eventsAnnouncer" strokeType="OUTSIDE"
-			strokeWidth="0.0" GridPane.rowIndex="2">
-			<GridPane.margin>
-				<Insets top="25.0" />
-			</GridPane.margin>
-		</Text>
-		<GridPane fx:id="playerOneGrid" alignment="BOTTOM_CENTER"
-			GridPane.halignment="CENTER" GridPane.rowIndex="3"
-			GridPane.valignment="BOTTOM" xmlns:fx="http://javafx.com/fxml">
-			<columnConstraints>
-				<ColumnConstraints halignment="CENTER" hgrow="SOMETIMES"
-					minWidth="125.0" prefWidth="125.0" />
-			</columnConstraints>
-			<rowConstraints>
-				<RowConstraints minHeight="125.0" prefHeight="125.0"
-					valignment="CENTER" vgrow="SOMETIMES" />
-				<RowConstraints />
-			</rowConstraints>
-			<children>
-				<Label fx:id="playerOneName" GridPane.halignment="CENTER"
-					GridPane.valignment="CENTER" />
-				<GridPane fx:id="playerOneCardsGrid" alignment="TOP_CENTER"
-					hgap="8.0" GridPane.halignment="CENTER" GridPane.rowIndex="1"
-					GridPane.valignment="CENTER" xmlns:fx="http://javafx.com/fxml">
-					<columnConstraints>
-						<ColumnConstraints halignment="CENTER" hgrow="SOMETIMES"
-							minWidth="125.0" prefWidth="125.0" />
-					</columnConstraints>
-					<rowConstraints>
-						<RowConstraints minHeight="125.0" prefHeight="125.0"
-							valignment="CENTER" vgrow="SOMETIMES" />
-					</rowConstraints>
-				</GridPane>
-			</children>
-		</GridPane>
-	</children>
+<GridPane fx:id="mainGrid" alignment="CENTER" styleClass="root" vgap="5.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="utt.fr.rglb.main.java.view.graphics.fxml.FXMLControllerGameScreen">
+  <children>
+    <GridPane fx:id="playerTwoGrid" alignment="TOP_CENTER" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+      <children>
+        <Label fx:id="playerTwoName" GridPane.rowIndex="1" />
+        <GridPane fx:id="playerTwoCardsGrid" alignment="BOTTOM_CENTER" hgap="8.0" minWidth="600.0" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES">
+          <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="125.0" prefWidth="125.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints minHeight="125.0" prefHeight="125.0" valignment="CENTER" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </GridPane>
+      </children>
+      <columnConstraints>
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="125.0" prefWidth="125.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints minHeight="125.0" prefHeight="125.0" valignment="CENTER" vgrow="SOMETIMES" />
+        <RowConstraints minHeight="125.0" prefHeight="125.0" valignment="CENTER" vgrow="SOMETIMES" />
+      </rowConstraints>
+    </GridPane>
+    <!-- <Text fx:id="eventsAnnouncer" strikethrough="false" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.rowIndex="2"> 
+      <GridPane.margin>
+        <Insets />
+      </GridPane.margin>
+    </Text>-->
+    <GridPane fx:id="playerOneGrid" alignment="BOTTOM_CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+      <children>
+        <Label fx:id="playerOneName" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+        <GridPane fx:id="playerOneCardsGrid" alignment="TOP_CENTER" hgap="8.0" minWidth="600.0" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES">
+          <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="125.0" prefWidth="125.0" />
+          </columnConstraints>
+          <rowConstraints>
+            <RowConstraints minHeight="125.0" prefHeight="125.0" valignment="CENTER" vgrow="SOMETIMES" />
+          </rowConstraints>
+        </GridPane>
+      </children>
+      <columnConstraints>
+        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="125.0" prefWidth="125.0" />
+      </columnConstraints>
+      <rowConstraints>
+        <RowConstraints minHeight="125.0" prefHeight="125.0" valignment="CENTER" vgrow="SOMETIMES" />
+        <RowConstraints />
+      </rowConstraints>
+    </GridPane>
+  </children>
+  <columnConstraints>
+    <ColumnConstraints halignment="CENTER" />
+    <ColumnConstraints halignment="CENTER" />
+    <ColumnConstraints halignment="CENTER" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints valignment="CENTER" />
+    <RowConstraints valignment="CENTER" />
+    <RowConstraints fillHeight="true" valignment="CENTER" />
+    <RowConstraints valignment="CENTER" />
+    <RowConstraints valignment="CENTER" />
+    <RowConstraints valignment="CENTER" />
+    <RowConstraints valignment="CENTER" />
+    <RowConstraints valignment="CENTER" />
+  </rowConstraints>
+  <stylesheets>
+    <URL value="@../css/styles.css" />
+  </stylesheets>
 </GridPane>

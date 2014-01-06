@@ -267,7 +267,7 @@ public class FXMLControllerSetupScreen extends AbstractFXMLController {
 			break;
 		}
 
-		log.info("Infor about the game gathered : \"" + chosenGameMode + "\" mode activated");
+		log.info("Info about the game gathered : \"" + chosenGameMode + "\" mode activated");
 		log.info("Info about all " + playersToCreate.size() + " players successfully gathered");
 		log.info("Preparing to create " + playersToCreate.toString());
 		gameController.createGameFrom(choosenRules,playersToCreate,scene);

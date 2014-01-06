@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import utt.fr.rglb.main.java.dao.ConfigFileDaoException;
+import utt.fr.rglb.main.java.dao.ImageCardAssociator;
 import utt.fr.rglb.main.java.game.controller.GameControllerGraphicsOriented;
 import utt.fr.rglb.main.java.main.Server;
 import utt.fr.rglb.main.java.player.model.PlayersToCreate;
@@ -38,14 +39,14 @@ public class FXMLControllerWelcomeScreen extends AbstractFXMLController {
 
 	@Override
 	public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
-		this.gameController.backgroundLoadImages();
+		ImageCardAssociator imageCardAssociator = new ImageCardAssociator();
+		imageCardAssociator.backgroundLoadImages();
 		Text header = createSwaggifiedHeader("Welcome to our UNO");
 		headerGrid.add(header, 0, 0);
 	}
 
 	@FXML protected void handleDeclineButtonAction(ActionEvent event) {
 		try {
-			this.gameController.backgroundLoadImages();
 			Scene scene = headerGrid.getScene();
 			log.info("User not using configuration file, setup screen will now be displayed");
 			log.info("Loading JavaFX setup screen from file : \"setup.fxml\"");
@@ -86,7 +87,6 @@ public class FXMLControllerWelcomeScreen extends AbstractFXMLController {
 		try {
 			log.info("User not using configuration file, setup screen will now be displayed");
 			log.info("Loading JavaFX setup screen from file : \"setup.fxml\"");
-			log.warn(getClass().getResource("/utt/fr/rglb/main/ressources/fxml/setup.fxml").toExternalForm());
 			Parent root = FXMLLoader.load(getClass().getResource("/utt/fr/rglb/main/ressources/fxml/setup.fxml"));
 			scene.setRoot(root);
 		} catch (IOException e1) {

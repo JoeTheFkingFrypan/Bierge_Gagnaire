@@ -95,7 +95,7 @@ public class CardsControllerConsoleOriented extends AbstractCardsController {
 	/* ========================================= GLOBAL COLOR ========================================= */
 
 	@Override
-	public CardsModelBean getRequiredReferences() {
+	public CardsModelBean getReferences() {
 		return new CardsModelBean(showLastCardPlayed(), getGlobalColor(), this.view);
 	}
 

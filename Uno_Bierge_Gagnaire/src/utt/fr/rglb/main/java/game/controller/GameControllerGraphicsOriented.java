@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import utt.fr.rglb.main.java.cards.model.CardsModelBean;
 import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.game.model.GameModelGraphicsOriented;
 import utt.fr.rglb.main.java.game.model.GameRule;
@@ -39,6 +40,7 @@ public class GameControllerGraphicsOriented extends AbstractGameController {
 	
 	public void setCurrentFXMLController(FXMLControllerGameScreen fxmlController) {
 		this.fxmlController = fxmlController;
+		this.gameModel.setCurrentFXMLController(fxmlController);
 	}
 	
 	/* ========================================= INITIALIZING ========================================= */
@@ -56,7 +58,11 @@ public class GameControllerGraphicsOriented extends AbstractGameController {
 	 */
 	public void createGameFrom(GameRule choosenRules, PlayersToCreate playersToCreate, Scene scene) {
 		this.gameModel.initializeGameSettings(choosenRules,playersToCreate,scene);
-		log.info("Players successfully created");
+		log.info("Game successfully initialized, setting up first round");
+	}
+	
+	public void startGame(FXMLControllerGameScreen fxmlControllerGameScreen) {
+		setCurrentFXMLController(fxmlControllerGameScreen);
 		PlayerControllerBean winningPlayer = cycleUntilSomeoneWins();
 		handleWinEvent(winningPlayer);
 	}
@@ -97,24 +103,23 @@ public class GameControllerGraphicsOriented extends AbstractGameController {
 	@Override
 	protected PlayerControllerBean playOneRound() {
 		startNewRound();
-		PlayerControllerBean roundWinner = new PlayerControllerBean();
-		/*while(roundWinner.stillHasCards()) {
-			roundWinner = this.gameModel.playOneTurn();
-			if(roundWinner.hasAnnouncedUno()) {
-				handleUnoAnnoucement(roundWinner);
-			} else if(roundWinner.hasNoCardAndForgotToAnnounceUno()) {
-				handleMissingUnoAnnoucement(roundWinner);
-			}
-		}*/
-		return roundWinner;
+		PlayerControllerBean currentPlayer = new PlayerControllerBean();
+		//while(currentPlayer.stillHasCards()) {
+			currentPlayer = this.gameModel.playOneTurn();
+			/*if(currentPlayer.hasAnnouncedUno()) {
+				handleUnoAnnoucement(currentPlayer);
+			} else if(currentPlayer.hasNoCardAndForgotToAnnounceUno()) {
+				handleMissingUnoAnnoucement(currentPlayer);
+			}*/
+		//}
+		return currentPlayer;
 	}
-
+	
 	@Override
 	protected void startNewRound() {
 		log.info("--- Another round starting now ---");
 		this.gameModel.initializeCardsAndHands();
 		this.gameModel.drawFirstCardAndApplyItsEffect();
-		// TODO Auto-generated method stub
 	}
 
 	@Override
@@ -139,10 +144,6 @@ public class GameControllerGraphicsOriented extends AbstractGameController {
 		return this.gameModel.retrieveImageFromLastCardPlayed();
 	}
 
-	public void backgroundLoadImages() {
-		this.gameModel.backgroundLoadImages();
-	}
-
 	public Map<String, Collection<Card>> getAllCardsFromPlayers() {
 		return this.gameModel.getAllCardsFromPlayers();
 	}
@@ -153,5 +154,9 @@ public class GameControllerGraphicsOriented extends AbstractGameController {
 
 	public void removeCardsFromPlayers() {
 		this.gameModel.removeCardsFromPlayers();
+	}
+
+	public CardsModelBean getReferences() {
+		return this.gameModel.getReferences();
 	}
 }

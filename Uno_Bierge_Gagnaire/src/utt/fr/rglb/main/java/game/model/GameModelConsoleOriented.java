@@ -96,14 +96,14 @@ public class GameModelConsoleOriented extends AbstractGameModel {
 	
 	@Override
 	public PlayerControllerBean playOneTurn() {
-		CardsModelBean references = this.cardsController.getRequiredReferences();
+		CardsModelBean references = this.cardsController.getReferences();
 		PlayerControllerConsoleOriented currentPlayer = this.turnController.findNextPlayer();
 		if(currentPlayer.hasAtLeastOnePlayableCard(references)) {
 			chooseCardAndPlayIt(references, currentPlayer);
 		} else {
 			Card cardDrawn = this.cardsController.drawOneCard();
 			currentPlayer.pickUpOneCard(cardDrawn);
-			if(currentPlayer.hasAtLeastOnePlayableCard(references)) {
+			if(references.isCompatibleWith(cardDrawn)) {
 				chooseCardAndPlayIt(references, currentPlayer);
 			} else {
 				currentPlayer.unableToPlayThisTurn(references);

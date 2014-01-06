@@ -74,7 +74,7 @@ public abstract class AbstractCardsController implements Serializable {
 	 * Méthode permettant de récupérer les informations nécessaires à la vérification de la compatibilité d'une carte
 	 * @return Un bean comportant la carte dernièrement jouée (carte de référence) et la couleur globale
 	 */
-	public abstract CardsModelBean getRequiredReferences();
+	public abstract CardsModelBean getReferences();
 
 	/**
 	 * Méthode permettant de définir la couleur globale (Couleur choisie par l'utilisateur après utilisation d'un joker)

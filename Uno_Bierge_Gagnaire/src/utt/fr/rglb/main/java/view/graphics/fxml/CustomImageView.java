@@ -1,9 +1,7 @@
 package utt.fr.rglb.main.java.view.graphics.fxml;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import utt.fr.rglb.main.java.dao.ImageCardAssociator;
+
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.animation.ScaleTransition;
@@ -19,31 +17,55 @@ import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
 public class CustomImageView extends ImageView {
-	private static final Logger log = LoggerFactory.getLogger(CustomImageView.class);
 	private ScaleTransition scaleTransition;
 	private DoubleProperty expandToMaxProperty;
 	private Image idleImage;
 	private Image activeImage;
 	private String cssClass;
 	private boolean belongToActivePlayer;
+	private boolean belongToReferenceCard;
 	private boolean isCompatibleWithReferenceCard;
-	private CustomImageView thisCustomImageView;
+	private FXMLControllerGameScreen controller;
+	private int cardIndex;
 
-	public CustomImageView(Image img, final boolean isCompatibleWithReferenceCard) {
+	public CustomImageView(Image img, FXMLControllerGameScreen fxmlControllerGameScreen) {
 		super(ImageCardAssociator.retrieveIdleImage());
-		this.thisCustomImageView = this;
-		//Images
-		this.belongToActivePlayer = false;
+		this.controller = fxmlControllerGameScreen;
 		this.activeImage = img;
-		this.isCompatibleWithReferenceCard = isCompatibleWithReferenceCard;
+		this.cardIndex = 0;
+		this.belongToActivePlayer = false;
+		this.belongToReferenceCard = true;
+		this.isCompatibleWithReferenceCard = false;
 		this.idleImage = ImageCardAssociator.retrieveIdleImage();
-		
-		//Animation
+
+		//Animation Related
 		this.expandToMaxProperty = new SimpleDoubleProperty(1.2);
 		this.scaleTransition = new ScaleTransition(Duration.millis(200), this);
 		this.scaleTransition.setCycleCount(1);
 		this.scaleTransition.setInterpolator(Interpolator.EASE_BOTH);
+		setAnimations();
+	}
 
+	public CustomImageView(Image img, int cardIndex, final boolean isCompatibleWithReferenceCard, FXMLControllerGameScreen fxmlControllerGameScreen) {
+		super(ImageCardAssociator.retrieveIdleImage());
+		this.controller = fxmlControllerGameScreen;
+		//Images Related
+		this.activeImage = img;
+		this.cardIndex = cardIndex;
+		this.belongToActivePlayer = false;
+		this.belongToReferenceCard = false;
+		this.isCompatibleWithReferenceCard = isCompatibleWithReferenceCard;
+		this.idleImage = ImageCardAssociator.retrieveIdleImage();
+
+		//Animation Related
+		this.expandToMaxProperty = new SimpleDoubleProperty(1.2);
+		this.scaleTransition = new ScaleTransition(Duration.millis(200), this);
+		this.scaleTransition.setCycleCount(1);
+		this.scaleTransition.setInterpolator(Interpolator.EASE_BOTH);
+		setAnimations();
+	}
+
+	private void setAnimations() {
 		this.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent t) {
@@ -69,33 +91,15 @@ public class CustomImageView extends ImageView {
 		this.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent t) {
-				
-				RotateTransition rotatorPart1 = new RotateTransition(Duration.millis(100), thisCustomImageView);
-				rotatorPart1.setAxis(Rotate.Y_AXIS);
-				rotatorPart1.setFromAngle(0);
-				rotatorPart1.setToAngle(90);
-				rotatorPart1.setInterpolator(Interpolator.LINEAR);
-				rotatorPart1.setCycleCount(1);
-				rotatorPart1.setOnFinished(new EventHandler<ActionEvent>() {
-				    @Override
-				    public void handle(ActionEvent event) {
-				    	if(belongToActivePlayer) {
-							foldCard();
-							belongToActivePlayer = false;
-						} else {
-							showCard();
-							belongToActivePlayer = true;
-						}
-				    }
-				});
-		        RotateTransition rotatorPart2 = new RotateTransition(Duration.millis(100), thisCustomImageView);
-		        rotatorPart2.setAxis(Rotate.Y_AXIS);
-		        rotatorPart2.setFromAngle(-90);
-		        rotatorPart2.setToAngle(0);
-		        rotatorPart2.setInterpolator(Interpolator.LINEAR);
-		        rotatorPart2.setCycleCount(1);
-		        SequentialTransition sequentialTransition = new SequentialTransition(rotatorPart1,rotatorPart2);
-		        sequentialTransition.play();
+				if(!belongToActivePlayer) {
+					controller.displayMessage("Your cards are below");
+				} else {
+					if(!isCompatibleWithReferenceCard) {
+						controller.displayMessage("Card cannot be played");
+					} else {
+						controller.chooseThisCardAndPlayIt(cardIndex);
+					}	
+				}		
 			}
 		});
 	}
@@ -104,17 +108,53 @@ public class CustomImageView extends ImageView {
 		return expandToMaxProperty;
 	}
 
-	public void foldCard() {
+	private void foldCard() {
 		cssClass = "inactiveImageView";
+		belongToActivePlayer = false;
 		this.setImage(this.idleImage);
 	}
 
-	public void showCard() {
-		if(isCompatibleWithReferenceCard) {
-			cssClass = "activeCompatibleImageView";
-		} else {
-			cssClass = "activeIncompatibleImageView";
+	private void showCard() {
+		if(!belongToReferenceCard) {
+			if(isCompatibleWithReferenceCard) {
+				cssClass = "activeCompatibleImageView";
+			} else {
+				cssClass = "activeIncompatibleImageView";
+			}
 		}
+		belongToActivePlayer = true;
 		this.setImage(this.activeImage);
+	}
+
+	public SequentialTransition generateEffect() {
+		RotateTransition rotatorPart1 = new RotateTransition(Duration.millis(75), this);
+		rotatorPart1.setAxis(Rotate.Y_AXIS);
+		rotatorPart1.setFromAngle(0);
+		rotatorPart1.setToAngle(90);
+		rotatorPart1.setInterpolator(Interpolator.LINEAR);
+		rotatorPart1.setCycleCount(1);
+		rotatorPart1.setOnFinished(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				if(belongToActivePlayer) {
+					foldCard();
+				} else {
+					showCard();
+				}
+			}
+		});
+		/*TranslateTransition tt = new TranslateTransition(Duration.millis(2000), thisImageView);
+		tt.setToX(0);
+		tt.setToY(0);
+		tt.setCycleCount(1);
+		tt.setAutoReverse(true);
+		tt.play();*/
+		RotateTransition rotatorPart2 = new RotateTransition(Duration.millis(75), this);
+		rotatorPart2.setAxis(Rotate.Y_AXIS);
+		rotatorPart2.setFromAngle(-90);
+		rotatorPart2.setToAngle(0);
+		rotatorPart2.setInterpolator(Interpolator.LINEAR);
+		rotatorPart2.setCycleCount(1);
+		return new SequentialTransition(rotatorPart1,rotatorPart2);
 	}
 }
