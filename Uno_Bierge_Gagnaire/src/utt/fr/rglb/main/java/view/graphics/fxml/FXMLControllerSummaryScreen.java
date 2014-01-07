@@ -145,7 +145,6 @@ public class FXMLControllerSummaryScreen extends AbstractFXMLController {
 				} catch (IOException e1) {
 					throw new FXMLControllerException("[ERROR] While trying to load screen from \"game2players.fxml\"",e1);
 				}
-				
 			}
 		});
 		return goForIt;

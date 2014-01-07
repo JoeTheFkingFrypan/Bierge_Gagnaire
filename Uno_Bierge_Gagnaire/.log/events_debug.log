@@ -1,0 +1,58 @@
+22:07:12,937 DEBUG [Main] =========== STARTING UNO APP v.3.0 ===========
+22:07:16,926 DEBUG [Card] [CARTE NUMEROTEE] Numero=1, Couleur=RED
+22:07:16,926 DEBUG [Card] [CARTE NUMEROTEE] Numero=3, Couleur=RED
+22:07:16,926 DEBUG [Card] [CARTE NUMEROTEE] Numero=5, Couleur=RED
+22:07:16,926 DEBUG [Card] [CARTE NUMEROTEE] Numero=0, Couleur=BLUE
+22:07:16,926 DEBUG [Card] [CARTE NUMEROTEE] Numero=4, Couleur=YELLOW
+22:07:16,926 DEBUG [Card] [CARTE SPECIALE] Valeur=50, Couleur=JOKER, Effet=Le joueur actuel doit choisir une couleur
+22:07:16,926 DEBUG [Card] [CARTE SPECIALE] Valeur=50, Couleur=JOKER, Effet=Le joueur actuel doit choisir une couleur
+22:07:16,927 DEBUG [Card] [CARTE NUMEROTEE] Numero=9, Couleur=RED
+22:07:16,927 DEBUG [Card] [CARTE NUMEROTEE] Numero=1, Couleur=GREEN
+22:07:16,927 DEBUG [Card] [CARTE NUMEROTEE] Numero=2, Couleur=GREEN
+22:07:16,927 DEBUG [Card] [CARTE NUMEROTEE] Numero=5, Couleur=GREEN
+22:07:16,927 DEBUG [Card] [CARTE NUMEROTEE] Numero=6, Couleur=GREEN
+22:07:16,927 DEBUG [Card] [CARTE NUMEROTEE] Numero=7, Couleur=YELLOW
+22:07:16,927 DEBUG [Card] [CARTE NUMEROTEE] Numero=9, Couleur=YELLOW
+22:07:16,928 DEBUG [GameModelGraphicsOriented] triggerEffect
+22:07:16,928 DEBUG [FXMLControllerGameScreen] inc
+22:07:45,461 DEBUG [Main] =========== STARTING UNO APP v.3.0 ===========
+22:07:51,503 DEBUG [Main] =========== STARTING UNO APP v.3.0 ===========
+22:07:58,195 DEBUG [Card] [CARTE NUMEROTEE] Numero=6, Couleur=RED
+22:07:58,196 DEBUG [Card] [CARTE NUMEROTEE] Numero=9, Couleur=RED
+22:07:58,196 DEBUG [Card] [CARTE SPECIALE] Valeur=20, Couleur=RED, Effet=Le joueur suivant devra piocher 2 cartes
+22:07:58,196 DEBUG [Card] [CARTE NUMEROTEE] Numero=3, Couleur=BLUE
+22:07:58,196 DEBUG [Card] [CARTE NUMEROTEE] Numero=6, Couleur=BLUE
+22:07:58,196 DEBUG [Card] [CARTE NUMEROTEE] Numero=5, Couleur=GREEN
+22:07:58,196 DEBUG [Card] [CARTE NUMEROTEE] Numero=7, Couleur=YELLOW
+22:07:58,196 DEBUG [Card] [CARTE NUMEROTEE] Numero=7, Couleur=RED
+22:07:58,197 DEBUG [Card] [CARTE NUMEROTEE] Numero=1, Couleur=GREEN
+22:07:58,197 DEBUG [Card] [CARTE NUMEROTEE] Numero=4, Couleur=GREEN
+22:07:58,197 DEBUG [Card] [CARTE NUMEROTEE] Numero=5, Couleur=GREEN
+22:07:58,197 DEBUG [Card] [CARTE SPECIALE] Valeur=20, Couleur=GREEN, Effet=Le sens de jeu est inversé
+22:07:58,197 DEBUG [Card] [CARTE NUMEROTEE] Numero=9, Couleur=YELLOW
+22:07:58,197 DEBUG [Card] [CARTE SPECIALE] Valeur=50, Couleur=JOKER, Effet=Le joueur actuel doit choisir une couleur
+22:07:58,197 DEBUG [GameModelGraphicsOriented] triggerEffect
+22:07:58,197 DEBUG [FXMLControllerGameScreen] inc
+22:09:19,699 DEBUG [Main] =========== STARTING UNO APP v.3.0 ===========
+22:09:30,129 DEBUG [Main] =========== STARTING UNO APP v.3.0 ===========
+22:09:43,917 DEBUG [Main] =========== STARTING UNO APP v.3.0 ===========
+22:09:46,497 DEBUG [Card] [CARTE NUMEROTEE] Numero=7, Couleur=RED
+22:09:46,497 DEBUG [Card] [CARTE NUMEROTEE] Numero=8, Couleur=RED
+22:09:46,497 DEBUG [Card] [CARTE SPECIALE] Valeur=20, Couleur=RED, Effet=Le joueur suivant devra piocher 2 cartes
+22:09:46,497 DEBUG [Card] [CARTE NUMEROTEE] Numero=8, Couleur=BLUE
+22:09:46,497 DEBUG [Card] [CARTE SPECIALE] Valeur=20, Couleur=BLUE, Effet=Le joueur suivant devra passer son tour
+22:09:46,497 DEBUG [Card] [CARTE SPECIALE] Valeur=20, Couleur=BLUE, Effet=Le sens de jeu est inversé
+22:09:46,497 DEBUG [Card] [CARTE NUMEROTEE] Numero=5, Couleur=YELLOW
+22:09:46,498 DEBUG [Card] [CARTE NUMEROTEE] Numero=3, Couleur=RED
+22:09:46,498 DEBUG [Card] [CARTE NUMEROTEE] Numero=3, Couleur=BLUE
+22:09:46,498 DEBUG [Card] [CARTE NUMEROTEE] Numero=5, Couleur=BLUE
+22:09:46,498 DEBUG [Card] [CARTE NUMEROTEE] Numero=6, Couleur=BLUE
+22:09:46,498 DEBUG [Card] [CARTE SPECIALE] Valeur=20, Couleur=GREEN, Effet=Le joueur suivant devra passer son tour
+22:09:46,498 DEBUG [Card] [CARTE SPECIALE] Valeur=50, Couleur=JOKER, Effet=Le joueur actuel choisit une couleur et le joueur suivant devra piocher 4 cartes
+22:09:46,498 DEBUG [Card] [CARTE SPECIALE] Valeur=50, Couleur=JOKER, Effet=Le joueur actuel choisit une couleur et le joueur suivant devra piocher 4 cartes
+22:09:46,499 DEBUG [GameModelGraphicsOriented] triggerEffect
+22:09:46,499 DEBUG [FXMLControllerGameScreen] inc
+22:09:51,524 DEBUG [Main] =========== STARTING UNO APP v.3.0 ===========
+22:09:54,805 DEBUG [GameModelGraphicsOriented] switch first card
+22:09:54,806 DEBUG [GameModelGraphicsOriented] triggerEffect
+22:09:54,806 DEBUG [FXMLControllerGameScreen] inc

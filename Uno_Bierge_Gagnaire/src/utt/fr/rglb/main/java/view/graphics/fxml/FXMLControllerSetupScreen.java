@@ -1,5 +1,6 @@
 package utt.fr.rglb.main.java.view.graphics.fxml;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,6 +22,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -271,5 +274,12 @@ public class FXMLControllerSetupScreen extends AbstractFXMLController {
 		log.info("Info about all " + playersToCreate.size() + " players successfully gathered");
 		log.info("Preparing to create " + playersToCreate.toString());
 		gameController.createGameFrom(choosenRules,playersToCreate,scene);
+		try {
+			log.info("Loading JavaFX setup screen from file : \"game2players.fxml\"");
+			Parent root= FXMLLoader.load(getClass().getResource("/utt/fr/rglb/main/ressources/fxml/game2players.fxml"));
+			scene.setRoot(root);
+		} catch (IOException e1) {
+			throw new FXMLControllerException("[ERROR] While trying to load screen from \"game2players.fxml\"",e1);
+		}
 	}
 }
