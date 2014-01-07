@@ -82,6 +82,7 @@ public class GraphicsPlayers {
 	public List<CustomImageView> addCardToPlayer(int playerIndex, Collection<Card> cardsDrawn, CardsModelBean references) {
 		Preconditions.checkArgument(playerIndex >= 0 && playerIndex < this.players.size(),"[ERROR] player number is invalid");
 		PlayerControllerGraphicsOriented currentPlayer = this.players.get(playerIndex);
+		log.debug("Cards given to " + currentPlayer.getAlias());
 		currentPlayer.pickUpCards(cardsDrawn);
 		return getDisplayableCardsFromPlayer(playerIndex,references);
 	}

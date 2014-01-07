@@ -167,7 +167,11 @@ public class GameControllerGraphicsOriented extends AbstractGameController {
 	}
 
 	public GameFlag activePlayerChose(Card chosenCard, boolean stillHasCards, boolean hasAnnouncedUno) {
-		return this.gameModel.activePlayerChose(chosenCard);
+		GameFlag gameFlag = this.gameModel.activePlayerChose(chosenCard);
+		if(!stillHasCards) {
+			this.fxmlController.displayScores();
+		}
+		return gameFlag;
 	}
 
 	public void activePlayerCannotPlay() {

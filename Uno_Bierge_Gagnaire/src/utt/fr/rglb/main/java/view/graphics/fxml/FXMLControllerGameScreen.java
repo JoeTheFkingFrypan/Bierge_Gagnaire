@@ -43,7 +43,6 @@ import utt.fr.rglb.main.java.view.graphics.GraphicsReferences;
 public class FXMLControllerGameScreen extends AbstractFXMLController {
 	private static final Logger log = LoggerFactory.getLogger(FXMLControllerGameScreen.class);
 	private GameControllerGraphicsOriented gameController;
-	private GraphicsReferences currentGraphicsReferences;
 	private CustomImageView referenceImageView;
 	private GraphicsPlayers graphicsPlayers;
 	private Queue<String> textToDisplay;
@@ -84,7 +83,6 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 		handlePlayerTwo(references);
 		
 		this.gameController.applyEffectFromFirstCard(gameFlag);
-		log.debug("inc");
 		uncoverInitialCards(references);
 	}
 	
@@ -117,7 +115,7 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 	/* ========================================= TURN HANDLING ========================================= */
 
 	private void playOneMoreTurn(final boolean activePlayerNeedsCardsFlipping, final boolean nextPlayerNeedsCardFlipping) {
-		log.debug("playOneMoreTurn");
+		log.info("--Starting turn of " + this.graphicsPlayers.getAliasFromActivePlayer());
 		if(activePlayerNeedsCardsFlipping) {
 			SequentialTransition flip = this.graphicsPlayers.generateEffectFromActivePlayer();
 			flip.setOnFinished(new EventHandler<ActionEvent>() {
@@ -132,16 +130,11 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 		}
 	}
 	
-	//DEBUG
-	public void test(String alpha, int cardIndex) {
-		this.graphicsPlayers.test(alpha, cardIndex);
-	}
-	
 	/* ========================================= CARD PLAY ========================================= */
 	
 	public void chooseThisCardAndPlayIt(int cardIndex, CustomImageView thisImageView) {
-		log.debug("chooseThisCardAndPlayIt");
 		Card chosenCard = this.graphicsPlayers.chooseCardFromActivePlayerAt(cardIndex,thisImageView);
+		log.info("    --Played : " + chosenCard);
 		boolean stillHasCards = this.graphicsPlayers.findIfActivePlayerStillHasCards();
 		//FIXME cheated
 		int indexFromPlayer = this.graphicsPlayers.getIndexFromActivePlayer();
@@ -221,7 +214,7 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 				this.playerOneCardsGrid.add(view,this.playerOneCardsGrid.getChildren().size(),0);
 			}
 		} else {
-			this.playerOneCardsGrid.getChildren().clear();
+			this.playerTwoCardsGrid.getChildren().clear();
 			for(CustomImageView view : imageViewsFromCards) {
 				this.playerTwoCardsGrid.add(view,this.playerTwoCardsGrid.getChildren().size(),0);
 			}
@@ -235,6 +228,19 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 	}
 
 	/* ========================================= EFFECTS ========================================= */
+	
+	public void triggerReverseCurrentOrder(String message) {
+		log.debug("triggerReverseCurrentOrder");
+		SequentialTransition intermediateAnnoucement = annouceMessage(message);
+		intermediateAnnoucement.setOnFinished(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				playOneMoreTurn(true,true);
+			}		
+		});
+		intermediateAnnoucement.play();
+		
+	}
 	
 	public void triggerColorPicking(final boolean isRelatedToPlus4, final boolean continueToNextTurn) {
 		log.debug("triggerColorPicking");
@@ -344,13 +350,8 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 
 	public void triggerPlusX(final Collection<Card> cardsDrawn) {
 		log.debug("triggerPlusX");
-		
-		for(Card c : cardsDrawn) {
-			log.debug("           --- " + c.toString() + " ---");
-		}
 		SequentialTransition intermediateAnnoucement = annouceMessage("Forced to draw 2 cards");
 		addCardToPlayer(gameController.getIndexFromPreviousPlayer(),cardsDrawn);
-		//intermediateAnnoucement.getChildren().add(flip);
 		intermediateAnnoucement.setOnFinished(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -363,14 +364,6 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 
 	public void triggerBluffing(final Collection<Card> cardsDrawn, boolean isBluffing, boolean applyPenaltyToNextPlayer) {
 		log.debug("triggerBluffing");
-		if(isBluffing) {
-			log.debug("Call Bluff?");
-			//displayMessage("Call Bluff?");
-		}
-		for(Card c : cardsDrawn) {
-			log.debug("           --- " + c.toString() + " ---");
-		}
-		
 		SequentialTransition intermediateAnnoucement = annouceMessage("Forced to draw 4 cards");
 		addCardToPlayer(gameController.getIndexFromPreviousPlayer(),cardsDrawn);
 		//intermediateAnnoucement.getChildren().add(flip);
@@ -386,8 +379,14 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 
 	public void triggerSkipNextPlayer(String message) {
 		log.debug("triggerSkipNextPlayer");
-		displayMessage(message);
-		playOneMoreTurn(false,false);
+		SequentialTransition intermediateAnnoucement = annouceMessage(message);
+		intermediateAnnoucement.setOnFinished(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				playOneMoreTurn(false,false);
+			}		
+		});
+		intermediateAnnoucement.play();
 	}
 
 	/* ========================================= GAME LOGIC ========================================= */
@@ -443,35 +442,37 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 	}
 
 	public void playOneTurn(final GraphicsReferences graphicsReferences, boolean cardsFlippingRequired) {
-		log.debug("playOneTurn");
+		log.debug("playOneTurn " + cardsFlippingRequired);
 		final int playerIndex = graphicsReferences.getIndexFromActivePlayer();
-		this.currentGraphicsReferences = graphicsReferences;
 		this.graphicsPlayers.setActivePlayer(playerIndex);
 
-		SequentialTransition mainAnimation = annouceMessage("Your turn, " + this.graphicsPlayers.getAliasFromActivePlayer());
-		PauseTransition part02 = new PauseTransition(Duration.millis(1));
+		SequentialTransition mainAnimation = new SequentialTransition();
+		SequentialTransition annoucement = annouceMessage("Your turn, " + this.graphicsPlayers.getAliasFromActivePlayer());
+		mainAnimation.getChildren().addAll(annoucement);
 		if(cardsFlippingRequired) {
 			mainAnimation.getChildren().addAll(this.graphicsPlayers.generateEffectFromActivePlayer());
 		}
-		mainAnimation.getChildren().add(part02);
 		
-		part02.setOnFinished(new EventHandler<ActionEvent>() {
+		annoucement.setOnFinished(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				if(graphicsReferences.hasDrawnOneTime()) {
+					log.debug("Drawn 1 card");
 					SequentialTransition intermediateAnnoucement = annouceMessage("You've drawn 1 card");
 					addCardToPlayer(playerIndex,graphicsReferences.getFirstCardDrawn());
 					intermediateAnnoucement.setOnFinished(new EventHandler<ActionEvent>() {
 						@Override
 						public void handle(ActionEvent event) {
 							if(graphicsReferences.hasDrawnTwoTimes()) {
+								log.debug("Drawn 2 cards");
 								SequentialTransition innerAnnoucement = annouceMessage("You've drawn 1 card");
 								addCardToPlayer(playerIndex,graphicsReferences.getSecondCardDrawn());
 								innerAnnoucement.setOnFinished(new EventHandler<ActionEvent>() {
 									@Override
 									public void handle(ActionEvent event) {
 										if(graphicsReferences.hasNoPlayableCards()) {
-											SequentialTransition badLuckAnnoucement = annouceMessage("No cards playable");
+											log.debug("No playable cards");
+											SequentialTransition badLuckAnnoucement = annouceMessage("No playable cards");
 											SequentialTransition flipSide = graphicsPlayers.generateEffectFromActivePlayer();
 											badLuckAnnoucement.getChildren().add(flipSide);
 											flipSide.setOnFinished(new EventHandler<ActionEvent>() {
@@ -502,6 +503,7 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 			this.eventsAnnouncer.setText(message);
 		}
 		this.textToDisplay.add(message);
+		log.debug(this.textToDisplay.toString());
 		
 		FadeTransition displayAnimation = new FadeTransition(Duration.millis(750), this.eventsAnnouncer);
 		displayAnimation.setFromValue(0.0);
@@ -523,6 +525,7 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 			public void handle(ActionEvent event) {
 				textToDisplay.poll();
 				eventsAnnouncer.setText(textToDisplay.peek());
+				log.debug(textToDisplay.toString());
 			}
 		});
 		return annoucement;
@@ -536,5 +539,9 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 	public void setActivePlayer(int playerIndex) {
 		this.graphicsPlayers.setActivePlayer(playerIndex);
 	}
-	
+
+	public void displayScores() {
+		// TODO Auto-generated method stub
+		
+	}
 }

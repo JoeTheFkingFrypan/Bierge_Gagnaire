@@ -1,8 +1,5 @@
 package utt.fr.rglb.main.java.view.graphics;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import utt.fr.rglb.main.java.cards.model.basics.Card;
 import utt.fr.rglb.main.java.cards.model.basics.Color;
 import utt.fr.rglb.main.java.dao.ImageCardAssociator;
@@ -23,7 +20,6 @@ import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
 public class CustomImageView extends ImageView {
-	private static final Logger log = LoggerFactory.getLogger(CustomImageView.class);
 	private ScaleTransition scaleTransition;
 	private DoubleProperty expandToMaxProperty;
 	private Card activeCard;
@@ -98,10 +94,8 @@ public class CustomImageView extends ImageView {
 					controller.displayMessage("Your cards are below");
 				} else {
 					if(!isCompatibleWithReferenceCard) {
-						controller.test("Cannot be played",cardIndex);
 						controller.displayMessage("Card cannot be played");
 					} else {
-						controller.test("",cardIndex);
 						controller.chooseThisCardAndPlayIt(cardIndex,thisImageView);
 					}	
 				}		

@@ -34,7 +34,7 @@ public class GameModelGraphicsOriented extends AbstractGameModel {
 	private FXMLControllerGameScreen fxmlController;
 
 	/* ========================================= CONSTRUCTOR ========================================= */
-	
+
 	public GameModelGraphicsOriented(GraphicsView view) {
 		this.turnController = new TurnControllerGraphicsOriented(view);
 		this.cardsController = new CardsControllerGraphicsOriented(view);
@@ -44,9 +44,9 @@ public class GameModelGraphicsOriented extends AbstractGameModel {
 	public void setCurrentFXMLController(FXMLControllerGameScreen fxmlController) {
 		this.fxmlController = fxmlController;
 	}
-	
+
 	/* ========================================= INITIALIZING ========================================= */
-	
+
 	/**
 	 * Méthode permettant d'initialiser les paramètres (nombre de joueurs, nom de chacun des joueurs)
 	 */
@@ -63,7 +63,7 @@ public class GameModelGraphicsOriented extends AbstractGameModel {
 		ConfigurationReader configurationReader = new ConfigurationReader();
 		return configurationReader.readConfigurationAt("dist/config.ini");
 	}
-	
+
 	@Override
 	public void initializeCardsAndHands() {
 		this.cardsController.resetCards();
@@ -72,28 +72,28 @@ public class GameModelGraphicsOriented extends AbstractGameModel {
 			this.turnController.giveCardsToNextPlayer(cardsDrawn);
 		}
 	}
-	
+
 	@Override
 	public void resetEverything() {
 		this.cardsController.resetCards();
 		this.turnController.resetTurn();
 		this.gameRule.resetFlag();
 	}
-	
+
 	@Override
 	public void resetCards() {
 		this.cardsController.resetCards();
 	}
-	
+
 	/* ========================================= GAME LOGIC ========================================= */
-		
+
 	//DEBUG
 	public void playOneTurn(boolean needsCardFlipping) {
 		log.debug("playOneMoreTurn");
 		CardsModelBean references = this.cardsController.getReferences();
 		PlayerControllerGraphicsOriented currentPlayer = this.turnController.findNextPlayer();
 		GraphicsReferences graphicsReferences = new GraphicsReferences(references,this.turnController.getIndexFromActivePlayer());
-		
+
 		if(!currentPlayer.hasAtLeastOnePlayableCard(references)) {
 			Card firstCardDrawn = this.cardsController.drawOneCard();
 			if(references.isCompatibleWith(firstCardDrawn)) {
@@ -106,44 +106,39 @@ public class GameModelGraphicsOriented extends AbstractGameModel {
 		this.fxmlController.playOneTurn(graphicsReferences,needsCardFlipping);
 		//triggerEffect(currentPlayer);
 	}
-	
+
 	@Override
 	protected void chooseCardAndPlayIt(CardsModelBean gameModelbean, AbstractPlayerController currentPlayer) {}
-	
+
 	/* ========================================= EFFECTS ========================================= */
 
 	public GameFlag triggerEffectFromFirstCard() {
-		return this.cardsController.applyEffectFromAnotherFirstCard();
-		//DEBUG: 
-		//return GameFlag.PLUS_TWO;
-	}
-	
-	public void applyEffectFromFirstCard(GameFlag effectFromFirstCard) {
-		if(effectFromFirstCard.equals(GameFlag.PLUS_FOUR) || effectFromFirstCard.equals(GameFlag.PLUS_FOUR_BLUFFING)) {
-			log.debug("switch first card");
-			applyEffectFromFirstCard(triggerEffectFromFirstCard());
-		} else {
-			if(effectFromFirstCard.equals(GameFlag.SKIP)) {
-				this.turnController.skipNextPlayer();
-				int playerIndex = this.turnController.getIndexFromActivePlayer();
-				this.fxmlController.displayMessage("First player skipped");
-				this.fxmlController.setActivePlayer(playerIndex);
-			} else if(effectFromFirstCard.equals(GameFlag.REVERSE)) {
-				this.fxmlController.displayMessage("Turn order inverted");
-			} else if(effectFromFirstCard.equals(GameFlag.COLOR_PICK)) {
-				this.fxmlController.triggerColorPicking(false, false);
-			} else if(effectFromFirstCard.equals(GameFlag.PLUS_TWO)) {
-				Collection<Card> cards = this.cardsController.drawCards(2);
-				this.fxmlController.displayMessage("Forced to draw 2 cards");
-				this.fxmlController.addCardToPlayer(this.turnController.getIndexFromActivePlayer(),cards);
-				
-			}
-			
-			triggerEffect(effectFromFirstCard);
+		GameFlag effectFromFirstCard = this.cardsController.applyEffectFromAnotherFirstCard();
+		while(effectFromFirstCard.equals(GameFlag.PLUS_FOUR) || effectFromFirstCard.equals(GameFlag.PLUS_FOUR_BLUFFING)) {
+			log.info("First card was a +4, drawing another one as starter");
+			effectFromFirstCard = this.cardsController.applyEffectFromAnotherFirstCard();
 		}
-		//this.turnController.resetPlayerIndex();
+		return effectFromFirstCard;
 	}
-	
+
+	public void applyEffectFromFirstCard(GameFlag effectFromFirstCard) {
+		log.debug("applyEffectFromFirstCard");
+		if(effectFromFirstCard.equals(GameFlag.SKIP)) {
+			this.turnController.skipNextPlayer();
+			int playerIndex = this.turnController.getIndexFromActivePlayer();
+			this.fxmlController.displayMessage("First player skipped");
+			this.fxmlController.setActivePlayer(playerIndex);
+		} else if(effectFromFirstCard.equals(GameFlag.REVERSE)) {
+			this.fxmlController.displayMessage("Turn order inverted");
+		} else if(effectFromFirstCard.equals(GameFlag.COLOR_PICK)) {
+			this.fxmlController.triggerColorPicking(false, false);
+		} else if(effectFromFirstCard.equals(GameFlag.PLUS_TWO)) {
+			Collection<Card> cards = this.cardsController.drawCards(2);
+			this.fxmlController.displayMessage("Forced to draw 2 cards");
+			this.fxmlController.addCardToPlayer(this.turnController.getIndexFromActivePlayer(),cards);
+		}
+	}
+
 	protected void triggerEffect(GameFlag gameFlag) {
 		log.debug("triggerEffect");
 		if(this.gameRule.indicatesTwoPlayersMode()) {
@@ -152,17 +147,19 @@ public class GameModelGraphicsOriented extends AbstractGameModel {
 			triggerEffectWithMoreThanTwoPlayers(gameFlag);
 		}
 	}
-	
+
 	protected void triggerEffectWithOnlyTwoPlayers(GameFlag gameFlag) {
 		if(gameFlag.equals(GameFlag.REVERSE)) {
+			log.debug("custom reverse");
 			triggerSkipNextPlayer("Your turn again");
 		} else {
 			triggerEffectWithMoreThanTwoPlayers(gameFlag);
 		}
 	}
-	
+
 	protected void triggerEffectWithMoreThanTwoPlayers(GameFlag gameFlag) {
 		if(gameFlag.equals(GameFlag.REVERSE)) {
+			log.debug("classic reverse");
 			triggerReverseCurrentOrder();
 		} else if(gameFlag.equals(GameFlag.SKIP)) {
 			triggerSkipNextPlayer("Next player skipped");
@@ -176,15 +173,15 @@ public class GameModelGraphicsOriented extends AbstractGameModel {
 			triggerBluffing(4,true,true);
 		}
 	}
-	
+
 	/* ========================================= EFFECTS - BASIS ========================================= */
 
 	@Override
 	protected void triggerReverseCurrentOrder() {
-		this.fxmlController.displayMessage("Turn order inverted");
 		this.turnController.reverseCurrentOrder();
+		this.fxmlController.triggerReverseCurrentOrder("Turn order inverted");
 	}
-	
+
 	@Override
 	protected void triggerCycleSilently() {
 		this.turnController.cycleSilently();
@@ -194,11 +191,11 @@ public class GameModelGraphicsOriented extends AbstractGameModel {
 		this.turnController.skipNextPlayer();
 		this.fxmlController.triggerSkipNextPlayer(message);
 	}
-	
+
 	protected void triggerColorPicking(boolean isRelatedToPlus4) {
 		this.fxmlController.triggerColorPicking(isRelatedToPlus4,true);
 	}
-	
+
 	protected void triggerPlusX(int cardsToDraw) {
 		Collection<Card> cards = this.cardsController.drawCards(cardsToDraw);
 		this.fxmlController.triggerPlusX(cards);
@@ -208,17 +205,17 @@ public class GameModelGraphicsOriented extends AbstractGameModel {
 		Collection<Card> cards = this.cardsController.drawCards(cardsToDraw);
 		this.fxmlController.triggerBluffing(cards,isBluffing,applyPenaltyToNextPlayer);
 	}
-	
+
 	public void giveCardPenaltyTo(AbstractPlayerController currentPlayer, int cardCount) {
 		Collection<Card> cardPenalty = this.cardsController.drawCards(cardCount);
 		currentPlayer.isForcedToPickUpCards(cardPenalty);
 	}
-	
+
 	public void giveCardPenaltyTo(PlayerControllerBean player, int cardCount) {
 		Collection<Card> cardPenalty = this.cardsController.drawCards(cardCount);
 		player.isForcedToPickUpCards(cardPenalty);
 	}
-	
+
 	/* ========================================= SCORE ========================================= */
 
 	@Override
@@ -259,17 +256,17 @@ public class GameModelGraphicsOriented extends AbstractGameModel {
 			throw new ServerException("[ERROR] Something went wrong while waiting during score display",e);
 		}
 	}
-	
+
 	@Override
 	public boolean indicatesTeamPlayScoring() {
 		return this.gameRule.indicatesTeamPlayScoring();
 	}
-	
+
 	@Override
 	public PlayerTeam findWinningTeam(PlayerControllerBean winningPlayer) {
 		return this.turnController.findWinningTeam(winningPlayer);
 	}
-	
+
 
 	public Map<Integer, PlayerTeam> getAllTeams() {
 		return this.turnController.getAllTeams();
