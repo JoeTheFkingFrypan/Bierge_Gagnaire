@@ -3,9 +3,6 @@ package utt.fr.rglb.main.java.player.controller;
 import java.util.Collection;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javafx.animation.PauseTransition;
 import javafx.animation.SequentialTransition;
 import javafx.util.Duration;
@@ -20,9 +17,7 @@ import utt.fr.rglb.main.java.player.model.PlayerModel;
 import utt.fr.rglb.main.java.view.AbstractView;
 import utt.fr.rglb.main.java.view.graphics.CustomImageView;
 
-//FIXME
 public class PlayerControllerGraphicsOriented extends AbstractPlayerController {
-	private static final Logger log = LoggerFactory.getLogger(PlayerControllerGraphicsOriented.class);
 	private static final long serialVersionUID = 1L;
 	private List<CustomImageView> displayableCards;
 
@@ -158,7 +153,6 @@ public class PlayerControllerGraphicsOriented extends AbstractPlayerController {
 	}
 
 	public void updateCardsCompatibilityAndIndex(Card chosenCard) {
-		log.debug("updateCardsCompatibilityAndIndex " + chosenCard);
 		int currentCardIndex = 0;
 		for(CustomImageView imageView : this.displayableCards) {
 			imageView.setNewCompatibilityAndIndex(chosenCard,currentCardIndex);

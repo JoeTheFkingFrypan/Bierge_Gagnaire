@@ -4,12 +4,12 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import com.google.common.base.Preconditions;
 
 import javafx.scene.Scene;
 import utt.fr.rglb.main.java.cards.model.basics.Card;
-import utt.fr.rglb.main.java.player.controller.AbstractPlayerController;
 import utt.fr.rglb.main.java.player.controller.PlayerControllerBean;
 import utt.fr.rglb.main.java.player.controller.PlayerControllerGraphicsOriented;
 import utt.fr.rglb.main.java.player.model.PlayerTeam;
@@ -135,22 +135,21 @@ public class TurnControllerGraphicsOriented extends AbstractTurnController {
 
 	/* ========================================= SCORE ========================================= */
 
-	@Override
-	public void displayIndividualTotalScore() {
-		Collection<PlayerControllerGraphicsOriented> players = this.turnModel.getAllPlayers();
-		for(AbstractPlayerController currentPlayer : players) {
-			Integer currentScore = currentPlayer.getScore();
-			Integer pointsNeededToWin = 500 - currentScore;
+	public Map<String, Integer> displayIndividualTotalScore() {
+		Map<String,Integer> scores = new TreeMap<String,Integer>();
+		for(PlayerControllerGraphicsOriented currentPlayer : this.turnModel.getAllPlayers()) {
+			scores.put(currentPlayer.getAlias(), currentPlayer.getScore());
 		}
+		return scores;
 	}
 
-	@Override
 	public void displayTeamTotalScore() {
 		Map<Integer, PlayerTeam> teams = this.turnModel.getAllTeams();
 		for(Entry<Integer, PlayerTeam> teamEntry : teams.entrySet()) {
 			PlayerTeam currentTeam = teamEntry.getValue();
 			Integer currentScore = currentTeam.getScore();
-			Integer pointsNeededToWin = 500 - currentScore;	
+			@SuppressWarnings("unused")Integer pointsNeededToWin = 500 - currentScore;
+			//TODO; 
 		}
 	}
 

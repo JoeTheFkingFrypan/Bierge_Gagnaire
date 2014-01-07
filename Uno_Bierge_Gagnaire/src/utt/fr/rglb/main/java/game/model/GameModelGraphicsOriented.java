@@ -83,13 +83,13 @@ public class GameModelGraphicsOriented extends AbstractGameModel {
 	@Override
 	public void resetCards() {
 		this.cardsController.resetCards();
+		this.turnController.removeCardsFromPlayers();
+		this.turnController.resetPlayerIndex();
 	}
 
 	/* ========================================= GAME LOGIC ========================================= */
 
-	//DEBUG
 	public void playOneTurn(boolean needsCardFlipping) {
-		log.debug("playOneMoreTurn");
 		CardsModelBean references = this.cardsController.getReferences();
 		PlayerControllerGraphicsOriented currentPlayer = this.turnController.findNextPlayer();
 		GraphicsReferences graphicsReferences = new GraphicsReferences(references,this.turnController.getIndexFromActivePlayer());
@@ -104,7 +104,6 @@ public class GameModelGraphicsOriented extends AbstractGameModel {
 			}
 		}
 		this.fxmlController.playOneTurn(graphicsReferences,needsCardFlipping);
-		//triggerEffect(currentPlayer);
 	}
 
 	@Override
@@ -122,7 +121,6 @@ public class GameModelGraphicsOriented extends AbstractGameModel {
 	}
 
 	public void applyEffectFromFirstCard(GameFlag effectFromFirstCard) {
-		log.debug("applyEffectFromFirstCard");
 		if(effectFromFirstCard.equals(GameFlag.SKIP)) {
 			this.turnController.skipNextPlayer();
 			int playerIndex = this.turnController.getIndexFromActivePlayer();
@@ -140,7 +138,6 @@ public class GameModelGraphicsOriented extends AbstractGameModel {
 	}
 
 	protected void triggerEffect(GameFlag gameFlag) {
-		log.debug("triggerEffect");
 		if(this.gameRule.indicatesTwoPlayersMode()) {
 			triggerEffectWithOnlyTwoPlayers(gameFlag);
 		} else {
@@ -150,7 +147,6 @@ public class GameModelGraphicsOriented extends AbstractGameModel {
 
 	protected void triggerEffectWithOnlyTwoPlayers(GameFlag gameFlag) {
 		if(gameFlag.equals(GameFlag.REVERSE)) {
-			log.debug("custom reverse");
 			triggerSkipNextPlayer("Your turn again");
 		} else {
 			triggerEffectWithMoreThanTwoPlayers(gameFlag);
@@ -159,7 +155,6 @@ public class GameModelGraphicsOriented extends AbstractGameModel {
 
 	protected void triggerEffectWithMoreThanTwoPlayers(GameFlag gameFlag) {
 		if(gameFlag.equals(GameFlag.REVERSE)) {
-			log.debug("classic reverse");
 			triggerReverseCurrentOrder();
 		} else if(gameFlag.equals(GameFlag.SKIP)) {
 			triggerSkipNextPlayer("Next player skipped");
@@ -297,7 +292,6 @@ public class GameModelGraphicsOriented extends AbstractGameModel {
 	}
 
 	public GameFlag activePlayerChose(Card chosenCard) {
-		log.debug("activePlayerChose");
 		GameFlag gameFlag = this.cardsController.playCard(chosenCard);
 		triggerEffect(gameFlag);
 		return gameFlag;
@@ -309,5 +303,9 @@ public class GameModelGraphicsOriented extends AbstractGameModel {
 
 	public int getIndexFromPreviousPlayer() {
 		return this.turnController.getIndexFromPreviousPlayer();
+	}
+
+	public Map<String, Integer> displayIndividualTotalScore() {
+		return this.turnController.displayIndividualTotalScore();
 	}
 }

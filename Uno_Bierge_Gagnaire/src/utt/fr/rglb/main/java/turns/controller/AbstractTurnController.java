@@ -96,18 +96,6 @@ public abstract class AbstractTurnController implements Serializable {
 	 */
 	public abstract PlayerTeam findWinningTeam(PlayerControllerBean winningPlayer);
 	
-	/* ========================================= SCORE ========================================= */
-
-	/**
-	 * Méthode permettant d'afficher les scores de tous les joueurs
-	 */
-	public abstract void displayIndividualTotalScore();
-
-	/**
-	 * Méthode permettant d'afficher les scores de toutes les équipes
-	 */
-	public abstract void displayTeamTotalScore();
-	
 	/* ========================================= GETTERS & DISPLAY ========================================= */
 
 	/**

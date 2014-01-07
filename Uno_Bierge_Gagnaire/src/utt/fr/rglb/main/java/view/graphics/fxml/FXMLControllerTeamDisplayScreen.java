@@ -27,72 +27,61 @@ public class FXMLControllerTeamDisplayScreen extends AbstractFXMLController {
 	private GameControllerGraphicsOriented gameController;
 
 	@FXML private Button acceptButton;
-	@FXML private TableView<DataModel> teamDisplay;
-	@FXML private TableColumn<DataModel, String> teamName;
-	@FXML private TableColumn<DataModel, String> firstPlayer;
-	@FXML private TableColumn<DataModel, String> secondPlayer;
-	
+	@FXML private TableView<TeamModel> teamDisplay;
+	@FXML private TableColumn<TeamModel, String> teamName;
+	@FXML private TableColumn<TeamModel, String> firstPlayer;
+	@FXML private TableColumn<TeamModel, String> secondPlayer;
+
 	public FXMLControllerTeamDisplayScreen() {
 		this.gameController = Server.getGameController();
 	}
 
 	@FXML protected void handleContinueButtonAction(ActionEvent event) {
 		//try {
-			//Scene scene = acceptButton.getScene();
-			log.info("Loading JavaFX main game screen from file : \"game.fxml\"");
-			//Parent root = FXMLLoader.load(getClass().getResource("/utt/fr/rglb/main/ressources/fxml/setup.fxml"));
-			//scene.setRoot(root);
+		//Scene scene = acceptButton.getScene();
+		log.info("Loading JavaFX main game screen from file : \"game.fxml\"");
+		log.warn("Sorry, feature not yet implemented :(");
+		//Parent root = FXMLLoader.load(getClass().getResource("/utt/fr/rglb/main/ressources/fxml/setup.fxml"));
+		//scene.setRoot(root);
 		//} catch (IOException e) {
-			//throw new FXMLControllerException("[ERROR] While trying to load screen from \"setup.fxml\"",e);
+		//throw new FXMLControllerException("[ERROR] While trying to load screen from \"setup.fxml\"",e);
 		//}
 	}
-	
+
 	@Override
 	public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
 		Map<Integer, PlayerTeam> teams = this.gameController.getAllTeams();
-		ObservableList<DataModel> dataFromCurrentTeam = FXCollections.observableArrayList();
+		ObservableList<TeamModel> dataFromCurrentTeam = FXCollections.observableArrayList();
 		for(Entry<Integer, PlayerTeam> currentTeamEntry : teams.entrySet()) {
-			dataFromCurrentTeam.add(new DataModel(currentTeamEntry));
+			dataFromCurrentTeam.add(new TeamModel(currentTeamEntry));
 		}
-		if(teamName == null) {
-			log.error("teamName is null");
-		}
-		if(firstPlayer == null) {
-			log.error("firstPlayer is null");
-		}
-		if(secondPlayer == null) {
-			log.error("secondPlayer is null");
-		}
-		if(teamDisplay == null) {
-			log.error("teamDisplay is null");
-		}
-		teamName.setCellValueFactory(new PropertyValueFactory<DataModel,String>("teamName"));
-		firstPlayer.setCellValueFactory(new PropertyValueFactory<DataModel,String>("nameFromFirstPlayer"));
-		secondPlayer.setCellValueFactory(new PropertyValueFactory<DataModel,String>("nameFromSecondPlayer"));
+		teamName.setCellValueFactory(new PropertyValueFactory<TeamModel,String>("teamName"));
+		firstPlayer.setCellValueFactory(new PropertyValueFactory<TeamModel,String>("nameFromFirstPlayer"));
+		secondPlayer.setCellValueFactory(new PropertyValueFactory<TeamModel,String>("nameFromSecondPlayer"));
 		teamDisplay.setItems(dataFromCurrentTeam);
 	}
-	
-	 public static class DataModel {
+
+	public static class TeamModel {
 		private final SimpleStringProperty teamName;
 		private final SimpleStringProperty nameFromFirstPlayer;
-	    private final SimpleStringProperty nameFromSecondPlayer;
-	    
-	    public DataModel(Entry<Integer, PlayerTeam> teamEntry) {
-	    	this.teamName = new SimpleStringProperty("Team " + teamEntry.getKey());
-	    	this.nameFromFirstPlayer = new SimpleStringProperty(teamEntry.getValue().getNameFromFirstPlayer());
-	    	this.nameFromSecondPlayer = new SimpleStringProperty(teamEntry.getValue().getNameFromSecondPlayer());
-	    }
-		
-	    public String getTeamName() {
-	    	return teamName.get();
-	    }
-	    
-	    public String getNameFromFirstPlayer() {
-	    	return nameFromFirstPlayer.get();
-	    }
-	    
-	    public String getNameFromSecondPlayer() {
-	    	return nameFromSecondPlayer.get();
-	    }
+		private final SimpleStringProperty nameFromSecondPlayer;
+
+		public TeamModel(Entry<Integer, PlayerTeam> teamEntry) {
+			this.teamName = new SimpleStringProperty("Team " + teamEntry.getKey());
+			this.nameFromFirstPlayer = new SimpleStringProperty(teamEntry.getValue().getNameFromFirstPlayer());
+			this.nameFromSecondPlayer = new SimpleStringProperty(teamEntry.getValue().getNameFromSecondPlayer());
+		}
+
+		public String getTeamName() {
+			return teamName.get();
+		}
+
+		public String getNameFromFirstPlayer() {
+			return nameFromFirstPlayer.get();
+		}
+
+		public String getNameFromSecondPlayer() {
+			return nameFromSecondPlayer.get();
+		}
 	}
 }

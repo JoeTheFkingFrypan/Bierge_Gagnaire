@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import javafx.animation.SequentialTransition;
 import com.google.common.base.Preconditions;
 
@@ -16,7 +13,6 @@ import utt.fr.rglb.main.java.player.controller.PlayerControllerGraphicsOriented;
 import utt.fr.rglb.main.java.view.graphics.fxml.FXMLControllerGameScreen;
 
 public class GraphicsPlayers {
-	private static final Logger log = LoggerFactory.getLogger(GraphicsPlayers.class);
 	private FXMLControllerGameScreen fxmlControllerGameScreen;
 	private List<PlayerControllerGraphicsOriented> players;
 	private int indexFromActivePlayer; 
@@ -42,9 +38,7 @@ public class GraphicsPlayers {
 	
 	public void setActivePlayer(int indexFromActivePlayer) {
 		Preconditions.checkArgument(indexFromActivePlayer >= 0 && indexFromActivePlayer < this.players.size(),"[ERROR] player number is invalid");
-		log.debug("Old index = " + indexFromActivePlayer);
 		this.indexFromActivePlayer = indexFromActivePlayer;
-		log.debug("New index = " + indexFromActivePlayer);
 	}
 	
 	/* ========================================= FIRST TURN ========================================= */
@@ -56,13 +50,7 @@ public class GraphicsPlayers {
 	
 	/* ========================================= CARDS ========================================= */
 	
-	public void test(String alpha, int cardIndex) {
-		PlayerControllerGraphicsOriented player = this.players.get(this.indexFromActivePlayer);
-		log.debug("[" + player.getAlias() + " - CLICKED] (" + cardIndex + ") " + alpha + " " +  player.peekAtCard(cardIndex).toString());
-	}
-	
 	public Card chooseCardFromActivePlayerAt(int cardIndex, CustomImageView thisImageView) {
-		log.debug("chooseCardFromActivePlayerAt");
 		Card choosenCard = chooseCardFromPlayer(cardIndex,this.indexFromActivePlayer, thisImageView);
 		for(PlayerControllerGraphicsOriented currentPlayer : this.players) {
 			currentPlayer.updateCardsCompatibilityAndIndex(choosenCard);
@@ -71,18 +59,14 @@ public class GraphicsPlayers {
 	}
 
 	private Card chooseCardFromPlayer(int cardIndex, int playerNumber, CustomImageView thisImageView) {
-		log.debug("chooseCardFromPlayer");
 		PlayerControllerGraphicsOriented player = this.players.get(playerNumber);
-		log.debug("  //BEFORE : " + player.getNumberOfCardsInHand());
 		Card card = player.playCard(cardIndex,thisImageView);
-		log.debug("  //AFTER : " + player.getNumberOfCardsInHand());
 		return card;
 	}
 	
 	public List<CustomImageView> addCardToPlayer(int playerIndex, Collection<Card> cardsDrawn, CardsModelBean references) {
 		Preconditions.checkArgument(playerIndex >= 0 && playerIndex < this.players.size(),"[ERROR] player number is invalid");
 		PlayerControllerGraphicsOriented currentPlayer = this.players.get(playerIndex);
-		log.debug("Cards given to " + currentPlayer.getAlias());
 		currentPlayer.pickUpCards(cardsDrawn);
 		return getDisplayableCardsFromPlayer(playerIndex,references);
 	}
@@ -95,12 +79,9 @@ public class GraphicsPlayers {
 	}
 	
 	public void addCardToPlayer(int playerIndex, Card firstCardDrawn, CustomImageView imageView) {
-		log.debug("addCardToPlayer");
 		Preconditions.checkArgument(playerIndex >= 0 && playerIndex < this.players.size(),"[ERROR] player number is invalid");
 		PlayerControllerGraphicsOriented currentPlayer = this.players.get(playerIndex);
-		log.debug("  //BEFORE : " + currentPlayer.getNumberOfCardsInHand());
 		currentPlayer.pickUpOneCard(firstCardDrawn);
-		log.debug("  //AFTER : " + currentPlayer.getNumberOfCardsInHand());
 		currentPlayer.addCustomImageView(imageView);
 	}
 

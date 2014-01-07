@@ -1,9 +1,12 @@
 package utt.fr.rglb.main.java.game.controller;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 import org.slf4j.Logger;
@@ -20,6 +23,7 @@ import utt.fr.rglb.main.java.player.controller.PlayerControllerGraphicsOriented;
 import utt.fr.rglb.main.java.player.model.PlayerTeam;
 import utt.fr.rglb.main.java.player.model.PlayersToCreate;
 import utt.fr.rglb.main.java.view.graphics.GraphicsView;
+import utt.fr.rglb.main.java.view.graphics.fxml.FXMLControllerException;
 import utt.fr.rglb.main.java.view.graphics.fxml.FXMLControllerGameScreen;
 
 public class GameControllerGraphicsOriented extends AbstractGameController {
@@ -167,11 +171,11 @@ public class GameControllerGraphicsOriented extends AbstractGameController {
 	}
 
 	public GameFlag activePlayerChose(Card chosenCard, boolean stillHasCards, boolean hasAnnouncedUno) {
-		GameFlag gameFlag = this.gameModel.activePlayerChose(chosenCard);
-		if(!stillHasCards) {
-			this.fxmlController.displayScores();
+		if(stillHasCards) {
+			return this.fxmlController.displayScores();
+		} else {
+			return this.gameModel.activePlayerChose(chosenCard);
 		}
-		return gameFlag;
 	}
 
 	public void activePlayerCannotPlay() {
@@ -197,5 +201,21 @@ public class GameControllerGraphicsOriented extends AbstractGameController {
 
 	public void applyEffectFromFirstCard(GameFlag gameFlag) {
 		this.gameModel.applyEffectFromFirstCard(gameFlag);
+	}
+
+	public Map<String, Integer> displayIndividualTotalScore() {
+		return this.gameModel.displayIndividualTotalScore();
+	}
+
+	public void resetAllCardsAndStartNewRound(Scene scene) {
+		this.gameModel.resetCards();
+		startNewRound();
+		try {
+			log.info("Loading JavaFX setup screen from file : \"game2players.fxml\"");
+			Parent root= FXMLLoader.load(getClass().getResource("/utt/fr/rglb/main/ressources/fxml/game2players.fxml"));
+			scene.setRoot(root);
+		} catch (IOException e1) {
+			throw new FXMLControllerException("[ERROR] While trying to load screen from \"game2players.fxml\"",e1);
+		}
 	}
 }

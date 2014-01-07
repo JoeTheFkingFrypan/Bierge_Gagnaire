@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.LinkedList;
+import java.util.Map;
 import java.util.Queue;
 import java.util.ResourceBundle;
+import java.util.Map.Entry;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,13 +19,19 @@ import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.PauseTransition;
 import javafx.animation.SequentialTransition;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -81,11 +89,11 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 
 		handlePlayerOne(references);
 		handlePlayerTwo(references);
-		
+
 		this.gameController.applyEffectFromFirstCard(gameFlag);
 		uncoverInitialCards(references);
 	}
-	
+
 	private void handlePlayerOne(CardsModelBean references) {
 		playerOneName.setText(this.graphicsPlayers.getAliasFromPlayerNumber(0));
 		for(CustomImageView imageFromCard : this.graphicsPlayers.getDisplayableCardsFromPlayer(0, references)) {
@@ -111,7 +119,7 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 		startingAnimation.getChildren().add(mainAnimation);
 		startingAnimation.play();
 	}
-	
+
 	/* ========================================= TURN HANDLING ========================================= */
 
 	private void playOneMoreTurn(final boolean activePlayerNeedsCardsFlipping, final boolean nextPlayerNeedsCardFlipping) {
@@ -129,9 +137,9 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 			this.gameController.playOneTurn(nextPlayerNeedsCardFlipping);
 		}
 	}
-	
+
 	/* ========================================= CARD PLAY ========================================= */
-	
+
 	public void chooseThisCardAndPlayIt(int cardIndex, CustomImageView thisImageView) {
 		Card chosenCard = this.graphicsPlayers.chooseCardFromActivePlayerAt(cardIndex,thisImageView);
 		log.info("    --Played : " + chosenCard);
@@ -144,13 +152,12 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 			playOneMoreTurn(true,true);
 		}
 	}
-	
-	
+
+
 
 	/* ========================================= CARD DRAW ========================================= */
-	
+
 	private void setNewReference(int indexFromPlayer, CustomImageView thisImageView) {
-		log.debug("setNewReference");
 		thisImageView.setAsReference();
 		if(indexFromPlayer == 0) {
 			this.playerOneCardsGrid.getChildren().remove(thisImageView);
@@ -172,7 +179,7 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 		this.mainGrid.getChildren().remove(this.referenceImageView);
 		this.referenceImageView = thisImageView;
 		this.mainGrid.add(this.referenceImageView, 0, 1);
-		
+
 	}
 
 	private SequentialTransition addCardToInitialPlayer(Card card, CardsModelBean references) {
@@ -187,7 +194,6 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 	public SequentialTransition addCardToPlayer(int playerIndex, Collection<Card> cardsDrawn) {
 		Preconditions.checkState(this.graphicsPlayers != null);
 		Preconditions.checkNotNull(cardsDrawn);
-		log.debug("addCardToPlayer --collection");
 		List<CustomImageView> imageViewsFromCards = this.graphicsPlayers.addCardToPlayer(playerIndex, cardsDrawn,this.gameController.getReferences());
 		if(playerIndex == 0) {
 			this.playerOneCardsGrid.getChildren().clear();
@@ -202,11 +208,10 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 		}
 		return this.graphicsPlayers.generateEffectFromPlayer(playerIndex);
 	}		
-	
+
 	private void addCardToPlayer(int playerIndex, Card cardDrawn) {
 		Preconditions.checkState(this.graphicsPlayers != null);
 		Preconditions.checkNotNull(cardDrawn);
-		log.debug("addCardToPlayer");
 		List<CustomImageView> imageViewsFromCards = this.graphicsPlayers.addCardToPlayer(playerIndex, cardDrawn,this.gameController.getReferences());
 		if(playerIndex == 0) {
 			this.playerOneCardsGrid.getChildren().clear();
@@ -220,7 +225,7 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 			}
 		}
 	}
-	
+
 	private SequentialTransition displayCardDrawing(CustomImageView imageView) {
 		SequentialTransition flipSide = imageView.generateEffect();
 		PauseTransition pause = new PauseTransition(Duration.millis(1000));
@@ -228,9 +233,8 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 	}
 
 	/* ========================================= EFFECTS ========================================= */
-	
+
 	public void triggerReverseCurrentOrder(String message) {
-		log.debug("triggerReverseCurrentOrder");
 		SequentialTransition intermediateAnnoucement = annouceMessage(message);
 		intermediateAnnoucement.setOnFinished(new EventHandler<ActionEvent>() {
 			@Override
@@ -239,12 +243,10 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 			}		
 		});
 		intermediateAnnoucement.play();
-		
+
 	}
-	
+
 	public void triggerColorPicking(final boolean isRelatedToPlus4, final boolean continueToNextTurn) {
-		log.debug("triggerColorPicking");
-		
 		Button redButton = new Button("Choose RED");
 		redButton.getStyleClass().add("shiny-red");
 		redButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -253,19 +255,19 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 				Color chosenColor = Color.RED;
 				setGlobalColor(chosenColor);
 				gameController.activePlayerChoseColor(chosenColor);
-				
+
 				mainGrid.getChildren().remove(referenceImageView);
 				Image chosenImage = referenceImageView.retrieveAssociatedCardColor(chosenColor,isRelatedToPlus4);	
 				referenceImageView.setImage(chosenImage);
 				mainGrid.add(referenceImageView, 0, 1);
-				
+
 				eventsGrid.getChildren().clear();
 				if(continueToNextTurn) {
 					playOneMoreTurn(true,true);
 				}
 			}
 		});
-		
+
 		Button blueButton = new Button("Choose BLUE");
 		blueButton.getStyleClass().add("shiny-blue");
 		blueButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -279,14 +281,14 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 				Image chosenImage = referenceImageView.retrieveAssociatedCardColor(chosenColor,isRelatedToPlus4);	
 				referenceImageView.setImage(chosenImage);
 				mainGrid.add(referenceImageView, 0, 1);
-				
+
 				eventsGrid.getChildren().clear();
 				if(continueToNextTurn) {
 					playOneMoreTurn(true,true);
 				}
 			}
 		});
-		
+
 		Button greenButton = new Button("Choose GREEN");
 		greenButton.getStyleClass().add("shiny-green");
 		greenButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -295,19 +297,19 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 				Color chosenColor = Color.GREEN;
 				setGlobalColor(chosenColor);
 				gameController.activePlayerChoseColor(chosenColor);
-				
+
 				mainGrid.getChildren().remove(referenceImageView);
 				Image chosenImage = referenceImageView.retrieveAssociatedCardColor(chosenColor,isRelatedToPlus4);	
 				referenceImageView.setImage(chosenImage);
 				mainGrid.add(referenceImageView, 0, 1);
-				
+
 				eventsGrid.getChildren().clear();
 				if(continueToNextTurn) {
 					playOneMoreTurn(true,true);
 				}
 			}
 		});
-		
+
 		Button yellowButton = new Button("Choose YELLOW");
 		yellowButton.getStyleClass().add("shiny-yellow");
 		yellowButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -316,25 +318,25 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 				Color chosenColor = Color.YELLOW;
 				setGlobalColor(chosenColor);
 				gameController.activePlayerChoseColor(chosenColor);
-			
+
 				mainGrid.getChildren().remove(referenceImageView);
 				Image chosenImage = referenceImageView.retrieveAssociatedCardColor(chosenColor,isRelatedToPlus4);	
 				referenceImageView.setImage(chosenImage);
 				mainGrid.add(referenceImageView, 0, 1);
-				
+
 				eventsGrid.getChildren().clear();
 				if(continueToNextTurn) {
 					playOneMoreTurn(true,true);
 				}
 			}
 		});
-		
+
 		eventsGrid.add(redButton, 0, 3);
 		eventsGrid.add(blueButton, 1, 3);
 		eventsGrid.add(greenButton, 2, 3);
 		eventsGrid.add(yellowButton, 4, 3);	
 	}
-	
+
 	protected void setGlobalColor(Color chosenColor) {
 		ObservableList<Node> imageViews = this.playerOneCardsGrid.getChildren();
 		for(Node node : imageViews) {
@@ -349,7 +351,6 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 	}
 
 	public void triggerPlusX(final Collection<Card> cardsDrawn) {
-		log.debug("triggerPlusX");
 		SequentialTransition intermediateAnnoucement = annouceMessage("Forced to draw 2 cards");
 		addCardToPlayer(gameController.getIndexFromPreviousPlayer(),cardsDrawn);
 		intermediateAnnoucement.setOnFinished(new EventHandler<ActionEvent>() {
@@ -363,7 +364,6 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 	}
 
 	public void triggerBluffing(final Collection<Card> cardsDrawn, boolean isBluffing, boolean applyPenaltyToNextPlayer) {
-		log.debug("triggerBluffing");
 		SequentialTransition intermediateAnnoucement = annouceMessage("Forced to draw 4 cards");
 		addCardToPlayer(gameController.getIndexFromPreviousPlayer(),cardsDrawn);
 		//intermediateAnnoucement.getChildren().add(flip);
@@ -378,7 +378,6 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 	}
 
 	public void triggerSkipNextPlayer(String message) {
-		log.debug("triggerSkipNextPlayer");
 		SequentialTransition intermediateAnnoucement = annouceMessage(message);
 		intermediateAnnoucement.setOnFinished(new EventHandler<ActionEvent>() {
 			@Override
@@ -442,7 +441,6 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 	}
 
 	public void playOneTurn(final GraphicsReferences graphicsReferences, boolean cardsFlippingRequired) {
-		log.debug("playOneTurn " + cardsFlippingRequired);
 		final int playerIndex = graphicsReferences.getIndexFromActivePlayer();
 		this.graphicsPlayers.setActivePlayer(playerIndex);
 
@@ -452,26 +450,23 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 		if(cardsFlippingRequired) {
 			mainAnimation.getChildren().addAll(this.graphicsPlayers.generateEffectFromActivePlayer());
 		}
-		
+
 		annoucement.setOnFinished(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				if(graphicsReferences.hasDrawnOneTime()) {
-					log.debug("Drawn 1 card");
 					SequentialTransition intermediateAnnoucement = annouceMessage("You've drawn 1 card");
 					addCardToPlayer(playerIndex,graphicsReferences.getFirstCardDrawn());
 					intermediateAnnoucement.setOnFinished(new EventHandler<ActionEvent>() {
 						@Override
 						public void handle(ActionEvent event) {
 							if(graphicsReferences.hasDrawnTwoTimes()) {
-								log.debug("Drawn 2 cards");
 								SequentialTransition innerAnnoucement = annouceMessage("You've drawn 1 card");
 								addCardToPlayer(playerIndex,graphicsReferences.getSecondCardDrawn());
 								innerAnnoucement.setOnFinished(new EventHandler<ActionEvent>() {
 									@Override
 									public void handle(ActionEvent event) {
 										if(graphicsReferences.hasNoPlayableCards()) {
-											log.debug("No playable cards");
 											SequentialTransition badLuckAnnoucement = annouceMessage("No playable cards");
 											SequentialTransition flipSide = graphicsPlayers.generateEffectFromActivePlayer();
 											badLuckAnnoucement.getChildren().add(flipSide);
@@ -495,7 +490,7 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 		});
 		mainAnimation.play();
 	}
-	
+
 	/* ========================================= UTILS ========================================= */
 
 	private SequentialTransition annouceMessage(final String message) {
@@ -503,8 +498,7 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 			this.eventsAnnouncer.setText(message);
 		}
 		this.textToDisplay.add(message);
-		log.debug(this.textToDisplay.toString());
-		
+
 		FadeTransition displayAnimation = new FadeTransition(Duration.millis(750), this.eventsAnnouncer);
 		displayAnimation.setFromValue(0.0);
 		displayAnimation.setToValue(1.0);
@@ -525,7 +519,6 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 			public void handle(ActionEvent event) {
 				textToDisplay.poll();
 				eventsAnnouncer.setText(textToDisplay.peek());
-				log.debug(textToDisplay.toString());
 			}
 		});
 		return annoucement;
@@ -535,13 +528,90 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 		SequentialTransition coolMessage = annouceMessage(message);
 		coolMessage.play();
 	}
-	
+
 	public void setActivePlayer(int playerIndex) {
 		this.graphicsPlayers.setActivePlayer(playerIndex);
 	}
 
-	public void displayScores() {
-		// TODO Auto-generated method stub
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public GameFlag displayScores() {
+		log.info("One player used all his cards, displaying scores");
 		
+		this.mainGrid.getChildren().clear();
+		this.mainGrid.setAlignment(Pos.CENTER);
+
+		Map<String, Integer> scores = this.gameController.displayIndividualTotalScore();
+		ObservableList<ScoreModel> dataFromPlayers = FXCollections.observableArrayList();
+		for(Entry<String, Integer> currentScoreEntry : scores.entrySet()) {
+			dataFromPlayers.add(new ScoreModel(currentScoreEntry));
+		}
+		
+		TableView table = new TableView();
+		table.setEditable(false);
+		
+		TableColumn playerNameColumn = new TableColumn("Player");
+		playerNameColumn.setCellValueFactory(new PropertyValueFactory<ScoreModel,String>("playerName"));
+		playerNameColumn.setMinWidth(200);
+		
+		TableColumn totalScoreColumn = new TableColumn("Score");
+		totalScoreColumn.setCellValueFactory(new PropertyValueFactory<ScoreModel,String>("totalScore"));
+		totalScoreColumn.setMinWidth(200);
+		
+		TableColumn pointsToVictoryColumn = new TableColumn("Points to Victory");
+		pointsToVictoryColumn.setCellValueFactory(new PropertyValueFactory<ScoreModel,String>("pointsToVictory"));
+		pointsToVictoryColumn.setMinWidth(200);
+		
+		table.getColumns().addAll(playerNameColumn,totalScoreColumn,pointsToVictoryColumn);
+		table.setItems(dataFromPlayers);
+		
+		Button goBackToGame = createValidationButton();
+		
+		this.mainGrid.add(table,0,0);
+		this.mainGrid.add(goBackToGame,0,0);
+		return GameFlag.GRAPHICS_GAME_WON;
+	}
+
+	public static class ScoreModel {
+		private final SimpleStringProperty playerName;
+		private final SimpleStringProperty totalScore;
+		private final SimpleStringProperty pointsToVictory;
+
+		public ScoreModel(Entry<String, Integer> scoreEntry) {
+			Integer pointsNeededToWin = 500 - scoreEntry.getValue();
+			this.playerName = new SimpleStringProperty(scoreEntry.getKey());
+			this.totalScore = new SimpleStringProperty(scoreEntry.getValue().toString());
+			this.pointsToVictory = new SimpleStringProperty(pointsNeededToWin.toString());
+		}
+
+		public String getPlayerName() {
+			return playerName.get();
+		}
+
+		public String getTotalScore() {
+			return totalScore.get();
+		}
+
+		public String getPointsToVictory() {
+			return pointsToVictory.get();
+		}
+	}
+	
+	/**
+	 * Méthode permettant de créer le bouton qui sert à passer à l'écran suivant<br/>
+	 * Quand l'utilisateur clique sur ce bouton, des vérifications sont faites pour s'assurer que les données entrées sont valides<br/>
+	 * Tant que les données ne sont pas valides, l'utilisateur ne quitte pas cet écran
+	 * @return Un bouton (JavaFX)
+	 */
+	private Button createValidationButton() {
+		Button goForIt = new Button("Cool, but let's fight again");
+		goForIt.getStyleClass().add("acceptButton");
+		goForIt.setOnAction(new EventHandler<ActionEvent>() {
+			@Override public void handle(ActionEvent e) {
+				log.info("Enough of score display, time for real business");
+				mainGrid.getChildren().clear();
+				gameController.resetAllCardsAndStartNewRound(mainGrid.getScene());
+			}
+		});
+		return goForIt;
 	}
 }

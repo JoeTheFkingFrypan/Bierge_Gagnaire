@@ -27,7 +27,7 @@ public class Main {
 		DOMConfigurator.configure("./src/utt/fr/rglb/main/ressources/config/log4j.xml");
 		BasicConfigurator.configure();
 		log.info("=========== STARTING UNO APP v.3.0 ===========");
-		log.debug("=========== STARTING UNO APP v.3.0 ===========");
+		//log.debug("=========== STARTING UNO APP v.3.0 ===========");
 		boolean graphicsGameWanted = parseProgramArgument(args);
 		try {
 			if(graphicsGameWanted) {

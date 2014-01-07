@@ -148,7 +148,6 @@ public class TurnControllerConsoleOriented extends AbstractTurnController {
 	
 	/* ========================================= SCORE ========================================= */
 
-	@Override
 	public void displayIndividualTotalScore() {
 		Collection<PlayerControllerConsoleOriented> players = this.turnModel.getAllPlayers();
 		this.view.displayOneLineOfJokerText("Scores are now : ");
@@ -159,7 +158,6 @@ public class TurnControllerConsoleOriented extends AbstractTurnController {
 		}
 	}
 
-	@Override
 	public void displayTeamTotalScore() {
 		Map<Integer, PlayerTeam> teams = this.turnModel.getAllTeams();
 		this.view.displayOneLineOfJokerText("Scores are now : ");

@@ -62,7 +62,9 @@ public class TurnModelGraphicsOriented extends AbstractTurnModel {
 	public void resetTurn() {
 		this.turnOrder = TurnOrder.CLOCKWISE;
 		this.players.clear();
-		this.teams.clear();
+		if(this.teams != null) {
+			this.teams.clear();
+		}
 		resetPlayerIndex();
 	}
 	
