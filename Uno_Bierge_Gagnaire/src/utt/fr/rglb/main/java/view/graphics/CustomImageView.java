@@ -1,6 +1,12 @@
-package utt.fr.rglb.main.java.view.graphics.fxml;
+package utt.fr.rglb.main.java.view.graphics;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import utt.fr.rglb.main.java.cards.model.basics.Card;
+import utt.fr.rglb.main.java.cards.model.basics.Color;
 import utt.fr.rglb.main.java.dao.ImageCardAssociator;
+import utt.fr.rglb.main.java.view.graphics.fxml.FXMLControllerGameScreen;
 
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
@@ -17,8 +23,10 @@ import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
 public class CustomImageView extends ImageView {
+	private static final Logger log = LoggerFactory.getLogger(CustomImageView.class);
 	private ScaleTransition scaleTransition;
 	private DoubleProperty expandToMaxProperty;
+	private Card activeCard;
 	private Image idleImage;
 	private Image activeImage;
 	private String cssClass;
@@ -28,44 +36,39 @@ public class CustomImageView extends ImageView {
 	private FXMLControllerGameScreen controller;
 	private int cardIndex;
 
-	public CustomImageView(Image img, FXMLControllerGameScreen fxmlControllerGameScreen) {
+	/* ========================================= CONSTRUCTOR ========================================= */
+	
+	public CustomImageView(Card card, FXMLControllerGameScreen fxmlControllerGameScreen) {
 		super(ImageCardAssociator.retrieveIdleImage());
-		this.controller = fxmlControllerGameScreen;
-		this.activeImage = img;
 		this.cardIndex = 0;
+		this.activeCard = card;
+		this.activeImage = ImageCardAssociator.retrieveImageFromIndex(card.getImageIndex());
+		this.controller = fxmlControllerGameScreen;
 		this.belongToActivePlayer = false;
 		this.belongToReferenceCard = true;
 		this.isCompatibleWithReferenceCard = false;
-		this.idleImage = ImageCardAssociator.retrieveIdleImage();
-
-		//Animation Related
-		this.expandToMaxProperty = new SimpleDoubleProperty(1.2);
-		this.scaleTransition = new ScaleTransition(Duration.millis(200), this);
-		this.scaleTransition.setCycleCount(1);
-		this.scaleTransition.setInterpolator(Interpolator.EASE_BOTH);
 		setAnimations();
 	}
 
-	public CustomImageView(Image img, int cardIndex, final boolean isCompatibleWithReferenceCard, FXMLControllerGameScreen fxmlControllerGameScreen) {
+	public CustomImageView(Card card, int cardIndex, final boolean isCompatibleWithReferenceCard, FXMLControllerGameScreen fxmlControllerGameScreen) {
 		super(ImageCardAssociator.retrieveIdleImage());
-		this.controller = fxmlControllerGameScreen;
-		//Images Related
-		this.activeImage = img;
 		this.cardIndex = cardIndex;
+		this.activeCard = card;
+		this.activeImage = ImageCardAssociator.retrieveImageFromIndex(card.getImageIndex());
+		this.controller = fxmlControllerGameScreen;
 		this.belongToActivePlayer = false;
 		this.belongToReferenceCard = false;
 		this.isCompatibleWithReferenceCard = isCompatibleWithReferenceCard;
-		this.idleImage = ImageCardAssociator.retrieveIdleImage();
-
-		//Animation Related
+		setAnimations();
+	}
+	
+	private void setAnimations() {
+		final CustomImageView thisImageView = this;
 		this.expandToMaxProperty = new SimpleDoubleProperty(1.2);
 		this.scaleTransition = new ScaleTransition(Duration.millis(200), this);
 		this.scaleTransition.setCycleCount(1);
 		this.scaleTransition.setInterpolator(Interpolator.EASE_BOTH);
-		setAnimations();
-	}
-
-	private void setAnimations() {
+		this.idleImage = ImageCardAssociator.retrieveIdleImage();
 		this.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent t) {
@@ -95,9 +98,11 @@ public class CustomImageView extends ImageView {
 					controller.displayMessage("Your cards are below");
 				} else {
 					if(!isCompatibleWithReferenceCard) {
+						controller.test("Cannot be played",cardIndex);
 						controller.displayMessage("Card cannot be played");
 					} else {
-						controller.chooseThisCardAndPlayIt(cardIndex);
+						controller.test("",cardIndex);
+						controller.chooseThisCardAndPlayIt(cardIndex,thisImageView);
 					}	
 				}		
 			}
@@ -108,13 +113,19 @@ public class CustomImageView extends ImageView {
 		return expandToMaxProperty;
 	}
 
+	public int getColumnIndex() {
+		return this.cardIndex;
+	}
+	
 	private void foldCard() {
+		this.getStyleClass().remove(cssClass);
 		cssClass = "inactiveImageView";
 		belongToActivePlayer = false;
 		this.setImage(this.idleImage);
 	}
 
 	private void showCard() {
+		this.getStyleClass().remove(cssClass);
 		if(!belongToReferenceCard) {
 			if(isCompatibleWithReferenceCard) {
 				cssClass = "activeCompatibleImageView";
@@ -143,12 +154,6 @@ public class CustomImageView extends ImageView {
 				}
 			}
 		});
-		/*TranslateTransition tt = new TranslateTransition(Duration.millis(2000), thisImageView);
-		tt.setToX(0);
-		tt.setToY(0);
-		tt.setCycleCount(1);
-		tt.setAutoReverse(true);
-		tt.play();*/
 		RotateTransition rotatorPart2 = new RotateTransition(Duration.millis(75), this);
 		rotatorPart2.setAxis(Rotate.Y_AXIS);
 		rotatorPart2.setFromAngle(-90);
@@ -156,5 +161,28 @@ public class CustomImageView extends ImageView {
 		rotatorPart2.setInterpolator(Interpolator.LINEAR);
 		rotatorPart2.setCycleCount(1);
 		return new SequentialTransition(rotatorPart1,rotatorPart2);
+	}
+
+	public void setNewCompatibilityAndIndex(Card choosenCard, int cardIndex) {
+		this.isCompatibleWithReferenceCard = choosenCard.isCompatibleWith(this.activeCard);
+		this.cardIndex = cardIndex;
+	}
+	
+	public void setAsReference() {
+		this.belongToActivePlayer = false;
+		this.belongToReferenceCard = true;
+		this.isCompatibleWithReferenceCard = false;
+	}
+
+	public Image retrieveAssociatedCardColor(Color chosenColor, boolean isRelatedToPlus4) {
+		if(isRelatedToPlus4) {
+			return ImageCardAssociator.retrieveCustomPlusFourImage(chosenColor);
+		} else {
+			return ImageCardAssociator.retrieveCustomJokerImage(chosenColor);
+		}
+	}
+
+	public void setGlobalColor(Color chosenColor) {
+		this.isCompatibleWithReferenceCard = this.isCompatibleWithReferenceCard || this.activeCard.getColor().equals(chosenColor);
 	}
 }

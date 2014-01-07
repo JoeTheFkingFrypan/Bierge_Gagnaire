@@ -11,6 +11,7 @@ import utt.fr.rglb.main.java.cards.model.basics.Color;
 import utt.fr.rglb.main.java.console.model.InputReader;
 import utt.fr.rglb.main.java.player.model.PlayerModel;
 import utt.fr.rglb.main.java.view.AbstractView;
+import utt.fr.rglb.main.java.view.graphics.CustomImageView;
 
 public abstract class AbstractPlayerController implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -54,9 +55,22 @@ public abstract class AbstractPlayerController implements Serializable {
 	/**
 	 * Méthode permettant de jouer une carte
 	 * @param index Index de la carte
+	 * @param thisImageView 
 	 * @return Carte selectionnée
 	 */
 	public Card playCard(int index) {
+		Preconditions.checkState(this.player.getNumberOfCardsInHand() > 0, "[ERROR] Impossible to play a card : player has none");
+		Preconditions.checkArgument(index >= 0 && index < this.player.getNumberOfCardsInHand(),"[ERROR] Incorrect index : must be > 0 (tried = " + index + ", but max is = " + this.player.getNumberOfCardsInHand());
+		return this.player.playCard(index);
+	}
+	
+	/**
+	 * Méthode permettant de jouer une carte
+	 * @param index Index de la carte
+	 * @param thisImageView 
+	 * @return Carte selectionnée
+	 */
+	public Card playCard(int index, CustomImageView thisImageView) {
 		Preconditions.checkState(this.player.getNumberOfCardsInHand() > 0, "[ERROR] Impossible to play a card : player has none");
 		Preconditions.checkArgument(index >= 0 && index < this.player.getNumberOfCardsInHand(),"[ERROR] Incorrect index : must be > 0 (tried = " + index + ", but max is = " + this.player.getNumberOfCardsInHand());
 		return this.player.playCard(index);

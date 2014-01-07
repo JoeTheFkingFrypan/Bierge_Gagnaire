@@ -36,7 +36,7 @@ public class TurnModelGraphicsOriented extends AbstractTurnModel {
 	public TurnModelGraphicsOriented() {
 		this.turnOrder = TurnOrder.CLOCKWISE;
 		this.players = new ArrayList<PlayerControllerGraphicsOriented>();
-		this.currentPlayerIndex = -1;
+		this.currentPlayerIndex = 0; //-1
 		this.teams = null;
 	}
 	
@@ -45,9 +45,9 @@ public class TurnModelGraphicsOriented extends AbstractTurnModel {
 	@Override
 	public void resetPlayerIndex() {
 		if(indicatesDefaultTurnOrder()) {
-			this.currentPlayerIndex = -1;
+			this.currentPlayerIndex = 0; //-1
 		} else {
-			this.currentPlayerIndex = this.players.size();
+			this.currentPlayerIndex = this.players.size() - 1;
 		}
 	}
 
@@ -420,5 +420,21 @@ public class TurnModelGraphicsOriented extends AbstractTurnModel {
 
 	public int getIndexFromActivePlayer() {
 		return this.currentPlayerIndex;
+	}
+	
+	public int getIndexFromPreviousPlayer() {
+		if(this.indicatesDefaultTurnOrder()) {
+			return findPreviousPlayerIndex();
+		} else {
+			return findNextPlayerIndex();
+		}
+	}
+
+	public int getIndexFromNextPlayer() {
+		if(this.indicatesDefaultTurnOrder()) {
+			return findNextPlayerIndex();
+		} else {
+			return findPreviousPlayerIndex();
+		}
 	}
 }

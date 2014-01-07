@@ -205,4 +205,10 @@ public class CardsModelBean implements Serializable {
 			this.consoleView.displayTextBasedOnItsColor("* And global color is set to ",this.globalColor,"[RED]","[BLUE]","[GREEN]","[YELLOW]");		
 		}
 	}
+
+	
+	@Override
+	public String toString() {
+		return this.globalColor.toString() + " & " + this.lastCardPlayed.toString();
+	}
 }

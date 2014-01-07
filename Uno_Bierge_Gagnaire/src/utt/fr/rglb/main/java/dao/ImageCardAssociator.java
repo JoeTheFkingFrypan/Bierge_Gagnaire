@@ -25,8 +25,8 @@ public class ImageCardAssociator  {
 	}
 	
 	public void backgroundLoadImages() {
-		log.info("Background loading of all 55 images from cards");
-		ImageCardAssociator.imagesFromCards = new Image[55];
+		log.info("Background loading of all 63 images from cards");
+		ImageCardAssociator.imagesFromCards = new Image[63];
 		loadAllImagesFromCards();
 		log.info("Loading complete (100%)");
 	}
@@ -40,20 +40,28 @@ public class ImageCardAssociator  {
 		int imagesAlreadyLoaded = 0;
 		String currentColor = Color.RED.toString().toLowerCase();
 		imagesAlreadyLoaded = loadImagesFromCardsWithSpecificColor(currentColor, imagesAlreadyLoaded);
-		log.info("    |--  Loading progress (" + ((imagesAlreadyLoaded*100)/55) +  "%)");
+		log.info("    |--  Loading progress (" + ((imagesAlreadyLoaded*100)/63) +  "%)");
 		currentColor = Color.BLUE.toString().toLowerCase();
 		imagesAlreadyLoaded = loadImagesFromCardsWithSpecificColor(currentColor, imagesAlreadyLoaded);
-		log.info("    |--  Loading progress (" + ((imagesAlreadyLoaded*100)/55) +  "%)");
+		log.info("    |--  Loading progress (" + ((imagesAlreadyLoaded*100)/63) +  "%)");
 		currentColor = Color.YELLOW.toString().toLowerCase();
 		imagesAlreadyLoaded = loadImagesFromCardsWithSpecificColor(currentColor, imagesAlreadyLoaded);
-		log.info("    |--  Loading progress (" + ((imagesAlreadyLoaded*100)/55) +  "%)");
+		log.info("    |--  Loading progress (" + ((imagesAlreadyLoaded*100)/63) +  "%)");
 		currentColor = Color.GREEN.toString().toLowerCase();
 		imagesAlreadyLoaded = loadImagesFromCardsWithSpecificColor(currentColor, imagesAlreadyLoaded);
-		log.info("    |--  Loading progress (" + ((imagesAlreadyLoaded*100)/55) +  "%)");
+		log.info("    |--  Loading progress (" + ((imagesAlreadyLoaded*100)/63) +  "%)");
 		currentColor = Color.JOKER.toString().toLowerCase();
 		ImageCardAssociator.imagesFromCards[imagesAlreadyLoaded++] = new Image(this.path + currentColor + "Joker" + this.extension, this.width,this.height,true,true,true);
 		ImageCardAssociator.imagesFromCards[imagesAlreadyLoaded++] = new Image(this.path + currentColor + "+4" + this.extension, this.width,this.height,true,true,true);
 		ImageCardAssociator.imagesFromCards[imagesAlreadyLoaded++] = new Image(this.path + "backOfCard" + this.extension, this.width,this.height,true,true,true);
+		ImageCardAssociator.imagesFromCards[imagesAlreadyLoaded++] = new Image(this.path + currentColor + "Joker_Red" + this.extension, this.width,this.height,true,true,true);
+		ImageCardAssociator.imagesFromCards[imagesAlreadyLoaded++] = new Image(this.path + currentColor + "Joker_Blue" + this.extension, this.width,this.height,true,true,true);
+		ImageCardAssociator.imagesFromCards[imagesAlreadyLoaded++] = new Image(this.path + currentColor + "Joker_Green" + this.extension, this.width,this.height,true,true,true);
+		ImageCardAssociator.imagesFromCards[imagesAlreadyLoaded++] = new Image(this.path + currentColor + "Joker_Yellow" + this.extension, this.width,this.height,true,true,true);
+		ImageCardAssociator.imagesFromCards[imagesAlreadyLoaded++] = new Image(this.path + currentColor + "+4_Red" + this.extension, this.width,this.height,true,true,true);
+		ImageCardAssociator.imagesFromCards[imagesAlreadyLoaded++] = new Image(this.path + currentColor + "+4_Blue" + this.extension, this.width,this.height,true,true,true);
+		ImageCardAssociator.imagesFromCards[imagesAlreadyLoaded++] = new Image(this.path + currentColor + "+4_Green" + this.extension, this.width,this.height,true,true,true);
+		ImageCardAssociator.imagesFromCards[imagesAlreadyLoaded++] = new Image(this.path + currentColor + "+4_Yellow" + this.extension, this.width,this.height,true,true,true);
 	}
 	
 	private int loadImagesFromCardsWithSpecificColor(String currentColor, int imagesAlreadyLoaded) {
@@ -70,5 +78,29 @@ public class ImageCardAssociator  {
 
 	public static Image retrieveIdleImage() {
 		return ImageCardAssociator.imagesFromCards[54];
+	}
+	
+	public static Image retrieveCustomJokerImage(Color color) {
+		if(color.equals(Color.RED)) {
+			return ImageCardAssociator.imagesFromCards[55];
+		} else if(color.equals(Color.BLUE)) {
+			return ImageCardAssociator.imagesFromCards[56];
+		} else if(color.equals(Color.GREEN)) {
+			return ImageCardAssociator.imagesFromCards[57];
+		} else {
+			return ImageCardAssociator.imagesFromCards[58];
+		}
+	}
+	
+	public static Image retrieveCustomPlusFourImage(Color color) {
+		if(color.equals(Color.RED)) {
+			return ImageCardAssociator.imagesFromCards[59];
+		} else if(color.equals(Color.BLUE)) {
+			return ImageCardAssociator.imagesFromCards[60];
+		} else if(color.equals(Color.GREEN)) {
+			return ImageCardAssociator.imagesFromCards[61];
+		} else {
+			return ImageCardAssociator.imagesFromCards[62];
+		}
 	}
 }

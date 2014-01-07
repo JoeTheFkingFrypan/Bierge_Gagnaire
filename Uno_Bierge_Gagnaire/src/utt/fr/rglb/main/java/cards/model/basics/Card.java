@@ -2,6 +2,9 @@
 
 import java.io.Serializable;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import utt.fr.rglb.main.java.main.ServerException;
 
 import com.google.common.base.Preconditions;
@@ -12,6 +15,7 @@ import com.google.common.base.Preconditions;
  */
 public class Card implements Serializable {
 	private static final long serialVersionUID = 1L;
+	private static final Logger log = LoggerFactory.getLogger(Card.class);
 	protected final int value;
 	protected final Color color;
 	protected final int imageIndex;
@@ -43,6 +47,7 @@ public class Card implements Serializable {
 	 * @return <code>TRUE</code> si la carte est "compatible" (si elle peut être jouée), <code>FALSE</code> sinon
 	 */
 	public boolean isCompatibleWith(Card otherCard) {
+		log.debug(otherCard.toString());
 		if(this.hasSameValueThan(otherCard.getValue())) {
 			return true;
 		} else if(this.hasSameColorThan(otherCard.getColor())) {

@@ -94,7 +94,6 @@ public class GameModelConsoleOriented extends AbstractGameModel {
 	
 	/* ========================================= GAME LOGIC ========================================= */
 	
-	@Override
 	public PlayerControllerBean playOneTurn() {
 		CardsModelBean references = this.cardsController.getReferences();
 		PlayerControllerConsoleOriented currentPlayer = this.turnController.findNextPlayer();
@@ -122,13 +121,11 @@ public class GameModelConsoleOriented extends AbstractGameModel {
 	
 	/* ========================================= EFFECTS ========================================= */
 	
-	@Override
 	public void drawFirstCardAndApplyItsEffect() {
 		GameFlag effect = this.cardsController.applyEffectFromAnotherFirstCard();
 		triggerEffectFromFirstCard(effect);
 	}
 	
-	@Override
 	protected void triggerEffectFromFirstCard(GameFlag effectFromFirstCard) {
 		if(effectFromFirstCard.equals(GameFlag.PLUS_FOUR)) {
 			drawFirstCardAndApplyItsEffect();
@@ -139,7 +136,6 @@ public class GameModelConsoleOriented extends AbstractGameModel {
 		this.turnController.resetPlayerIndex();
 	}
 	
-	@Override
 	protected void triggerEffectWithOnlyTwoPlayers(AbstractPlayerController currentPlayer) {
 		if(this.gameRule.shouldReverseTurn()) {
 			this.triggerCycleSilently();
@@ -148,7 +144,6 @@ public class GameModelConsoleOriented extends AbstractGameModel {
 		}
 	}
 	
-	@Override
 	protected void triggerEffect(AbstractPlayerController currentPlayer) {
 		if(this.gameRule.indicatesTwoPlayersMode()) {
 			triggerEffectWithOnlyTwoPlayers(currentPlayer);
@@ -157,7 +152,6 @@ public class GameModelConsoleOriented extends AbstractGameModel {
 		}
 	}
 	
-	@Override
 	protected void triggerEffectWithMoreThanTwoPlayers(AbstractPlayerController currentPlayer) {
 		if(this.gameRule.shouldReverseTurn()) {
 			triggerReverseCurrentOrder();
@@ -201,24 +195,20 @@ public class GameModelConsoleOriented extends AbstractGameModel {
 		this.turnController.cycleSilently();
 	}
 
-	@Override
 	protected void triggerSkipNextPlayer() {
 		this.turnController.skipNextPlayer();
 	}
 	
-	@Override
 	protected void triggerColorPicking(AbstractPlayerController currentPlayer, boolean isRelatedToPlus4) {
 		Color chosenColor = currentPlayer.hasToChooseColor(isRelatedToPlus4,this.inputReader);
 		this.cardsController.setGlobalColor(chosenColor);
 	}
 	
-	@Override
 	protected void triggerPlusX(int cardsToDraw, AbstractPlayerController targetedPlayer) {
 		Collection<Card> cards = this.cardsController.drawCards(cardsToDraw);
 		targetedPlayer.isForcedToPickUpCards(cards);
 	}
 	
-	@Override
 	protected void triggerPlusX(int cardsToDraw, AbstractPlayerController targetedPlayer, boolean wasLegit) {
 		Collection<Card> cards = this.cardsController.drawCards(cardsToDraw);
 		if(wasLegit) {
@@ -228,24 +218,20 @@ public class GameModelConsoleOriented extends AbstractGameModel {
 		}
 	}
 
-	@Override
 	protected boolean triggerBluffing(AbstractPlayerController nextPlayer) {
 		return nextPlayer.askIfHeWantsToCheckIfItsLegit(this.inputReader);
 	}
 
-	@Override
 	public void giveCardPenaltyTo(AbstractPlayerController currentPlayer, int cardCount) {
 		Collection<Card> cardPenalty = this.cardsController.drawCards(cardCount);
 		currentPlayer.isForcedToPickUpCards(cardPenalty);
 	}
 	
-	@Override
 	public void giveCardPenaltyTo(PlayerControllerBean player, int cardCount) {
 		Collection<Card> cardPenalty = this.cardsController.drawCards(cardCount);
 		player.isForcedToPickUpCards(cardPenalty);
 	}
 
-	@Override
 	public int getValidChoiceAnswer() {
 		return this.inputReader.getValidAnswerFromDualChoice(this.inputStream);
 	}

@@ -1,4 +1,4 @@
-package utt.fr.rglb.main.java.view.graphics.fxml;
+package utt.fr.rglb.main.java.view.graphics;
 
 import utt.fr.rglb.main.java.cards.model.CardsModelBean;
 import utt.fr.rglb.main.java.cards.model.basics.Card;
@@ -7,7 +7,7 @@ public class GraphicsReferences {
 	private int indexFromActivePlayer;
 	private CardsModelBean cardReferences;
 	private boolean hasDrawnOneTime;
-	private boolean needsToDrawAnotherTime;
+	private boolean hasDrawnTwoTimes;
 	private Card firstCardDrawn;
 	private Card secondCardDrawn;
 
@@ -15,7 +15,7 @@ public class GraphicsReferences {
 		this.cardReferences = cardReferences;
 		this.indexFromActivePlayer = indexFromActivePlayer;
 		this.hasDrawnOneTime = false;
-		this.needsToDrawAnotherTime = false;
+		this.hasDrawnTwoTimes = false;
 	}
 
 	public void setNeedOfDrawingOneTime(Card firstCardDrawn) {
@@ -23,9 +23,9 @@ public class GraphicsReferences {
 		this.firstCardDrawn = firstCardDrawn;
 	}
 	
-	public void setNeedOfDrawingOneTime(Card firstCardDrawn, Card secondCardDrawn) {
+	public void setNeedOfDrawingTwoTimes(Card firstCardDrawn, Card secondCardDrawn) {
 		this.hasDrawnOneTime = true;
-		this.needsToDrawAnotherTime = true;
+		this.hasDrawnTwoTimes = true;
 		this.firstCardDrawn = firstCardDrawn;
 		this.secondCardDrawn = secondCardDrawn;
 	}
@@ -44,5 +44,21 @@ public class GraphicsReferences {
 
 	public boolean getCompatibilityFromFirstCard() {
 		return this.cardReferences.isCompatibleWith(this.firstCardDrawn);
+	}
+	
+	public boolean hasDrawnTwoTimes() {
+		return this.hasDrawnTwoTimes;
+	}
+
+	public boolean getCompatibilityWith(Card cardDrawn) {
+		return this.cardReferences.isCompatibleWith(cardDrawn);
+	}
+
+	public Card getSecondCardDrawn() {
+		return this.secondCardDrawn;
+	}
+
+	public boolean hasNoPlayableCards() {
+		return !this.cardReferences.isCompatibleWith(this.secondCardDrawn);
 	}
 }

@@ -3,6 +3,9 @@ package utt.fr.rglb.main.java.player.controller;
 import java.util.Collection;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javafx.animation.PauseTransition;
 import javafx.animation.SequentialTransition;
 import javafx.util.Duration;
@@ -15,10 +18,11 @@ import utt.fr.rglb.main.java.cards.model.basics.Color;
 import utt.fr.rglb.main.java.console.model.InputReader;
 import utt.fr.rglb.main.java.player.model.PlayerModel;
 import utt.fr.rglb.main.java.view.AbstractView;
-import utt.fr.rglb.main.java.view.graphics.fxml.CustomImageView;
+import utt.fr.rglb.main.java.view.graphics.CustomImageView;
 
 //FIXME
 public class PlayerControllerGraphicsOriented extends AbstractPlayerController {
+	private static final Logger log = LoggerFactory.getLogger(PlayerControllerGraphicsOriented.class);
 	private static final long serialVersionUID = 1L;
 	private List<CustomImageView> displayableCards;
 
@@ -90,6 +94,14 @@ public class PlayerControllerGraphicsOriented extends AbstractPlayerController {
 	/* ========================================= TURN HANDLING ========================================= */
 	
 	@Override
+	public Card playCard(int index, CustomImageView thisImageView) {
+		Preconditions.checkState(this.player.getNumberOfCardsInHand() > 0, "[ERROR] Impossible to play a card : player has none");
+		Preconditions.checkArgument(index >= 0 && index < this.player.getNumberOfCardsInHand(),"[ERROR] Incorrect index : must be > 0 (tried = " + index + ", but max is = " + this.player.getNumberOfCardsInHand());
+		this.displayableCards.remove(thisImageView);
+		return this.player.playCard(index);
+	}
+	
+	@Override
 	public Card startTurn(InputReader inputReader, CardsModelBean gameModelBean) {
 		// TODO Auto-generated method stub
 		return null;
@@ -139,5 +151,18 @@ public class PlayerControllerGraphicsOriented extends AbstractPlayerController {
 			cardsAnimation.getChildren().add(new PauseTransition(Duration.millis(50)));
 		}
 		return cardsAnimation;
+	}
+
+	public void addCustomImageView(CustomImageView imageView) {
+		this.displayableCards.add(imageView);
+	}
+
+	public void updateCardsCompatibilityAndIndex(Card chosenCard) {
+		log.debug("updateCardsCompatibilityAndIndex " + chosenCard);
+		int currentCardIndex = 0;
+		for(CustomImageView imageView : this.displayableCards) {
+			imageView.setNewCompatibilityAndIndex(chosenCard,currentCardIndex);
+			currentCardIndex++;
+		}
 	}
 }

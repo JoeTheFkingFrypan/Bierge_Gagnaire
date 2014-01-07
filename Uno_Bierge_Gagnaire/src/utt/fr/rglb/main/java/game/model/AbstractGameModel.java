@@ -29,51 +29,11 @@ public abstract class AbstractGameModel implements Serializable {
 	/* ========================================= GAME LOGIC ========================================= */
 
 	/**
-	 * Méthode permettant de permettre à un joueur de jouer son tour (en lui permettant de piocher si besoin, ou de passer son tour s'il n'a pas de cartes jouables)
-	 * @return PlayerControllerBean Objet encapsulant le joueur en cours
-	 */
-	public abstract PlayerControllerBean playOneTurn();
-
-	/**
 	 * Méthode permettant à un joueur de choisir une carte depuis sa main
 	 * @param gameModelbean Carte dernièrement jouée (celle sur le talon, donc carte de référence)
 	 * @param currentPlayer Joueur actuel
 	 */
 	protected abstract void chooseCardAndPlayIt(CardsModelBean gameModelbean, AbstractPlayerController currentPlayer);
-
-	/* ========================================= EFFECTS ========================================= */
-
-	/**
-	 * Méthode permettant de tirer la 1ère carte de la pioche et d'appliquer son effet
-	 */
-	public abstract void drawFirstCardAndApplyItsEffect();
-
-	/**
-	 * Méthode permettant d'appliquer l'effet en provenance de la 1ère carte retournée du talon
-	 * Le comportement est légérement différent : si la 1ère carte tirée est un +4, une nouvelle carte est tirée
-	 * Dans tous les autres cas, l'effet est appliqué normalement
-	 * @param effectFromFirstCard Effet provenant de la 1ère carte (initialisation)
-	 */
-	protected abstract void triggerEffectFromFirstCard(GameFlag effectFromFirstCard);
-
-	/**
-	 * Méthode permettant d'appliquer l'effet en provenance de la carte jouée
-	 * Cette méthode prend en compte le mode de jeu, définissant des comportements particuliers au besoin
-	 * @param currentPlayer Joueur venant de poser la carte spéciale
-	 */
-	protected abstract void triggerEffect(AbstractPlayerController currentPlayer);
-
-	/**
-	 * Méthode permettant d'appliquer les effets des cartes spéciales sur la partie --Cas d'une partie à 2 joueurs
-	 * @param currentPlayer Joueur en cours (celui devant éventuellement choisir une couleur)
-	 */
-	protected abstract void triggerEffectWithOnlyTwoPlayers(AbstractPlayerController currentPlayer);
-
-	/**
-	 * Méthode permettant d'appliquer les effets des cartes spéciales sur la partie --Cas d'une partie classique
-	 * @param currentPlayer Joueur en cours (celui devant éventuellement choisir une couleur)
-	 */
-	protected abstract void triggerEffectWithMoreThanTwoPlayers(AbstractPlayerController currentPlayer);
 
 	/* ========================================= EFFECTS - BASIS ========================================= */
 
@@ -88,23 +48,18 @@ public abstract class AbstractGameModel implements Serializable {
 	protected abstract void triggerCycleSilently();
 
 	/**
-	 * Méthode permettant d'empêcher le joueur suivant de jouer son tour
-	 */
-	protected abstract void triggerSkipNextPlayer();
-
-	/**
 	 * Méthode permettant au joueur en paramètre de choisir une couleur
 	 * @param currentPlayer Joueur devant désigner une couleur
 	 * @param isRelatedToPlus4 <code>TRUE</code> si selection d'une couleur est due au jeu d'un plus 4, <code>FALSE</code> sinon
 	 */
-	protected abstract void triggerColorPicking(AbstractPlayerController currentPlayer, boolean isRelatedToPlus4);
+	//protected abstract void triggerColorPicking(AbstractPlayerController currentPlayer, boolean isRelatedToPlus4);
 
 	/**
 	 * Méthode permettant de forcer un joueur à piocher un nombre donné de cartes
 	 * @param cardsToDraw int représentant le nombre de cartes à piocher
 	 * @param targetedPlayer Joueur devant piocher lesdites cartes
 	 */
-	protected abstract void triggerPlusX(int cardsToDraw, AbstractPlayerController targetedPlayer);
+	//protected abstract void triggerPlusX(int cardsToDraw, AbstractPlayerController targetedPlayer);
 
 	/**
 	 * Méthode permettant de forcer un joueur à piocher un nombre donné de cartes avec gestion du bluff par couleurs appropriées
@@ -112,34 +67,34 @@ public abstract class AbstractGameModel implements Serializable {
 	 * @param targetedPlayer Joueur devant piocher lesdites cartes
 	 * @param wasLegit <code>TRUE</code> si le jeu de la carte était légitime, <code>FALSE</code> sinon
 	 */
-	protected abstract void triggerPlusX(int cardsToDraw, AbstractPlayerController targetedPlayer, boolean wasLegit);
+	//protected abstract void triggerPlusX(int cardsToDraw, AbstractPlayerController targetedPlayer, boolean wasLegit);
 
 	/**
 	 * Méthode permettant de donner au joueur suivant l'opportunité de contrer un éventuel bluff
 	 * @param nextPlayer Joueur suivant 
 	 * @return <code>TRUE</code> si le joueur suivant souhaite vérifier le jeu de l'adversaire, <code>FALSE</code> sinon
 	 */
-	protected abstract boolean triggerBluffing(AbstractPlayerController nextPlayer);
+	//protected abstract boolean triggerBluffing(AbstractPlayerController nextPlayer);
 
 	/**
 	 * Méthode permettant de donner une pénalité au joueur donné
 	 * @param currentPlayer Joueur devant être pénalisé
 	 * @param cardCount Nombre de cartes devant être piochées
 	 */
-	public abstract void giveCardPenaltyTo(AbstractPlayerController currentPlayer, int cardCount);
+	//public abstract void giveCardPenaltyTo(AbstractPlayerController currentPlayer, int cardCount);
 
 	/**
 	 * Méthode permettant de donner une pénalité au joueur donné
 	 * @param player Joueur devant être pénalisé (encapsulée dans un PlayerControllerBean)
 	 * @param cardCount Nombre de cartes devant être piochées
 	 */
-	public abstract void giveCardPenaltyTo(PlayerControllerBean player, int cardCount);
+	//public abstract void giveCardPenaltyTo(PlayerControllerBean player, int cardCount);
 
 	/**
 	 * Méthode permettant d'obtenir une réponse valide
 	 * @return La réponse de l'utilisateur
 	 */
-	public abstract int getValidChoiceAnswer();
+	//public abstract int getValidChoiceAnswer();
 
 	/* ========================================= SCORE ========================================= */
 

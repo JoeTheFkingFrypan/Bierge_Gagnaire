@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 
 import utt.fr.rglb.main.java.cards.model.CardsModelBean;
 import utt.fr.rglb.main.java.cards.model.basics.Card;
+import utt.fr.rglb.main.java.cards.model.basics.Color;
+import utt.fr.rglb.main.java.game.model.GameFlag;
 import utt.fr.rglb.main.java.game.model.GameModelGraphicsOriented;
 import utt.fr.rglb.main.java.game.model.GameRule;
 import utt.fr.rglb.main.java.player.controller.PlayerControllerBean;
@@ -59,6 +61,7 @@ public class GameControllerGraphicsOriented extends AbstractGameController {
 	public void createGameFrom(GameRule choosenRules, PlayersToCreate playersToCreate, Scene scene) {
 		this.gameModel.initializeGameSettings(choosenRules,playersToCreate,scene);
 		log.info("Game successfully initialized, setting up first round");
+		startNewRound();
 	}
 	
 	public void startGame(FXMLControllerGameScreen fxmlControllerGameScreen) {
@@ -105,7 +108,7 @@ public class GameControllerGraphicsOriented extends AbstractGameController {
 		startNewRound();
 		PlayerControllerBean currentPlayer = new PlayerControllerBean();
 		//while(currentPlayer.stillHasCards()) {
-			currentPlayer = this.gameModel.playOneTurn();
+			//this.gameModel.playOneTurn();
 			/*if(currentPlayer.hasAnnouncedUno()) {
 				handleUnoAnnoucement(currentPlayer);
 			} else if(currentPlayer.hasNoCardAndForgotToAnnounceUno()) {
@@ -119,7 +122,6 @@ public class GameControllerGraphicsOriented extends AbstractGameController {
 	protected void startNewRound() {
 		log.info("--- Another round starting now ---");
 		this.gameModel.initializeCardsAndHands();
-		this.gameModel.drawFirstCardAndApplyItsEffect();
 	}
 
 	@Override
@@ -158,5 +160,38 @@ public class GameControllerGraphicsOriented extends AbstractGameController {
 
 	public CardsModelBean getReferences() {
 		return this.gameModel.getReferences();
+	}
+
+	public Card drawOneCard() {
+		return this.gameModel.drawOneCard();
+	}
+
+	public GameFlag activePlayerChose(Card chosenCard, boolean stillHasCards, boolean hasAnnouncedUno) {
+		return this.gameModel.activePlayerChose(chosenCard);
+	}
+
+	public void activePlayerCannotPlay() {
+		this.gameModel.playOneTurn(true);
+	}
+	
+	public void playOneTurn(boolean needsCardFlipping) {
+		this.gameModel.playOneTurn(needsCardFlipping);
+	}
+
+	public void activePlayerChoseColor(Color color) {
+		this.gameModel.activePlayerChoseColor(color);
+	}
+	
+	public int getIndexFromPreviousPlayer() {
+		int index = this.gameModel.getIndexFromPreviousPlayer();
+		return index;
+	}
+
+	public GameFlag triggerEffectFromFirstCard() {
+		return this.gameModel.triggerEffectFromFirstCard();
+	}
+
+	public void applyEffectFromFirstCard(GameFlag gameFlag) {
+		this.gameModel.applyEffectFromFirstCard(gameFlag);
 	}
 }

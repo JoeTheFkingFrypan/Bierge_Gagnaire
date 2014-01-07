@@ -56,7 +56,6 @@ public class TurnControllerGraphicsOriented extends AbstractTurnController {
 
 	@Override
 	public void reverseCurrentOrder() {
-		this.view.displayOneLineOfRedText("Turn order has been inverted");
 		this.turnModel.reverseCurrentOrder();
 	}
 
@@ -182,6 +181,14 @@ public class TurnControllerGraphicsOriented extends AbstractTurnController {
 
 	public int getIndexFromActivePlayer() {
 		return this.turnModel.getIndexFromActivePlayer();
+	}
+
+	public int getIndexFromPreviousPlayer() {
+		return this.turnModel.getIndexFromPreviousPlayer();
+	}
+
+	public int getIndexFromNextPlayer() {
+		return this.turnModel.getIndexFromNextPlayer();
 	}
 
 }
