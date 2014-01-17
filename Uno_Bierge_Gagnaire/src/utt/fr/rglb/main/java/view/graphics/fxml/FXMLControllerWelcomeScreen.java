@@ -27,16 +27,26 @@ public class FXMLControllerWelcomeScreen extends AbstractFXMLController {
 	private static final Logger log = LoggerFactory.getLogger(FXMLControllerWelcomeScreen.class);
 	private GameControllerGraphicsOriented gameController;
 
+	/* ========================================= FXML ========================================= */
+	
 	@FXML private GridPane mainGrid;
 	@FXML private GridPane headerGrid;
 	@FXML private GridPane buttonGrid;
 	@FXML private Button acceptButton;
 	@FXML private Button declineButton;
 
+	/* ========================================= CONSTRUCTOR ========================================= */
+	
 	public FXMLControllerWelcomeScreen() {
 		this.gameController = Server.getGameController();
 	}
 
+	/* ========================================= EVENT HANDLING ========================================= */
+	
+	/**
+	 * Méthode appelée par le FXMLLoader quand l'initialisation de tous les éléments est terminée
+	 * Permet d'ajouter/retirer dynamiquement des élements dans la fenêtre en réponse à la selection du nombre de joueurs par l'utilisateur
+	 */
 	@Override
 	public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
 		ImageCardAssociator imageCardAssociator = new ImageCardAssociator();
@@ -45,6 +55,9 @@ public class FXMLControllerWelcomeScreen extends AbstractFXMLController {
 		headerGrid.add(header, 0, 0);
 	}
 
+	/**
+	 * Méthode permettant de gérer les conséquences du click sur le bouton DeclineButton
+	 */
 	@FXML protected void handleDeclineButtonAction(ActionEvent event) {
 		try {
 			Scene scene = headerGrid.getScene();
@@ -57,6 +70,9 @@ public class FXMLControllerWelcomeScreen extends AbstractFXMLController {
 		}
 	}
 
+	/**
+	 * Méthode permettant de gérer les conséquences du click sur le bouton AcceptButton
+	 */
 	@FXML protected void handleAcceptButtonAction(ActionEvent event) {
 		Scene scene = headerGrid.getScene();
 		try {
@@ -79,6 +95,9 @@ public class FXMLControllerWelcomeScreen extends AbstractFXMLController {
 		}
 	}
 
+	/**
+	 * Méthode permettant d'afficher un message d'erreur dans une fenêtre modale légère (Java8)
+	 */
 	private void handleErrorJavaFX8Style(Scene scene, ConfigFileDaoException e) {
 		Dialogs.create().lightweight().nativeTitleBar()
 		.title("Something went wrong while retrieving data from configuration file")
@@ -94,6 +113,9 @@ public class FXMLControllerWelcomeScreen extends AbstractFXMLController {
 		}
 	}
 	
+	/**
+	 * Méthode permettant d'afficher un message d'erreur dans les labels (compatible Java7 et inférieur)
+	 */
 	private void handleErrorJavaFX2Style(Scene scene, ConfigFileDaoException e) {
 		acceptButton.setDisable(true);
 		declineButton.setDisable(true);

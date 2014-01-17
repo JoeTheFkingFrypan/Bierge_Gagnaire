@@ -17,6 +17,10 @@ import utt.fr.rglb.main.java.player.model.PlayersToCreate;
 import utt.fr.rglb.main.java.turns.model.TurnModelGraphicsOriented;
 import utt.fr.rglb.main.java.view.graphics.GraphicsView;
 
+/**
+ * Classe dont le rôle est de gérer tout ce qui touche aux joueurs, et passage au joueur suivant </br>
+ * Version graphique
+ */
 public class TurnControllerGraphicsOriented extends AbstractTurnController {
 	private static final long serialVersionUID = 1L;
 	private TurnModelGraphicsOriented turnModel;
@@ -43,6 +47,10 @@ public class TurnControllerGraphicsOriented extends AbstractTurnController {
 
 	/* ========================================= PLAYER CREATION ========================================= */
 
+	/**
+	 * Méthode permettant la création de tous les joueurs à partir de leurs données respectives
+	 * @param playersToCreate Objet englobant les informations de tous les joueurs à créer
+	 */
 	public void createPlayersFrom(PlayersToCreate playersToCreate) {
 		this.turnModel.createPlayersFrom(playersToCreate,this.view);
 	}
@@ -101,7 +109,6 @@ public class TurnControllerGraphicsOriented extends AbstractTurnController {
 		Integer pointsReceived = this.turnModel.sumAllIndividualPlayerScore();
 		boolean hasWon = gameWinner.increaseScoreBy(pointsReceived);
 		this.turnModel.resetAllHands();
-		//TODO display stuff
 		return hasWon;
 	}
 
@@ -112,7 +119,6 @@ public class TurnControllerGraphicsOriented extends AbstractTurnController {
 		Integer pointsReceived = this.turnModel.sumAllTeamScore(winningTeam);
 		boolean hasWon = this.turnModel.increaseScoreOfTheWinningTeam(winningTeam,pointsReceived);
 		this.turnModel.resetAllHands();
-		//TODO display stuff
 		return hasWon;
 	}
 
@@ -149,7 +155,6 @@ public class TurnControllerGraphicsOriented extends AbstractTurnController {
 			PlayerTeam currentTeam = teamEntry.getValue();
 			Integer currentScore = currentTeam.getScore();
 			@SuppressWarnings("unused")Integer pointsNeededToWin = 500 - currentScore;
-			//TODO; 
 		}
 	}
 
@@ -162,32 +167,53 @@ public class TurnControllerGraphicsOriented extends AbstractTurnController {
 
 	@Override
 	public void displayTeams() {
-		// TODO Auto-generated method stub
-
+		//TODO Unfinished method
 	}
 
+	/**
+	 * Méthode permettant de récupérer l'ensemble des cartes en main des joueurs
+	 * @return Map correspondant à l'ensemble des cartes actuellement dans les mains des différents joueurs
+	 */
 	public Map<String, Collection<Card>> getAllCardsFromPlayers() {
 		return this.turnModel.getAllCardsFromPlayers();
 	}
 
+	/**
+	 * Méthode permtettant de récupérer l'ensemble des joueurs de la partie
+	 * @return Collection contenant l'ensemble des joueurs
+	 */
 	public List<PlayerControllerGraphicsOriented> getAllPlayers() {
 		return this.turnModel.getAllPlayers();
 	}
 
+	/**
+	 * Méthode permettant de supprimer les cartes en main de chaque joueur
+	 */
 	public void removeCardsFromPlayers() {
 		this.turnModel.removeCardsFromPlayers();
 	}
 
+	/**
+	 * Méthode permettant de récupérer l'index correspondant au joueur actif
+	 * @return int correspondant au joueur désiré
+	 */
 	public int getIndexFromActivePlayer() {
 		return this.turnModel.getIndexFromActivePlayer();
 	}
 
+	/**
+	 * Méthode permettant de récupérer l'index correspondant au joueur précédent
+	 * @return int correspondant au joueur désiré
+	 */
 	public int getIndexFromPreviousPlayer() {
 		return this.turnModel.getIndexFromPreviousPlayer();
 	}
 
+	/**
+	 * Méthode permettant de récupérer l'index correspondant au joueur suivant
+	 * @return int correspondant au joueur désiré
+	 */
 	public int getIndexFromNextPlayer() {
 		return this.turnModel.getIndexFromNextPlayer();
 	}
-
 }

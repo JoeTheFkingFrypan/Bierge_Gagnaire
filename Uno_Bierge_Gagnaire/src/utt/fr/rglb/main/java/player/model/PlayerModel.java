@@ -162,6 +162,4 @@ public class PlayerModel implements Serializable {
 	public boolean hasAnnouncedUno() {
 		return this.unoAnnoucement;
 	}
-
-	
 }

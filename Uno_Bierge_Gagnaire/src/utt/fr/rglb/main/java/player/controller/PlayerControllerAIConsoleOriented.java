@@ -13,7 +13,8 @@ import utt.fr.rglb.main.java.player.AI.CardPickerStrategy;
 import utt.fr.rglb.main.java.view.AbstractView;
 
 /**
- * Classe correspondant à un joueur controllé par une IA
+ * Classe correspondant à un joueur controllé par une IA </br>
+ * Version console
  */
 public class PlayerControllerAIConsoleOriented extends PlayerControllerConsoleOriented {
 	private static final long serialVersionUID = 1L;

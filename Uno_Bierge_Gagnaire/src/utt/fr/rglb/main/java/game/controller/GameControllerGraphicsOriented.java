@@ -26,15 +26,19 @@ import utt.fr.rglb.main.java.view.graphics.GraphicsView;
 import utt.fr.rglb.main.java.view.graphics.fxml.FXMLControllerException;
 import utt.fr.rglb.main.java.view.graphics.fxml.FXMLControllerGameScreen;
 
+/**
+ * Classe permettant de gérer l'ensemble de la partie </br>
+ * Version graphique
+ */
 public class GameControllerGraphicsOriented extends AbstractGameController {
 	private static final Logger log = LoggerFactory.getLogger(GameControllerGraphicsOriented.class);
 	private static final long serialVersionUID = 1L;
 	protected GameModelGraphicsOriented gameModel;
 	protected FXMLControllerGameScreen fxmlController;
 	protected GraphicsView view;
-	
+
 	/* ========================================= CONSTRUCTOR ========================================= */
-	
+
 	/**
 	 * Constructeur de GameControllerGraphicsOriented
 	 * @param view Vue permettant l'affichage d'informations
@@ -43,19 +47,23 @@ public class GameControllerGraphicsOriented extends AbstractGameController {
 		this.view = view;
 		this.gameModel = new GameModelGraphicsOriented(view);
 	}
-	
+
+	/**
+	 * Méthode permettant de définir quel est le gestionnaire FXML utilisé, après qu'il ait été créé
+	 * @param fxmlController Gestionnaire FXML associé
+	 */
 	public void setCurrentFXMLController(FXMLControllerGameScreen fxmlController) {
 		this.fxmlController = fxmlController;
 		this.gameModel.setCurrentFXMLController(fxmlController);
 	}
-	
+
 	/* ========================================= INITIALIZING ========================================= */
-	
+
 	@Override
 	public void startAnotherGame() {
 		this.view.displayWelcomeScreen();
 	}
-	
+
 	/**
 	 * Méthode permettant de créer tous les jouers à partir des données fournies
 	 * @param choosenRules Règles choisies
@@ -67,13 +75,17 @@ public class GameControllerGraphicsOriented extends AbstractGameController {
 		log.info("Game successfully initialized, setting up first round");
 		startNewRound();
 	}
-	
+
+	/**
+	 Méthode permettant de démarrer une partie, en définissant quel est le gestionnaire FXML utilisé pour la coordination avec l'interface graphique
+	 * @param fxmlControllerGameScreen Gestionnaire FXML associé
+	 */
 	public void startGame(FXMLControllerGameScreen fxmlControllerGameScreen) {
 		setCurrentFXMLController(fxmlControllerGameScreen);
 		PlayerControllerBean winningPlayer = cycleUntilSomeoneWins();
 		handleWinEvent(winningPlayer);
 	}
-	
+
 	/**
 	 * Méthode permettant de récupérer les données de tous les joueurs depuis le fichier de configuration
 	 * @return
@@ -81,7 +93,7 @@ public class GameControllerGraphicsOriented extends AbstractGameController {
 	public PlayersToCreate retrievePlayerDataFromFile() {
 		return this.gameModel.retrievePlayerDataFromFile();
 	}
-	
+
 	/**
 	 * Méthode permettant de récupérer toutes les équipes de joueurs créées
 	 * @return Une collection contenant toutes les équipes
@@ -90,20 +102,13 @@ public class GameControllerGraphicsOriented extends AbstractGameController {
 		return this.gameModel.getAllTeams();		
 	}	
 
-	@Override
-	protected void resetEverything() {
-		// TODO Auto-generated method stub
-	}
-	
 	/* ========================================= GAME LOGIC ========================================= */
 
 	@Override
 	protected PlayerControllerBean cycleUntilSomeoneWins() {
 		PlayerControllerBean gameWinner = new PlayerControllerBean();
-		//while(gameWinner.hasNotWonTheGame()) {
-			gameWinner = playOneRound();
-			//this.gameModel.computeScores(gameWinner);
-		//}
+		//TODO Unfinished METHOD
+		gameWinner = playOneRound();
 		return gameWinner;
 	}
 
@@ -111,17 +116,10 @@ public class GameControllerGraphicsOriented extends AbstractGameController {
 	protected PlayerControllerBean playOneRound() {
 		startNewRound();
 		PlayerControllerBean currentPlayer = new PlayerControllerBean();
-		//while(currentPlayer.stillHasCards()) {
-			//this.gameModel.playOneTurn();
-			/*if(currentPlayer.hasAnnouncedUno()) {
-				handleUnoAnnoucement(currentPlayer);
-			} else if(currentPlayer.hasNoCardAndForgotToAnnounceUno()) {
-				handleMissingUnoAnnoucement(currentPlayer);
-			}*/
-		//}
+		//TODO Unfinished METHOD
 		return currentPlayer;
 	}
-	
+
 	@Override
 	protected void startNewRound() {
 		log.info("--- Another round starting now ---");
@@ -130,83 +128,144 @@ public class GameControllerGraphicsOriented extends AbstractGameController {
 
 	@Override
 	protected void handleMissingUnoAnnoucement(PlayerControllerBean roundWinner) {
-		// TODO Auto-generated method stub
-		
+		//TODO Unfinished METHOD
 	}
 
 	@Override
 	protected void handleUnoAnnoucement(PlayerControllerBean roundWinner) {
-		// TODO Auto-generated method stub
-		
+		//TODO Unfinished METHOD
 	}
 
 	@Override
 	protected void handleWinEvent(PlayerControllerBean winningPlayer) {
-		// TODO Auto-generated method stub
-		
+		//TODO Unfinished METHOD
 	}
 
-	public Card retrieveImageFromLastCardPlayed() {
-		return this.gameModel.retrieveImageFromLastCardPlayed();
+	/**
+	 * Méthode permettant de récupérer la dernière carte ayant été jouée
+	 * @return Card correspondant à la dernière carte ayant été jouée
+	 */
+	public Card showLastCardPlayed() {
+		return this.gameModel.showLastCardPlayed();
 	}
 
+	/**
+	 * Méthode permettant de récupérer l'ensemble des cartes en main de chaque joueur
+	 * @return Une map contenant les collections de cartes associées à chaque joueur
+	 */
 	public Map<String, Collection<Card>> getAllCardsFromPlayers() {
 		return this.gameModel.getAllCardsFromPlayers();
 	}
 
+	/**
+	 * Méthode permettant de récupérer l'ensemble des joueurs
+	 * @return Collection contenant l'ensemble des joueurs
+	 */
 	public List<PlayerControllerGraphicsOriented> getAllPlayers() {
 		return this.gameModel.getAllPlayers();
 	}
 
+	/**
+	 * Méthode permettant de supprimer les cartes de tous les joueurs
+	 */
 	public void removeCardsFromPlayers() {
 		this.gameModel.removeCardsFromPlayers();
 	}
 
+	/**
+	 * Méthode permettant de récupérer toutes les références associées au tour d'un joueur
+	 * @return CardsModelBean contenant toutes les références
+	 * @see CardsModelBean
+	 */
 	public CardsModelBean getReferences() {
 		return this.gameModel.getReferences();
 	}
 
+	/**
+	 * Méthode permettant de piocher une carte
+	 * @return Carte ayant été piochée
+	 */
 	public Card drawOneCard() {
 		return this.gameModel.drawOneCard();
 	}
 
+	/**
+	 * Méthode permettant de jouer une carte </br>
+	 * Affiche les scores si le joueur vient de jouer sa dernière carte
+	 * @param chosenCard Carte jouée
+	 * @param stillHasCards Booléen valant <code>TRUE</code> si le joueur a encore des cartes en main, <code>FALSE</code> sinon
+	 * @param hasAnnouncedUno Booléen valant <code>TRUE</code> si le joueur a annoncé UNO, <code>FALSE</code> sinon
+	 * @return L'état du jeu correspondant à l'éventuel déclechement d'effet
+	 * @see GameFlag
+	 */
 	public GameFlag activePlayerChose(Card chosenCard, boolean stillHasCards, boolean hasAnnouncedUno) {
 		if(stillHasCards) {
-			return this.fxmlController.displayScores();
-		} else {
 			return this.gameModel.activePlayerChose(chosenCard);
+		} else {
+			return this.fxmlController.displayScores();
 		}
 	}
 
+	/**
+	 * Méthode permetttant de gérer l'éventualité d'un joueur ne pouvant pas jouer de carte durant son tour
+	 */
 	public void activePlayerCannotPlay() {
 		this.gameModel.playOneTurn(true);
 	}
-	
+
+	/**
+	 * Méthode permettant de démarrer un nouveau tour
+	 * @param needsCardFlipping Booleén valant <code>TRUE</code> si les cartes du joueur ont besoin d'être retournées, <code>FALSE</code> sinon 
+	 */
 	public void playOneTurn(boolean needsCardFlipping) {
 		this.gameModel.playOneTurn(needsCardFlipping);
 	}
 
+	/**
+	 * Méthode permettant au joueur de choisir une couleur parmi celles disponibles
+	 * @param color Couleur choisie par le joueur
+	 */
 	public void activePlayerChoseColor(Color color) {
 		this.gameModel.activePlayerChoseColor(color);
 	}
-	
+
+	/**
+	 * Méthode permettant de récupérer l'index du joueur précédent
+	 * @return int correspondant à l'index souhaité
+	 */
 	public int getIndexFromPreviousPlayer() {
 		int index = this.gameModel.getIndexFromPreviousPlayer();
 		return index;
 	}
 
-	public GameFlag triggerEffectFromFirstCard() {
+	/**
+	 * Méthode permettant de récupérer l'effet de la 1ere carte (celle en provenance de la pioche) afin de l'appliquer plus tard
+	 * @return L'état du jeu correspondant à l'éventuel déclechement d'effet
+	 */
+	public GameFlag retrieveEffectFromFirstCard() {
 		return this.gameModel.triggerEffectFromFirstCard();
 	}
 
+	/**
+	 * Méthode permettant d'appliquer l'effet en provenance de la 1ère carte
+	 * @param gameFlag L'état du jeu correspondant à l'éventuel déclechement d'effet
+	 */
 	public void applyEffectFromFirstCard(GameFlag gameFlag) {
 		this.gameModel.applyEffectFromFirstCard(gameFlag);
 	}
 
+	/**
+	 * Méthode permettant l'affichage des scores individuels
+	 * @return Map correspondant à l'ensemble des scores des différents joueurs
+	 */
 	public Map<String, Integer> displayIndividualTotalScore() {
 		return this.gameModel.displayIndividualTotalScore();
 	}
 
+	/**
+	 * Méthode permettant de ré-initialiser toutes les cartes et de démarrer un nouveau round
+	 * @param scene Scene associée à la vue
+	 */
 	public void resetAllCardsAndStartNewRound(Scene scene) {
 		this.gameModel.resetCards();
 		startNewRound();

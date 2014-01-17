@@ -88,10 +88,10 @@ public class PlayersToCreate {
 	}
 
 	/**
-	 * Méthode privée permettant de créer un joueur à partir des informations qui lui sont associés
-	 * @param curentPlayer Joueur actuel
-	 * @param consoleView Vue permettant d'afficher des informations
-	 * @return Le PlayerController associé au joueur
+	 * Méthode permettant d'ajouter un nouveau joueur console à la liste des joueurs à créer
+	 * @param curentPlayer Information du joueur
+	 * @param consoleView Vue permettant d'afficher des informatios
+	 * @return PlayerControllerGraphicsOriented Joueur console correspondant aux données fournies
 	 */
 	private PlayerControllerConsoleOriented createConsolePlayerFrom(PlayerStatus curentPlayer, AbstractView consoleView, BufferedReader inputStream) {
 		Preconditions.checkNotNull(curentPlayer,"[ERROR] Impossible to create all players : provided player data is null");
@@ -119,6 +119,12 @@ public class PlayersToCreate {
 		return players;
 	}
 	
+	/**
+	 * Méthode permettant d'ajouter un nouveau joueur graphique à la liste des joueurs à créer
+	 * @param curentPlayer Information du joueur
+	 * @param consoleView Vue permettant d'afficher des informatios
+	 * @return PlayerControllerGraphicsOriented Joueur graphique correspondant aux données fournies
+	 */
 	private PlayerControllerGraphicsOriented createGraphicsPlayerFrom(PlayerStatus curentPlayer, AbstractView consoleView) {
 		Preconditions.checkNotNull(curentPlayer,"[ERROR] Impossible to create all players : provided player data is null");
 		Preconditions.checkNotNull(consoleView,"[ERROR] Impossible to create all players : provided view is null");
@@ -145,6 +151,10 @@ public class PlayersToCreate {
 		return this.playersAwaitingCreation.size();
 	}
 	
+	/**
+	 * Méthode permettant de récupérer tous les joueurs
+	 * @return Collection 
+	 */
 	public List<PlayerStatus> getAllPlayers() {
 		return this.playersAwaitingCreation;
 	}

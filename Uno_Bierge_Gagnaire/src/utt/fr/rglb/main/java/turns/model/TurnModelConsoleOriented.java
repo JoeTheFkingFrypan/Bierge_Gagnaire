@@ -21,7 +21,8 @@ import utt.fr.rglb.main.java.player.model.PlayersToCreate;
 import utt.fr.rglb.main.java.view.AbstractView;
 
 /**
- * Classe comprenant toutes les données en provanance des joueurs, et du passage au joueur suivant
+ * Classe comprenant toutes les données en provanance des joueurs, et du passage au joueur suivant </br>
+ * Version console
  */
 public class TurnModelConsoleOriented extends AbstractTurnModel {
 	private static final long serialVersionUID = 1L;

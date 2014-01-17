@@ -19,6 +19,10 @@ import utt.fr.rglb.main.java.player.model.PlayerTeam;
 import utt.fr.rglb.main.java.player.model.PlayersToCreate;
 import utt.fr.rglb.main.java.view.AbstractView;
 
+/**
+ * Classe comprenant toutes les données en provanance des joueurs, et du passage au joueur suivant </br>
+ * Version graphique
+ */
 public class TurnModelGraphicsOriented extends AbstractTurnModel {
 	private static final long serialVersionUID = 1L;
 	protected Map<Integer, PlayerTeam> teams;
@@ -70,6 +74,10 @@ public class TurnModelGraphicsOriented extends AbstractTurnModel {
 	
 	/* ========================================= PLAYER CREATION ========================================= */
 	
+	/**
+	 * Méthode permettant la création de tous les joueurs à partir de leurs données respectives
+	 * @param playersToCreate Objet englobant les informations de tous les joueurs à créer
+	 */
 	public void createPlayersFrom(PlayersToCreate playersAwaitingCreation, AbstractView view) {
 		this.players = playersAwaitingCreation.createAllGraphicsPlayersFromTheirRespectiveData(view);
 		scramblePlayers();
@@ -406,6 +414,10 @@ public class TurnModelGraphicsOriented extends AbstractTurnModel {
 		return this.teams;
 	}
 
+	/**
+	 * Méthode permtettant de récupérer l'ensemble des joueurs de la partie
+	 * @return Collection contenant l'ensemble des joueurs
+	 */
 	public Map<String, Collection<Card>> getAllCardsFromPlayers() {
 		Map<String, Collection<Card>> cardsFromPlayers = new TreeMap<String, Collection<Card>>();
 		for(PlayerControllerGraphicsOriented player : this.players) {
@@ -414,16 +426,27 @@ public class TurnModelGraphicsOriented extends AbstractTurnModel {
 		return cardsFromPlayers;
 	}
 
+	/**
+	 * Méthode permettant de supprimer les cartes en main de chaque joueur
+	 */
 	public void removeCardsFromPlayers() {
 		for(PlayerControllerGraphicsOriented player : this.players) {
 			player.resetHand();
 		}
 	}
 
+	/**
+	 * Méthode permettant de récupérer l'index correspondant au joueur actif
+	 * @return int correspondant au joueur désiré
+	 */
 	public int getIndexFromActivePlayer() {
 		return this.currentPlayerIndex;
 	}
-	
+
+	/**
+	 * Méthode permettant de récupérer l'index correspondant au joueur précédent
+	 * @return int correspondant au joueur désiré
+	 */
 	public int getIndexFromPreviousPlayer() {
 		if(this.indicatesDefaultTurnOrder()) {
 			return findPreviousPlayerIndex();
@@ -432,6 +455,10 @@ public class TurnModelGraphicsOriented extends AbstractTurnModel {
 		}
 	}
 
+	/**
+	 * Méthode permettant de récupérer l'index correspondant au joueur suivant
+	 * @return int correspondant au joueur désiré
+	 */
 	public int getIndexFromNextPlayer() {
 		if(this.indicatesDefaultTurnOrder()) {
 			return findNextPlayerIndex();

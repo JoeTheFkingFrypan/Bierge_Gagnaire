@@ -18,6 +18,9 @@ public class ConfigurationReader {
 	
 	/* ========================================= CONSTRUCTOR ========================================= */
 	
+	/**
+	 * Constructeur de parser de configuration
+	 */
 	public ConfigurationReader() {
 		this.jsonParser = new JsonParser();
 	}

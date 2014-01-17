@@ -20,9 +20,11 @@ import utt.fr.rglb.main.java.cards.model.basics.EffectSkip;
 import utt.fr.rglb.main.java.cards.model.basics.EffetJoker;
 
 /**
- * Classe (à visibilité réduite) à qui a été délégué le rôle de la création des cartes (et de leur mélange)
+ * Classe (à visibilité réduite) à qui a été délégué le rôle de la création des cartes (et de leur mélange) </br>
+ * Sert également à l'affectation de l'index d'image à chaque carte (cf. la classe ImageCardAssociator) </br>
+ * Idée d'amélioration : la transformer selon un pattern FACTORY pour plus de commodité.
+ * @see ImageCardAssociator
  */
-//FIXME : create factory
 class CardGenerator implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private final int starterRedIndex = 0;
@@ -88,7 +90,6 @@ class CardGenerator implements Serializable {
 	
 	/**
 	 * Méthode permettant de créer toutes les cartes "non-spéciales", donc toutes les cartes numérotées
-	 * @param i 
 	 * @return Liste comprenant toutes les cartes sus-citées (1 carte Zéro et 2 cartes par numéro de 1 à 9 pour chaque couleur)
 	 */
 	private List<Card> createAllNonSpecialCards() {
@@ -103,6 +104,7 @@ class CardGenerator implements Serializable {
 	/**
 	 * Méthode privée permettant de créer toutes les cartes numérotée d'une couleur donnée
 	 * @param color Couleur commune des cartes
+	 * @param currentImageIndex Index actuel correspondant à l'image de la carte
 	 * @return Un ensemble de 19 cartes (1 carte Zéro et 2 cartes par numéro de 1 à 9) de même couleur
 	 */
 	private List<Card> createAllCardsWithSpecificColor(Color color, int currentImageIndex) {
@@ -123,6 +125,7 @@ class CardGenerator implements Serializable {
 	 * @param currentCards Collection de cartes à remplir
 	 * @param number Numéro de la carte
 	 * @param color Couleur de la carte
+	 * @param imageIndex Index correspondant à l'image de la carte
 	 */
 	private void addAmountOfCardsOf(int amount, List<Card> currentCards, int number, Color color, int imageIndex) {
 		for(int i=0; i<amount; i++) {
@@ -134,7 +137,6 @@ class CardGenerator implements Serializable {
 	
 	/**
 	 * Méthode privée permettant de créer toutes les cartes spéciales (colorées, ou joker)
-	 * @param i 
 	 * @return Une collection de cartes contenant uniquement les cartes spéciales
 	 */
 	private List<Card> createAllSpecialCards() {
@@ -152,6 +154,7 @@ class CardGenerator implements Serializable {
 	 * @param pointsValue Numéro de la carte
 	 * @param color Couleur de la carte
 	 * @param effect Effet de la carte
+	 * @param currentImageIndex Index correspondant à l'image de la carte
 	 */
 	private void addAmountOfSpecialCardsOf(int amount, List<Card> currentCards, int pointsValue, Color color, Effect effect, int currentImageIndex) {
 		for(int i=0; i<amount; i++) {

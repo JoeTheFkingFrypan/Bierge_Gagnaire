@@ -20,7 +20,8 @@ import utt.fr.rglb.main.java.turns.controller.TurnControllerConsoleOriented;
 import utt.fr.rglb.main.java.view.AbstractView;
 
 /**
- * Classe dont le rôle est de gérer le jeu en faisant appel à des méthodes de haut niveau
+ * Classe dont le rôle est de gérer le jeu en faisant appel à des méthodes de haut niveau </br>
+ * Version console
  */
 public class GameModelConsoleOriented extends AbstractGameModel {
 	private static final long serialVersionUID = 1L;
@@ -94,6 +95,10 @@ public class GameModelConsoleOriented extends AbstractGameModel {
 	
 	/* ========================================= GAME LOGIC ========================================= */
 	
+	/**
+	 * Méthode permettant de demarrer un nouveau tour
+	 * @return PlayerControllerBean correspondant au joueur venant de jouer son tour
+	 */
 	public PlayerControllerBean playOneTurn() {
 		CardsModelBean references = this.cardsController.getReferences();
 		PlayerControllerConsoleOriented currentPlayer = this.turnController.findNextPlayer();
@@ -121,11 +126,18 @@ public class GameModelConsoleOriented extends AbstractGameModel {
 	
 	/* ========================================= EFFECTS ========================================= */
 	
+	/**
+	 * Méthode permettant de tirer la 1ère carte et d'appliquer son effect (pour peu qu'elle en ait un)
+	 */
 	public void drawFirstCardAndApplyItsEffect() {
 		GameFlag effect = this.cardsController.applyEffectFromAnotherFirstCard();
 		triggerEffectFromFirstCard(effect);
 	}
 	
+	/**
+	 * Méthode permettant d'appliquer l'effet de la 1ère carte (ou de tirer une nouvelle carte, s'il s'agit d'un +4)
+	 * @param effectFromFirstCard
+	 */
 	protected void triggerEffectFromFirstCard(GameFlag effectFromFirstCard) {
 		if(effectFromFirstCard.equals(GameFlag.PLUS_FOUR)) {
 			drawFirstCardAndApplyItsEffect();
@@ -136,14 +148,10 @@ public class GameModelConsoleOriented extends AbstractGameModel {
 		this.turnController.resetPlayerIndex();
 	}
 	
-	protected void triggerEffectWithOnlyTwoPlayers(AbstractPlayerController currentPlayer) {
-		if(this.gameRule.shouldReverseTurn()) {
-			this.triggerCycleSilently();
-		} else {
-			triggerEffect(currentPlayer);
-		}
-	}
-	
+	/**
+	 * Méthode permettant d'appliquer l'effet associé à la carte venant d'être jouée
+	 * @param currentPlayer Joueur venant de jouer son tour
+	 */
 	protected void triggerEffect(AbstractPlayerController currentPlayer) {
 		if(this.gameRule.indicatesTwoPlayersMode()) {
 			triggerEffectWithOnlyTwoPlayers(currentPlayer);
@@ -152,6 +160,22 @@ public class GameModelConsoleOriented extends AbstractGameModel {
 		}
 	}
 	
+	/**
+	 * Méthode permettant d'appliquer les effets différement s'il n'y a que 2 joueurs
+	 * @param currentPlayer Joueur venant de jouer son tour
+	 */
+	protected void triggerEffectWithOnlyTwoPlayers(AbstractPlayerController currentPlayer) {
+		if(this.gameRule.shouldReverseTurn()) {
+			this.triggerCycleSilently();
+		} else {
+			triggerEffectWithMoreThanTwoPlayers(currentPlayer);
+		}
+	}
+	
+	/**
+	 * Méthode générale permettant d'appliquer les effets différement s'il y a 3 joueurs ou plus
+	 * @param currentPlayer Joueur venant de jouer son tour
+	 */
 	protected void triggerEffectWithMoreThanTwoPlayers(AbstractPlayerController currentPlayer) {
 		if(this.gameRule.shouldReverseTurn()) {
 			triggerReverseCurrentOrder();
@@ -195,20 +219,39 @@ public class GameModelConsoleOriented extends AbstractGameModel {
 		this.turnController.cycleSilently();
 	}
 
+	/**
+	 * Méthode permettant d'empêcher le joueur suivant de jouer
+	 */
 	protected void triggerSkipNextPlayer() {
 		this.turnController.skipNextPlayer();
 	}
 	
+	/**
+	 * Méthode permettant au joueur de selectionner une couleur
+	 * @param currentPlayer Joueur actuel
+	 * @param isRelatedToPlus4 Booléen valant <code>TRUE</code> si le choix est lié au jeu d'un +4, <code>FALSE</code> sinon
+	 */
 	protected void triggerColorPicking(AbstractPlayerController currentPlayer, boolean isRelatedToPlus4) {
 		Color chosenColor = currentPlayer.hasToChooseColor(isRelatedToPlus4,this.inputReader);
 		this.cardsController.setGlobalColor(chosenColor);
 	}
 	
+	/**
+	 * Méthode permettant de forcer un joueur à piocher des cartes
+	 * @param cardsToDraw Nombre de cartes à piocher
+	 * @param targetedPlayer Joueur devant piocher des cartes
+	 */
 	protected void triggerPlusX(int cardsToDraw, AbstractPlayerController targetedPlayer) {
 		Collection<Card> cards = this.cardsController.drawCards(cardsToDraw);
 		targetedPlayer.isForcedToPickUpCards(cards);
 	}
 	
+	/**
+	 * Méthode permettant de forcer un joueur à piocher des cartes avec un affichage particulier en fonction du résultat d'un +4 (bluff, ou non)
+	 * @param cardsToDraw Nombre de cartes à piocher
+	 * @param targetedPlayer Joueur devant piocher des cartes
+	 * @param wasLegit Booleén valant <code>TRUE</code> s'il n'y a PAS eu bluff, <code>FALSE</code> sinon
+	 */
 	protected void triggerPlusX(int cardsToDraw, AbstractPlayerController targetedPlayer, boolean wasLegit) {
 		Collection<Card> cards = this.cardsController.drawCards(cardsToDraw);
 		if(wasLegit) {
@@ -218,20 +261,38 @@ public class GameModelConsoleOriented extends AbstractGameModel {
 		}
 	}
 
+	/**
+	 * Méthode permettant de demander à un joueur s'il souhaite accuser le précédent joueur de bluff
+	 * @return <code>TRUE</code> en cas de réponse positive, <code>FALSE</code> sinon
+	 */
 	protected boolean triggerBluffing(AbstractPlayerController nextPlayer) {
 		return nextPlayer.askIfHeWantsToCheckIfItsLegit(this.inputReader);
 	}
 
+	/**
+	 * Méthode permettant de donner une pénalité au joueur
+	 * @param currentPlayer Joueur actuel
+	 * @param cardCount Nombre de cartes à piocher
+	 */
 	public void giveCardPenaltyTo(AbstractPlayerController currentPlayer, int cardCount) {
 		Collection<Card> cardPenalty = this.cardsController.drawCards(cardCount);
 		currentPlayer.isForcedToPickUpCards(cardPenalty);
 	}
 	
+	/**
+	 * Méthode permettant de donner une pénalité à un joueur (surcharge)
+	 * @param player Joueur actuel
+	 * @param cardCount Nombre de cartes à piocher
+	 */
 	public void giveCardPenaltyTo(PlayerControllerBean player, int cardCount) {
 		Collection<Card> cardPenalty = this.cardsController.drawCards(cardCount);
 		player.isForcedToPickUpCards(cardPenalty);
 	}
 
+	/**
+	 * Méthode permettant de récupérer le choix du joueur actuel sous forme d'index
+	 * @return int correspondant à l'index de la réponse du joueur
+	 */
 	public int getValidChoiceAnswer() {
 		return this.inputReader.getValidAnswerFromDualChoice(this.inputStream);
 	}

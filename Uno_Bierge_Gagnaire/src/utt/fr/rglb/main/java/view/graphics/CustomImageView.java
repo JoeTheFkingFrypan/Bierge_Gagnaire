@@ -19,6 +19,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
+/**
+ * Classe personnalisée étendant les fonctionnalités de la classe Image founie par JavaFX
+ * Correspond à une implémentation du patron de conception DECORATEUR
+ */
 public class CustomImageView extends ImageView {
 	private ScaleTransition scaleTransition;
 	private DoubleProperty expandToMaxProperty;
@@ -34,6 +38,11 @@ public class CustomImageView extends ImageView {
 
 	/* ========================================= CONSTRUCTOR ========================================= */
 	
+	/**
+	 * Constructeur de CustomeImageView, cas de la carte de référence
+	 * @param card Carte contenant l'index de l'image à créer
+	 * @param fxmlControllerGameScreen Gestionnaire FMXL actuel
+	 */
 	public CustomImageView(Card card, FXMLControllerGameScreen fxmlControllerGameScreen) {
 		super(ImageCardAssociator.retrieveIdleImage());
 		this.cardIndex = 0;
@@ -46,6 +55,12 @@ public class CustomImageView extends ImageView {
 		setAnimations();
 	}
 
+	/**
+	 * Constructeur de CustomeImageView, cas classique
+	 * @param card Carte contenant l'index de l'image à créer
+	 * @param isCompatibleWithReferenceCard Booléen valant <code>VRAI</code> si la carte est compatible avec la référence, <code>FALSE</code> sinon
+	 * @param fxmlControllerGameScreen Gestionnaire FMXL actuel
+	 */
 	public CustomImageView(Card card, int cardIndex, final boolean isCompatibleWithReferenceCard, FXMLControllerGameScreen fxmlControllerGameScreen) {
 		super(ImageCardAssociator.retrieveIdleImage());
 		this.cardIndex = cardIndex;
@@ -58,6 +73,11 @@ public class CustomImageView extends ImageView {
 		setAnimations();
 	}
 	
+	/* ========================================= ANIMATION ========================================= */
+	
+	/**
+	 * Méthode permettant de définir les animation associées à l'image, et leurs déclencheurs
+	 */
 	private void setAnimations() {
 		final CustomImageView thisImageView = this;
 		this.expandToMaxProperty = new SimpleDoubleProperty(1.2);
@@ -103,14 +123,25 @@ public class CustomImageView extends ImageView {
 		});
 	}
 
+	/**
+	 * Méthode permettant de donner un effet de zoom
+	 * @return Les valeurs de taille correspondant aux tailles grossies
+	 */
 	DoubleProperty expandToMaxProperty() {
 		return expandToMaxProperty;
 	}
 
+	/**
+	 * Méthode permettant de récupérer l'index actuel de l'image dans la GRID de la vue
+	 * @return int correspondant à l'index de l'image
+	 */
 	public int getColumnIndex() {
 		return this.cardIndex;
 	}
 	
+	/**
+	 * Méthode permettant de retourner la carte face cachée
+	 */
 	private void foldCard() {
 		this.getStyleClass().remove(cssClass);
 		cssClass = "inactiveImageView";
@@ -118,6 +149,9 @@ public class CustomImageView extends ImageView {
 		this.setImage(this.idleImage);
 	}
 
+	/**
+	 * Méthode permettant de retourner la carte face visible
+	 */
 	private void showCard() {
 		this.getStyleClass().remove(cssClass);
 		if(!belongToReferenceCard) {
@@ -131,6 +165,10 @@ public class CustomImageView extends ImageView {
 		this.setImage(this.activeImage);
 	}
 
+	/**
+	 * Méthode permettant de générer l'animation séquentiel de retournement de l'image
+	 * @return Animation séquentielle associée
+	 */
 	public SequentialTransition generateEffect() {
 		RotateTransition rotatorPart1 = new RotateTransition(Duration.millis(75), this);
 		rotatorPart1.setAxis(Rotate.Y_AXIS);
@@ -157,17 +195,31 @@ public class CustomImageView extends ImageView {
 		return new SequentialTransition(rotatorPart1,rotatorPart2);
 	}
 
+	/**
+	 * Méthode permettant de définir la nouvelle compatibilité VISUELLE (en rapport avec la nouvelle carte jouée)
+	 * @param choosenCard Nouvelle référence
+	 * @param cardIndex Index de la carte
+	 */
 	public void setNewCompatibilityAndIndex(Card choosenCard, int cardIndex) {
 		this.isCompatibleWithReferenceCard = choosenCard.isCompatibleWith(this.activeCard);
 		this.cardIndex = cardIndex;
 	}
 	
+	/**
+	 * Méthode permettant de définir que l'image actuelle est la nouvelle référence
+	 */
 	public void setAsReference() {
 		this.belongToActivePlayer = false;
 		this.belongToReferenceCard = true;
 		this.isCompatibleWithReferenceCard = false;
 	}
 
+	/**
+	 * Méthode permettant de changer l'image actuelle de carte spéciale par celle associée à la couleur choisie
+	 * @param chosenColor Couleur choisie par l'utilisateur (après jeu d'un +4 ou JOKER)
+	 * @param isRelatedToPlus4 Booléen valant <code>TRUE</code> s'il s'agit d'un +4, <code>FALSE</code> sinon
+	 * @return
+	 */
 	public Image retrieveAssociatedCardColor(Color chosenColor, boolean isRelatedToPlus4) {
 		if(isRelatedToPlus4) {
 			return ImageCardAssociator.retrieveCustomPlusFourImage(chosenColor);
@@ -176,6 +228,10 @@ public class CustomImageView extends ImageView {
 		}
 	}
 
+	/**
+	 * Méthode permettant de définir quelle est la nouvelle couleur globale 
+	 * @param chosenColor Couleur choisie
+	 */
 	public void setGlobalColor(Color chosenColor) {
 		this.isCompatibleWithReferenceCard = this.isCompatibleWithReferenceCard || this.activeCard.getColor().equals(chosenColor);
 	}

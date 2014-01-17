@@ -82,7 +82,6 @@ public class PlayerControllerConsoleOriented extends AbstractPlayerController {
 	/* ========================================= TURN HANDLING ========================================= */
 
 	@Override
-	//FIXME: Shrink method startTurn
 	public Card startTurn(InputReader inputReader, CardsModelBean gameModelBean) {
 		Preconditions.checkNotNull(inputReader,"[ERROR] Impossible to start turn, inputReader is null");
 		Preconditions.checkNotNull(gameModelBean,"[ERROR] Impossible to start turn, gameModelbean is null");

@@ -7,13 +7,6 @@ import utt.fr.rglb.main.java.player.controller.PlayerControllerBean;
 public abstract class AbstractGameController implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	/* ========================================= INITIALIZING ========================================= */
-
-	/**
-	 * Méthode permettant de tout ré-initialiser lors du demarrage d'une nouvelle partie
-	 */
-	protected abstract void resetEverything();
-
 	/* ========================================= GAME LOGIC ========================================= */
 
 	/**

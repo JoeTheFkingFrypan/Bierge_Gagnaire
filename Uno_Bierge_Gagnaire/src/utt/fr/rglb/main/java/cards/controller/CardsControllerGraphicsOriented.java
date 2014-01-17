@@ -12,7 +12,10 @@ import utt.fr.rglb.main.java.cards.model.basics.Color;
 import utt.fr.rglb.main.java.game.model.GameFlag;
 import utt.fr.rglb.main.java.view.AbstractView;
 import utt.fr.rglb.main.java.view.graphics.GraphicsView;
-
+/**
+ * Classe dont le rôle est de gérer tout ce qui est associé aux cartes (compatibilité, pioche, jeu, etc) </br>
+ * Version graphique
+ */
 public class CardsControllerGraphicsOriented extends AbstractCardsController {
 	protected static final long serialVersionUID = 1L;
 	protected CardsModel cardsModel;
@@ -46,11 +49,6 @@ public class CardsControllerGraphicsOriented extends AbstractCardsController {
 
 	@Override
 	public Card showLastCardPlayed() {
-		return cardsModel.showLastCardPlayed();
-	}
-
-	@Override
-	public Card retrieveImageFromLastCardPlayed() {
 		return cardsModel.showLastCardPlayed();
 	}
 

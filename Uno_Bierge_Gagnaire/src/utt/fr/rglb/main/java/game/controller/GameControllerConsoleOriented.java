@@ -12,7 +12,8 @@ import utt.fr.rglb.main.java.view.AbstractView;
 import utt.fr.rglb.main.java.view.console.ConsoleView;
 
 /**
- * Classe permettant de gérer l'ensemble de la partie
+ * Classe permettant de gérer l'ensemble de la partie </br>
+ * Version console
  */
 public class GameControllerConsoleOriented extends AbstractGameController {
 	private static final long serialVersionUID = 1L;
@@ -33,12 +34,17 @@ public class GameControllerConsoleOriented extends AbstractGameController {
 
 	/* ========================================= INITIALIZING ========================================= */
 
+	/**
+	 * Méthode permettant d'initialiser les paramètres de jeu
+	 */
 	protected void initializeGameSettings() {
 		this.view.displayTitle("SETTINGS");
 		this.gameModel.initializeGameSettings();
 	}
 
-	@Override
+	/**
+	 * Méthode permettant de tout ré-initialiser lors du demarrage d'une nouvelle partie
+	 */
 	protected void resetEverything() {
 		this.gameModel.resetEverything();
 	}
@@ -52,7 +58,10 @@ public class GameControllerConsoleOriented extends AbstractGameController {
 		handleWinEvent(winningPlayer);
 	}
 
-	@Override
+	/**
+	 * Méthode privée permettant de lancer un nombre infini de "round" jusqu'à ce qu'un joueur ait plus de 500 points
+	 * @return PlayerControllerBean Objet englobant un joueur, permettant d'avoir accès à des méthodes de haut niveau facilement
+	 */
 	protected PlayerControllerBean cycleUntilSomeoneWins() {
 		PlayerControllerBean gameWinner = new PlayerControllerBean();
 		while(gameWinner.hasNotWonTheGame()) {
@@ -126,6 +135,4 @@ public class GameControllerConsoleOriented extends AbstractGameController {
 			this.view.displayOneLineOfRedText("Your call. --You'll probably regret that decision");
 		}
 	}
-
-
 }

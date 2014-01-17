@@ -112,7 +112,6 @@ public class InputReader implements Serializable {
 	 * @param inputStream Flux d'entrée
 	 * @return Une collection contenant le nom de chaque joueur
 	 */
-	//TODO: squeeze spaces ?
 	public PlayersToCreate getAllPlayerNames(Integer playerNumber,BufferedReader inputStream) {
 		Preconditions.checkNotNull(playerNumber, "[ERROR] Impossible to get all player names : player count is null");
 		Preconditions.checkArgument(playerNumber > 0, "[ERROR] Impossible to get all player names : player count is invalid");

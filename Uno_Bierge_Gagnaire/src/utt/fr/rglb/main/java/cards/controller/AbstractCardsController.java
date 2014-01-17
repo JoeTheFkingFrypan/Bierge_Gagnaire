@@ -92,7 +92,4 @@ public abstract class AbstractCardsController implements Serializable {
 	 * Méthode permettant de ré-initialiser les cartes (talon et pioche)
 	 */
 	public abstract void resetCards();
-
-	public abstract Card retrieveImageFromLastCardPlayed();
-
 }

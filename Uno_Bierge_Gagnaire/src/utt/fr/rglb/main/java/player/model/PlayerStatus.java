@@ -73,6 +73,10 @@ public class PlayerStatus {
 		}
 	}
 
+	/**
+	 * Méthode permettant de récupérer une description correspondant au type de joueur
+	 * @return String contenant le type de joueur ("Human" ou "IA + strategy")
+	 */
 	public String getType() {
 		if(this.isHuman) {
 			return "Human";

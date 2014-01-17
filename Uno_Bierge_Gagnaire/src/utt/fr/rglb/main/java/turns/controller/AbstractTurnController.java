@@ -62,6 +62,9 @@ public abstract class AbstractTurnController implements Serializable {
 	 */
 	public abstract void skipNextPlayer();
 
+	/**
+	 * Méthode permettant de passer au joueur suivant (sans déclencher d'affichage dans l'interface) --boucle silencieuse
+	 */
 	public abstract void cycleSilently();
 	
 

@@ -206,7 +206,6 @@ public class CardsModelBean implements Serializable {
 		}
 	}
 
-	
 	@Override
 	public String toString() {
 		return this.globalColor.toString() + " & " + this.lastCardPlayed.toString();

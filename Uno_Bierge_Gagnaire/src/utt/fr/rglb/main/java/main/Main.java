@@ -27,7 +27,6 @@ public class Main {
 		DOMConfigurator.configure("./src/utt/fr/rglb/main/ressources/config/log4j.xml");
 		BasicConfigurator.configure();
 		log.info("=========== STARTING UNO APP v.3.0 ===========");
-		//log.debug("=========== STARTING UNO APP v.3.0 ===========");
 		boolean graphicsGameWanted = parseProgramArgument(args);
 		try {
 			if(graphicsGameWanted) {
@@ -48,6 +47,9 @@ public class Main {
 		}
 	}
 
+	/**
+	 * Méthode permettant d'afficher un warning si l'application n'est pas lancée en Java 8
+	 */
 	private static void displayWarningIfNotUsingJavaFX8() {
 		if(!System.getProperty("java.runtime.version").startsWith("1.8.")) {
 			log.warn("It seems you're not using JavaFX/JDK 8, nodal messages won't display");
@@ -57,6 +59,9 @@ public class Main {
 		}
 	}
 
+	/**
+	 * Méthode permettant de gérer un conflit de bibliothèque
+	 */
 	private static void handleLibraryConflict() {
 		log.error("It appears you're not using a correct version of \"jfxrt.jar\"");
 		log.error("Please fix your java build path in order to run the program");
@@ -68,6 +73,10 @@ public class Main {
 		log.error("");
 	}
 
+	/**
+	 * Méthode permettant de gérer les exceptions
+	 * @param e Exception
+	 */
 	private static void handleException(Exception e) {
 		log.error("/!\\ ==== [ERROR] An unexpected error happened ==== /!\\");
 		log.error("Class involved : " + e.getClass());
@@ -78,6 +87,11 @@ public class Main {
 		log.error("");
 	}
 
+	/**
+	 * Méthode permettant de parser les arguments
+	 * @param args Arguments
+	 * @return Booleén valant <code>TRUE</code> si la version JavaFX doit être lancée, <code>FALSE</code> pour la version console 
+	 */
 	private static boolean parseProgramArgument(String[] args) {
 		try {
 			String arg = args[0];

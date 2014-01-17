@@ -22,6 +22,13 @@ import javafx.scene.text.Text;
 public abstract class AbstractFXMLController implements Initializable {
 	private static final Logger log = LoggerFactory.getLogger(AbstractFXMLController.class);
 
+	/* ========================================= HEADER 1 ========================================= */
+	
+	/**
+	 * Méthode permettant de créer un message avec effets spéciaux
+	 * @param text Message à afficher
+	 * @return Text correspondant au texte + effets
+	 */
 	protected Text createSwaggifiedHeader(String text) {
 		Text fancyText = new Text(text);
 		fancyText.getStyleClass().add("fancyText");
@@ -81,6 +88,8 @@ public abstract class AbstractFXMLController implements Initializable {
 		topBlend.setTopInput(innerTopBlend);
 	}
 
+	/* ========================================= ERROR BUTTON ========================================= */
+	
 	protected Button createErrorButton(final Scene scene, final String ressourceToLoad) {
 		Button goForIt = new Button("Continue to setup screen");
 		goForIt.getStyleClass().add("declineButton");
@@ -98,6 +107,8 @@ public abstract class AbstractFXMLController implements Initializable {
 		return goForIt;
 	}
 
+	/* ========================================= HEADER 2 ========================================= */
+	
 	protected Blend createSwaggifiedAnnoucementEffect() {
 
 		Blend mainBlend = new Blend();

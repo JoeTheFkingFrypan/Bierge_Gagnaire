@@ -84,8 +84,6 @@ public class CardsModel implements Serializable {
 	public void playCard(Card chosenCard) {
 		Preconditions.checkNotNull(chosenCard,"[ERROR] Impossible to play card : provided one is null");
 		this.pile.receiveCard(chosenCard);
-		//DEBUG
-		System.out.println("NEW LAST CARD = " + this.pile.showLastCardPlayed());
 		resetGlobalColor();
 	}
 

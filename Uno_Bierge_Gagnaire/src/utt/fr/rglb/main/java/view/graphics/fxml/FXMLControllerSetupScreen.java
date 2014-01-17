@@ -46,6 +46,8 @@ public class FXMLControllerSetupScreen extends AbstractFXMLController {
 	private float progressStep;
 	private float currentProgress;
 	
+	/* ========================================= FMXL ========================================= */
+	
 	@FXML private GridPane headerGrid;
 	@FXML private GridPane players;
 	@FXML private GridPane mainGrid;
@@ -53,11 +55,15 @@ public class FXMLControllerSetupScreen extends AbstractFXMLController {
 	@FXML private ChoiceBox<String> playerNumber;
 	@FXML private Button chooseButton;
 
+	/* ========================================= CONSTRUCTOR ========================================= */
+	
 	public FXMLControllerSetupScreen() {
 		this.gameController = Server.getGameController();
 		this.currentProgress = -1.0f;
 	}
 
+	/* ========================================= EVENT HANDLING ========================================= */
+	
 	/**
 	 * Méthode appelée par le FXMLLoader quand l'initialisation de tous les éléments est terminée
 	 * Permet d'ajouter/retirer dynamiquement des élements dans la fenêtre en réponse à la selection du nombre de joueurs par l'utilisateur

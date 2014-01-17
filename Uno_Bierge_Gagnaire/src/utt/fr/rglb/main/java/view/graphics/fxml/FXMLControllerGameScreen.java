@@ -56,6 +56,8 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 	private Queue<String> textToDisplay;
 	private Text eventsAnnouncer;
 
+	/* ========================================= FXML ========================================= */
+	
 	@FXML private GridPane mainGrid;
 	@FXML private GridPane playerTwoCardsGrid;
 	@FXML private Label playerTwoName;
@@ -63,7 +65,7 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 	@FXML private Label playerOneName;
 	@FXML private GridPane playerOneCardsGrid;
 
-	/* ========================================= CONSTRUCTOR========================================= */
+	/* ========================================= CONSTRUCTOR ========================================= */
 
 	public FXMLControllerGameScreen() {
 		this.gameController = Server.getGameController();
@@ -73,6 +75,10 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 
 	/* ========================================= INITIALIZING ========================================= */
 
+	/**
+	 * Méthode appelée par le FXMLLoader quand l'initialisation de tous les éléments est terminée
+	 * Permet d'ajouter/retirer dynamiquement des élements dans la fenêtre en réponse à la selection du nombre de joueurs par l'utilisateur
+	 */
 	@Override
 	public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
 		this.eventsAnnouncer = new Text("");
@@ -80,7 +86,7 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 		this.eventsAnnouncer.setEffect(createSwaggifiedAnnoucementEffect());
 		this.mainGrid.add(this.eventsAnnouncer, 0, 2);
 
-		GameFlag gameFlag = this.gameController.triggerEffectFromFirstCard();
+		GameFlag gameFlag = this.gameController.retrieveEffectFromFirstCard();
 		this.graphicsPlayers = new GraphicsPlayers(this.gameController.getAllPlayers(),this);
 
 		CardsModelBean references = this.gameController.getReferences();
@@ -94,6 +100,10 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 		uncoverInitialCards(references);
 	}
 
+	/**
+	 * Méthode permettant d'initiliaser le 1er joueur
+	 * @param references Références de jeu
+	 */
 	private void handlePlayerOne(CardsModelBean references) {
 		playerOneName.setText(this.graphicsPlayers.getAliasFromPlayerNumber(0));
 		for(CustomImageView imageFromCard : this.graphicsPlayers.getDisplayableCardsFromPlayer(0, references)) {
@@ -102,6 +112,10 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 		}
 	}
 
+	/**
+	 * Méthode permettant d'initiliaser 2ème joueur
+	 * @param references Références de jeu
+	 */
 	private void handlePlayerTwo(CardsModelBean references) {
 		playerTwoName.setText(this.graphicsPlayers.getAliasFromPlayerNumber(1));
 		for(CustomImageView imageFromCard : this.graphicsPlayers.getDisplayableCardsFromPlayer(1, references)) {
@@ -110,6 +124,10 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 		}
 	}
 
+	/**
+	 * Méthode permettant de retourner les cartes initiales
+	 * @param references Références de jeu
+	 */
 	private void uncoverInitialCards(CardsModelBean references) {
 		ParallelTransition startingAnimation = new ParallelTransition();
 		SequentialTransition mainAnimation = new SequentialTransition();
@@ -122,6 +140,11 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 
 	/* ========================================= TURN HANDLING ========================================= */
 
+	/**
+	 * Méthode permettant de lancer un nouveau tour
+	 * @param activePlayerNeedsCardsFlipping Booleén valant <code>TRUE</code> si les cartes du joueur actuel doivent être retournées, <code>FALSE</code> sinon
+	 * @param nextPlayerNeedsCardFlipping Booleén valant <code>TRUE</code> si les cartes du joueur suivant doivent être retournées, <code>FALSE</code> sinon
+	 */
 	private void playOneMoreTurn(final boolean activePlayerNeedsCardsFlipping, final boolean nextPlayerNeedsCardFlipping) {
 		log.info("--Starting turn of " + this.graphicsPlayers.getAliasFromActivePlayer());
 		if(activePlayerNeedsCardsFlipping) {
@@ -140,11 +163,15 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 
 	/* ========================================= CARD PLAY ========================================= */
 
+	/**
+	 * Méthode permettant de choisir une carte et de la jouer
+	 * @param cardIndex Numéro de la carte
+	 * @param thisImageView Image correspondant à la carte
+	 */
 	public void chooseThisCardAndPlayIt(int cardIndex, CustomImageView thisImageView) {
 		Card chosenCard = this.graphicsPlayers.chooseCardFromActivePlayerAt(cardIndex,thisImageView);
 		log.info("    --Played : " + chosenCard);
 		boolean stillHasCards = this.graphicsPlayers.findIfActivePlayerStillHasCards();
-		//FIXME cheated
 		int indexFromPlayer = this.graphicsPlayers.getIndexFromActivePlayer();
 		setNewReference(indexFromPlayer,thisImageView);
 		GameFlag event = this.gameController.activePlayerChose(chosenCard,stillHasCards,this.graphicsPlayers.deservesTheRightToAnnounceUno());
@@ -153,10 +180,13 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 		}
 	}
 
-
-
 	/* ========================================= CARD DRAW ========================================= */
 
+	/**
+	 * Méthode permettant de définir la nouvelle référence
+	 * @param indexFromPlayer Index du joueur
+	 * @param thisImageView Image correspondante
+	 */
 	private void setNewReference(int indexFromPlayer, CustomImageView thisImageView) {
 		thisImageView.setAsReference();
 		if(indexFromPlayer == 0) {
@@ -182,6 +212,12 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 
 	}
 
+	/**
+	 * Méthode permettant d'ajouter une carte au joueur initial
+	 * @param card Carte à ajouter
+	 * @param references Références de jeu
+	 * @return Animation séquentielle associée
+	 */
 	private SequentialTransition addCardToInitialPlayer(Card card, CardsModelBean references) {
 		int cardIndex = this.graphicsPlayers.findNextCardIndex(0);
 		CustomImageView imageView = new CustomImageView(card, cardIndex, references.isCompatibleWith(card),this);
@@ -191,6 +227,12 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 		return test;
 	}
 
+	/**
+	 * Méthode permettant d'ajouter une collection de cartes à un joueur
+	 * @param playerIndex Index du joueur
+	 * @param cardsDrawn Cartes à ajouter
+	 * @return Animation séquentielle associée
+	 */
 	public SequentialTransition addCardToPlayer(int playerIndex, Collection<Card> cardsDrawn) {
 		Preconditions.checkState(this.graphicsPlayers != null);
 		Preconditions.checkNotNull(cardsDrawn);
@@ -209,6 +251,11 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 		return this.graphicsPlayers.generateEffectFromPlayer(playerIndex);
 	}		
 
+	/**
+	 * Méthode permettant d'ajouter une carte à un joueur
+	 * @param playerIndex Numéro du joueur
+	 * @param cardDrawn Carte à ajouter
+	 */
 	private void addCardToPlayer(int playerIndex, Card cardDrawn) {
 		Preconditions.checkState(this.graphicsPlayers != null);
 		Preconditions.checkNotNull(cardDrawn);
@@ -226,6 +273,11 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 		}
 	}
 
+	/**
+	 * Méthode permettant d'animer l'action de pioche d'une carte
+	 * @param imageView Image associée
+	 * @return Animation séquentielle associée
+	 */
 	private SequentialTransition displayCardDrawing(CustomImageView imageView) {
 		SequentialTransition flipSide = imageView.generateEffect();
 		PauseTransition pause = new PauseTransition(Duration.millis(1000));
@@ -234,6 +286,10 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 
 	/* ========================================= EFFECTS ========================================= */
 
+	/**
+	 * Méthhode permettant d'avoir un rendu visuel sur l'inversion de tour
+	 * @param message Message à afficher
+	 */
 	public void triggerReverseCurrentOrder(String message) {
 		SequentialTransition intermediateAnnoucement = annouceMessage(message);
 		intermediateAnnoucement.setOnFinished(new EventHandler<ActionEvent>() {
@@ -246,6 +302,11 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 
 	}
 
+	/**
+	 * Méthode permettant d'avoir un rendu visuel sur le choix de couleur
+	 * @param isRelatedToPlus4 Vaut <code>TRUE</code> s'il est lié à un +4,<code>FALSE</code> sinon 
+	 * @param continueToNextTurn Vaut <code>TRUE</code> si cela implique de changer de tour,<code>FALSE</code> sinon 
+	 */
 	public void triggerColorPicking(final boolean isRelatedToPlus4, final boolean continueToNextTurn) {
 		Button redButton = new Button("Choose RED");
 		redButton.getStyleClass().add("shiny-red");
@@ -337,6 +398,10 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 		eventsGrid.add(yellowButton, 4, 3);	
 	}
 
+	/**
+	 * Méthode permettant de définir la couleur globale
+	 * @param chosenColor Couleur choisie
+	 */
 	protected void setGlobalColor(Color chosenColor) {
 		ObservableList<Node> imageViews = this.playerOneCardsGrid.getChildren();
 		for(Node node : imageViews) {
@@ -350,6 +415,10 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 		}
 	}
 
+	/**
+	 * Méthode permettant d'avoir un rendu visuel sur le jeu d'un +2/+4
+	 * @param cardsDrawn
+	 */
 	public void triggerPlusX(final Collection<Card> cardsDrawn) {
 		SequentialTransition intermediateAnnoucement = annouceMessage("Forced to draw 2 cards");
 		addCardToPlayer(gameController.getIndexFromPreviousPlayer(),cardsDrawn);
@@ -363,6 +432,12 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 		playOneMoreTurn(true,true);
 	}
 
+	/**
+	 * Méthode permettant d'avoir un rendu visuel sur lors d'un jeu d'un +4 (blff)
+	 * @param cardsDrawn
+	 * @param isBluffing
+	 * @param applyPenaltyToNextPlayer
+	 */
 	public void triggerBluffing(final Collection<Card> cardsDrawn, boolean isBluffing, boolean applyPenaltyToNextPlayer) {
 		SequentialTransition intermediateAnnoucement = annouceMessage("Forced to draw 4 cards");
 		addCardToPlayer(gameController.getIndexFromPreviousPlayer(),cardsDrawn);
@@ -377,6 +452,10 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 		intermediateAnnoucement.play();
 	}
 
+	/**
+	 * Méthode permettant d'avoir un rendu visuel dans le cas du blocage du joueur suivant
+	 * @param message
+	 */
 	public void triggerSkipNextPlayer(String message) {
 		SequentialTransition intermediateAnnoucement = annouceMessage(message);
 		intermediateAnnoucement.setOnFinished(new EventHandler<ActionEvent>() {
@@ -390,6 +469,11 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 
 	/* ========================================= GAME LOGIC ========================================= */
 
+	/**
+	 * Méthode permettant de démarrer le tour du joueur initial
+	 * @param references
+	 * @return
+	 */
 	private SequentialTransition startTurnForInitialPlayer(final CardsModelBean references) {
 		SequentialTransition mainAnimation = annouceMessage("Your turn, " + this.graphicsPlayers.getAliasFromActivePlayer());
 		PauseTransition part02 = new PauseTransition(Duration.millis(1));
@@ -440,6 +524,11 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 		return mainAnimation;
 	}
 
+	/**
+	 * Méthode permettant de démarrer le tour d'un joueur (hors joueur initial)
+	 * @param graphicsReferences
+	 * @param cardsFlippingRequired
+	 */
 	public void playOneTurn(final GraphicsReferences graphicsReferences, boolean cardsFlippingRequired) {
 		final int playerIndex = graphicsReferences.getIndexFromActivePlayer();
 		this.graphicsPlayers.setActivePlayer(playerIndex);
@@ -493,6 +582,11 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 
 	/* ========================================= UTILS ========================================= */
 
+	/**
+	 * Méthode permettant d'annoncer un message animé
+	 * @param message
+	 * @return
+	 */
 	private SequentialTransition annouceMessage(final String message) {
 		if(this.textToDisplay.size() == 0) {
 			this.eventsAnnouncer.setText(message);
@@ -524,15 +618,27 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 		return annoucement;
 	}
 
+	/**
+	 * Méthode permettant d'afficher un message
+	 * @param message
+	 */
 	public void displayMessage(String message) {
 		SequentialTransition coolMessage = annouceMessage(message);
 		coolMessage.play();
 	}
 
+	/**
+	 * Méthode permettant d'indiquer quel est le joueur actif
+	 * @param playerIndex
+	 */
 	public void setActivePlayer(int playerIndex) {
 		this.graphicsPlayers.setActivePlayer(playerIndex);
 	}
 
+	/**
+	 * Méthode permettant d'afficher les scores
+	 * @return
+	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public GameFlag displayScores() {
 		log.info("One player used all his cards, displaying scores");
@@ -571,6 +677,9 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 		return GameFlag.GRAPHICS_GAME_WON;
 	}
 
+	/**
+	 * Classe statique permettant de remplir la tableView associée aux scores individuels
+	 */
 	public static class ScoreModel {
 		private final SimpleStringProperty playerName;
 		private final SimpleStringProperty totalScore;

@@ -22,6 +22,10 @@ public class GameRule implements Serializable {
 	
 	/* ========================================= GAME MODE ========================================= */
 	
+	/**
+	 * Méthode permettant de récuperer le mode de jeu
+	 * @return GameMode Mode de jeu actuel
+	 */
 	public GameMode getGameMode() {
 		return this.gameMode;
 	}

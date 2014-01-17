@@ -34,16 +34,26 @@ public class FXMLControllerSummaryScreen extends AbstractFXMLController {
 	private static final Logger log = LoggerFactory.getLogger(FXMLControllerTeamDisplayScreen.class);
 	private GameControllerGraphicsOriented gameController;
 
+	/* ========================================= FXML ========================================= */
+	
 	@FXML private Label numberLabel;
 	@FXML private Label modeLabel;
 	@FXML private GridPane headerGrid;
 	@FXML private GridPane mainGrid;
 	@FXML private GridPane players;
+	
+	/* ========================================= CONSTRUCTOR ========================================= */
 
 	public FXMLControllerSummaryScreen() {
 		this.gameController = Server.getGameController();
 	}
 
+	/* ========================================= EVENT HANDLING ========================================= */
+	
+	/**
+	 * Méthode appelée par le FXMLLoader quand l'initialisation de tous les éléments est terminée
+	 * Permet d'ajouter/retirer dynamiquement des élements dans la fenêtre en réponse à la selection du nombre de joueurs par l'utilisateur
+	 */
 	@Override
 	public void initialize(URL fxmlFileLocation, ResourceBundle ressources) {
 		try {
@@ -103,6 +113,8 @@ public class FXMLControllerSummaryScreen extends AbstractFXMLController {
 		}
 	}
 
+	/* ========================================= ELEMENT CREATION ========================================= */
+	
 	/**
 	 * Méthode permettant de créer le bouton qui sert à passer à l'écran suivant<br/>
 	 * Quand l'utilisateur clique sur ce bouton, des vérifications sont faites pour s'assurer que les données entrées sont valides<br/>

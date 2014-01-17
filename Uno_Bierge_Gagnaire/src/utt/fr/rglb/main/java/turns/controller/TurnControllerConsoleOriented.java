@@ -18,7 +18,8 @@ import utt.fr.rglb.main.java.player.model.PlayersToCreate;
 import com.google.common.base.Preconditions;
 
 /**
- * Classe dont le rôle est de gérer tout ce qui touche aux joueurs, et passage au joueur suivant
+ * Classe dont le rôle est de gérer tout ce qui touche aux joueurs, et passage au joueur suivant </br>
+ * Version console
  */
 public class TurnControllerConsoleOriented extends AbstractTurnController {
 	private static final long serialVersionUID = 1L;
@@ -148,6 +149,9 @@ public class TurnControllerConsoleOriented extends AbstractTurnController {
 	
 	/* ========================================= SCORE ========================================= */
 
+	/**
+	 * Méthode permettant l'affichage des scores individuels
+	 */
 	public void displayIndividualTotalScore() {
 		Collection<PlayerControllerConsoleOriented> players = this.turnModel.getAllPlayers();
 		this.view.displayOneLineOfJokerText("Scores are now : ");
@@ -158,6 +162,9 @@ public class TurnControllerConsoleOriented extends AbstractTurnController {
 		}
 	}
 
+	/**
+	 * Méthode permettant l'affichage des scores par équipe
+	 */
 	public void displayTeamTotalScore() {
 		Map<Integer, PlayerTeam> teams = this.turnModel.getAllTeams();
 		this.view.displayOneLineOfJokerText("Scores are now : ");
@@ -183,6 +190,5 @@ public class TurnControllerConsoleOriented extends AbstractTurnController {
 		for(Entry<Integer, PlayerTeam> teamEntry : teams.entrySet()) {
 			this.view.displayJokerEmphasisUsingPlaceholders(" * TEAM " + teamEntry.getKey().toString() + " [ ", teamEntry.getValue().toString(), " ]");
 		}
-
 	}
 }

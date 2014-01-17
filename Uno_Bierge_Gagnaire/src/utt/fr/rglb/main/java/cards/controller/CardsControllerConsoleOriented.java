@@ -14,7 +14,8 @@ import utt.fr.rglb.main.java.view.AbstractView;
 import utt.fr.rglb.main.java.view.console.ConsoleView;
 
 /**
- * Classe dont le rôle est de gérer tout ce qui est associé aux cartes (compatibilité, pioche, jeu, etc)
+ * Classe dont le rôle est de gérer tout ce qui est associé aux cartes (compatibilité, pioche, jeu, etc) </br>
+ * Version console
  */
 public class CardsControllerConsoleOriented extends AbstractCardsController {
 	protected static final long serialVersionUID = 1L;
@@ -116,11 +117,5 @@ public class CardsControllerConsoleOriented extends AbstractCardsController {
 	@Override
 	public void resetCards() {
 		this.cardsModel.resetCards();
-	}
-
-	@Override
-	public Card retrieveImageFromLastCardPlayed() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

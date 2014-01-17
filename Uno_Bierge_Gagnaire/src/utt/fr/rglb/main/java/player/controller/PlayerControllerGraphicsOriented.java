@@ -35,6 +35,11 @@ public class PlayerControllerGraphicsOriented extends AbstractPlayerController {
 		return this.player.getCardsInHand();
 	}
 	
+	/**
+	 * Méthode permettant de récupérer la dernière carte ayant été jouée (sans la supprimer)
+	 * @param cardIndex Index correspondant à la carte
+	 * @return Card correspondant à la carte jouée
+	 */
 	public Card peekAtCard(int cardIndex) {
 		return this.player.peekAtCard(cardIndex);
 	}
@@ -95,50 +100,19 @@ public class PlayerControllerGraphicsOriented extends AbstractPlayerController {
 		this.displayableCards.remove(thisImageView);
 		return this.player.playCard(index);
 	}
-	
-	@Override
-	public Card startTurn(InputReader inputReader, CardsModelBean gameModelBean) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	protected boolean findIfBluffIsNeeded(InputReader inputReader,
-			CardsModelBean gameModelBean, Card choosenCard,
-			boolean wantsToPlayAnotherCard) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void unableToPlayThisTurn(CardsModelBean gameModelbean) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Color hasToChooseColor(boolean isRelatedToPlus4,
-			InputReader inputReader) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public boolean askIfHeWantsToCheckIfItsLegit(InputReader inputReader) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	protected void chillForTwoSec(String stringToDisplay) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	/**
+	 * Méthode permettant de définir la collection affichable de cartes
+	 * @param displayableCards Collection affichage de cartes
+	 */
 	public void setDisplayableCards(List<CustomImageView> displayableCards) {
 		this.displayableCards = displayableCards;
 	}
 
+	/**
+	 * Méthode permettant de générer l'effet de retournement des cartes
+	 * @return Transition Sequentielle composée de toutes les transitions des cartes constituant la collection
+	 */
 	public SequentialTransition generateEffectFromDisplayableCards() {
 		SequentialTransition cardsAnimation = new SequentialTransition();
 		for(CustomImageView imageView : this.displayableCards) {
@@ -148,15 +122,59 @@ public class PlayerControllerGraphicsOriented extends AbstractPlayerController {
 		return cardsAnimation;
 	}
 
+	/**
+	 * Méthode permettant d'ajouter une nouvelle image à la collection de cartes affichables
+	 * @param imageView
+	 */
 	public void addCustomImageView(CustomImageView imageView) {
 		this.displayableCards.add(imageView);
 	}
 
+	/**
+	 * Méthode permettant de mettre à jour la compatibilité VISUELLE d'une carte avec la référence
+	 * @param chosenCard Carte choisie constituant la référence
+	 */
 	public void updateCardsCompatibilityAndIndex(Card chosenCard) {
 		int currentCardIndex = 0;
 		for(CustomImageView imageView : this.displayableCards) {
 			imageView.setNewCompatibilityAndIndex(chosenCard,currentCardIndex);
 			currentCardIndex++;
 		}
+	}
+	
+	/* ========================================= UNFINISHED METHODS ========================================= */
+
+	@Override
+	public Card startTurn(InputReader inputReader, CardsModelBean gameModelBean) {
+		// TODO Unfinished method
+		return null;
+	}
+
+	@Override
+	protected boolean findIfBluffIsNeeded(InputReader inputReader, CardsModelBean gameModelBean, Card choosenCard, boolean wantsToPlayAnotherCard) {
+		// TODO Unfinished method
+		return false;
+	}
+
+	@Override
+	public void unableToPlayThisTurn(CardsModelBean gameModelbean) {
+		// TODO Unfinished method
+	}
+
+	@Override
+	public Color hasToChooseColor(boolean isRelatedToPlus4, InputReader inputReader) {
+		// TODO Unfinished method
+		return null;
+	}
+
+	@Override
+	public boolean askIfHeWantsToCheckIfItsLegit(InputReader inputReader) {
+		// TODO Unfinished method
+		return false;
+	}
+
+	@Override
+	protected void chillForTwoSec(String stringToDisplay) {
+		// TODO Unfinished method
 	}
 }

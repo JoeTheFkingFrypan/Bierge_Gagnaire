@@ -5,12 +5,13 @@ import com.google.common.base.Preconditions;
 import utt.fr.rglb.main.java.player.AI.CardPickerStrategy;
 import utt.fr.rglb.main.java.view.AbstractView;
 
-
+/**
+ * Classe correspondant à un joueur controllé par une IA </br>
+ * Version graphique
+ */
 public class PlayerControllerAIGraphicsOriented extends PlayerControllerGraphicsOriented {
 	private static final long serialVersionUID = 1L;
-	
-	@SuppressWarnings("unused")//FIXME
-	private CardPickerStrategy cardPickerStrategy;
+	protected CardPickerStrategy cardPickerStrategy;
 	
 /* ========================================= CONSTRUCTOR ========================================= */
 	
@@ -20,4 +21,9 @@ public class PlayerControllerAIGraphicsOriented extends PlayerControllerGraphics
 		this.cardPickerStrategy = cardPickerStrategy;
 	}
 
+	/**
+	 * NOTE:
+	 * Unfinised class : AI PLAYER NOT YET IMPLEMENTED using JAVAFX view
+	 * AI fully working for CONSOLE view
+	 */
 }

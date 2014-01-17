@@ -97,10 +97,18 @@ public class PlayerTeam implements Serializable {
 		return this.playerOne.equals(playerControllerFromWinningPlayer) || this.playerTwo.equals(playerControllerFromWinningPlayer);
 	}
 	
+	/**
+	 * Méthode permettant de récupérer le nom du premier joueur
+	 * @return String correspondant à son nom
+	 */
 	public String getNameFromFirstPlayer() {
 		return this.playerOne.toString();
 	}
 	
+	/**
+	 * Méthode permettant de récupérer le nom du deuxième joueur
+	 * @return String correspondant à son nom
+	 */
 	public String getNameFromSecondPlayer() {
 		return this.playerTwo.toString();
 	}

@@ -67,6 +67,10 @@ public class Server implements Serializable {
 		}
 	}
 	
+	/**
+	 * Méthode permettant de récupérer le gestionnaire de jeu
+	 * @return GameControllerGraphicsOriented Gestionnaire de jeu actuel
+	 */
 	public static GameControllerGraphicsOriented getGameController() {
 		return (GameControllerGraphicsOriented)Server.gameController;
 	}

@@ -14,6 +14,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Classe correspondant à l'application JavaFX </br>
+ * NOTE: Il est impossible en Java7 (et inférieur) de récupérer les Exceptions en provenance de l'application JavaFX </br>
+ * Ce bug est résolu dans Java 8
+ */
 public class JavaFxApplication extends Application {
 	private static final Logger log = LoggerFactory.getLogger(JavaFxApplication.class);
 	private boolean applicationStillStopped;
@@ -31,6 +36,10 @@ public class JavaFxApplication extends Application {
 
 	/* ========================================= INITIALIZING APP/VIEW ========================================= */
 
+	/**
+	 * Méthode permettant démarrer l'interface graphique
+	 * @param args arguments à passer à l'application
+	 */
 	public void runGraphicsView(String[] args) {
 		this.applicationStillStopped = false;
 		Application.launch(args);
@@ -52,6 +61,9 @@ public class JavaFxApplication extends Application {
 
 	/* ========================================= SCREEN MANAGEMENT ========================================= */
 
+	/**
+	 * Méthode permettant de retourner à l'écran d'acceuil
+	 */
 	public void goBackToWelcomeView() {
 		Preconditions.checkState(this.scene != null,"[ERROR] Impossible to change displayed screen : current scene is null");
 		try {
@@ -63,6 +75,10 @@ public class JavaFxApplication extends Application {
 		}
 	}
 
+	/**
+	 * Méthode permettant continuer vers l'affichage des scores par équipe
+	 * @param scene Scene correpondant à la vue actuelle
+	 */
 	public void continueToTeamDisplay(Scene scene) {
 		Preconditions.checkNotNull(scene,"[ERROR] Impossible to change displayed screen : current scene is null");
 		try {
@@ -77,6 +93,10 @@ public class JavaFxApplication extends Application {
 
 	/* ========================================= UTILS ========================================= */
 
+	/**
+	 * Méthode permettant de déterminer si l'application a été lancée ou non
+	 * @return <code>TRUE</code> si elle a été démarrée, <code>FALSE</code> sinon
+	 */
 	public boolean hasNotBeenStartedYet() {
 		return this.applicationStillStopped;
 	}
