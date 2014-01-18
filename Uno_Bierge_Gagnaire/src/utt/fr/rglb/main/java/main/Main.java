@@ -35,7 +35,7 @@ public class Main {
 				Server server = Server.getInstance(graphicsView);
 				server.startPlaying();
 			} else {
-				//System.setProperty("jansi.passthrough", "true");
+				System.setProperty("jansi.passthrough", "true");
 				ConsoleView consoleView = new ConsoleView();
 				Server server = Server.getInstance(consoleView);
 				server.startPlaying();
