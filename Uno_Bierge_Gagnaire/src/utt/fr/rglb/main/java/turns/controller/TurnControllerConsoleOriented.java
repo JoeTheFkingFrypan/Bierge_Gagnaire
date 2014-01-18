@@ -1,4 +1,4 @@
-﻿package utt.fr.rglb.main.java.turns.controller;
+package utt.fr.rglb.main.java.turns.controller;
 
 import java.io.BufferedReader;
 import java.util.Collection;
@@ -30,7 +30,7 @@ public class TurnControllerConsoleOriented extends AbstractTurnController {
 
 	/**
 	 * Constructeur de TurnController
-	 * @param consoleView Vue permettant d'afficher des informations dans l'interface
+	 * @param view Vue permettant d'afficher des informations dans l'interface
 	 */
 	public TurnControllerConsoleOriented(AbstractView view) {
 		Preconditions.checkNotNull(view,"[ERROR] Impossible to create turn controller : provided view is null");

@@ -1,4 +1,4 @@
-﻿package utt.fr.rglb.tests.java.mainTests;
+package utt.fr.rglb.tests.java.mainTests;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;

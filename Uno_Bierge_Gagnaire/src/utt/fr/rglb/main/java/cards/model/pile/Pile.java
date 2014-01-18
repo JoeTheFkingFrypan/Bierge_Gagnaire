@@ -1,4 +1,4 @@
-﻿package utt.fr.rglb.main.java.cards.model.pile;
+package utt.fr.rglb.main.java.cards.model.pile;
 
 import com.google.common.base.Preconditions;
 import java.io.Serializable;

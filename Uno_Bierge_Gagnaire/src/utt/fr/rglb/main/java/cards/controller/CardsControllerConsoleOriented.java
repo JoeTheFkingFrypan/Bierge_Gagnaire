@@ -1,4 +1,4 @@
-﻿package utt.fr.rglb.main.java.cards.controller;
+package utt.fr.rglb.main.java.cards.controller;
 
 import com.google.common.base.Preconditions;
 

@@ -1,4 +1,4 @@
-﻿package utt.fr.rglb.main.java.cards.model.basics;
+package utt.fr.rglb.main.java.cards.model.basics;
 
 import utt.fr.rglb.main.java.game.model.GameFlag;
 

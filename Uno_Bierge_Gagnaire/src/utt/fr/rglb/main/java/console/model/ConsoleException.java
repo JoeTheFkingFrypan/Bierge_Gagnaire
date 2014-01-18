@@ -1,4 +1,4 @@
-﻿package utt.fr.rglb.main.java.console.model;
+package utt.fr.rglb.main.java.console.model;
 
 /**
  * Classe d'exception permettant de remonter les problèmes en liaison avec la console

@@ -1,4 +1,4 @@
-﻿package utt.fr.rglb.main.java.cards.model.stock;
+package utt.fr.rglb.main.java.cards.model.stock;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,7 +23,6 @@ import utt.fr.rglb.main.java.cards.model.basics.EffetJoker;
  * Classe (à visibilité réduite) à qui a été délégué le rôle de la création des cartes (et de leur mélange) </br>
  * Sert également à l'affectation de l'index d'image à chaque carte (cf. la classe ImageCardAssociator) </br>
  * Idée d'amélioration : la transformer selon un pattern FACTORY pour plus de commodité.
- * @see ImageCardAssociator
  */
 class CardGenerator implements Serializable {
 	private static final long serialVersionUID = 1L;

@@ -1,4 +1,4 @@
-﻿package utt.fr.rglb.main.java.cards.model.basics;
+package utt.fr.rglb.main.java.cards.model.basics;
 
 /**
  * Enumération contenant les différentes valeurs de couleur de cartes

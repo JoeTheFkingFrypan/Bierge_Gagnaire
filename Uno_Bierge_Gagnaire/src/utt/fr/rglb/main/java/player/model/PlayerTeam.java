@@ -1,4 +1,4 @@
-﻿package utt.fr.rglb.main.java.player.model;
+package utt.fr.rglb.main.java.player.model;
 
 import com.google.common.base.Preconditions;
 

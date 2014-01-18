@@ -1,4 +1,4 @@
-﻿package utt.fr.rglb.main.java.view;
+package utt.fr.rglb.main.java.view;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -86,8 +86,8 @@ public abstract class AbstractView implements Serializable {
 	 * @param part01 Première partie du texte à afficher
 	 * @param placeholder01 Partie mise en emphase (blanc)
 	 * @param part02 Deuxième partie du texte à afficher
-	 * @param placeholder01 Partie mise en emphase (blanc)
-	 * @param part02 Troisième partie du texte à afficher
+	 * @param placeholder02 Partie mise en emphase (blanc)
+	 * @param part03 Troisième partie du texte à afficher
 	 */
 	public abstract void displayGreenEmphasisUsingPlaceholders(String part01, String placeholder01, String part02, String placeholder02, String part03);
 	

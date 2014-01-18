@@ -1,4 +1,4 @@
-﻿package utt.fr.rglb.main.java.game.model;
+package utt.fr.rglb.main.java.game.model;
 
 /**
  * Enumeration définissant les divers modes de jeu

@@ -1,4 +1,4 @@
-﻿package utt.fr.rglb.main.java.dao;
+package utt.fr.rglb.main.java.dao;
 
 /**
  * Classe d'exception permettant de remonter les problèmes en liaison avec l'accès aux données 

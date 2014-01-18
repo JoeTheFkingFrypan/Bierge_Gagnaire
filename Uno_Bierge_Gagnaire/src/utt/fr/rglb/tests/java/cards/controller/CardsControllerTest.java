@@ -1,4 +1,4 @@
-﻿package utt.fr.rglb.tests.java.cards.controller;
+package utt.fr.rglb.tests.java.cards.controller;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;

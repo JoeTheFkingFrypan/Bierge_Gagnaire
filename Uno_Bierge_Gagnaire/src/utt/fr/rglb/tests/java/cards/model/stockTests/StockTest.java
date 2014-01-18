@@ -1,4 +1,4 @@
-﻿package utt.fr.rglb.tests.java.cards.model.stockTests;
+package utt.fr.rglb.tests.java.cards.model.stockTests;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -1,4 +1,4 @@
-﻿package utt.fr.rglb.main.java.game.model;
+package utt.fr.rglb.main.java.game.model;
 
 import java.io.Serializable;
 

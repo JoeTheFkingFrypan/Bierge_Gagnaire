@@ -115,7 +115,7 @@ public class GraphicsPlayers {
 	/**
 	 * Méthode permettant d'ajouter une carte à un joueur
 	 * @param playerIndex Index correspondant au joueur 
-	 * @param cardsDrawn carte piochée
+	 * @param cardDrawn carte piochée
 	 * @param references Données de références
 	 * @return Collection de CustomImageView associée aux images piochées
 	 */
@@ -173,7 +173,7 @@ public class GraphicsPlayers {
 	
 	/**
 	 * Méthode permettant de créer l'animation séquentielle basée sur toutes les cartes en main du joueur actif
-	 * @return
+	 * @return Animation séquentielle
 	 */
 	public SequentialTransition generateEffectFromActivePlayer() {
 		return createCardAnimationFromPlayer(this.indexFromActivePlayer);

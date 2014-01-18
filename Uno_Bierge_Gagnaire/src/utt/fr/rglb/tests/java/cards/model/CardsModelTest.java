@@ -1,4 +1,4 @@
-﻿package utt.fr.rglb.tests.java.cards.model;
+package utt.fr.rglb.tests.java.cards.model;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;

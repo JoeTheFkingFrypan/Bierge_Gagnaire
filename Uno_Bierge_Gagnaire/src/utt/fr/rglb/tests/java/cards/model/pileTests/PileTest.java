@@ -1,4 +1,4 @@
-﻿package utt.fr.rglb.tests.java.cards.model.pileTests;
+package utt.fr.rglb.tests.java.cards.model.pileTests;
 
 import static org.junit.Assert.*;
 

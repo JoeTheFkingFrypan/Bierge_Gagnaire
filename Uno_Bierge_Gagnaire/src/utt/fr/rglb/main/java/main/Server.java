@@ -1,4 +1,4 @@
-﻿package utt.fr.rglb.main.java.main;
+package utt.fr.rglb.main.java.main;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

@@ -1,4 +1,4 @@
-﻿package utt.fr.rglb.main.java.player.AI;
+package utt.fr.rglb.main.java.player.AI;
 
 import java.util.Collection;
 

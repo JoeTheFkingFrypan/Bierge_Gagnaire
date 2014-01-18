@@ -1,0 +1,13 @@
+01:09:46,721 INFO  [Main] =========== STARTING UNO APP v.3.0 ===========
+01:09:46,729 INFO  [Server] Server created with JavaFX GRAPHICS view
+01:09:46,742 INFO  [Server] New game started
+01:09:46,962 INFO  [JavaFxApplication] Loading JavaFX welcome screen from file : "welcome.fxml"
+01:09:47,142 INFO  [ImageCardAssociator] Background loading of all 63 images from cards
+01:09:47,149 INFO  [ImageCardAssociator]     |--  Loading progress (20%)
+01:09:47,151 INFO  [ImageCardAssociator]     |--  Loading progress (41%)
+01:09:47,152 INFO  [ImageCardAssociator]     |--  Loading progress (61%)
+01:09:47,154 INFO  [ImageCardAssociator]     |--  Loading progress (82%)
+01:09:47,155 INFO  [ImageCardAssociator] Loading complete (100%)
+01:09:50,806 INFO  [Main] =========== STARTING UNO APP v.3.0 ===========
+01:09:50,867 INFO  [Server] Server created with CONSOLE view (using System.in as default input)
+01:09:50,876 INFO  [Server] New game started

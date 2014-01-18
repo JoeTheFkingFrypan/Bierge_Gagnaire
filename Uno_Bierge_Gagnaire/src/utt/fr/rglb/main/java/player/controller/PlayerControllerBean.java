@@ -1,4 +1,4 @@
-﻿package utt.fr.rglb.main.java.player.controller;
+package utt.fr.rglb.main.java.player.controller;
 
 import com.google.common.base.Preconditions;
 import java.io.Serializable;

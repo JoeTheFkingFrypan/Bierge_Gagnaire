@@ -1,4 +1,4 @@
-﻿package utt.fr.rglb.main.java.game.model;
+package utt.fr.rglb.main.java.game.model;
 
 /**
  * Enumeration comprenant tous les états de jeu pouvant se produire lors du jeu d'une carte

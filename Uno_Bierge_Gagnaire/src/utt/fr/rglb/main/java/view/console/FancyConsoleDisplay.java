@@ -1,4 +1,4 @@
-﻿package utt.fr.rglb.main.java.view.console;
+package utt.fr.rglb.main.java.view.console;
 
 import java.io.Serializable;
 

@@ -1,4 +1,4 @@
-﻿package utt.fr.rglb.main.java.dao;
+package utt.fr.rglb.main.java.dao;
 
 import java.util.ArrayList;
 import java.util.Map;

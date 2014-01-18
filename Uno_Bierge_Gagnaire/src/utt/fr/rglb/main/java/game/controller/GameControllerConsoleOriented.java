@@ -1,4 +1,4 @@
-﻿package utt.fr.rglb.main.java.game.controller;
+package utt.fr.rglb.main.java.game.controller;
 
 import java.io.BufferedReader;
 

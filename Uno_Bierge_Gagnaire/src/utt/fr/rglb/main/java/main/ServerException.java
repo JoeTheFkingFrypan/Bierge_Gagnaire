@@ -1,4 +1,4 @@
-﻿package utt.fr.rglb.main.java.main;
+package utt.fr.rglb.main.java.main;
 
 /**
  * Classe d'exception permettant de remonter les problèmes en liaison avec le serveur

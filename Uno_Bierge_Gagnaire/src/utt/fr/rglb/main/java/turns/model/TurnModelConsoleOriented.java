@@ -1,4 +1,4 @@
-﻿package utt.fr.rglb.main.java.turns.model;
+package utt.fr.rglb.main.java.turns.model;
 
 import com.google.common.base.Preconditions;
 

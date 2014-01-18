@@ -472,7 +472,7 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 	/**
 	 * Méthode permettant de démarrer le tour du joueur initial
 	 * @param references
-	 * @return
+	 * @return Animation séquentielle
 	 */
 	private SequentialTransition startTurnForInitialPlayer(final CardsModelBean references) {
 		SequentialTransition mainAnimation = annouceMessage("Your turn, " + this.graphicsPlayers.getAliasFromActivePlayer());
@@ -585,7 +585,7 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 	/**
 	 * Méthode permettant d'annoncer un message animé
 	 * @param message
-	 * @return
+	 * @return Animation séquentielle
 	 */
 	private SequentialTransition annouceMessage(final String message) {
 		if(this.textToDisplay.size() == 0) {
@@ -637,7 +637,7 @@ public class FXMLControllerGameScreen extends AbstractFXMLController {
 
 	/**
 	 * Méthode permettant d'afficher les scores
-	 * @return
+	 * @return GameFlag
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public GameFlag displayScores() {

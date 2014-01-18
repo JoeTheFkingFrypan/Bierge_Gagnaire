@@ -127,7 +127,7 @@ public class GameModelGraphicsOriented extends AbstractGameModel {
 
 	/**
 	 * Méthode permettant d'appliquer l'effet de la 1ère carte (ou de tirer une nouvelle carte, s'il s'agit d'un +4)
-	 * @param effectFromFirstCard
+	 * @return GameFlag
 	 */
 	public GameFlag triggerEffectFromFirstCard() {
 		GameFlag effectFromFirstCard = this.cardsController.applyEffectFromAnotherFirstCard();

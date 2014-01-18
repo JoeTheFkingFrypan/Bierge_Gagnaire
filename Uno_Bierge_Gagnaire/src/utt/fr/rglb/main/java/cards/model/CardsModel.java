@@ -1,4 +1,4 @@
-﻿package utt.fr.rglb.main.java.cards.model;
+package utt.fr.rglb.main.java.cards.model;
 
 import com.google.common.base.Preconditions;
 

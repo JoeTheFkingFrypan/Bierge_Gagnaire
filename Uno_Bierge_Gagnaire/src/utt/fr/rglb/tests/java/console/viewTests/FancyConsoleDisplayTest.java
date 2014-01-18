@@ -1,4 +1,4 @@
-﻿package utt.fr.rglb.tests.java.console.viewTests;
+package utt.fr.rglb.tests.java.console.viewTests;
 
 import static org.junit.Assert.*;
 

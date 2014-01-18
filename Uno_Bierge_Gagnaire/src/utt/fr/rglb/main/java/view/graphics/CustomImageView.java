@@ -218,7 +218,7 @@ public class CustomImageView extends ImageView {
 	 * Méthode permettant de changer l'image actuelle de carte spéciale par celle associée à la couleur choisie
 	 * @param chosenColor Couleur choisie par l'utilisateur (après jeu d'un +4 ou JOKER)
 	 * @param isRelatedToPlus4 Booléen valant <code>TRUE</code> s'il s'agit d'un +4, <code>FALSE</code> sinon
-	 * @return
+	 * @return Image
 	 */
 	public Image retrieveAssociatedCardColor(Color chosenColor, boolean isRelatedToPlus4) {
 		if(isRelatedToPlus4) {

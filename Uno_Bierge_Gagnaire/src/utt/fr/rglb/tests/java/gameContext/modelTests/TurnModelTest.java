@@ -1,4 +1,4 @@
-﻿package utt.fr.rglb.tests.java.gameContext.modelTests;
+package utt.fr.rglb.tests.java.gameContext.modelTests;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;

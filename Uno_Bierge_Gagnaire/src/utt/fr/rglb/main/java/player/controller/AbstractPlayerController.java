@@ -55,8 +55,6 @@ public abstract class AbstractPlayerController implements Serializable {
 	/**
 	 * Méthode permettant de jouer une carte
 	 * @param index Index de la carte
-	 * @param thisImageView 
-	 * @return Carte selectionnée
 	 */
 	public Card playCard(int index) {
 		Preconditions.checkState(this.player.getNumberOfCardsInHand() > 0, "[ERROR] Impossible to play a card : player has none");

@@ -1,4 +1,4 @@
-﻿package utt.fr.rglb.tests.java.player.modelTests;
+package utt.fr.rglb.tests.java.player.modelTests;
 
 import java.util.ArrayList;
 import java.util.Collection;

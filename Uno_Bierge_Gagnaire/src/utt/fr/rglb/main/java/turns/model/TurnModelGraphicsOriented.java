@@ -76,7 +76,7 @@ public class TurnModelGraphicsOriented extends AbstractTurnModel {
 	
 	/**
 	 * Méthode permettant la création de tous les joueurs à partir de leurs données respectives
-	 * @param playersToCreate Objet englobant les informations de tous les joueurs à créer
+	 * @param playersAwaitingCreation Objet englobant les informations de tous les joueurs à créer
 	 */
 	public void createPlayersFrom(PlayersToCreate playersAwaitingCreation, AbstractView view) {
 		this.players = playersAwaitingCreation.createAllGraphicsPlayersFromTheirRespectiveData(view);

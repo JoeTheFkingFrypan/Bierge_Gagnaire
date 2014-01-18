@@ -88,7 +88,7 @@ public class GameControllerGraphicsOriented extends AbstractGameController {
 
 	/**
 	 * Méthode permettant de récupérer les données de tous les joueurs depuis le fichier de configuration
-	 * @return
+	 * @return PlayersToCreate
 	 */
 	public PlayersToCreate retrievePlayerDataFromFile() {
 		return this.gameModel.retrievePlayerDataFromFile();

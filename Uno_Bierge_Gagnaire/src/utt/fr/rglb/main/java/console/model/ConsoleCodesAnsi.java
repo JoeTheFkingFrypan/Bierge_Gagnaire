@@ -1,4 +1,4 @@
-﻿package utt.fr.rglb.main.java.console.model;
+package utt.fr.rglb.main.java.console.model;
 
 import java.io.Serializable;
 

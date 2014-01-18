@@ -1,4 +1,4 @@
-﻿package utt.fr.rglb.main.java.dao;
+package utt.fr.rglb.main.java.dao;
 
 import java.io.File;
 import java.io.IOException;
